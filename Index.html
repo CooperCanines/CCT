@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cooper Canines LLC</title>
+    <link rel="icon" type="image/png" href="Cooper Canines5 Logo 03-18-26.png">
+    <style>
+        :root {
+            --primary: #006060;
+            --accent: #27ae60;
+            --light: #f8f9fa;
+            --dark: #333;
+            --logo-orange: #e67e22; /* Custom orange matching the logo */
+        }
+
+        /* Smooth scrolling for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            color: var(--dark);
+            background-color: var(--light);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Sticky Nav Bar with Far-Left Logo, Centered Links, and Right Menu Button */
+        nav {
+            background-color: #009100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-logo img {
+            height: 40px;
+            width: auto;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #34495e;
+        }
+
+        /* Hamburger Container Box */
+        .menu-container {
+            position: relative;
+        }
+
+        /* White Rounded Box Button */
+        .menu-toggle {
+            background-color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.4rem 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+            transition: transform 0.1s ease;
+        }
+
+        .menu-toggle:active {
+            transform: scale(0.98);
+        }
+
+        /* Matches navbar font style & uses brand orange */
+        .menu-text {
+            color: var(--logo-orange);
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        /* Orange Hamburger Icon */
+        .hamburger-icon {
+            width: 20px;
+            height: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hamburger-icon span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--logo-orange);
+            border-radius: 2px;
+        }
+
+        /* Dropdown Menu Box */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 120%;
+            background-color: #ffffff;
+            min-width: 200px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 1001;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            color: var(--dark);
+            display: block;
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: var(--light);
+            color: var(--primary);
+        }
+
+        /* Hero Banner Styling */
+        .hero {
+            position: relative;
+            background: 
+                linear-gradient(rgba(0, 50, 25, 0.75), rgba(0, 50, 25, 0.75)), 
+                url('AI Slop 1920.png') center/cover;
+            background-color: #00793c;
+            text-align: center;
+            padding: 5rem 1rem;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        #hero-splash-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 50, 25, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            opacity: 1;
+            transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+            pointer-events: none;
+        }
+
+        #hero-splash-overlay img {
+            max-width: 90%;
+            max-height: 80%;
+            object-fit: contain;
+        }
+
+        #hero-splash-overlay.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .hero .btn {
+            background-color: #2ecc71;
+            color: #ffffff;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Flexbox for side-by-side alignment and equal heights */
+        .services-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            flex: 1 1 250px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-top: 0;
+            text-align: center; /* Centered card titles */
+        }
+
+        /* Program Card Images - Fully Visible */
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain; /* Keeps entire image visible without cropping */
+            background-color: #f8f9fa; /* Light subtle backdrop filling empty letterbox space */
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .action-box {
+            display: block;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 1.2rem 2rem;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.05rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+            min-width: 200px;
+        }
+
+        .action-box:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* Keyframes for the Orange Flash / Glow Animation */
+        @keyframes flashOrange {
+            0% {
+                background-color: var(--primary);
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+            50% {
+                background-color: var(--logo-orange);
+                box-shadow: 0 0 20px rgba(230, 126, 34, 0.8);
+                transform: scale(1.03);
+            }
+            100% {
+                background-color: var(--primary);
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+        }
+
+        .action-box.pulse-orange {
+            animation: flashOrange 1s ease-in-out 1;
+        }
+
+        /* Footer Container */
+        footer {
+            position: relative;
+            background-color: var(--primary);
+            color: white;
+            padding: 1.5rem 1rem;
+            margin-top: 3rem;
+            width: 100vw;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            box-sizing: border-box;
+        }
+
+        /* Generic Badge Link Styling */
+        .badge-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.2s ease, filter 0.2s ease;
+        }
+
+        .badge-link:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        /* Max size enforced at 80px */
+        .badge-link img {
+            max-width: 80px;
+            max-height: 80px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            border-radius: 4px;
+        }
+
+        /* Far-Left Hugging Badge (Pet Care Insurance) */
+        .footer-badge-left {
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        /* Far-Right Hugging Badge (APDT Logo) */
+        .footer-badge-right {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        /* Floating Scroll-to-Top Button */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: var(--logo-orange);
+            color: white;
+            border: 2px solid white;
+            border-radius: 6px;
+            padding: 0.6rem 1rem;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.2s ease, bottom 0.2s ease;
+        }
+
+        .scroll-top-btn.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top-btn:hover {
+            transform: translateY(-3px);
+            background-color: #d35400;
+        }
+
+        /* Mobile responsiveness adjustment */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .scroll-top-btn {
+                bottom: 20px;
+                right: 15px;
+            }
+
+            /* Container for mobile badges centered above the footer text */
+            .mobile-badge-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .footer-badge-left,
+            .footer-badge-right {
+                position: static;
+                transform: none;
+            }
+
+            .badge-link img {
+                max-width: 60px;
+                max-height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <!-- Far-Left Clickable Logo -->
+    <a href="index.html" class="nav-logo">
+        <img src="CCTWordingNoPhrase.png" alt="Cooper Canines Logo">
+    </a>
+
+    <!-- Centered Navigation Links -->
+    <div class="nav-links">
+        <a href="Perks/Guides.html">Resources</a>
+        <a href="index.html#services">Services</a>
+        <a href="store/Store.html">S̶t̶o̶r̶e̶</a>
+        <a href="index.html#contact">Contact Us</a>
+    </div>
+
+    <!-- Far-Right Hamburger Menu Button Container -->
+    <div class="menu-container">
+        <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation menu">
+            <span class="menu-text">Menu</span>
+            <div class="hamburger-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
+        <div class="dropdown-menu" id="dropdownMenu">
+            <a href="https://start.coopercanines.com" target="_blank" rel="noopener">🚀 New Client</a>
+            <a href="https://start.coopercanines.com" target="_blank" rel="noopener">🚀 Penguinee</a>
+            <a href="https://portal.coopercanines.com" target="_blank" rel="noopener">🐶 Client Portal</a>
+            <a href="https://pricing.coopercanines.com" target="_blank" rel="noopener">Estimated Rates</a>
+            <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Liability Waiver</a>
+        </div>
+    </div>
+</nav>
+
+<section class="hero" id="about">
+    <!-- Localized Section Overlay -->
+    <div id="hero-splash-overlay">
+        <img src="CCT(HDPrint)WordLogo08-17-26.png" alt="Cooper Canines HD Logo">
+    </div>
+
+    <h2>Sit Happens, Stay Pawsitive</h2>
+    <p>Science based, positive reinforcement methods to build clear communication, confidence, and lasting respect between you and your dog. <br>Dog training with no force, fear, or harsh corrections.</p>
+    <a href="#contact" class="btn" id="getStartedBtn">Get Started Today</a>
+</section>
+
+<div class="container">
+    <section id="services">
+
+        <div class="services-grid">
+            <div class="card">
+                <h3>Force-Free Training</h3>
+                <img src="images/forcefree.png" alt="Force-Free Training">
+                <p>Positive methods, positive results.</p>
+            </div>
+            <div class="card">
+                <h3>Free In-Home Consultation</h3>
+                <img src="images/In-Home.png" alt="Free In-Home Consultation">
+                <p>For a limited time, schedule a free evaluation.</p>
+            </div>
+            <div class="card">
+                <h3>Private 1-on-1 Sessions</h3>
+                <img src="images/1-on-1.png" alt="Private 1-on-1 Sessions">
+                <p>Customized training plans tailored to address specific challenges.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" style="margin-top: 3rem; text-align: center;">
+        <h2>Ready to Begin?</h2>
+        <p>Reach out to schedule your initial consultation or get started below.</p>
+        
+        <p style="text-align: center; margin: 1rem auto;">
+            <strong>Email:</strong> 
+            <a href="mailto:Dan@coopercanines.com" style="color: var(--primary); text-decoration: underline;">
+                Dan@coopercanines.com
+            </a> 
+            | 
+            <strong>Phone:</strong> 
+            <a href="tel:8564331259" style="color: var(--primary); text-decoration: underline;">
+                (856) 433-1259
+            </a>
+        </p>
+
+        <div class="contact-buttons">
+            <a href="https://start.coopercanines.com" target="_blank" rel="noopener" class="action-box">
+                New Client
+            </a>
+            <a href="https://portal.coopercanines.com" target="_blank" rel="noopener" class="action-box">
+                Returning Client
+            </a>
+        </div>
+    </section>
+</div>
+
+<footer id="mainFooter">
+    <!-- Mobile Badge Wrapper (Used to display side-by-side on smaller screens) -->
+    <div class="mobile-badge-container">
+        <!-- Far-Left Hugging Badge (Pet Care Insurance) -->
+        <div class="footer-badge-left">
+            <a href="https://www.petcareins.com" target="_blank" rel="noopener" class="badge-link">
+                <img src="https://app.petcareins.com/media/site_seals/0001/11/8a64628beaa11b47d4ca86378c096fa416c7797d.png" alt="Pet Care and Pet Sitting Insurance Seal">
+            </a>
+        </div>
+
+        <!-- Far-Right Hugging Badge (APDT Logo) -->
+        <div class="footer-badge-right">
+            <a href="https://training.apdt.com/profile/8cc8c1a6-f064-4259-bdbd-3d3438a45c66?search_term=Daniel%20Weissberg&page=1" target="_blank" rel="noopener" class="badge-link" aria-label="APDT Member Profile">
+                <img src="images/APDT.jpg" alt="Association of Professional Dog Trainers Member">
+            </a>
+        </div>
+    </div>
+
+    <!-- Center Footer Links -->
+    <div style="max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.75rem 1rem; text-align: center;">
+        <a href="https://pricing.coopercanines.com" target="_blank" rel="noopener" style="color: white; text-decoration: none; font-size: 0.95rem;">
+            View Estimated Rates
+        </a>
+        <span style="color: #4a6572;">|</span>
+        <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener" style="color: white; text-decoration: none; font-size: 0.95rem;">
+            Liability Waiver
+        </a>
+        <span style="color: #4a6572;">|</span>
+        <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener" style="color: white; text-decoration: none; font-size: 0.95rem;">
+            Follow on Facebook
+        </a>
+        <span style="color: #4a6572;">|</span>
+        <a href="https://g.page/r/YOUR_GOOGLE_REVIEW_ID/review" target="_blank" rel="noopener" style="color: #f1c40f; text-decoration: none; font-weight: bold; font-size: 0.95rem;">
+            Leave a Google Review
+        </a>
+    </div>
+
+    <!-- Copyright Text -->
+    <div style="text-align: center; border-top: 1px solid #4a6572; margin-top: 1rem; padding-top: 0.75rem; font-size: 0.85rem; color: #bdc3c7;">
+        <p style="margin: 0;">&copy; 2026 Cooper Canines LLC. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Floating Scroll-To-Top Button -->
+<button class="scroll-top-btn" id="scrollTopBtn" aria-label="Scroll to top">
+    ▲ To Top
+</button>
+
+<script>
+    // Fade out section overlay on page load
+    window.addEventListener('DOMContentLoaded', () => {
+        const heroOverlay = document.getElementById('hero-splash-overlay');
+        setTimeout(() => {
+            heroOverlay.classList.add('fade-out');
+        }, 2000);
+    });
+
+    const menuBtn = document.getElementById('menuBtn');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    const footer = document.getElementById('mainFooter');
+    const getStartedBtn = document.getElementById('getStartedBtn');
+    const actionBoxes = document.querySelectorAll('.action-box');
+
+    // Trigger orange fade pulse when "Get Started Today" is clicked
+    getStartedBtn.addEventListener('click', () => {
+        actionBoxes.forEach(box => {
+            box.classList.remove('pulse-orange');
+            void box.offsetWidth; // Force CSS reflow
+            box.classList.add('pulse-orange');
+        });
+    });
+
+    // Toggle dropdown visibility
+    menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdownMenu.classList.toggle('show');
+    });
+
+    // Close dropdown when clicking anywhere outside
+    document.addEventListener('click', () => {
+        dropdownMenu.classList.remove('show');
+    });
+
+    // Handle scroll behavior for To Top Button
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 200) {
+            scrollTopBtn.classList.add('show');
+        } else {
+            scrollTopBtn.classList.remove('show');
+        }
+
+        const footerRect = footer.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        if (footerRect.top < windowHeight) {
+            const overlap = windowHeight - footerRect.top;
+            scrollTopBtn.style.bottom = `${overlap + 20}px`;
+        } else {
+            scrollTopBtn.style.bottom = '25px';
+        }
+    });
+
+    // Smooth scroll back to top
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+</script>
+
+</body>
+</html>
