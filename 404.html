@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Straying | Cooper Canines</title>
+    
+    <!-- Favicon pointing back to root folder -->
+    <link rel="icon" type="image/png" href="../Cooper Canines5 Logo 03-18-26.png">
+
+    <style>
+        :root {
+            --primary-orange: #e67e22;
+            --primary-orange-hover: #d35400;
+            --forest-green: #00793c;
+            --light-bg: #f8f9fa;
+            --text-dark: #2c3e50;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Background Canvas Layer for Falling Treats */
+        #treat-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Keeps background non-interactive */
+            z-index: 0; /* Keeps canvas strictly underneath content */
+        }
+
+        /* Elevate container above background treats */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 850px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            width: 90%;
+        }
+
+        /* 404 Announcement Banner */
+        .error-banner {
+            background-color: rgba(255, 255, 255, 0.95);
+            border: 2px dashed var(--primary-orange);
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+
+        .dog-icon {
+            font-size: 4.5rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .error-banner h1 {
+            font-size: 4.5rem;
+            color: var(--forest-green);
+            margin: 0;
+            line-height: 1;
+        }
+
+        .error-banner h2 {
+            font-size: 1.5rem;
+            color: var(--primary-orange-hover);
+            margin: 0.5rem 0 1rem 0;
+        }
+
+        .error-banner p {
+            margin: 0 0 1.5rem 0;
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* Action Buttons */
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--forest-green);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #005c2e;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--primary-orange);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-orange-hover);
+        }
+
+        /* Game Container Styles */
+        .game-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .game-header h2 {
+            margin: 0;
+            color: var(--forest-green);
+            font-size: 1.3rem;
+        }
+
+        .score-board {
+            font-weight: bold;
+            color: var(--primary-orange-hover);
+            font-size: 1.1rem;
+            background: #fff3cd;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+        }
+
+        /* Play Arena */
+        .play-area {
+            position: relative;
+            height: 380px;
+            background: linear-gradient(to bottom, rgba(227, 242, 253, 0.9) 82%, rgba(165, 214, 167, 0.9) 82%);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #cbd5e1;
+            cursor: pointer;
+        }
+
+        /* Dog Sprite */
+        .dog-runner {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.8rem;
+            transition: left 0.12s linear;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        /* Falling Treats Dynamic Style */
+        .active-treat {
+            position: absolute;
+            font-size: 1.8rem;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .game-controls {
+            margin-top: 1.2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .btn-start {
+            background-color: var(--primary-orange);
+            color: white;
+            border: none;
+            padding: 0.7rem 2rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+
+        .btn-start:hover {
+            background-color: var(--primary-orange-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-start:active {
+            transform: translateY(0);
+        }
+
+        /* Floating text effects */
+        .float-text {
+            position: absolute;
+            font-weight: bold;
+            font-size: 1.1rem;
+            pointer-events: none;
+            animation: floatUp 0.8s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-35px); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Canvas Layer for Falling Treats -->
+    <canvas id="treat-canvas"></canvas>
+
+    <div class="container">
+        <!-- Friendly 404 Banner -->
+        <div class="error-banner">
+            <div class="dog-icon">🐶</div>
+            <h1>404</h1>
+            <h2>Looks like this page barked up the wrong tree!</h2>
+            
+            <div class="btn-group">
+                <a href="../index.html" class="btn">🏠 Heel (Go Home)</a>
+                <a href="../index.html#contact" class="btn btn-secondary">📞 Contact Us</a>
+            </div>
+        </div>
+
+        <!-- Mini Interactive Dog Game -->
+        <div class="game-card">
+            <div class="game-header">
+                <h2>🍖 Play Treat Catcher Below!</h2>
+                <div class="score-board">Treats Caught: <span id="score">0</span></div>
+            </div>
+            
+            <div class="play-area" id="play-area">
+                <div class="dog-runner" id="dog">🐶</div>
+            </div>
+
+            <div class="game-controls">
+                <button class="btn-start" id="start-btn">Start Game 🐾</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // ----------------------------------------------------
+        // 1. Background Canvas Treats Effect
+        // ----------------------------------------------------
+        const canvas = document.getElementById('treat-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let bgTreats = [];
+        const bgTreatTypes = ['🦴', '🐶', '🐕', '🐾', '𐂯'];
+        const numBgTreats = 25;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function createBgTreat() {
+            return {
+                x: Math.random() * canvas.width,
+                y: Math.random() * 20,
+                icon: bgTreatTypes[Math.floor(Math.random() * bgTreatTypes.length)],
+                size: Math.random() * 14 + 18,
+                speed: Math.random() * 0.8 + 0.4,
+                drift: Math.random() * 0.4 - 0.2,
+                opacity: Math.random() * 0.4 + 0.2
+            };
+        }
+
+        for (let i = 0; i < numBgTreats; i++) {
+            let t = createBgTreat();
+            t.y = Math.random() * canvas.height;
+            bgTreats.push(t);
+        }
+
+        function renderBgCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            bgTreats.forEach(t => {
+                ctx.globalAlpha = t.opacity;
+                ctx.font = `${t.size}px Arial`;
+                ctx.fillText(t.icon, t.x, t.y);
+
+                t.y += t.speed;
+                t.x += t.drift;
+
+                if (t.y > canvas.height + 30) {
+                    t.y = 0;
+                    t.x = Math.random() * canvas.width;
+                }
+            });
+
+            requestAnimationFrame(renderBgCanvas);
+        }
+        renderBgCanvas();
+
+        // ----------------------------------------------------
+        // 2. Mini Interactive Dog Game Logic
+        // ----------------------------------------------------
+        const playArea = document.getElementById('play-area');
+        const dog = document.getElementById('dog');
+        const startBtn = document.getElementById('start-btn');
+        const scoreDisplay = document.getElementById('score');
+
+        let score = 0;
+        let gameActive = false;
+        let spawnInterval = null;
+        let gameLoopId = null;
+        let activeTreats = [];
+
+        let dogTargetX = playArea.clientWidth / 2;
+        let dogCurrentX = playArea.clientWidth / 2;
+
+        playArea.addEventListener('click', (e) => {
+            if (!gameActive) return;
+            const rect = playArea.getBoundingClientRect();
+            dogTargetX = e.clientX - rect.left;
+        });
+
+        startBtn.addEventListener('click', () => {
+            if (gameActive) {
+                stopGame();
+            } else {
+                startGame();
+            }
+        });
+
+        function startGame() {
+            gameActive = true;
+            score = 0;
+            scoreDisplay.textContent = score;
+            startBtn.textContent = "Stop Game 🛑";
+            
+            spawnInterval = setInterval(spawnTreat, 1200);
+            gameLoopId = requestAnimationFrame(updateGame);
+        }
+
+        function stopGame() {
+            gameActive = false;
+            startBtn.textContent = "Start Game 🐾";
+            clearInterval(spawnInterval);
+            cancelAnimationFrame(gameLoopId);
+            
+            activeTreats.forEach(t => t.element.remove());
+            activeTreats = [];
+        }
+
+        function spawnTreat() {
+            const treatTypes = ["🦴", "🥩", "🥓", "🧀", "𐂯"];
+            const selectedTreat = treatTypes[Math.floor(Math.random() * treatTypes.length)];
+            
+            const areaWidth = playArea.clientWidth;
+            const spawnX = Math.floor(Math.random() * (areaWidth - 60)) + 30;
+
+            const treatElem = document.createElement('div');
+            treatElem.className = 'active-treat';
+            treatElem.textContent = selectedTreat;
+            treatElem.style.left = spawnX + 'px';
+            treatElem.style.top = '-30px';
+
+            playArea.appendChild(treatElem);
+
+            activeTreats.push({
+                element: treatElem,
+                x: spawnX,
+                y: -30,
+                speed: 2.5 + Math.random() * 2
+            });
+        }
+
+        function updateGame() {
+            if (!gameActive) return;
+
+            dogCurrentX += (dogTargetX - dogCurrentX) * 0.15;
+            dog.style.left = dogCurrentX + 'px';
+
+            const dogY = playArea.clientHeight - 40;
+
+            for (let i = activeTreats.length - 1; i >= 0; i--) {
+                const t = activeTreats[i];
+                t.y += t.speed;
+                t.element.style.top = t.y + 'px';
+
+                const distanceX = Math.abs(t.x - dogCurrentX);
+                if (t.y >= dogY - 20 && t.y <= dogY + 30 && distanceX < 45) {
+                    score++;
+                    scoreDisplay.textContent = score;
+                    showPopText(t.x, t.y, "NOM!", "#d35400");
+                    t.element.remove();
+                    activeTreats.splice(i, 1);
+                    continue;
+                }
+
+                if (t.y > playArea.clientHeight - 20) {
+                    showPopText(t.x, t.y, "Miss!", "#888");
+                    t.element.remove();
+                    activeTreats.splice(i, 1);
+                }
+            }
+
+            gameLoopId = requestAnimationFrame(updateGame);
+        }
+
+        function showPopText(xPos, yPos, text, color) {
+            const pop = document.createElement('div');
+            pop.className = 'float-text';
+            pop.textContent = text;
+            pop.style.color = color;
+            pop.style.left = xPos + 'px';
+            pop.style.top = yPos + 'px';
+            playArea.appendChild(pop);
+
+            setTimeout(() => {
+                pop.remove();
+            }, 800);
+        }
+    </script>
+
+</body>
+</html>
