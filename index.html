@@ -421,10 +421,15 @@
         }
 
         /* Mobile responsiveness adjustment */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
+@media (max-width: 768px) {
+    /* Prevent overall horizontal scroll */
+    html, body {
+        overflow-x: hidden;
+    }
+
+    .nav-links {
+        display: none;
+    }
 
             .scroll-top-btn {
                 bottom: 20px;
