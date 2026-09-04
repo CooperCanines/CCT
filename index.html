@@ -59,21 +59,29 @@
             min-height: 100vh;
         }
 
-        /* Sticky Nav Bar with Far-Left Logo, Centered Links, and Right Menu Button */
+        /* Sticky Nav Bar with Flexible Layout */
         nav {
             background-color: #009100;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.5rem 1.5rem;
+            padding: 0.5rem 1rem;
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-sizing: border-box;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .nav-logo {
+            flex-shrink: 0;
         }
 
         .nav-logo img {
             height: 40px;
             width: auto;
+            max-width: 100%;
             display: block;
         }
 
@@ -89,6 +97,7 @@
             text-decoration: none;
             padding: 0.5rem 1rem;
             font-weight: bold;
+            white-space: nowrap;
         }
 
         nav a:hover {
@@ -98,6 +107,8 @@
         /* Hamburger Container Box */
         .menu-container {
             position: relative;
+            flex-shrink: 0;
+            margin-left: auto;
         }
 
         /* White Rounded Box Button */
@@ -112,6 +123,7 @@
             cursor: pointer;
             box-shadow: 0 2px 4px rgba(0,0,0,0.15);
             transition: transform 0.1s ease;
+            white-space: nowrap;
         }
 
         .menu-toggle:active {
@@ -133,6 +145,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            flex-shrink: 0;
         }
 
         .hamburger-icon span {
@@ -420,34 +433,56 @@
             background-color: #d35400;
         }
 
+        /* Responsive Breakpoints for Nav Layout */
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                justify-content: space-between;
+                padding: 0.5rem 0.75rem;
+            }
+
+            .nav-logo img {
+                height: 32px;
+            }
+
+            .menu-toggle {
+                padding: 0.35rem 0.6rem;
+            }
+
+            .menu-text {
+                font-size: 0.85rem;
+            }
+        }
+
         /* Mobile responsiveness adjustment */
-@media (max-width: 768px) {
-    /* Prevent overall horizontal scroll */
-    html, body {
-        overflow-x: hidden;
-    }
+        @media (max-width: 768px) {
+            /* Prevent overall horizontal scroll */
+            html, body {
+                overflow-x: hidden;
+            }
 
-    .nav-links {
-        display: none;
-}
+            /* Force the navigation bar to act as the positioning container for the dropdown */
+            nav {
+                position: sticky;
+                top: 0;
+            }
 
-    /* Force the navigation bar to act as the positioning container for the dropdown */
-    nav {
-        position: sticky;
-        top: 0;
-    }
-
-    /* Position the expanded hamburger dropdown directly under the entire nav bar */
-    .dropdown-menu {
-        position: absolute;
-        top: 100%;             /* Places menu directly under the bottom of the nav bar */
-        left: 0;               /* Spans from far-left */
-        right: 0;              /* Spans to far-right */
-        width: 100%;           /* Takes up full mobile screen width */
-        min-width: unset;      /* Overrides 200px desktop min-width */
-        border-radius: 0 0 8px 8px; /* Round only bottom corners */
-        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-    }
+            /* Position the expanded hamburger dropdown directly under the entire nav bar */
+            .dropdown-menu {
+                position: absolute;
+                top: 100%;             /* Places menu directly under the bottom of the nav bar */
+                left: 0;               /* Spans from far-left */
+                right: 0;              /* Spans to far-right */
+                width: 100%;           /* Takes up full mobile screen width */
+                min-width: unset;      /* Overrides 200px desktop min-width */
+                border-radius: 0 0 8px 8px; /* Round only bottom corners */
+                box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+            }
 
             .scroll-top-btn {
                 bottom: 20px;
@@ -506,11 +541,11 @@
             <div class="dropdown-menu" id="dropdownMenu">
                 <a href="https://start.coopercanines.com" target="_blank" rel="noopener">New Client</a>
                 <a href="https://start.coopercanines.com" target="_blank" rel="noopener">Returning Client</a>
-<br>
-                <a href="index.html#top"_blank" rel="noopener">Home</a>
+                <br>
+                <a href="index.html#top" target="_blank" rel="noopener">Home</a>
                 <a href="guides.html" target="_blank" rel="noopener">Resources</a>
-                <a href="index.html#contact"_blank" rel="noopener">Contact Us</a>
-<br>
+                <a href="index.html#contact" target="_blank" rel="noopener">Contact Us</a>
+                <br>
                 <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" rel="noopener">Our Facebook</a>
                 <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Google Reviews</a>
                 <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Liability Waiver</a>
@@ -565,7 +600,7 @@
                     Dan@coopercanines.com
                 </a> 
                 | 
-                <strong>:</strong> 
+                <strong>Phone:</strong> 
                 <a href="tel:8564331259" style="color: var(--primary); text-decoration: underline;">
                     (856) 433-1259
                 </a>
