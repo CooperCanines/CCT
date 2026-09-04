@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Meta Tags -->
+    <title>CCT Guides & Resources | Cooper Canines</title>
+    <meta name="description" content="Free expert dog training resources, puppy care tips, and obedience advice from Cooper Canines. Help your dog succeed with positive reinforcement tips.">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/png" href="../Cooper Canines5 Logo 03-18-26.png">
+
+    <style>
+        :root {
+            --primary: #009191;
+            --accent: #27ae60;
+            --light: #f8f9fa;
+            --dark: #333;
+            --border: #e2e8f0;
+            --logo-orange: #e67e22; /* Custom brand orange */
+        }
+
+        /* Enable smooth scrolling across the page */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Remove default margins and set up full-height flex container */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+
+            /* Background Image Setup */
+            background-image: url('Jotform Background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        header {
+            background-color: var(--primary);
+            text-align: center;
+            padding: 1rem;
+        }
+
+        header img {
+            max-width: 100%;
+            height: auto;
+            max-height: 240px;
+        }
+
+        /* Sticky Nav Bar with Logo, Centered Links, and Right Menu Button */
+        nav {
+            background-color: #34495e;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-logo img {
+            height: 40px;
+            width: auto;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+            margin-right: auto;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* Active Selected Orange Tab for Resources */
+        nav a.active-tab {
+            background-color: var(--logo-orange);
+            color: white !important;
+        }
+
+        nav a.active-tab:hover {
+            background-color: #d35400;
+        }
+
+        /* Hamburger Container Box */
+        .menu-container {
+            position: relative;
+        }
+
+        /* White Rounded Box Button */
+        .menu-toggle {
+            background-color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.4rem 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+            transition: transform 0.1s ease;
+        }
+
+        .menu-toggle:active {
+            transform: scale(0.98);
+        }
+
+        /* Matches navbar font style & uses brand orange */
+        .menu-text {
+            color: var(--logo-orange);
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        /* Orange Hamburger Icon */
+        .hamburger-icon {
+            width: 20px;
+            height: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hamburger-icon span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--logo-orange);
+            border-radius: 2px;
+        }
+
+        /* Dropdown Menu Box */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 120%;
+            background-color: #ffffff;
+            min-width: 200px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 1001;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            color: var(--dark);
+            display: block;
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 1px solid #eee;
+            border-radius: 0;
+        }
+
+        .dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: var(--light);
+            color: var(--primary);
+        }
+
+        /* Sidebar & Main Content Layout - Updated for wider responsiveness */
+        .layout-container {
+            max-width: 1400px; /* Expanded max-width for wider screens */
+            width: 92%;        /* Takes up most of the page width dynamically */
+            margin: 2rem auto 4rem auto;
+            padding: 0 1rem;
+            display: flex;
+            gap: 2rem;
+            flex: 1;
+            box-sizing: border-box;
+        }
+
+        /* Left Sidebar Menu */
+        .sidebar {
+            flex: 0 0 280px;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            height: fit-content;
+        }
+
+        /* Topics & Guides Header Button Style */
+        .sidebar-home-btn {
+            width: 100%;
+            text-align: left;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 0.6rem 0.8rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.2s ease;
+        }
+
+        .sidebar-home-btn:hover {
+            background: var(--accent);
+        }
+
+        .resource-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .resource-list li button {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            padding: 0.8rem 0.5rem;
+            font-size: 0.95rem;
+            color: var(--dark);
+            cursor: pointer;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .resource-list li button:hover,
+        .resource-list li button.active {
+            color: var(--accent);
+            font-weight: bold;
+            padding-left: 0.8rem;
+        }
+
+        /* Right Content Area */
+        .content-area {
+            flex: 1;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            min-width: 0; /* Prevents grid items from overflowing flex container */
+        }
+
+        /* --- Topics Grid Styling (Auto-fitting Responsive Grid) --- */
+        .topics-grid {
+            display: grid;
+            /* Auto-fit dynamically distributes items into as many columns as fit */
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2.5rem 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .topic-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2.2rem 1rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            position: relative;
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-top: 5px solid #ccc;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+        }
+
+        .topic-img-container {
+            position: absolute;
+            top: -38px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+            border: 3px solid white;
+        }
+
+        .topic-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .topic-card h4 {
+            margin: 1.2rem 0 0.4rem 0;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+
+        .topic-card p {
+            font-size: 0.9rem;
+            color: #555;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* Color classes */
+        .topic-orange { border-top-color: #e67e22; }
+        .topic-red { border-top-color: #e74c3c; }
+        .topic-tan { border-top-color: #d2b48c; }
+        .topic-cyan { border-top-color: #00bcd4; }
+        .topic-purple { border-top-color: #8e44ad; }
+        .topic-green { border-top-color: #2ecc71; }
+        .topic-pink { border-top-color: #ff69b4; }
+        .topic-forest { border-top-color: #1e8449; }
+        .topic-grey { border-top-color: #95a5a6; }
+        .topic-black { border-top-color: #2c3e50; }
+        .topic-yellow { border-top-color: #f1c40f; }
+        .topic-brown { border-top-color: #8b4513; }
+
+        .discounts-box {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: var(--light);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .discounts-box p {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .discount-link-btn {
+            display: block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.6rem 0.8rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: background 0.2s ease;
+        }
+
+        .discount-link-btn:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        /* Floating Scroll to Top Button Styles */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: var(--logo-orange);
+            color: white;
+            border: none;
+            border-radius: 24px;
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            display: none;
+            align-items: center;
+            gap: 0.4rem;
+            z-index: 1000;
+            transition: opacity 0.3s ease, transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .scroll-top-btn:hover {
+            background-color: #d35400;
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 900px) {
+            .layout-container {
+                flex-direction: column;
+                width: 95%;
+                margin-bottom: 2rem;
+            }
+            .sidebar {
+                flex: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .scroll-top-btn {
+                bottom: 20px;
+                right: 20px;
+                padding: 0.5rem 0.8rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header id="top">
+    <img src="../CCT(HDPrint)WordLogo08-17-26.png" alt="Cooper Canines Logo">
+</header>
+
+<nav>
+    <a href="../index.html" class="nav-logo">
+        <img src="../Cooper Canines5 Logo 03-18-26.png" alt="Cooper Canines Logo">
+    </a>
+
+    <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="Guides.html" class="active-tab">Resources</a>
+        <a href="../index.html#services">Services</a>
+        <a href="../store/Store.html">Store</a>
+        <a href="../index.html#contact">Contact Us</a>
+    </div>
+
+    <div class="menu-container">
+        <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation menu">
+            <span class="menu-text">Menu</span>
+            <div class="hamburger-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
+        <div class="dropdown-menu" id="dropdownMenu">
+            <a href="https://start.coopercanines.com" target="_blank" rel="noopener">🚀 New Client Onboarding</a>
+            <a href="https://portal.coopercanines.com" target="_blank" rel="noopener">🐶 Client Portal</a>
+            <a href="https://pricing.coopercanines.com" target="_blank" rel="noopener">Estimated Rates</a>
+            <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Liability Waiver</a>
+        </div>
+    </div>
+</nav>
+
+<div class="layout-container">
+    <!-- Left Sidebar Navigation -->
+    <aside class="sidebar">
+        <button class="sidebar-home-btn" onclick="showMainGrid()">
+            <span>Guides</span>
+            <span>🏠</span>
+        </button>
+        <ul class="resource-list">
+            <li><button class="tab-btn" onclick="loadArticle('Basic Skills')">Basic Skills</button></li>
+            <li><button class="tab-btn" onclick="loadArticle('Behavior')">Behavior</button></li>
+            <li><button class="tab-btn" onclick="loadArticle('Crate Training')">Crate Training</button></li>
+            <li><button class="tab-btn" onclick="loadArticle('Desensitization')">Desensitization</button></li>
+            <li><button class="tab-btn" onclick="loadArticle('Impulse Control')">Impulse Control</button></li>
+            <li><button class="tab-btn" onclick="loadArticle('Obedience')">Obedience</button></li>
+            <li><button class="tab-btn" onclick="loadArticle('Puppy Training')">Puppy Training</button></li>
+            <li><button class="tab-btn" onclick="loadArticle('Recall')">Recall</button></li>
+            <li><button class="tab-btn" onclick="loadArticle('Resource Guarding')">Resource Guarding</button></li>
+            <li><button class="tab-btn" onclick="loadArticle('Separation')">Separation</button></li>
+            <li><button class="tab-btn" onclick="loadArticle('Socialization')">Socialization</button></li>
+            <li><button class="tab-btn" onclick="loadArticle('Walking')">Walking</button></li>
+        </ul>
+
+        <div class="discounts-box">
+            <p>Check out discounts for services.</p>
+            <a href="discounts/index.html" class="discount-link-btn">
+                🏷️ View External Discounts
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content Display Container -->
+    <main class="content-area" id="mainContent">
+        <!-- Default Content: 12 Topics Grid -->
+        <div id="gridContainer">
+            <h2 style="margin-top:0; color: var(--primary); text-align: center;">Resource Directory</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 2rem;"><b>THIS PAGE IS CURRENTLY UNDER CONSTRUCTION</b>
+<br>Select a topic below to explore guides and training articles.</p>
+            
+            <div class="topics-grid">
+                <div class="topic-card topic-orange" onclick="loadArticle('Basic Skills')">
+                    <div class="topic-img-container">
+                        <img src="../images/Behavior.png" alt="Basic Skills">
+                    </div>
+                    <h4>Basic Skills</h4>
+                    <p>Teaching essential day-to-day manners and focus.</p>
+                </div>
+
+                <div class="topic-card topic-red" onclick="loadArticle('Behavior')">
+                    <div class="topic-img-container">
+                        <img src="../images/Behavior.png" alt="Behavior">
+                    </div>
+                    <h4>Behavior</h4>
+                    <p>Addressing reactivity, fear, barking, and unwanted habits.</p>
+                </div>
+
+                <div class="topic-card topic-tan" onclick="loadArticle('Crate Training')">
+                    <div class="topic-img-container">
+                        <img src="../images/Behavior.png" alt="Crate Training">
+                    </div>
+                    <h4>Crate Training</h4>
+                    <p>Creating a cozy, stress-free safe space for relaxed resting.</p>
+                </div>
+
+                <div class="topic-card topic-cyan" onclick="loadArticle('Desensitization')">
+                    <div class="topic-img-container">
+                        <img src="../images/Behavior.png" alt="Desensitization">
+                    </div>
+                    <h4>Desensitization</h4>
+                    <p>Gradual exposure techniques to build confidence.</p>
+                </div>
+
+                <div class="topic-card topic-purple" onclick="loadArticle('Impulse Control')">
+                    <div class="topic-img-container">
+                        <img src="../images/Behavior.png" alt="Impulse Control">
+                    </div>
+                    <h4>Impulse Control</h4>
+                    <p>Emotional regulation, stays, and the "Place" command.</p>
+                </div>
+
+                <div class="topic-card topic-green" onclick="loadArticle('Obedience')">
+                    <div class="topic-img-container">
+                        <img src="../images/Behavior.png" alt="Obedience">
+                    </div>
+                    <h4>Obedience</h4>
+                    <p>Establishing solid foundation cues like sit, stay, and down.</p>
+                </div>
+
+                <div class="topic-card topic-pink" onclick="loadArticle('Puppy Training')">
+                    <div class="topic-img-container">
+                        <img src="../images/Behavior.png" alt="Puppy Training">
+                    </div>
+                    <h4>Puppy Training</h4>
+                    <p>Potty training, bite inhibition, and settling techniques.</p>
+                </div>
+
+                <div class="topic-card topic-forest" onclick="loadArticle('Recall')">
+                    <div class="topic-img-container">
+                        <img src="../images/Behavior.png" alt="Recall">
+                    </div>
+                    <h4>Recall</h4>
+                    <p>Building a reliable emergency come cue.</p>
+                </div>
+
+                <div class="topic-card topic-grey" onclick="loadArticle('Resource Guarding')">
+                    <div class="topic-img-container">
+                        <img src="../images/Behavior.png" alt="Resource Guarding">
+                    </div>
+                    <h4>Resource Guarding</h4>
+                    <p>Building trust around food, toys, and resting spots.</p>
+                </div>
+
+                <div class="topic-card topic-black" onclick="loadArticle('Separation')">
+                    <div class="topic-img-container">
+                        <img src="../images/Behavior.png" alt="Separation">
+                    </div>
+                    <h4>Separation</h4>
+                    <p>Routines to reduce distress when left home alone.</p>
+                </div>
+
+                <div class="topic-card topic-yellow" onclick="loadArticle('Socialization')">
+                    <div class="topic-img-container">
+                        <img src="../images/Behavior.png" alt="Socialization">
+                    </div>
+                    <h4>Socialization</h4>
+                    <p>Controlled exposure to novel environments and sounds.</p>
+                </div>
+
+                <div class="topic-card topic-brown" onclick="loadArticle('Walking')">
+                    <div class="topic-img-container">
+                        <img src="../images/Behavior.png" alt="Walking">
+                    </div>
+                    <h4>Walking</h4>
+                    <p>Mastering loose-leash walking without pulling.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article Container Placeholder -->
+        <div id="articleView" style="display: none;"></div>
+    </main>
+</div>
+
+<!-- Floating Scroll to Top Button -->
+<button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top" title="Scroll to top">
+    <span>▲</span>
+    <span>To Top</span>
+</button>
+
+<footer style="background-color: var(--primary); color: white; padding: 2rem 1rem; width: 100%; box-sizing: border-box; margin-top: auto;">
+    <div style="max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2rem; text-align: center;">
+        <div>
+            <a href="https://pricing.coopercanines.com" target="_blank" rel="noopener" style="color: white; text-decoration: none; margin: 0 1rem; font-size: 0.95rem;">
+                View Estimated Rates
+            </a>
+            <span style="color: #4a6572;">|</span>
+            <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener" style="color: white; text-decoration: none; margin: 0 1rem; font-size: 0.95rem;">
+                Liability Waiver
+            </a>
+            <span style="color: #4a6572;">|</span>
+            <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener" style="color: white; text-decoration: none; margin: 0 1rem; font-size: 0.95rem;">
+                Follow on Facebook
+            </a>
+            <span style="color: #4a6572;">|</span>
+            <a href="https://g.page/r/YOUR_GOOGLE_REVIEW_ID/review" target="_blank" rel="noopener" style="color: #f1c40f; text-decoration: none; margin: 0 1rem; font-weight: bold;">
+                ⭐ Leave a Google Review
+            </a>
+        </div>
+    </div>
+
+    <div style="text-align: center; border-top: 1px solid #4a6572; margin-top: 1.5rem; padding-top: 1rem; font-size: 0.85rem; color: #bdc3c7;">
+        <p style="margin: 0;">&copy; 2026 Cooper Canines LLC. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    // Hamburger menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdownMenu.classList.toggle('show');
+    });
+
+    document.addEventListener('click', () => {
+        dropdownMenu.classList.remove('show');
+    });
+
+    // Dynamic Article Loader Function
+    function loadArticle(topicName) {
+        const gridContainer = document.getElementById('gridContainer');
+        const articleView = document.getElementById('articleView');
+        const fileName = `${topicName}.html`;
+
+        // Highlight active sidebar button
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(btn => {
+            if (btn.textContent.trim() === topicName) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        // Fetch HTML file from same directory
+        fetch(fileName)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(htmlContent => {
+                gridContainer.style.display = 'none';
+                articleView.style.display = 'block';
+                articleView.innerHTML = htmlContent;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            })
+            .catch(error => {
+                gridContainer.style.display = 'none';
+                articleView.style.display = 'block';
+                articleView.innerHTML = `
+                    <h2 style="color: var(--primary);">${topicName}</h2>
+                    <p>The guide for <strong>${topicName}</strong> is coming soon!</p>
+                    <button onclick="showMainGrid()" style="background: var(--primary); color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">← Back to Topic Directory</button>
+                `;
+            });
+    }
+
+    // Reset View Back to Grid Directory
+    function showMainGrid() {
+        document.getElementById('gridContainer').style.display = 'block';
+        document.getElementById('articleView').style.display = 'none';
+        
+        // Remove active state from sidebar buttons
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+    }
+
+    // Scroll to Top Button Logic
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            scrollTopBtn.style.display = 'flex';
+        } else {
+            scrollTopBtn.style.display = 'none';
+        }
+    });
+
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+</script>
+
+</body>
+</html>
