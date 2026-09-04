@@ -472,17 +472,23 @@
                 top: 0;
             }
 
-            /* Position the expanded hamburger dropdown directly under the entire nav bar */
-            .dropdown-menu {
-                position: absolute;
-                top: 100%;             /* Places menu directly under the bottom of the nav bar */
-                left: 0;               /* Spans from far-left */
-                right: 0;              /* Spans to far-right */
-                width: 100%;           /* Takes up full mobile screen width */
-                min-width: unset;      /* Overrides 200px desktop min-width */
-                border-radius: 0 0 8px 8px; /* Round only bottom corners */
-                box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-            }
+/* Ensure menu container acts as the anchor point on mobile */
+    .menu-container {
+        position: relative;
+    }
+
+    /* Right-align the mobile dropdown so it stays within the viewport */
+    .dropdown-menu {
+        position: absolute;
+        top: 120%;
+        right: 0;
+        left: auto;
+        width: 240px;
+        max-width: 85vw;
+        min-width: unset;
+        border-radius: 8px;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
 
             .scroll-top-btn {
                 bottom: 20px;
