@@ -45,14 +45,14 @@
             </div>
         </div>
 
-        <!-- Ownership Dropdown -->
+        <!-- Additional Owner/Handler Dropdown -->
         <div class="form-group">
-            <label>Ownership Type: *</label>
+            <label>Will an additional Owner/Handler be involved with the training? *</label>
             <select id="ownershipType" name="ownership_type" required onchange="toggleSecondaryFields()">
                 <option value="single">Single Owner / Single Handler</option>
-                <option value="co-owner">Family (e.g. Parent, Sibling, Child)</option>
-                <option value="family">Colleague</option>
-                <option value="family">Other</option>
+                <option value="family">Family (e.g. Parent, Sibling, Child)</option>
+                <option value="colleague">Colleague</option>
+                <option value="other">Other</option>
             </select>
         </div>
 
@@ -148,16 +148,12 @@
             <input type="text" name="dog_name" required>
         </div>
 
+        <!-- Dynamically Populated Dog Breed Field -->
         <div class="form-group">
             <label>Dog Breed (Optional - Start typing to see suggestions):</label>
-            <input type="text" name="dog_breed" list="breedList" placeholder="Unknown">
+            <input type="text" name="dog_breed" list="breedList" placeholder="Start typing a breed...">
             <datalist id="breedList">
                 <option value="Unknown"></option>
-                <option value="Labrador Retriever"></option>
-                <option value="German Shepherd"></option>
-                <option value="Golden Retriever"></option>
-                <option value="French Bulldog"></option>
-                <option value="Poodle"></option>
                 <option value="Mixed Breed"></option>
             </datalist>
         </div>
@@ -239,6 +235,33 @@
                     console.error('Error fetching waiver content:', error);
                     document.getElementById('waiverContent').innerHTML = '<p style="color:red;">Unable to load waiver content dynamically. Please ensure waiver.html is placed in the same folder.</p>';
                 });
+
+            // Fetch breeds dynamically from Dog API (Wikipedia-backed)
+            fetch('https://dog.ceo/api/breeds/list/all')
+                .then(response => response.json())
+                .then(data => {
+                    const breedList = document.getElementById('breedList');
+                    const breeds = data.message;
+
+                    Object.keys(breeds).forEach(breed => {
+                        const mainBreed = breed.charAt(0).toUpperCase() + breed.slice(1);
+                        
+                        if (breeds[breed].length === 0) {
+                            const option = document.createElement('option');
+                            option.value = mainBreed;
+                            breedList.appendChild(option);
+                        } else {
+                            // Include sub-breeds (e.g., Golden Retriever, Toy Poodle)
+                            breeds[breed].forEach(sub => {
+                                const subBreed = sub.charAt(0).toUpperCase() + sub.slice(1);
+                                const option = document.createElement('option');
+                                option.value = `${subBreed} ${mainBreed}`;
+                                breedList.appendChild(option);
+                            });
+                        }
+                    });
+                })
+                .catch(err => console.error('Error loading dog breeds:', err));
         });
 
         // Real-Time Phone Validation
@@ -303,7 +326,7 @@
 
         // Dynamic Dropdown logic
         function toggleSecondaryFields() {
-            const dropdown = document.getElementById('Will an additional Owner/Handler be involved with the training?');
+            const dropdown = document.getElementById('ownershipType');
             const secSection = document.getElementById('secondarySection');
             const secFirst = document.getElementById('secFirst');
             const secLast = document.getElementById('secLast');
