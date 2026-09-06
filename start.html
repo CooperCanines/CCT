@@ -25,6 +25,7 @@
 
     <h1>Cooper Canines Client Registration</h1>
 
+    <form id="onboardingForm">
         <!-- Web3Forms Config -->
         <input type="hidden" name="access_key" value="83f5c5a0-07f1-49ce-8764-c0bc59576016">
         <input type="hidden" name="subject" value="New Cooper Canines Client Registration">
@@ -38,7 +39,7 @@
             </div>
         </div>
 
-        <!-- Question with 3 Choices (Stacked Vertically) -->
+        <!-- Question with 3 Choices -->
         <div class="form-group">
             <label>May Cooper Canines LLC use photos or recordings of you and your dog for promotional, marketing, and educational purposes? (Full use may obtain gift(s) per Clause 5.B of the Waiver.) *</label>
             <div class="radio-group">
@@ -74,10 +75,10 @@
             <label>Client Signature: *</label>
             <canvas id="primarySigCanvas" class="signature-pad" width="400" height="120"></canvas>
             <button type="button" onclick="clearCanvas('primarySigCanvas')">Clear Signature</button>
-            <input type="hidden" name="primary_signature_data" id="primarySigData" required>
+            <input type="hidden" name="primary_signature_data" id="primarySigData">
         </div>
 
-        <!-- Primary Phone (Moved below Primary Signature) -->
+        <!-- Primary Phone -->
         <div class="form-group">
             <label>Phone Number (Format: 123-456-7890): *</label>
             <input type="tel" id="primaryPhone" name="primary_phone" 
@@ -91,7 +92,6 @@
             <hr>
             <h3>Secondary Owner Information</h3>
 
-            <!-- Secondary Owner Name -->
             <div class="form-group">
                 <label>Secondary Owner Name: *</label>
                 <div style="display: flex; gap: 10px;">
@@ -100,7 +100,6 @@
                 </div>
             </div>
 
-            <!-- Secondary Signature (Moved under Secondary Owner Name) -->
             <div class="form-group">
                 <label>Secondary Owner Signature: *</label>
                 <canvas id="secondarySigCanvas" class="signature-pad" width="400" height="120"></canvas>
@@ -108,9 +107,8 @@
                 <input type="hidden" name="secondary_signature_data" id="secondarySigData">
             </div>
 
-            <!-- Secondary Phone Number (Moved under Secondary Signature) -->
             <div class="form-group">
-                <label>Secondary Phone Number (Format: 123-456-7890) (Optional):</label>
+                <label>Secondary Phone Number (Format: 123-456-7890):</label>
                 <input type="tel" id="secondaryPhone" name="secondary_phone" 
                        pattern="^[0-9]{3}-[0-9]{3}-[0-9]{4}$" 
                        placeholder="555-555-5555" oninput="validatePhone(this, 'secondaryPhoneErr')">
@@ -138,7 +136,7 @@
                 <option value="Trainer">Dog Trainer</option>
                 <option value="Google">Online Search (Google, Bing, etc.)</option>
                 <option value="Facebook">Social Media (Facebook)</option>
-                <option value="Referral"> Referral (Including Friend or Client)</option>
+                <option value="Referral">Referral (Including Friend or Client)</option>
                 <option value="Vet">Veterinarian</option>
                 <option value="OtherRef">Other</option>
             </select>
@@ -154,7 +152,6 @@
             <input type="text" name="dog_name" required>
         </div>
 
-        <!-- Dynamically Populated Dog Breed Field via Dog CEO API -->
         <div class="form-group">
             <label>Dog Breed (Optional):</label>
             <input type="text" name="dog_breed" list="breedList" placeholder="Start typing a breed...">
@@ -226,7 +223,6 @@
                 .then(htmlText => {
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(htmlText, 'text/html');
-                    // Get the scroll-box content from waiver.html
                     const waiverBox = doc.querySelector('.scroll-box');
                     if (waiverBox) {
                         document.getElementById('waiverContent').innerHTML = waiverBox.innerHTML;
@@ -252,7 +248,6 @@
                             option.value = mainBreed;
                             breedList.appendChild(option);
                         } else {
-                            // Include sub-breeds (e.g., Golden Retriever, Toy Poodle)
                             breeds[breed].forEach(sub => {
                                 const subBreed = sub.charAt(0).toUpperCase() + sub.slice(1);
                                 const option = document.createElement('option');
@@ -332,20 +327,17 @@
             const secFirst = document.getElementById('secFirst');
             const secLast = document.getElementById('secLast');
             const secPhone = document.getElementById('secondaryPhone');
-            const secSigData = document.getElementById('secondarySigData');
 
             if (dropdown.selectedIndex !== 0) { 
                 secSection.classList.remove('hidden');
                 secFirst.required = true;
                 secLast.required = true;
                 secPhone.required = true;
-                secSigData.required = true;
             } else {
                 secSection.classList.add('hidden');
                 secFirst.required = false;
                 secLast.required = false;
                 secPhone.required = false;
-                secSigData.required = false;
                 secPhone.classList.remove('invalid');
                 document.getElementById('secondaryPhoneErr').style.display = 'none';
             }
@@ -380,8 +372,10 @@
             }
         }
 
-        // Form Submit Guard
+        // Form Submission with Web3Forms AJAX
         document.getElementById('onboardingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
             const primaryPhone = document.getElementById('primaryPhone');
             const secondaryPhone = document.getElementById('secondaryPhone');
 
@@ -393,16 +387,37 @@
             }
 
             if (!isValid) {
-                e.preventDefault();
                 alert("Please correct the phone number formatting before submitting.");
                 return false;
             }
 
-            // Store Canvas Signatures into hidden inputs
+            // Save signatures to hidden inputs
             document.getElementById('primarySigData').value = document.getElementById('primarySigCanvas').toDataURL();
             if (document.getElementById('ownershipType').selectedIndex !== 0) {
                 document.getElementById('secondarySigData').value = document.getElementById('secondarySigCanvas').toDataURL();
             }
+
+            const formData = new FormData(this);
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(async (response) => {
+                let json = await response.json();
+                if (response.status == 200) {
+                    alert("Form submitted successfully!");
+                    this.reset();
+                    clearCanvas('primarySigCanvas');
+                    clearCanvas('secondarySigCanvas');
+                } else {
+                    alert("Error: " + json.message);
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                alert("Something went wrong. Please try again.");
+            });
         });
     </script>
 </body>
