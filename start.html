@@ -25,7 +25,12 @@
 
     <h1>Cooper Canines Client Registration</h1>
 
-    <form id="onboardingForm" action="YOUR_ENDPOINT_HERE" method="POST" enctype="multipart/form-data">
+    <form id="onboardingForm" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
+
+        <!-- Web3Forms Config -->
+        <input type="hidden" name="access_key" value="83f5c5a0-07f1-49ce-8764-c0bc59576016">
+        <input type="hidden" name="subject" value="New Cooper Canines Client Registration">
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
         <!-- Dynamic Liability Waiver Box -->
         <div class="form-group">
@@ -248,7 +253,7 @@
 
                     Object.keys(breeds).forEach(breed => {
                         const mainBreed = breed.charAt(0).toUpperCase() + breed.slice(1);
-                        
+
                         if (breeds[breed].length === 0) {
                             const option = document.createElement('option');
                             option.value = mainBreed;
@@ -388,7 +393,7 @@
             const secondaryPhone = document.getElementById('secondaryPhone');
 
             let isValid = validatePhone(primaryPhone, 'primaryPhoneErr');
-            
+
             if (document.getElementById('ownershipType').selectedIndex !== 0) {
                 const secValid = validatePhone(secondaryPhone, 'secondaryPhoneErr');
                 if (!secValid) isValid = false;
