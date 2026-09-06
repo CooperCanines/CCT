@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Training - Cooper Canines</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; color: #2c3e50; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input[type="text"], input[type="email"], input[type="tel"], input[type="number"], select {
+            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
+        }
+        input.invalid { border-color: red; background-color: #fff0f0; }
+        .signature-pad { border: 2px dashed #009100; background: #fff; cursor: crosshair; }
+        .hidden { display: none; }
+        .radio-group, .checkbox-group { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+        .error { color: red; font-size: 0.85rem; display: none; margin-top: 4px; }
+        .scroll-box { height: 250px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; font-size: 0.9rem; background: #fff; }
+        button[type="submit"] { background: #009100; color: white; border: none; padding: 12px 20px; font-size: 1rem; border-radius: 5px; cursor: pointer; }
+        button[type="submit"]:disabled { background: #ccc; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+
+    <h1>Cooper Canines Client Registration</h1>
+
+    <form id="onboardingForm" action="YOUR_ENDPOINT_HERE" method="POST" enctype="multipart/form-data">
+
+        <!-- Dynamic Liability Waiver Box -->
+        <div class="form-group">
+            <label>Liability Waiver</label>
+            <div id="waiverContent" class="scroll-box">
+                <p><em>Loading waiver text...</em></p>
+            </div>
+        </div>
+
+        <!-- Question with 3 Choices (Stacked Vertically) -->
+        <div class="form-group">
+            <label>1. May Cooper Canines LLC use photos or recordings of you and your dog for promotional, marketing, and educational purposes? (Full use may obtain gift(s) per Clause 5.B of the Waiver.) *</label>
+            <div class="radio-group">
+                <label><input type="radio" name="service_choice" value="Option A" required> Full - Public Media & Educational Use Approved.</label>
+                <label><input type="radio" name="service_choice" value="Option B"> Full - Public Media & Educational Use Approved.</label>
+                <label><input type="radio" name="service_choice" value="Option C"> No - Internal Use Only (No Public or Client Media Use.)</label>
+            </div>
+        </div>
+
+        <!-- Ownership Dropdown -->
+        <div class="form-group">
+            <label>Ownership Type: *</label>
+            <select id="ownershipType" name="ownership_type" required onchange="toggleSecondaryFields()">
+                <option value="single">Single Owner / Single Handler</option>
+                <option value="co-owner">Co-Owner / Joint Handling</option>
+                <option value="family">Family / Multiple Handlers</option>
+            </select>
+        </div>
+
+        <!-- Primary Owner -->
+        <div class="form-group">
+            <label>Owner/Handler Name: *</label>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" name="owner_first_name" placeholder="First Name" required>
+                <input type="text" name="owner_last_name" placeholder="Last Name" required>
+            </div>
+        </div>
+
+        <!-- Primary Phone -->
+        <div class="form-group">
+            <label>Phone Number (Format: 123-456-7890): *</label>
+            <input type="tel" id="primaryPhone" name="primary_phone" 
+                   pattern="^[0-9]{3}-[0-9]{3}-[0-9]{4}$" 
+                   placeholder="555-555-5555" required oninput="validatePhone(this, 'primaryPhoneErr')">
+            <span id="primaryPhoneErr" class="error">Please enter a valid 10-digit phone number formatted as 123-456-7890.</span>
+        </div>
+
+        <!-- Primary Signature -->
+        <div class="form-group">
+            <label>Client Signature: *</label>
+            <canvas id="primarySigCanvas" class="signature-pad" width="400" height="120"></canvas>
+            <p><small>First/Last Name printed & Date auto-attached upon submission.</small></p>
+            <button type="button" onclick="clearCanvas('primarySigCanvas')">Clear Signature</button>
+            <input type="hidden" name="primary_signature_data" id="primarySigData" required>
+        </div>
+
+        <!-- Secondary Fields -->
+        <div id="secondarySection" class="hidden">
+            <hr>
+            <h3>Secondary Owner Information</h3>
+
+            <div class="form-group">
+                <label>Secondary Owner Signature: *</label>
+                <canvas id="secondarySigCanvas" class="signature-pad" width="400" height="120"></canvas>
+                <button type="button" onclick="clearCanvas('secondarySigCanvas')">Clear Signature</button>
+                <input type="hidden" name="secondary_signature_data" id="secondarySigData">
+            </div>
+
+            <div class="form-group">
+                <label>Secondary Owner Name: *</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="secFirst" name="secondary_first_name" placeholder="First Name">
+                    <input type="text" id="secLast" name="secondary_last_name" placeholder="Last Name">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Secondary Phone Number (Format: 123-456-7890):</label>
+                <input type="tel" id="secondaryPhone" name="secondary_phone" 
+                       pattern="^[0-9]{3}-[0-9]{3}-[0-9]{4}$" 
+                       placeholder="555-555-5555" oninput="validatePhone(this, 'secondaryPhoneErr')">
+                <span id="secondaryPhoneErr" class="error">Please enter a valid 10-digit phone number formatted as 123-456-7890.</span>
+            </div>
+            <hr>
+        </div>
+
+        <!-- Email Setup -->
+        <div class="form-group">
+            <label>Email: *</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label>Confirm Email: *</label>
+            <input type="email" id="confirmEmail" name="confirm_email" oninput="validateEmails()" required>
+            <span id="emailError" class="error">Emails do not match!</span>
+        </div>
+
+        <!-- Referral Information -->
+        <div class="form-group">
+            <label>How did you hear about us? (Optional)</label>
+            <select name="referral_source">
+                <option value="">-- Select Option --</option>
+                <option value="Google">Google Search</option>
+                <option value="Facebook">Facebook</option>
+                <option value="Friend/Family">Friend/Family</option>
+                <option value="Vet">Veterinarian</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Referral Name (Optional):</label>
+            <input type="text" name="referral_name">
+        </div>
+
+        <!-- Dog Details -->
+        <div class="form-group">
+            <label>Dog Name: *</label>
+            <input type="text" name="dog_name" required>
+        </div>
+
+        <div class="form-group">
+            <label>Dog Breed (Optional - Start typing to see suggestions):</label>
+            <input type="text" name="dog_breed" list="breedList" placeholder="Unknown">
+            <datalist id="breedList">
+                <option value="Unknown"></option>
+                <option value="Labrador Retriever"></option>
+                <option value="German Shepherd"></option>
+                <option value="Golden Retriever"></option>
+                <option value="French Bulldog"></option>
+                <option value="Poodle"></option>
+                <option value="Mixed Breed"></option>
+            </datalist>
+        </div>
+
+        <div class="form-group">
+            <label>Dog Sex: (Select One)</label>
+            <div class="radio-group">
+                <label><input type="radio" name="dog_sex" value="Male Intact"> Male Intact</label>
+                <label><input type="radio" name="dog_sex" value="Male Neutered"> Male Neutered</label>
+                <label><input type="radio" name="dog_sex" value="Female Intact"> Female Intact</label>
+                <label><input type="radio" name="dog_sex" value="Female Spayed"> Female Spayed</label>
+                <label><input type="radio" name="dog_sex" value="Unknown"> Unknown</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Dog Age (Years/Months):</label>
+            <input type="text" name="dog_age" placeholder="e.g., 2 years or 6 months">
+        </div>
+
+        <!-- Blocking Behavior Question -->
+        <div class="form-group">
+            <label>Has your dog ever bitten or broken skin on a human/animal? *</label>
+            <select id="biteHistory" name="bite_history" onchange="checkBiteHistory()" required>
+                <option value="">-- Select Answer --</option>
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+            <span id="biteWarning" class="error">Selecting "Yes" disables form submission. Please contact us directly prior to onboarding.</span>
+        </div>
+
+        <!-- Vet Information -->
+        <div class="form-group">
+            <label>Vet Clinic: *</label>
+            <input type="text" name="vet_clinic" required>
+        </div>
+        <div class="form-group">
+            <label>Vet Phone Number (Optional):</label>
+            <input type="tel" id="vetPhone" name="vet_phone" 
+                   pattern="^[0-9]{3}-[0-9]{3}-[0-9]{4}$" 
+                   placeholder="555-555-5555" oninput="validatePhone(this, 'vetPhoneErr')">
+            <span id="vetPhoneErr" class="error">Please enter a valid 10-digit phone number formatted as 123-456-7890.</span>
+        </div>
+
+        <!-- Media & Checkbox -->
+        <div class="form-group">
+            <label>Upload or Take Dog Photo (Optional):</label>
+            <input type="file" name="dog_photo" accept="image/*" capture="environment">
+        </div>
+
+        <div class="form-group">
+            <label>
+                <input type="checkbox" name="certify_info" required> 
+                I certify that all information provided above is correct and true. *
+            </label>
+        </div>
+
+        <button type="submit" id="submitBtn">Submit Onboarding</button>
+    </form>
+
+    <script>
+        // Fetch and load waiver content dynamically from waiver.html
+        window.addEventListener('DOMContentLoaded', () => {
+            fetch('waiver.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response failed');
+                    return response.text();
+                })
+                .then(htmlText => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(htmlText, 'text/html');
+                    // Get the scroll-box content from waiver.html
+                    const waiverBox = doc.querySelector('.scroll-box');
+                    if (waiverBox) {
+                        document.getElementById('waiverContent').innerHTML = waiverBox.innerHTML;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching waiver content:', error);
+                    document.getElementById('waiverContent').innerHTML = '<p style="color:red;">Unable to load waiver content dynamically. Please ensure waiver.html is placed in the same folder.</p>';
+                });
+        });
+
+        // Real-Time Phone Validation
+        function validatePhone(input, errorSpanId) {
+            const phoneRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+            const errorElement = document.getElementById(errorSpanId);
+
+            if (!input.required && input.value.trim() === "") {
+                input.classList.remove('invalid');
+                errorElement.style.display = 'none';
+                return true;
+            }
+
+            if (!phoneRegex.test(input.value)) {
+                input.classList.add('invalid');
+                errorElement.style.display = 'block';
+                input.setCustomValidity("Invalid phone number format.");
+                return false;
+            } else {
+                input.classList.remove('invalid');
+                errorElement.style.display = 'none';
+                input.setCustomValidity("");
+                return true;
+            }
+        }
+
+        // Canvas Setup Logic
+        function setupCanvas(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            let drawing = false;
+
+            canvas.addEventListener('mousedown', () => drawing = true);
+            canvas.addEventListener('mouseup', () => { drawing = false; ctx.beginPath(); });
+            canvas.addEventListener('mousemove', draw);
+
+            canvas.addEventListener('touchstart', (e) => { drawing = true; draw(e.touches[0]); });
+            canvas.addEventListener('touchend', () => { drawing = false; ctx.beginPath(); });
+            canvas.addEventListener('touchmove', (e) => { draw(e.touches[0]); e.preventDefault(); });
+
+            function draw(e) {
+                if (!drawing) return;
+                const rect = canvas.getBoundingClientRect();
+                ctx.lineWidth = 2;
+                ctx.lineCap = 'round';
+                ctx.strokeStyle = '#000';
+                ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+            }
+        }
+
+        function clearCanvas(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        setupCanvas('primarySigCanvas');
+        setupCanvas('secondarySigCanvas');
+
+        // Dynamic Dropdown logic
+        function toggleSecondaryFields() {
+            const dropdown = document.getElementById('ownershipType');
+            const secSection = document.getElementById('secondarySection');
+            const secFirst = document.getElementById('secFirst');
+            const secLast = document.getElementById('secLast');
+            const secPhone = document.getElementById('secondaryPhone');
+            const secSigData = document.getElementById('secondarySigData');
+
+            if (dropdown.selectedIndex !== 0) { 
+                secSection.classList.remove('hidden');
+                secFirst.required = true;
+                secLast.required = true;
+                secPhone.required = true;
+                secSigData.required = true;
+            } else {
+                secSection.classList.add('hidden');
+                secFirst.required = false;
+                secLast.required = false;
+                secPhone.required = false;
+                secSigData.required = false;
+                secPhone.classList.remove('invalid');
+                document.getElementById('secondaryPhoneErr').style.display = 'none';
+            }
+        }
+
+        // Email Matching Check
+        function validateEmails() {
+            const e1 = document.getElementById('email').value;
+            const e2 = document.getElementById('confirmEmail').value;
+            const err = document.getElementById('emailError');
+            if (e1 !== e2) {
+                err.style.display = 'block';
+                document.getElementById('confirmEmail').setCustomValidity("Emails do not match.");
+            } else {
+                err.style.display = 'none';
+                document.getElementById('confirmEmail').setCustomValidity("");
+            }
+        }
+
+        // Bite History Check
+        function checkBiteHistory() {
+            const val = document.getElementById('biteHistory').value;
+            const btn = document.getElementById('submitBtn');
+            const warn = document.getElementById('biteWarning');
+
+            if (val === 'Yes') {
+                btn.disabled = true;
+                warn.style.display = 'block';
+            } else {
+                btn.disabled = false;
+                warn.style.display = 'none';
+            }
+        }
+
+        // Form Submit Guard
+        document.getElementById('onboardingForm').addEventListener('submit', function(e) {
+            const primaryPhone = document.getElementById('primaryPhone');
+            const secondaryPhone = document.getElementById('secondaryPhone');
+
+            let isValid = validatePhone(primaryPhone, 'primaryPhoneErr');
+            
+            if (document.getElementById('ownershipType').selectedIndex !== 0) {
+                const secValid = validatePhone(secondaryPhone, 'secondaryPhoneErr');
+                if (!secValid) isValid = false;
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+                alert("Please correct the phone number formatting before submitting.");
+                return false;
+            }
+
+            // Store Canvas Signatures into hidden inputs
+            document.getElementById('primarySigData').value = document.getElementById('primarySigCanvas').toDataURL();
+            if (document.getElementById('ownershipType').selectedIndex !== 0) {
+                document.getElementById('secondarySigData').value = document.getElementById('secondarySigCanvas').toDataURL();
+            }
+        });
+    </script>
+</body>
+</html>
