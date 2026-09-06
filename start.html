@@ -317,6 +317,20 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
 
+        // Helper function to check if canvas signature pad is empty
+        function isCanvasBlank(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            const pixelData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+            
+            for (let i = 3; i < pixelData.length; i += 4) {
+                if (pixelData[i] !== 0) {
+                    return false; // Canvas contains drawn pixels
+                }
+            }
+            return true; // Canvas is empty
+        }
+
         setupCanvas('primarySigCanvas');
         setupCanvas('secondarySigCanvas');
 
@@ -378,13 +392,26 @@
         document.getElementById('onboardingForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
+            // Validate Primary Signature
+            if (isCanvasBlank('primarySigCanvas')) {
+                alert("Please provide a signature in the Client Signature box before submitting.");
+                return false;
+            }
+
+            // Validate Secondary Signature IF dynamic section is enabled
+            const ownershipType = document.getElementById('ownershipType');
+            if (ownershipType.selectedIndex !== 0 && isCanvasBlank('secondarySigCanvas')) {
+                alert("Please provide a signature in the Secondary Owner Signature box before submitting.");
+                return false;
+            }
+
             const primaryPhone = document.getElementById('primaryPhone');
             const secondaryPhone = document.getElementById('secondaryPhone');
             const vetPhone = document.getElementById('vetPhone');
 
             let isValid = validatePhone(primaryPhone, 'primaryPhoneErr');
 
-            if (document.getElementById('ownershipType').selectedIndex !== 0) {
+            if (ownershipType.selectedIndex !== 0) {
                 const secValid = validatePhone(secondaryPhone, 'secondaryPhoneErr');
                 if (!secValid) isValid = false;
             }
@@ -401,7 +428,7 @@
 
             // Save signatures to hidden inputs
             document.getElementById('primarySigData').value = document.getElementById('primarySigCanvas').toDataURL();
-            if (document.getElementById('ownershipType').selectedIndex !== 0) {
+            if (ownershipType.selectedIndex !== 0) {
                 document.getElementById('secondarySigData').value = document.getElementById('secondarySigCanvas').toDataURL();
             }
 
