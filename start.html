@@ -110,7 +110,6 @@
             <div class="form-group">
                 <label>Secondary Phone Number (Format: 123-456-7890) (Optional):</label>
                 <input type="tel" id="secondaryPhone" name="secondary_phone" 
-                       pattern="^[0-9]{3}-[0-9]{3}-[0-9]{4}$" 
                        placeholder="555-555-5555" oninput="validatePhone(this, 'secondaryPhoneErr')">
                 <span id="secondaryPhoneErr" class="error">Please enter a valid 10-digit phone number formatted as 123-456-7890.</span>
             </div>
@@ -196,7 +195,6 @@
         <div class="form-group">
             <label>Vet Phone Number (Optional):</label>
             <input type="tel" id="vetPhone" name="vet_phone" 
-                   pattern="^[0-9]{3}-[0-9]{3}-[0-9]{4}$" 
                    placeholder="555-555-5555" oninput="validatePhone(this, 'vetPhoneErr')">
             <span id="vetPhoneErr" class="error">Please enter a valid 10-digit phone number formatted as 123-456-7890.</span>
         </div>
@@ -265,9 +263,11 @@
             const phoneRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
             const errorElement = document.getElementById(errorSpanId);
 
+            // Allow blank values for optional phone fields
             if (!input.required && input.value.trim() === "") {
                 input.classList.remove('invalid');
                 errorElement.style.display = 'none';
+                input.setCustomValidity("");
                 return true;
             }
 
@@ -332,7 +332,7 @@
                 secSection.classList.remove('hidden');
                 secFirst.required = true;
                 secLast.required = true;
-                secPhone.required = false; // Optional
+                secPhone.required = false; // Explicitly non-required
             } else {
                 secSection.classList.add('hidden');
                 secFirst.required = false;
@@ -340,6 +340,7 @@
                 secPhone.required = false;
                 secPhone.value = "";
                 secPhone.classList.remove('invalid');
+                secPhone.setCustomValidity("");
                 document.getElementById('secondaryPhoneErr').style.display = 'none';
             }
         }
@@ -379,12 +380,18 @@
 
             const primaryPhone = document.getElementById('primaryPhone');
             const secondaryPhone = document.getElementById('secondaryPhone');
+            const vetPhone = document.getElementById('vetPhone');
 
             let isValid = validatePhone(primaryPhone, 'primaryPhoneErr');
 
-            if (document.getElementById('ownershipType').selectedIndex !== 0 && secondaryPhone.value.trim() !== "") {
+            if (document.getElementById('ownershipType').selectedIndex !== 0) {
                 const secValid = validatePhone(secondaryPhone, 'secondaryPhoneErr');
                 if (!secValid) isValid = false;
+            }
+
+            if (vetPhone.value.trim() !== "") {
+                const vetValid = validatePhone(vetPhone, 'vetPhoneErr');
+                if (!vetValid) isValid = false;
             }
 
             if (!isValid) {
