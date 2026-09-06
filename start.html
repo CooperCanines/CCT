@@ -149,7 +149,7 @@
             <input type="text" name="dog_name" required>
         </div>
 
-        <!-- Dynamically Populated Dog Breed Field -->
+        <!-- Dynamically Populated Dog Breed Field via Dog CEO API -->
         <div class="form-group">
             <label>Dog Breed (Optional - Start typing to see suggestions):</label>
             <input type="text" name="dog_breed" list="breedList" placeholder="Start typing a breed...">
@@ -237,7 +237,7 @@
                     document.getElementById('waiverContent').innerHTML = '<p style="color:red;">Unable to load waiver content dynamically. Please ensure waiver.html is placed in the same folder.</p>';
                 });
 
-            // Fetch breeds dynamically from Dog API (Wikipedia-backed)
+            // Fetch breeds dynamically from Dog API
             fetch('https://dog.ceo/api/breeds/list/all')
                 .then(response => response.json())
                 .then(data => {
