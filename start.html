@@ -43,9 +43,9 @@
         <div class="form-group">
             <label>May Cooper Canines LLC use photos or recordings of you and your dog for promotional, marketing, and educational purposes? (Full use may obtain gift(s) per Clause 5.B of the Waiver.) *</label>
             <div class="radio-group">
-                <label><input type="radio" name="service_choice" value="Option A" required> Full - Public Media & Educational Use Approved.</label>
-                <label><input type="radio" name="service_choice" value="Option B"> Limited - Public Photo & Private Client Instruction Only.</label>
-                <label><input type="radio" name="service_choice" value="Option C"> No - Internal Use Only (No Public or Client Media Use.)</label>
+                <label><input type="radio" name="media_consent" value="Full Media Consent" required> Full - Public Media & Educational Use Approved.</label>
+                <label><input type="radio" name="media_consent" value="Limited Photo Only"> Limited - Public Photo & Private Client Instruction Only.</label>
+                <label><input type="radio" name="media_consent" value="No Public Media"> No - Internal Use Only (No Public or Client Media Use.)</label>
             </div>
         </div>
 
@@ -108,7 +108,7 @@
             </div>
 
             <div class="form-group">
-                <label>Secondary Phone Number (Format: 123-456-7890):</label>
+                <label>Secondary Phone Number (Format: 123-456-7890) (Optional):</label>
                 <input type="tel" id="secondaryPhone" name="secondary_phone" 
                        pattern="^[0-9]{3}-[0-9]{3}-[0-9]{4}$" 
                        placeholder="555-555-5555" oninput="validatePhone(this, 'secondaryPhoneErr')">
@@ -180,12 +180,12 @@
         <!-- Blocking Behavior Question -->
         <div class="form-group">
             <label>Are your dog’s vaccinations current, as required by your state and are you willing to show proof if requested? *</label>
-            <select id="biteHistory" name="bite_history" onchange="checkBiteHistory()" required>
+            <select id="rabiesVaccine" name="rabies" onchange="checkRabiesVaccine()" required>
                 <option value="">-- Select Answer --</option>
                 <option value="No">No</option>
                 <option value="Yes">Yes</option>
             </select>
-            <span id="biteWarning" class="error">Selecting "No" disables form submission. Please contact us directly prior to onboarding.</span>
+            <span id="rabiesWarning" class="error">Selecting "No" disables form submission. Please contact us directly prior to onboarding.</span>
         </div>
 
         <!-- Vet Information -->
@@ -332,12 +332,13 @@
                 secSection.classList.remove('hidden');
                 secFirst.required = true;
                 secLast.required = true;
-                secPhone.required = true;
+                secPhone.required = false; // Optional
             } else {
                 secSection.classList.add('hidden');
                 secFirst.required = false;
                 secLast.required = false;
                 secPhone.required = false;
+                secPhone.value = "";
                 secPhone.classList.remove('invalid');
                 document.getElementById('secondaryPhoneErr').style.display = 'none';
             }
@@ -357,11 +358,11 @@
             }
         }
 
-        // Bite History Check
-        function checkBiteHistory() {
-            const val = document.getElementById('biteHistory').value;
+        // Rabies Check
+        function checkRabiesVaccine() {
+            const val = document.getElementById('rabiesVaccine').value;
             const btn = document.getElementById('submitBtn');
-            const warn = document.getElementById('biteWarning');
+            const warn = document.getElementById('rabiesWarning');
 
             if (val === 'No') {
                 btn.disabled = true;
@@ -381,7 +382,7 @@
 
             let isValid = validatePhone(primaryPhone, 'primaryPhoneErr');
 
-            if (document.getElementById('ownershipType').selectedIndex !== 0) {
+            if (document.getElementById('ownershipType').selectedIndex !== 0 && secondaryPhone.value.trim() !== "") {
                 const secValid = validatePhone(secondaryPhone, 'secondaryPhoneErr');
                 if (!secValid) isValid = false;
             }
@@ -406,10 +407,17 @@
             .then(async (response) => {
                 let json = await response.json();
                 if (response.status == 200) {
-                    alert("Form submitted successfully!");
+                    // Prompt client to print/save before form resets
+                    const wantToPrint = confirm("Your registration has been submitted successfully!\n\nWould you like to print or save a copy of this completed document for your records before closing?");
+                    
+                    if (wantToPrint) {
+                        window.print();
+                    }
+
                     this.reset();
                     clearCanvas('primarySigCanvas');
                     clearCanvas('secondarySigCanvas');
+                    toggleSecondaryFields();
                 } else {
                     alert("Error: " + json.message);
                 }
