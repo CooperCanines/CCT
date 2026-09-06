@@ -37,7 +37,7 @@
 
         <!-- Question with 3 Choices (Stacked Vertically) -->
         <div class="form-group">
-            <label>1. May Cooper Canines LLC use photos or recordings of you and your dog for promotional, marketing, and educational purposes? (Full use may obtain gift(s) per Clause 5.B of the Waiver.) *</label>
+            <label>May Cooper Canines LLC use photos or recordings of you and your dog for promotional, marketing, and educational purposes? (Full use may obtain gift(s) per Clause 5.B of the Waiver.) *</label>
             <div class="radio-group">
                 <label><input type="radio" name="service_choice" value="Option A" required> Full - Public Media & Educational Use Approved.</label>
                 <label><input type="radio" name="service_choice" value="Option B"> Limited - Public Photo & Private Client Instruction Only.</label>
@@ -50,8 +50,9 @@
             <label>Ownership Type: *</label>
             <select id="ownershipType" name="ownership_type" required onchange="toggleSecondaryFields()">
                 <option value="single">Single Owner / Single Handler</option>
-                <option value="co-owner">Co-Owner / Joint Handling</option>
-                <option value="family">Family / Multiple Handlers</option>
+                <option value="co-owner">Family (e.g. Parent, Sibling, Child)</option>
+                <option value="family">Colleague</option>
+                <option value="family">Other</option>
             </select>
         </div>
 
@@ -68,7 +69,6 @@
         <div class="form-group">
             <label>Client Signature: *</label>
             <canvas id="primarySigCanvas" class="signature-pad" width="400" height="120"></canvas>
-            <p><small>First/Last Name printed & Date auto-attached upon submission.</small></p>
             <button type="button" onclick="clearCanvas('primarySigCanvas')">Clear Signature</button>
             <input type="hidden" name="primary_signature_data" id="primarySigData" required>
         </div>
@@ -303,7 +303,7 @@
 
         // Dynamic Dropdown logic
         function toggleSecondaryFields() {
-            const dropdown = document.getElementById('ownershipType');
+            const dropdown = document.getElementById('Will an additional Owner/Handler be involved with the training?');
             const secSection = document.getElementById('secondarySection');
             const secFirst = document.getElementById('secFirst');
             const secLast = document.getElementById('secLast');
