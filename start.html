@@ -16,7 +16,7 @@
         .hidden { display: none; }
         .radio-group, .checkbox-group { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
         .error { color: red; font-size: 0.85rem; display: none; margin-top: 4px; }
-        .scroll-box { height: auto; overflow-y: visible; border: 1px solid #ccc; padding: 15px; font-size: 0.9rem; background: #fff;border-radius: 6px; }
+        .scroll-box { height: auto; overflow-y: visible; border: 1px solid #ccc; padding: 15px; font-size: 0.9rem; background: #fff; border-radius: 6px; }
         button[type="submit"] { background: #009100; color: white; border: none; padding: 12px 20px; font-size: 1rem; border-radius: 7px; cursor: pointer; }
         button[type="submit"]:disabled { background: #ccc; cursor: not-allowed; }
     </style>
@@ -64,15 +64,6 @@
             </div>
         </div>
 
-        <!-- Primary Phone -->
-        <div class="form-group">
-            <label>Phone Number (Format: 123-456-7890): *</label>
-            <input type="tel" id="primaryPhone" name="primary_phone" 
-                   pattern="^[0-9]{3}-[0-9]{3}-[0-9]{4}$" 
-                   placeholder="555-555-5555" required oninput="validatePhone(this, 'primaryPhoneErr')">
-            <span id="primaryPhoneErr" class="error">Please enter a valid 10-digit phone number formatted as 123-456-7890.</span>
-        </div>
-
         <!-- Primary Signature -->
         <div class="form-group">
             <label>Client Signature: *</label>
@@ -82,18 +73,21 @@
             <input type="hidden" name="primary_signature_data" id="primarySigData" required>
         </div>
 
+        <!-- Primary Phone (Moved below Primary Signature) -->
+        <div class="form-group">
+            <label>Phone Number (Format: 123-456-7890): *</label>
+            <input type="tel" id="primaryPhone" name="primary_phone" 
+                   pattern="^[0-9]{3}-[0-9]{3}-[0-9]{4}$" 
+                   placeholder="555-555-5555" required oninput="validatePhone(this, 'primaryPhoneErr')">
+            <span id="primaryPhoneErr" class="error">Please enter a valid 10-digit phone number formatted as 123-456-7890.</span>
+        </div>
+
         <!-- Secondary Fields -->
         <div id="secondarySection" class="hidden">
             <hr>
             <h3>Secondary Owner Information</h3>
 
-            <div class="form-group">
-                <label>Secondary Owner Signature: *</label>
-                <canvas id="secondarySigCanvas" class="signature-pad" width="400" height="120"></canvas>
-                <button type="button" onclick="clearCanvas('secondarySigCanvas')">Clear Signature</button>
-                <input type="hidden" name="secondary_signature_data" id="secondarySigData">
-            </div>
-
+            <!-- Secondary Owner Name -->
             <div class="form-group">
                 <label>Secondary Owner Name: *</label>
                 <div style="display: flex; gap: 10px;">
@@ -102,6 +96,15 @@
                 </div>
             </div>
 
+            <!-- Secondary Signature (Moved under Secondary Owner Name) -->
+            <div class="form-group">
+                <label>Secondary Owner Signature: *</label>
+                <canvas id="secondarySigCanvas" class="signature-pad" width="400" height="120"></canvas>
+                <button type="button" onclick="clearCanvas('secondarySigCanvas')">Clear Signature</button>
+                <input type="hidden" name="secondary_signature_data" id="secondarySigData">
+            </div>
+
+            <!-- Secondary Phone Number (Moved under Secondary Signature) -->
             <div class="form-group">
                 <label>Secondary Phone Number (Format: 123-456-7890):</label>
                 <input type="tel" id="secondaryPhone" name="secondary_phone" 
