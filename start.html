@@ -179,13 +179,13 @@
 
         <!-- Blocking Behavior Question -->
         <div class="form-group">
-            <label>Has your dog ever bitten or broken skin on a human/animal? *</label>
+            <label>Are your dog’s vaccinations current, as required by your state and are you willing to show proof if requested? *</label>
             <select id="biteHistory" name="bite_history" onchange="checkBiteHistory()" required>
                 <option value="">-- Select Answer --</option>
                 <option value="No">No</option>
                 <option value="Yes">Yes</option>
             </select>
-            <span id="biteWarning" class="error">Selecting "Yes" disables form submission. Please contact us directly prior to onboarding.</span>
+            <span id="biteWarning" class="error">Selecting "No" disables form submission. Please contact us directly prior to onboarding.</span>
         </div>
 
         <!-- Vet Information -->
@@ -210,7 +210,7 @@
         <div class="form-group">
             <label>
                 <input type="checkbox" name="certify_info" required> 
-                I certify that all information provided above is correct and true. *
+                I certify that the information provided is accurate and complete. I understand that any failure to disclose relevant information does not invalidate or limit the terms of the Liability Waiver.*
             </label>
         </div>
 
@@ -373,7 +373,7 @@
             const btn = document.getElementById('submitBtn');
             const warn = document.getElementById('biteWarning');
 
-            if (val === 'Yes') {
+            if (val === 'No') {
                 btn.disabled = true;
                 warn.style.display = 'block';
             } else {
