@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - Cooper Canines LLC</title>
+    <style>
+        :root {
+            --primary: #00b300;
+            --primary-hover: #00d900;
+            --bg-dark: #12181b;
+            --card-bg: #1e262c;
+            --card-inner: #2a343d;
+            --text-light: #e0e6ed;
+            --text-muted: #9ba8b5;
+            --highlight-yellow: #ffcc00; /* Brighter color for optional highlights */
+            --border-color: #3a4754;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: var(--text-light);
+            background-color: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 1.5rem;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin: 0 0 0.5rem 0;
+            font-size: 1.8rem;
+        }
+
+        p {
+            margin: 0.5rem 0 1.5rem 0;
+            line-height: 1.4;
+        }
+
+        /* High-visibility optional styling */
+        .optional-highlight {
+            color: var(--highlight-yellow);
+            font-weight: bold;
+        }
+
+        .subtext {
+            color: var(--highlight-yellow);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+        }
+
+        /* Action Buttons */
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: block;
+            padding: 0.85rem 1.2rem;
+            border-radius: 6px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background-color: var(--card-inner);
+            color: var(--text-light);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Contact Section */
+        .contact-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .contact-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--card-inner);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.85rem;
+            text-decoration: none;
+            color: var(--text-light);
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .contact-card:hover {
+            border-color: var(--primary);
+            background-color: #313d48;
+        }
+
+        .contact-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.2rem;
+        }
+
+        .contact-value {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Form Received!</h1>
+        <p>Thank you for submitting your client intake details.</p>
+
+        <div class="actions">
+            <div>
+                <a href="questions.html" class="btn btn-primary">
+                    Optional: Fill Out Consultation Questions &rarr;
+                </a>
+                <p class="subtext">
+                    <span class="optional-highlight">(Optional)</span> Unanswered questions will simply be covered during your consultation.
+                </p>
+            </div>
+
+            <a href="https://coopercanines.com" class="btn btn-secondary">&larr; Return to Main Website</a>
+        </div>
+
+        <div class="contact-title">Questions? Reach Out Directly</div>
+        
+        <div class="contact-grid">
+            <a href="tel:8564331259" class="contact-card">
+                <span class="contact-label">Call / Text</span>
+                <span class="contact-value">(856) 433-1259</span>
+            </a>
+            
+            <a href="mailto:Dan@CooperCanines.com" class="contact-card">
+                <span class="contact-label">Email</span>
+                <span class="contact-value">Dan@CooperCanines.com</span>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
