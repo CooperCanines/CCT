@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Intake Questions - Cooper Canines LLC</title>
+    <style>
+        :root {
+            --primary: #00b300;
+            --primary-hover: #00d900;
+            --bg-dark: #12181b;
+            --card-bg: #1e262c;
+            --card-inner: #2a343d;
+            --text-light: #e0e6ed;
+            --text-muted: #9ba8b5;
+            --border-color: #3a4754;
+            --input-bg: #171d22;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: var(--text-light);
+            background-color: var(--bg-dark);
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            flex: 1 0 auto;
+            max-width: 850px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            box-sizing: border-box;
+        }
+
+        /* Top Back Button */
+        .top-nav {
+            margin-bottom: 1.5rem;
+        }
+
+        .back-home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--card-bg);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .back-home-btn:hover {
+            background-color: var(--primary);
+            color: #ffffff;
+        }
+
+        /* Header Styling */
+        .header-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: var(--primary);
+            margin: 0 0 0.5rem 0;
+            font-size: 2rem;
+        }
+
+        .header-card p {
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Form Card Layout */
+        .form-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            margin-bottom: 2rem;
+        }
+
+        .question-block {
+            background-color: var(--card-inner);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .question-title {
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .required {
+            color: #ff5555;
+            margin-left: 0.2rem;
+        }
+
+        .optional {
+            font-weight: normal;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Inputs & Options */
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0.5rem;
+        }
+
+        label.option-label {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background-color: var(--input-bg);
+            padding: 0.6rem 0.8rem;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+            font-size: 0.95rem;
+        }
+
+        label.option-label:hover {
+            border-color: var(--primary);
+            background-color: #1f272e;
+        }
+
+        input[type="radio"], input[type="checkbox"] {
+            accent-color: var(--primary);
+            width: 1.1rem;
+            height: 1.1rem;
+            cursor: pointer;
+        }
+
+        /* Text Inputs & Textareas */
+        input[type="text"], textarea {
+            width: 100%;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-light);
+            padding: 0.75rem;
+            font-size: 0.95rem;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .other-input {
+            margin-top: 0.5rem;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            display: block;
+            width: 100%;
+            background-color: var(--primary);
+            color: #ffffff;
+            border: none;
+            padding: 1rem;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.99);
+        }
+
+        /* Floating Scroll Top Button */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            text-decoration: none;
+        }
+
+        footer {
+            min-height: 3rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body id="top">
+
+    <div class="container">
+        <!-- Top Navigation -->
+        <div class="top-nav">
+            <a href="https://coopercanines.com" class="back-home-btn">
+                &larr; Back to Website
+            </a>
+        </div>
+
+        <!-- Header -->
+        <div class="header-card">
+            <h1>Client Intake Questionnaire</h1>
+            <p>Please complete the details below to help us tailor our training programs for your dog.</p>
+        </div>
+
+        <!-- Main Questionnaire Form -->
+        <form class="form-card" action="#" method="POST">
+
+            <!-- Q1 -->
+            <div class="question-block">
+                <div class="question-title">1. Are you a first time dog owner? <span class="required">*</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q1_first_owner" value="First Dog / New Owner" required> First Dog / New Owner</label>
+                    <label class="option-label"><input type="radio" name="q1_first_owner" value="I have previously owned a dog"> I have previously owned a dog</label>
+                </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="question-block">
+                <div class="question-title">2. Have you worked with a dog trainer or class before? <span class="required">*</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q2_trainer_before" value="Yes - current dog(s)" required> Yes - current dog(s)</label>
+                    <label class="option-label"><input type="radio" name="q2_trainer_before" value="Yes - different dog"> Yes - different dog</label>
+                    <label class="option-label"><input type="radio" name="q2_trainer_before" value="No"> No</label>
+                </div>
+            </div>
+
+            <!-- Q2A -->
+            <div class="question-block">
+                <div class="question-title">2A. How effective was your previous training experience? <span class="optional">(Optional)</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q2a_effectiveness" value="Very effective"> Very effective</label>
+                    <label class="option-label"><input type="radio" name="q2a_effectiveness" value="Somewhat effective"> Somewhat effective</label>
+                    <label class="option-label"><input type="radio" name="q2a_effectiveness" value="Not effective and/or had concerns about the experience"> Not effective and/or had concerns about the experience</label>
+                </div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="question-block">
+                <div class="question-title">3. Has your dog (or either dog) ever shown possessive, protective, or guarding behavior over any of the following? <span class="required">*</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q3_guarding[]" value="People"> People</label>
+                    <label class="option-label"><input type="checkbox" name="q3_guarding[]" value="Food or treats"> Food or treats</label>
+                    <label class="option-label"><input type="checkbox" name="q3_guarding[]" value="Toys or objects"> Toys or objects</label>
+                    <label class="option-label"><input type="checkbox" name="q3_guarding[]" value="Other dogs or animals"> Other dogs or animals</label>
+                    <label class="option-label"><input type="checkbox" name="q3_guarding[]" value="None or unsure"> None or unsure</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q3_guarding_other" placeholder="Other (please specify)">
+                </div>
+            </div>
+
+            <!-- Q4 -->
+            <div class="question-block">
+                <div class="question-title">4. Has your dog (or either dog) ever shown aggressive or threatening behavior toward a person or animal? <span class="optional">(Select all that apply)</span> <span class="required">*</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="None"> None</label>
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="Person in same household"> Person in same household</label>
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="Known person (non-household)"> Known person (non-household)</label>
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="Unfamiliar person"> Unfamiliar person</label>
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="Other dog in household"> Other dog in household</label>
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="Known dog (non-household)"> Known dog (non-household)</label>
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="Unfamiliar dog"> Unfamiliar dog</label>
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="Other animal"> Other animal</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q4_aggression_other" placeholder="Other (please specify)">
+                </div>
+            </div>
+
+            <!-- Q4A -->
+            <div class="question-block">
+                <div class="question-title">4A. Type of Behavior <span class="optional">(Select all that apply)</span> <span class="required">*</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q4a_behavior[]" value="Growling"> Growling</label>
+                    <label class="option-label"><input type="checkbox" name="q4a_behavior[]" value="Snapping"> Snapping</label>
+                    <label class="option-label"><input type="checkbox" name="q4a_behavior[]" value="Lunging"> Lunging</label>
+                    <label class="option-label"><input type="checkbox" name="q4a_behavior[]" value="Biting (no broken skin)"> Biting (no broken skin)</label>
+                    <label class="option-label"><input type="checkbox" name="q4a_behavior[]" value="Biting (broke skin)"> Biting (broke skin)</label>
+                    <label class="option-label"><input type="checkbox" name="q4a_behavior[]" value="Required medical attention"> Required medical attention</label>
+                    <label class="option-label"><input type="checkbox" name="q4a_behavior[]" value="Animal control involved"> Animal control involved</label>
+                    <label class="option-label"><input type="checkbox" name="q4a_behavior[]" value="Legally declared dangerous/restricted"> Legally declared dangerous/restricted</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q4a_behavior_other" placeholder="Other (please specify)">
+                </div>
+            </div>
+
+            <!-- Q4B -->
+            <div class="question-block">
+                <div class="question-title">4B. Did any incident result in known injury or property damage? <span class="required">*</span></div>
+                <textarea name="q4b_injury_details" placeholder="Please describe any injuries or property damage caused by an incident..." required></textarea>
+            </div>
+
+            <!-- Q5 -->
+            <div class="question-block">
+                <div class="question-title">5. Does your dog (or either dog) have any health conditions, allergies, medication, or physical limitations that may affect training? <span class="optional">(Select all that apply)</span> <span class="required">*</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q5_health_flags[]" value="None"> None</label>
+                    <label class="option-label"><input type="checkbox" name="q5_health_flags[]" value="Allergies"> Allergies</label>
+                    <label class="option-label"><input type="checkbox" name="q5_health_flags[]" value="Medication"> Medication</label>
+                    <label class="option-label"><input type="checkbox" name="q5_health_flags[]" value="Physical Limitation"> Physical Limitation</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q5_health_flags_other" placeholder="Other (please specify)">
+                </div>
+            </div>
+
+            <!-- Q5A -->
+            <div class="question-block">
+                <div class="question-title">5A. Please list your dog's health conditions, allergies, medication, or physical limitations: <span class="required">*</span></div>
+                <textarea name="q5a_health_details" placeholder="List details here..." required></textarea>
+            </div>
+
+            <!-- Q6 -->
+            <div class="question-block">
+                <div class="question-title">6. Must any of the below be avoided during training due to allergies, sensitivities, or restrictions for any person or other animal present? <span class="optional">(Select all that apply)</span> <span class="required">*</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q6_avoid[]" value="None of the below"> None of the below</label>
+                    <label class="option-label"><input type="checkbox" name="q6_avoid[]" value="Beef / Pork"> Beef / Pork</label>
+                    <label class="option-label"><input type="checkbox" name="q6_avoid[]" value="Chicken"> Chicken</label>
+                    <label class="option-label"><input type="checkbox" name="q6_avoid[]" value="Peanut Butter"> Peanut Butter</label>
+                    <label class="option-label"><input type="checkbox" name="q6_avoid[]" value="Wheat / Grains"> Wheat / Grains</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q6_avoid_other" placeholder="Other (please specify)">
+                </div>
+            </div>
+
+            <!-- Q7 -->
+            <div class="question-block">
+                <div class="question-title">7. Are there children or other regular household members who interact with your dog(s)? <span class="optional">(Select all that apply)</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="checkbox" name="q7_household[]" value="Children"> Children</label>
+                    <label class="option-label"><input type="checkbox" name="q7_household[]" value="Adults"> Adults</label>
+                    <label class="option-label"><input type="checkbox" name="q7_household[]" value="None"> None</label>
+                </div>
+            </div>
+
+            <!-- Q8 -->
+            <div class="question-block">
+                <div class="question-title">8. Are there other dogs in the same household? <span class="required">*</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q8_other_dogs" value="Yes" required> Yes</label>
+                    <label class="option-label"><input type="radio" name="q8_other_dogs" value="No"> No</label>
+                </div>
+            </div>
+
+            <!-- Q9 -->
+            <div class="question-block">
+                <div class="question-title">9. Is the dog (or both dogs) crate trained? <span class="required">*</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q9_crate" value="Yes" required> Yes</label>
+                    <label class="option-label"><input type="radio" name="q9_crate" value="No"> No</label>
+                    <label class="option-label"><input type="radio" name="q9_crate" value="Unsure"> Unsure</label>
+                </div>
+            </div>
+
+            <!-- Q10 -->
+            <div class="question-block">
+                <div class="question-title">10. Is there a secure, fenced area at your residence? <span class="required">*</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q10_fence" value="Yes" required> Yes</label>
+                    <label class="option-label"><input type="radio" name="q10_fence" value="No"> No</label>
+                </div>
+            </div>
+
+            <!-- Q11 -->
+            <div class="question-block">
+                <div class="question-title">11. Daily physical and mental exercise for your dog is important for training success. Are you able to incorporate this into your routine? <span class="required">*</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q11_exercise" value="Yes" required> Yes</label>
+                    <label class="option-label"><input type="radio" name="q11_exercise" value="Sometimes"> Sometimes</label>
+                    <label class="option-label"><input type="radio" name="q11_exercise" value="Unsure"> Unsure</label>
+                    <label class="option-label"><input type="radio" name="q11_exercise" value="No"> No</label>
+                </div>
+            </div>
+
+            <!-- Q12 -->
+            <div class="question-block">
+                <div class="question-title">12. Training success depends on consistency between sessions. How often are you able to practice at home? <span class="required">*</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q12_practice" value="Daily" required> Daily</label>
+                    <label class="option-label"><input type="radio" name="q12_practice" value="Several times per week"> Several times per week</label>
+                    <label class="option-label"><input type="radio" name="q12_practice" value="Occasionally"> Occasionally</label>
+                    <label class="option-label"><input type="radio" name="q12_practice" value="Rarely"> Rarely</label>
+                    <label class="option-label"><input type="radio" name="q12_practice" value="Unsure"> Unsure</label>
+                </div>
+            </div>
+
+            <!-- Q13 -->
+            <div class="question-block">
+                <div class="question-title">13. What motivates your dog? <span class="optional">(Optional: Select all that apply)</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q13_motivates[]" value="Food / Treats"> Food / Treats</label>
+                    <label class="option-label"><input type="checkbox" name="q13_motivates[]" value="Toys"> Toys</label>
+                    <label class="option-label"><input type="checkbox" name="q13_motivates[]" value="Praise / Affection"> Praise / Affection</label>
+                    <label class="option-label"><input type="checkbox" name="q13_motivates[]" value="Play"> Play</label>
+                    <label class="option-label"><input type="checkbox" name="q13_motivates[]" value="Not Sure"> Not Sure</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q13_motivates_other" placeholder="Other (please specify)">
+                </div>
+            </div>
+
+            <!-- Q14 -->
+            <div class="question-block">
+                <div class="question-title">14. Does your dog have any known triggers or situations that may cause fear, stress, reactivity, or aggression? <span class="optional">(Optional: Select all that apply)</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="None or Unsure"> None or Unsure</label>
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="People"> People</label>
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="Children"> Children</label>
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="Other dogs"> Other dogs</label>
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="Other animals"> Other animals</label>
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="Loud noises"> Loud noises</label>
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="Handling (ears, paws, collar, etc.)"> Handling (ears, paws, collar, etc.)</label>
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="Food or toy guarding"> Food or toy guarding</label>
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="Door knocking"> Door knocking</label>
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="Moving objects (bikes, cars, etc.)"> Moving objects (bikes, cars, etc.)</label>
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="Strangers approaching or entering the home"> Strangers approaching/entering home</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q14_triggers_other" placeholder="Other (please specify)">
+                </div>
+            </div>
+
+            <!-- Q15 -->
+            <div class="question-block">
+                <div class="question-title">15. Training Requested <span class="optional">(Select all that apply)</span> <span class="required">*</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q15_training[]" value="Aggression / Anxiety / Reactivity"> Aggression / Anxiety / Reactivity</label>
+                    <label class="option-label"><input type="checkbox" name="q15_training[]" value="Clicker Training"> Clicker Training</label>
+                    <label class="option-label"><input type="checkbox" name="q15_training[]" value="Destructive Behavior"> Destructive Behavior</label>
+                    <label class="option-label"><input type="checkbox" name="q15_training[]" value="First-Time Owner / New Dog Support"> First-Time Owner / New Dog Support</label>
+                    <label class="option-label"><input type="checkbox" name="q15_training[]" value="Leash Walking Skills"> Leash Walking Skills</label>
+                    <label class="option-label"><input type="checkbox" name="q15_training[]" value="Obedience and Basic Skills"> Obedience and Basic Skills</label>
+                    <label class="option-label"><input type="checkbox" name="q15_training[]" value="Puppy Training"> Puppy Training</label>
+                    <label class="option-label"><input type="checkbox" name="q15_training[]" value="Recall and Off-Leash"> Recall and Off-Leash</label>
+                    <label class="option-label"><input type="checkbox" name="q15_training[]" value="Socialization"> Socialization</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q15_training_other" placeholder="Other (please specify)">
+                </div>
+            </div>
+
+            <!-- Goals -->
+            <div class="question-block">
+                <div class="question-title">What are your primary training goals? <span class="optional">(Optional)</span></div>
+                <textarea name="primary_goals" placeholder="Tell us about what you want to achieve with training..."></textarea>
+            </div>
+
+            <!-- Additional Notes -->
+            <div class="question-block">
+                <div class="question-title">Additional Requests, Questions, or Concerns? <span class="optional">(Optional)</span></div>
+                <textarea name="additional_concerns" placeholder="Any additional notes for the trainer..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Questionnaire</button>
+        </form>
+    </div>
+
+    <!-- Scroll To Top Button -->
+    <a href="#top" id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top" title="Scroll to top">
+        ▲
+    </a>
+
+    <footer></footer>
+
+    <script>
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.style.display = 'flex';
+            } else {
+                scrollTopBtn.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>
