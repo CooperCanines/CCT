@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cooper Canines Service Area</title>
+    <title>Cooper Canines Service Area Map</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <style>
         :root {
-            --primary: #00793c;
-            --accent: #2ecc71;
-            --logo-orange: #e67e22;
+            --primary: #2ecc71;
             --bg-light: #121212;
             --text-dark: #ecf0f1;
         }
@@ -21,49 +21,107 @@
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+            height: 100vh;
+            position: relative;
         }
 
-        .service-box {
+        header {
+            padding: 1rem;
+            text-align: center;
             background-color: #1e1e1e;
-            border: 1px solid #2c3e50;
-            border-left: 5px solid var(--accent);
-            padding: 2rem;
-            border-radius: 8px;
-            max-width: 600px;
-            width: 90%;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            line-height: 1.6;
-        }
-
-        .service-box h2 {
-            color: var(--accent);
-            margin-top: 0;
-            font-size: 1.5rem;
             border-bottom: 1px solid #2c3e50;
-            padding-bottom: 0.5rem;
+            z-index: 1000;
         }
 
-        .service-box p {
-            margin: 0.75rem 0;
-            font-size: 1rem;
+        h1 {
+            margin: 0;
+            font-size: 1.4rem;
+            color: var(--primary);
         }
 
-        .service-box strong {
+        #map {
+            flex: 1;
+            width: 100%;
+            background-color: #1a1a1a;
+            z-index: 1;
+        }
+
+        .leaflet-container {
+            background: #1a1a1a !important;
+        }
+
+        /* Floating Info Box in the Middle */
+        .service-info-box {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(20, 20, 20, 0.92);
+            color: #ecf0f1;
+            padding: 20px 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            z-index: 1000;
+            border: 1px solid #2c3e50;
+            max-width: 420px;
+            width: 90%;
+            text-align: left;
+            pointer-events: none; /* Allows clicking through the box if needed */
+        }
+
+        .service-info-box h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            color: var(--primary);
+            font-size: 1.1rem;
+            text-align: center;
+            border-bottom: 1px solid #333;
+            padding-bottom: 8px;
+        }
+
+        .service-info-box p {
+            margin: 8px 0;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .service-info-box strong {
             color: #ffffff;
         }
     </style>
 </head>
 <body>
 
-    <div class="service-box">
-        <h2>Service Areas</h2>
+    <header>
+        <h1>Cooper Canines - Service Area Coverage</h1>
+    </header>
+
+    <div id="map"></div>
+
+    <!-- Floating Service Box in the Middle -->
+    <div class="service-info-box">
+        <h3>Service Coverage Areas</h3>
         <p><strong>Primary Service Area:</strong> Camden County</p>
         <p><strong>Secondary Service Areas:</strong> Burlington, Gloucester</p>
         <p><strong>Limited Service Areas:</strong> South Jersey, Eastern PA, Delaware</p>
     </div>
 
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <script>
+        // Initialize map centered around the Delaware Valley region
+        const map = L.map('map', {
+            zoomControl: false
+        }).setView([39.85, -75.10], 9);
+
+        L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+        // Dark base tile layer (Esri Dark Gray)
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri',
+            maxZoom: 16
+        }).addTo(map);
+    </script>
 </body>
 </html>
