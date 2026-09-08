@@ -11,6 +11,24 @@
             --text-dark: #2c3e50;
             --bg-light: #f8f9fa;
             --border-color: #cccccc;
+            --card-bg: #ffffff;
+            --trainer-bg: #f1f8f1;
+            --btn-secondary-bg: #ffffff;
+            --btn-secondary-text: #009100;
+            --btn-secondary-border: #009100;
+        }
+
+        [data-theme="dark"] {
+            --primary: #2ecc71;
+            --primary-hover: #27ae60;
+            --text-dark: #ecf0f1;
+            --bg-light: #121212;
+            --border-color: #2c3e50;
+            --card-bg: #1e1e1e;
+            --trainer-bg: #1a2f23;
+            --btn-secondary-bg: #1e1e1e;
+            --btn-secondary-text: #2ecc71;
+            --btn-secondary-border: #2ecc71;
         }
 
         html {
@@ -24,6 +42,7 @@
             font-family: Arial, sans-serif;
             color: var(--text-dark);
             background-color: var(--bg-light);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         body {
@@ -40,17 +59,52 @@
             box-sizing: border-box;
         }
 
-        /* Top Back to Home Button Container */
+        /* Top Navigation Container */
         .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
-        .back-home-btn {
+        .nav-buttons-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-custom {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background-color: #ffffff;
-            color: var(--primary);
+            background-color: var(--btn-secondary-bg);
+            color: var(--btn-secondary-text);
+            border: 2px solid var(--btn-secondary-border);
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            cursor: pointer;
+        }
+
+        .btn-custom:hover {
+            background-color: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+
+        .btn-primary-custom {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--primary);
+            color: #ffffff;
             border: 2px solid var(--primary);
             padding: 0.6rem 1.2rem;
             border-radius: 6px;
@@ -61,9 +115,9 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        .back-home-btn:hover {
-            background-color: var(--primary);
-            color: #ffffff;
+        .btn-primary-custom:hover {
+            background-color: var(--primary-hover);
+            border-color: var(--primary-hover);
         }
 
         h1 {
@@ -76,7 +130,7 @@
             height: 450px;
             overflow-y: scroll;
             border: 1px solid var(--border-color);
-            background-color: #ffffff;
+            background-color: var(--card-bg);
             padding: 1.5rem;
             border-radius: 8px;
             box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
@@ -88,7 +142,7 @@
             margin-top: 1.5rem;
             margin-bottom: 0.5rem;
             color: var(--primary);
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--border-color);
             padding-bottom: 0.25rem;
         }
 
@@ -98,7 +152,7 @@
         }
 
         .trainer-info {
-            background-color: #f1f8f1;
+            background-color: var(--trainer-bg);
             padding: 1rem;
             border-left: 4px solid var(--primary);
             margin-bottom: 1.5rem;
@@ -107,6 +161,15 @@
 
         .trainer-info p {
             margin: 0.3rem 0;
+        }
+
+        .card-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
         }
 
         /* Floating Scroll to Top Button */
@@ -151,11 +214,21 @@
 <body id="top">
 
     <div class="container">
-        <!-- Back to Home Page Button -->
+        <!-- Top Navigation -->
         <div class="top-nav">
-            <a href="https://coopercanines.com" class="back-home-btn">
-                &larr; Back to Website
-            </a>
+            <div class="nav-buttons-left">
+                <a href="https://coopercanines.com" class="btn-custom">
+                    &larr; Back to Website
+                </a>
+                <button id="themeToggle" class="btn-custom" type="button" aria-label="Toggle Dark Mode">
+                    🌙 Dark Mode
+                </button>
+            </div>
+            <div>
+                <a href="/start.html" class="btn-primary-custom">
+                    Fill Out Waiver &rarr;
+                </a>
+            </div>
         </div>
 
         <h1>Liability Waiver, Terms & Discounts</h1>
@@ -169,8 +242,7 @@
         </div>
 
         <!-- Main Container / Scrollable Section -->
-        <div style="background-color: #ffffff; border: 1px solid var(--border-color); border-radius: 8px; padding: 1.5rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 1.5rem;">
-            
+        <div class="card-box" style="box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
             <div class="scroll-box">
                 <p><strong>Liability Waiver & Terms of Service</strong></p>
 
@@ -203,12 +275,11 @@
 
                 <p>If any clause is held unenforceable, all remaining provisions stay in full force. Legal disputes shall be governed exclusively by New Jersey courts. By signing below, the Client acknowledges having read, understood, and agreed to the terms of the waiver, including the waiving of certain legal rights. The Client acknowledges having had the opportunity to ask questions regarding this Agreement prior to signing.</p>
             </div>
-
         </div>
 
         <!-- Separate Box for Conditional Addendum -->
-        <section style="background-color: #ffffff; border: 1px solid var(--border-color); border-radius: 8px; padding: 1.5rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 1.5rem;">
-            <h3 style="color: var(--primary); margin-top: 0; margin-bottom: 0.75rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; font-size: 1.25rem;">
+        <section class="card-box">
+            <h3 style="color: var(--primary); margin-top: 0; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; font-size: 1.25rem;">
                 Conditional Addendum
             </h3>
             <p style="margin: 0.5rem 0; line-height: 1.5;">
@@ -226,8 +297,8 @@
         </section>
 
         <!-- Separate Box for Referral Program -->
-        <section style="background-color: #ffffff; border: 1px solid var(--border-color); border-radius: 8px; padding: 1.5rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 1.5rem;">
-            <h3 style="color: var(--primary); margin-top: 0; margin-bottom: 0.75rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; font-size: 1.25rem;">
+        <section class="card-box">
+            <h3 style="color: var(--primary); margin-top: 0; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; font-size: 1.25rem;">
                 Referral Program
             </h3>
             <p style="font-weight: bold; margin-bottom: 1rem; line-height: 1.5;">
@@ -252,8 +323,8 @@
         </section>
 
         <!-- Separate Box for First Responder, Military & Educator Discount -->
-        <section style="background-color: #ffffff; border: 1px solid var(--border-color); border-radius: 8px; padding: 1.5rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-            <h3 style="color: var(--primary); margin-top: 0; margin-bottom: 0.75rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; font-size: 1.25rem;">
+        <section class="card-box">
+            <h3 style="color: var(--primary); margin-top: 0; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; font-size: 1.25rem;">
                 First Responder, Military & Educator Discount
             </h3>
 
@@ -270,7 +341,7 @@
             </p>
 
             <p style="margin: 0.5rem 0;">
-                <strong>Program Terms:</strong> Applies to eligible personnel only. Cannot be combined with other promotional offers or discounts exceeding 20% in total value. The Trainer reserves the right to modify or end promotional programs at any time without prior notice.
+                <strong>Program Terms:</strong> Applies to eligible personnel only. Cannot be combined or exceed 20% total value. The Trainer reserves the right to modify or end promotional programs at any time without prior notice.
             </p>
         </section>
     </div>
@@ -285,6 +356,32 @@
 
     <script>
         const scrollTopBtn = document.getElementById('scrollTopBtn');
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            htmlElement.setAttribute('data-theme', savedTheme);
+            updateThemeButton(savedTheme);
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeButton(newTheme);
+        });
+
+        function updateThemeButton(theme) {
+            if (theme === 'dark') {
+                themeToggle.innerHTML = '☀️ Light Mode';
+            } else {
+                themeToggle.innerHTML = '🌙 Dark Mode';
+            }
+        }
 
         // Display scroll-to-top button when scrolling down 300px
         window.addEventListener('scroll', () => {
