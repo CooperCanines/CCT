@@ -43,18 +43,17 @@
             background-color: #1a1a1a;
         }
 
-        /* Dark mode overrides for Leaflet controls */
         .leaflet-container {
             background: #1a1a1a !important;
         }
         
         .legend {
-            background: rgba(30, 30, 30, 0.9);
+            background: rgba(30, 30, 30, 0.95);
             color: #ecf0f1;
             padding: 10px 14px;
             border-radius: 6px;
             box-shadow: 0 0 15px rgba(0,0,0,0.4);
-            line-height: 1.4;
+            line-height: 1.5;
             font-size: 0.9rem;
             border: 1px solid #2c3e50;
         }
@@ -63,7 +62,7 @@
             height: 16px;
             float: left;
             margin-right: 8px;
-            opacity: 0.8;
+            opacity: 0.9;
             border-radius: 3px;
         }
     </style>
@@ -78,104 +77,177 @@
 
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <!-- Leaflet AJAX for loading GeoJSON easily -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
 
-<script>
+    <script>
         // Initialize map centered around the Delaware Valley region
         const map = L.map('map', {
             zoomControl: false
         }).setView([39.85, -75.10], 9);
 
-        // Add custom zoom control position
         L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-        // Use Esri's keyless dark/gray canvas tile layer
+        // Dark base tile layer (Esri Dark Gray)
         L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+            attribution: 'Tiles &copy; Esri',
             maxZoom: 16
         }).addTo(map);
 
-        // Target primary counties to highlight in Green
+        // Primary counties to highlight in bright green
         const primaryCounties = ["Camden", "Gloucester", "Burlington"];
 
-        // Style function for regional counties
-        function styleFeature(feature) {
-            // Check multiple potential property keys used by various GeoJSON feeds
-            const props = feature.properties;
-            const countyName = props.NAME || props.name || props.NAME_2 || props.COUNTY || props.county || "";
-            
-            // Clean up name string just in case (e.g., "Camden County" -> "Camden")
-            const cleanName = countyName.replace(" County", "").trim();
+        // Lightweight regional boundary polygons (approximate county bounding geometry for reliable rendering)
+        const regionData = {
+            "type": "FeatureCollection",
+            "features": [
+                // --- PRIMARY GREEN COUNTIES ---
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Camden", "state": "New Jersey", "primary": true },
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [[[-75.10, 39.95], [-74.85, 39.90], [-74.75, 39.80], [-74.90, 39.70], [-75.15, 39.75], [-75.10, 39.95]]]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Gloucester", "state": "New Jersey", "primary": true },
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [[[-75.25, 39.90], [-75.10, 39.95], [-75.15, 39.75], [-74.90, 39.70], [-75.05, 39.60], [-75.35, 39.65], [-75.25, 39.90]]]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Burlington", "state": "New Jersey", "primary": true },
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [[[-75.05, 40.15], [-74.40, 40.05], [-74.30, 39.80], [-74.50, 39.65], [-74.85, 39.90], [-75.10, 39.95], [-75.05, 40.15]]]
+                    }
+                },
+                // --- REST OF SOUTH NEW JERSEY ---
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Mercer", "state": "New Jersey", "primary": false },
+                    "geometry": { "type": "Polygon", "coordinates": [[[-74.85, 40.35], [-74.55, 40.30], [-74.60, 40.15], [-75.05, 40.15], [-74.85, 40.35]]] }
+                },
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Ocean", "state": "New Jersey", "primary": false },
+                    "geometry": { "type": "Polygon", "coordinates": [[[-74.45, 40.15], [-74.15, 40.05], [-74.10, 39.50], [-74.45, 39.50], [-74.45, 40.15]]] }
+                },
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Atlantic", "state": "New Jersey", "primary": false },
+                    "geometry": { "type": "Polygon", "coordinates": [[[-74.90, 39.70], [-74.50, 39.65], [-74.40, 39.50], [-74.60, 39.30], [-74.90, 39.35], [-74.90, 39.70]]] }
+                },
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Salem", "state": "New Jersey", "primary": false },
+                    "geometry": { "type": "Polygon", "coordinates": [[[-75.35, 39.65], [-75.05, 39.60], [-75.15, 39.45], [-75.55, 39.50], [-75.35, 39.65]]] }
+                },
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Cumberland", "state": "New Jersey", "primary": false },
+                    "geometry": { "type": "Polygon", "coordinates": [[[-75.15, 39.45], [-74.90, 39.35], [-74.90, 39.20], [-75.30, 39.20], [-75.15, 39.45]]] }
+                },
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Cape May", "state": "New Jersey", "primary": false },
+                    "geometry": { "type": "Polygon", "coordinates": [[[-74.90, 39.35], [-74.60, 39.30], [-74.75, 38.93], [-74.95, 39.10], [-74.90, 39.35]]] }
+                },
+                // --- DELAWARE ---
+                {
+                    "type": "Feature",
+                    "properties": { "name": "New Castle", "state": "Delaware", "primary": false },
+                    "geometry": { "type": "Polygon", "coordinates": [[[-75.78, 39.84], [-75.45, 39.84], [-75.50, 39.45], [-75.78, 39.45], [-75.78, 39.84]]] }
+                },
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Kent", "state": "Delaware", "primary": false },
+                    "geometry": { "type": "Polygon", "coordinates": [[[-75.78, 39.45], [-75.40, 39.45], [-75.35, 38.90], [-75.78, 38.90], [-75.78, 39.45]]] }
+                },
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Sussex", "state": "Delaware", "primary": false },
+                    "geometry": { "type": "Polygon", "coordinates": [[[-75.78, 38.90], [-75.35, 38.90], [-75.05, 38.45], [-75.78, 38.45], [-75.78, 38.90]]] }
+                },
+                // --- EASTERN PENNSYLVANIA (Bordering NJ) ---
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Philadelphia", "state": "Pennsylvania", "primary": false },
+                    "geometry": { "type": "Polygon", "coordinates": [[[-75.28, 40.14], [-74.95, 40.10], [-75.08, 39.88], [-75.30, 39.93], [-75.28, 40.14]]] }
+                },
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Bucks", "state": "Pennsylvania", "primary": false },
+                    "geometry": { "type": "Polygon", "coordinates": [[[-75.30, 40.60], [-74.88, 40.40], [-74.95, 40.10], [-75.28, 40.14], [-75.30, 40.60]]] }
+                },
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Montgomery", "state": "Pennsylvania", "primary": false },
+                    "geometry": { "type": "Polygon", "coordinates": [[[-75.60, 40.50], [-75.30, 40.60], [-75.28, 40.14], [-75.60, 40.05], [-75.60, 40.50]]] }
+                },
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Delaware (PA)", "state": "Pennsylvania", "primary": false },
+                    "geometry": { "type": "Polygon", "coordinates": [[[-75.60, 40.05], [-75.28, 40.14], [-75.30, 39.80], [-75.55, 39.80], [-75.60, 40.05]]] }
+                },
+                {
+                    "type": "Feature",
+                    "properties": { "name": "Chester", "state": "Pennsylvania", "primary": false },
+                    "geometry": { "type": "Polygon", "coordinates": [[[-76.00, 40.10], [-75.60, 40.05], [-75.55, 39.80], [-75.80, 39.72], [-76.00, 40.10]]] }
+                }
+            ]
+        };
 
-            if (primaryCounties.includes(cleanName)) {
+        // Style mapping function
+        function styleFeature(feature) {
+            if (feature.properties.primary) {
                 return {
                     color: "#2ecc71",       // Bright green outline
                     weight: 3,
                     fillColor: "#2ecc71",
-                    fillOpacity: 0.35       // Highlighted interior tint
+                    fillOpacity: 0.35       // Distinct green highlighting tint
                 };
             } else {
                 return {
-                    color: "#444444",       // Faded grey border for rest
+                    color: "#444444",       // Faded grey border
                     weight: 1,
                     fillColor: "#1e293b",
-                    fillOpacity: 0.12       // Faded background color
+                    fillOpacity: 0.12       // Subtle dark background tint
                 };
             }
         }
 
-        // Popups on click to display info
+        // Add popups
         function onEachFeature(feature, layer) {
             const props = feature.properties;
-            const countyName = (props.NAME || props.name || props.NAME_2 || props.COUNTY || props.county || "County").replace(" County", "").trim();
-            const stateCode = props.STATEFP === "34" ? "New Jersey" : (props.STATEFP === "10" ? "Delaware" : "Pennsylvania");
-            
-            if (primaryCounties.includes(countyName)) {
-                layer.bindPopup(`<strong style="color: #2ecc71;">${countyName} County, ${stateCode}</strong><br>Primary Service Area (Full In-Home Training)`);
+            if (props.primary) {
+                layer.bindPopup(`<strong style="color: #2ecc71;">${props.name} County, ${props.state}</strong><br>Primary Service Area (Full In-Home Training)`);
             } else {
-                layer.bindPopup(`<strong>${countyName} County, ${stateCode}</strong><br>Limited Services Area`);
+                layer.bindPopup(`<strong>${props.name} County, ${props.state}</strong><br>Limited Services Area`);
             }
         }
 
-        // Fetching multi-state US counties GeoJSON data
-        const geojsonUrl = 'https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-counties.json';
+        // Load data directly into the map
+        L.geoJSON(regionData, {
+            style: styleFeature,
+            onEachFeature: onEachFeature
+        }).addTo(map);
 
-        const easternPaFips = ["42017", "42029", "42045", "42091", "42101", "42077", "42095"]; // Bucks, Chester, Delaware, Montgomery, Philadelphia, Lehigh, Northampton
-
-        fetch(geojsonUrl)
-            .then(response => response.json())
-            .then(data => {
-                data.features = data.features.filter(feature => {
-                    const stateFp = feature.properties.STATEFP;
-                    const countyFp = feature.properties.GEOID || (stateFp + (feature.properties.COUNTYFP || ""));
-                    
-                    if (stateFp === "34" || stateFp === "10") return true; 
-                    if (stateFp === "42" && easternPaFips.includes(countyFp)) return true; 
-                    return false;
-                });
-
-                L.geoJSON(data, {
-                    style: styleFeature,
-                    onEachFeature: onEachFeature
-                }).addTo(map);
-            })
-            .catch(err => console.error("Error loading map boundaries: ", err));
-
-        // Add a Map Legend
+        // Map Legend
         const legend = L.control({position: 'topright'});
         legend.onAdd = function (map) {
             const div = L.DomUtil.create('div', 'legend');
-            styleString = 'width: 16px; height: 16px; float: left; margin-right: 8px; opacity: 0.8; border-radius: 3px;';
+            const styleString = 'width: 16px; height: 16px; float: left; margin-right: 8px; opacity: 0.9; border-radius: 3px;';
             div.innerHTML = `
                 <b>Service Legend</b><br>
                 <i style="background: #2ecc71; ${styleString}"></i> Primary Area (Camden, Gloucester, Burlington)<br>
-                <i style="background: #1e293b; border: 1px solid #444; ${styleString}"></i> Limited / Rest of Region (PA & DE)
+                <i style="background: #1e293b; border: 1px solid #444; ${styleString}"></i> Limited / Rest of Region
             `;
             return div;
         };
         legend.addTo(map);
     </script>
-
 </body>
 </html>
