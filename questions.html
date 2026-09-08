@@ -70,6 +70,10 @@
             user-select: none;
         }
 
+        .side-logo.active-game {
+            opacity: 1 !important;
+        }
+
         .side-logo-left {
             left: 20px;
         }
@@ -77,6 +81,10 @@
         .side-logo-right {
             right: 20px;
             transform: translateY(-50%) rotate(90deg);
+        }
+        
+        .side-logo-right.active-game {
+            transform: translateY(-50%) rotate(90deg) !important;
         }
 
         /* Pong Ball / Dog */
@@ -104,6 +112,8 @@
             z-index: 1000;
             display: none;
             box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            transition: opacity 0.5s ease;
+            opacity: 1;
         }
 
         .container {
@@ -357,7 +367,7 @@
     <div class="side-logo side-logo-right" id="rightLogo">Cooper Canines</div>
 
     <!-- Pong Elements -->
-    <div id="pongBall">🎾</div>
+    <div id="pongBall">🐶</div>
     <div id="pongScore">Score: 0</div>
 
     <div class="container">
@@ -728,12 +738,26 @@
         });
 
         emailConfirmInput.addEventListener('input', function() {
-            if (emailConfirmInput.value.trim() === emailInput.value.trim() && isValidEmail(emailConfirmInput.value.trim())) {
+            const emailVal = emailInput.value.trim();
+            const confirmVal = emailConfirmInput.value.trim();
+            if (confirmVal === emailVal && isValidEmail(confirmVal)) {
+                emailError.style.display = 'none';
+            } else {
+                emailError.style.display = 'block';
+            }
+        });
+
+        emailInput.addEventListener('input', function() {
+            const emailVal = emailInput.value.trim();
+            const confirmVal = emailConfirmInput.value.trim();
+            if (confirmVal !== "" && (confirmVal !== emailVal || !isValidEmail(emailVal))) {
+                emailError.style.display = 'block';
+            } else if (confirmVal !== "") {
                 emailError.style.display = 'none';
             }
         });
 
-        // Pong / Logo Minigame Script matching waiver.html implementation
+        // Pong / Logo Minigame Script
         const leftLogo = document.getElementById('leftLogo');
         const rightLogo = document.getElementById('rightLogo');
         const pongBall = document.getElementById('pongBall');
@@ -743,31 +767,34 @@
         let score = 0;
         let ballX = 0, ballY = 0;
         let ballVX = 0, ballVY = 0;
-        let activePaddle = null; // 'left' or 'right'
 
-        function startGame(side) {
+        function startGame() {
             if (gameActive) return;
             gameActive = true;
-            activePaddle = side;
             score = 0;
+            
+            leftLogo.classList.add('active-game');
+            rightLogo.classList.add('active-game');
+
+            pongScore.style.opacity = '1';
             pongScore.textContent = `Score: ${score}`;
             pongScore.style.display = 'block';
             pongBall.style.display = 'block';
 
-            const rect = (side === 'left' ? leftLogo : rightLogo).getBoundingClientRect();
+            const rect = leftLogo.getBoundingClientRect();
             ballX = rect.left + rect.width / 2;
             ballY = rect.top + rect.height / 2;
 
             const angle = (Math.random() * 60 - 30) * (Math.PI / 180);
             const speed = 6;
-            ballVX = (side === 'left' ? 1 : -1) * speed * Math.cos(angle);
+            ballVX = speed * Math.cos(angle);
             ballVY = speed * Math.sin(angle);
 
             requestAnimationFrame(updateGame);
         }
 
-        leftLogo.addEventListener('click', () => startGame('left'));
-        rightLogo.addEventListener('click', () => startGame('right'));
+        leftLogo.addEventListener('click', startGame);
+        rightLogo.addEventListener('click', startGame);
 
         function updateGame() {
             if (!gameActive) return;
@@ -779,28 +806,24 @@
             if (ballY <= 20) { ballY = 20; ballVY *= -1; }
             if (ballY >= window.innerHeight - 20) { ballY = window.innerHeight - 20; ballVY *= -1; }
 
-            // Check paddle collision
-            const paddle = activePaddle === 'left' ? leftLogo : rightLogo;
-            const prect = paddle.getBoundingClientRect();
+            // Check paddle collisions
+            const lrect = leftLogo.getBoundingClientRect();
+            const rrect = rightLogo.getBoundingClientRect();
 
-            if (activePaddle === 'left' && ballX <= prect.right + 10 && ballY >= prect.top && ballY <= prect.bottom) {
-                ballX = prect.right + 10;
+            if (ballX <= lrect.right + 10 && ballY >= lrect.top && ballY <= lrect.bottom) {
+                ballX = lrect.right + 10;
                 ballVX *= -1;
                 score++;
                 pongScore.textContent = `Score: ${score}`;
-            } else if (activePaddle === 'right' && ballX >= prect.left - 10 && ballY >= prect.top && ballY <= prect.bottom) {
-                ballX = prect.left - 10;
+            } else if (ballX >= rrect.left - 10 && ballY >= rrect.top && ballY <= rrect.bottom) {
+                ballX = rrect.left - 10;
                 ballVX *= -1;
                 score++;
                 pongScore.textContent = `Score: ${score}`;
             }
 
-            // Game over conditions (passed the side logo)
-            if (activePaddle === 'left' && ballX > window.innerWidth + 30) {
-                endGame();
-                return;
-            }
-            if (activePaddle === 'right' && ballX < -30) {
+            // Game over conditions (passed either side)
+            if (ballX > window.innerWidth + 30 || ballX < -30) {
                 endGame();
                 return;
             }
@@ -814,20 +837,31 @@
         function endGame() {
             gameActive = false;
             pongBall.style.display = 'none';
-            pongScore.style.display = 'none';
-            alert(`Game Over! Final Score: ${score}`);
+            
+            leftLogo.classList.remove('active-game');
+            rightLogo.classList.remove('active-game');
+
+            pongScore.textContent = `Game Over! Score: ${score}`;
+            pongScore.style.opacity = '1';
+
+            setTimeout(() => {
+                pongScore.style.opacity = '0';
+                setTimeout(() => {
+                    pongScore.style.display = 'none';
+                }, 500);
+            }, 1500);
         }
 
-        // Mouse move to control active side logo
+        // Mouse move to control both side logos simultaneously
         window.addEventListener('mousemove', (e) => {
             if (!gameActive) return;
-            const paddle = activePaddle === 'left' ? leftLogo : rightLogo;
             let newY = e.clientY;
-            const halfHeight = paddle.offsetHeight / 2;
+            const halfHeight = leftLogo.offsetHeight / 2;
             if (newY < halfHeight + 20) newY = halfHeight + 20;
             if (newY > window.innerHeight - halfHeight - 20) newY = window.innerHeight - halfHeight - 20;
-            paddle.style.top = `${newY}px`;
-            paddle.style.transform = `translateY(-50%) rotate(${activePaddle === 'left' ? '-90deg' : '90deg'})`;
+            
+            leftLogo.style.top = `${newY}px`;
+            rightLogo.style.top = `${newY}px`;
         });
     </script>
 </body>
