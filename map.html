@@ -9,6 +9,7 @@
     <style>
         :root {
             --primary: #2ecc71;
+            --orange: #e67e22;
             --bg-light: #121212;
             --text-dark: #ecf0f1;
         }
@@ -92,148 +93,104 @@
             maxZoom: 16
         }).addTo(map);
 
-        // Primary counties to highlight in bright green
-        const primaryCounties = ["Camden", "Gloucester", "Burlington"];
+        // Target definitions
+        const greenCounty = "Camden";
+        
+        // South Jersey counties (All 8 southern/central counties)
+        const southJerseyCounties = ["Camden", "Gloucester", "Burlington", "Atlantic", "Cape May", "Cumberland", "Salem", "Ocean", "Mercer"];
+        
+        // Entire state of Delaware
+        const delawareCounties = ["New Castle", "Kent", "Sussex"];
+        
+        // Eastern PA counties bordering NJ (Bucks, Philadelphia, Delaware, Montgomery, Chester, Northampton, Lehigh)
+        const easternPaFips = ["42017", "42029", "42045", "42091", "42101", "42077", "42095"];
 
-        // Lightweight regional boundary polygons (approximate county bounding geometry for reliable rendering)
-        const regionData = {
-            "type": "FeatureCollection",
-            "features": [
-                // --- PRIMARY GREEN COUNTIES ---
-                {
-                    "type": "Feature",
-                    "properties": { "name": "Camden", "state": "New Jersey", "primary": true },
-                    "geometry": {
-                        "type": "Polygon",
-                        "coordinates": [[[-75.10, 39.95], [-74.85, 39.90], [-74.75, 39.80], [-74.90, 39.70], [-75.15, 39.75], [-75.10, 39.95]]]
-                    }
-                },
-                {
-                    "type": "Feature",
-                    "properties": { "name": "Gloucester", "state": "New Jersey", "primary": true },
-                    "geometry": {
-                        "type": "Polygon",
-                        "coordinates": [[[-75.25, 39.90], [-75.10, 39.95], [-75.15, 39.75], [-74.90, 39.70], [-75.05, 39.60], [-75.35, 39.65], [-75.25, 39.90]]]
-                    }
-                },
-                {
-                    "type": "Feature",
-                    "properties": { "name": "Burlington", "state": "New Jersey", "primary": true },
-                    "geometry": {
-                        "type": "Polygon",
-                        "coordinates": [[[-75.05, 40.15], [-74.40, 40.05], [-74.30, 39.80], [-74.50, 39.65], [-74.85, 39.90], [-75.10, 39.95], [-75.05, 40.15]]]
-                    }
-                },
-                // --- REST OF SOUTH NEW JERSEY ---
-                {
-                    "type": "Feature",
-                    "properties": { "name": "Mercer", "state": "New Jersey", "primary": false },
-                    "geometry": { "type": "Polygon", "coordinates": [[[-74.85, 40.35], [-74.55, 40.30], [-74.60, 40.15], [-75.05, 40.15], [-74.85, 40.35]]] }
-                },
-                {
-                    "type": "Feature",
-                    "properties": { "name": "Ocean", "state": "New Jersey", "primary": false },
-                    "geometry": { "type": "Polygon", "coordinates": [[[-74.45, 40.15], [-74.15, 40.05], [-74.10, 39.50], [-74.45, 39.50], [-74.45, 40.15]]] }
-                },
-                {
-                    "type": "Feature",
-                    "properties": { "name": "Atlantic", "state": "New Jersey", "primary": false },
-                    "geometry": { "type": "Polygon", "coordinates": [[[-74.90, 39.70], [-74.50, 39.65], [-74.40, 39.50], [-74.60, 39.30], [-74.90, 39.35], [-74.90, 39.70]]] }
-                },
-                {
-                    "type": "Feature",
-                    "properties": { "name": "Salem", "state": "New Jersey", "primary": false },
-                    "geometry": { "type": "Polygon", "coordinates": [[[-75.35, 39.65], [-75.05, 39.60], [-75.15, 39.45], [-75.55, 39.50], [-75.35, 39.65]]] }
-                },
-                {
-                    "type": "Feature",
-                    "properties": { "name": "Cumberland", "state": "New Jersey", "primary": false },
-                    "geometry": { "type": "Polygon", "coordinates": [[[-75.15, 39.45], [-74.90, 39.35], [-74.90, 39.20], [-75.30, 39.20], [-75.15, 39.45]]] }
-                },
-                {
-                    "type": "Feature",
-                    "properties": { "name": "Cape May", "state": "New Jersey", "primary": false },
-                    "geometry": { "type": "Polygon", "coordinates": [[[-74.90, 39.35], [-74.60, 39.30], [-74.75, 38.93], [-74.95, 39.10], [-74.90, 39.35]]] }
-                },
-                // --- DELAWARE ---
-                {
-                    "type": "Feature",
-                    "properties": { "name": "New Castle", "state": "Delaware", "primary": false },
-                    "geometry": { "type": "Polygon", "coordinates": [[[-75.78, 39.84], [-75.45, 39.84], [-75.50, 39.45], [-75.78, 39.45], [-75.78, 39.84]]] }
-                },
-                {
-                    "type": "Feature",
-                    "properties": { "name": "Kent", "state": "Delaware", "primary": false },
-                    "geometry": { "type": "Polygon", "coordinates": [[[-75.78, 39.45], [-75.40, 39.45], [-75.35, 38.90], [-75.78, 38.90], [-75.78, 39.45]]] }
-                },
-                {
-                    "type": "Feature",
-                    "properties": { "name": "Sussex", "state": "Delaware", "primary": false },
-                    "geometry": { "type": "Polygon", "coordinates": [[[-75.78, 38.90], [-75.35, 38.90], [-75.05, 38.45], [-75.78, 38.45], [-75.78, 38.90]]] }
-                },
-                // --- EASTERN PENNSYLVANIA (Bordering NJ) ---
-                {
-                    "type": "Feature",
-                    "properties": { "name": "Philadelphia", "state": "Pennsylvania", "primary": false },
-                    "geometry": { "type": "Polygon", "coordinates": [[[-75.28, 40.14], [-74.95, 40.10], [-75.08, 39.88], [-75.30, 39.93], [-75.28, 40.14]]] }
-                },
-                {
-                    "type": "Feature",
-                    "properties": { "name": "Bucks", "state": "Pennsylvania", "primary": false },
-                    "geometry": { "type": "Polygon", "coordinates": [[[-75.30, 40.60], [-74.88, 40.40], [-74.95, 40.10], [-75.28, 40.14], [-75.30, 40.60]]] }
-                },
-                {
-                    "type": "Feature",
-                    "properties": { "name": "Montgomery", "state": "Pennsylvania", "primary": false },
-                    "geometry": { "type": "Polygon", "coordinates": [[[-75.60, 40.50], [-75.30, 40.60], [-75.28, 40.14], [-75.60, 40.05], [-75.60, 40.50]]] }
-                },
-                {
-                    "type": "Feature",
-                    "properties": { "name": "Delaware (PA)", "state": "Pennsylvania", "primary": false },
-                    "geometry": { "type": "Polygon", "coordinates": [[[-75.60, 40.05], [-75.28, 40.14], [-75.30, 39.80], [-75.55, 39.80], [-75.60, 40.05]]] }
-                },
-                {
-                    "type": "Feature",
-                    "properties": { "name": "Chester", "state": "Pennsylvania", "primary": false },
-                    "geometry": { "type": "Polygon", "coordinates": [[[-76.00, 40.10], [-75.60, 40.05], [-75.55, 39.80], [-75.80, 39.72], [-76.00, 40.10]]] }
-                }
-            ]
-        };
-
-        // Style mapping function
+        // Style function based on precise geographical filters
         function styleFeature(feature) {
-            if (feature.properties.primary) {
+            const props = feature.properties;
+            const countyName = (props.NAME || props.name || props.NAME_2 || props.COUNTY || "").replace(" County", "").trim();
+            const stateFp = props.STATEFP;
+            const countyFp = props.GEOID || (stateFp + (props.COUNTYFP || ""));
+
+            // 1. Camden County gets outlined in Green
+            if (stateFp === "34" && countyName === greenCounty) {
                 return {
                     color: "#2ecc71",       // Bright green outline
-                    weight: 3,
-                    fillColor: "#2ecc71",
-                    fillOpacity: 0.35       // Distinct green highlighting tint
+                    weight: 3.5,
+                    fillColor: "#e67e22",   // Orange fill interior
+                    fillOpacity: 0.35
                 };
-            } else {
+            } 
+            
+            // 2. Rest of South Jersey, all of Delaware, and Eastern PA get Orange
+            const isSouthJersey = (stateFp === "34" && southJerseyCounties.includes(countyName));
+            const isDelaware = (stateFp === "10");
+            const isEasternPa = (stateFp === "42" && easternPaFips.includes(countyFp));
+
+            if (isSouthJersey || isDelaware || isEasternPa) {
                 return {
-                    color: "#444444",       // Faded grey border
-                    weight: 1,
-                    fillColor: "#1e293b",
-                    fillOpacity: 0.12       // Subtle dark background tint
+                    color: "#d35400",       // Darker orange border
+                    weight: 1.5,
+                    fillColor: "#e67e22",   // Orange fill
+                    fillOpacity: 0.28       // Faded orange tint
                 };
-            }
+            } 
+            
+            // 3. Everything else (untracked regions) hidden/faded away
+            return {
+                color: "#333333",
+                weight: 0.5,
+                fillColor: "#111111",
+                fillOpacity: 0.05
+            };
         }
 
         // Add popups
         function onEachFeature(feature, layer) {
             const props = feature.properties;
-            if (props.primary) {
-                layer.bindPopup(`<strong style="color: #2ecc71;">${props.name} County, ${props.state}</strong><br>Primary Service Area (Full In-Home Training)`);
+            const countyName = (props.NAME || props.name || props.NAME_2 || props.COUNTY || "County").replace(" County", "").trim();
+            const stateFp = props.STATEFP;
+            const countyFp = props.GEOID || (stateFp + (props.COUNTYFP || ""));
+
+            const isPrimaryGreen = (stateFp === "34" && countyName === greenCounty);
+            const isOrangeArea = (
+                (stateFp === "34" && southJerseyCounties.includes(countyName)) || 
+                (stateFp === "10") || 
+                (stateFp === "42" && easternPaFips.includes(countyFp))
+            );
+
+            if (isPrimaryGreen) {
+                layer.bindPopup(`<strong style="color: #2ecc71;">${countyName} County, NJ</strong><br>Primary Service Area (Green Outline / Orange Region)`);
+            } else if (isOrangeArea) {
+                const stateName = stateFp === "34" ? "New Jersey" : (stateFp === "10" ? "Delaware" : "Pennsylvania");
+                layer.bindPopup(`<strong style="color: #e67e22;">${countyName} County, ${stateName}</strong><br>Limited Services Area`);
             } else {
-                layer.bindPopup(`<strong>${props.name} County, ${props.state}</strong><br>Limited Services Area`);
+                layer.bindPopup(`<strong>${countyName} County</strong><br>Outside Service Region`);
             }
         }
 
-        // Load data directly into the map
-        L.geoJSON(regionData, {
-            style: styleFeature,
-            onEachFeature: onEachFeature
-        }).addTo(map);
+        // Fetch official US county shapes via public GeoJSON endpoint
+        const geojsonUrl = 'https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-counties.json';
+
+        fetch(geojsonUrl)
+            .then(response => response.json())
+            .then(data => {
+                // Filter specifically to NJ (34), DE (10), and target PA counties (42)
+                data.features = data.features.filter(feature => {
+                    const stateFp = feature.properties.STATEFP;
+                    const countyFp = feature.properties.GEOID || (stateFp + (feature.properties.COUNTYFP || ""));
+                    
+                    if (stateFp === "34" || stateFp === "10") return true; 
+                    if (stateFp === "42" && easternPaFips.includes(countyFp)) return true; 
+                    return false;
+                });
+
+                L.geoJSON(data, {
+                    style: styleFeature,
+                    onEachFeature: onEachFeature
+                }).addTo(map);
+            })
+            .catch(err => console.error("Error loading map boundaries: ", err));
 
         // Map Legend
         const legend = L.control({position: 'topright'});
@@ -242,8 +199,8 @@
             const styleString = 'width: 16px; height: 16px; float: left; margin-right: 8px; opacity: 0.9; border-radius: 3px;';
             div.innerHTML = `
                 <b>Service Legend</b><br>
-                <i style="background: #2ecc71; ${styleString}"></i> Primary Area (Camden, Gloucester, Burlington)<br>
-                <i style="background: #1e293b; border: 1px solid #444; ${styleString}"></i> Limited / Rest of Region
+                <i style="background: #e67e22; border: 2px solid #2ecc71; ${styleString}"></i> Camden County (Green Outline)<br>
+                <i style="background: #e67e22; ${styleString}"></i> South Jersey, Delaware & Eastern PA<br>
             `;
             return div;
         };
