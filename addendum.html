@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditional Addendum - Cooper Canines</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; color: #2c3e50; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input[type="text"], input[type="tel"] {
+            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
+        }
+        input.invalid { border-color: red; background-color: #fff0f0; }
+        .signature-pad { border: 2px dashed #009100; background: #fff; cursor: crosshair; }
+        .signature-img { border: 2px dashed #009100; display: none; max-width: 400px; width: 100%; height: auto; }
+        .hidden { display: none !important; }
+        .error { color: red; font-size: 0.85rem; display: none; margin-top: 4px; }
+        .scroll-box { height: auto; overflow-y: visible; border: 1px solid #ccc; padding: 15px; font-size: 0.9rem; background: #fff; border-radius: 6px; line-height: 1.5; }
+        button[type="submit"] { background: #009100; color: white; border: none; padding: 12px 20px; font-size: 1rem; border-radius: 7px; cursor: pointer; }
+        button[type="submit"]:disabled { background: #ccc; cursor: not-allowed; }
+        .clear-btn { background: #6c757d; color: white; border: none; padding: 6px 12px; font-size: 0.85rem; border-radius: 4px; cursor: pointer; margin-top: 5px; display: block; }
+
+        /* Custom Modal Popup Styles */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6); align-items: center;
+            justify-content: center; z-index: 1000;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-card {
+            background: #fff; padding: 25px; border-radius: 8px; max-width: 450px;
+            width: 90%; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .modal-buttons {
+            display: flex; gap: 10px; justify-content: center; margin-top: 20px; flex-wrap: wrap;
+        }
+        .modal-btn {
+            padding: 10px 16px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;
+        }
+        .btn-print { background: #009100; color: white; }
+        .btn-pdf { background: #0056b3; color: white; }
+        .btn-continue { background: #6c757d; color: white; }
+
+        /* Print Specific Styles */
+        @media print {
+            .modal-overlay, button, .clear-btn { display: none !important; }
+            .signature-pad { display: none !important; }
+            .signature-img { display: block !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Cooper Canines Conditional Addendum</h1>
+
+    <form id="addendumForm">
+        <!-- Addendum Text Box -->
+        <div class="form-group">
+            <label>Conditional Addendum Terms</label>
+            <div class="scroll-box">
+                <p><strong>Conditional Addendum</strong><br>
+                The terms of this Addendum apply only if the Client utilizes conditional or expanded services, including vehicle transport of the Dog (between personal property, the Trainer’s location, or public spaces), boarding, daycare, private training sessions conducted without the Client present, group settings, or socialization in public areas. The payment, cancellation, and expiration terms outlined in the main Liability Waiver apply equally to these additional services.</p>
+                
+                <p>I acknowledge there are additional risks involved with environments that may contain other dogs, people, open spaces, or unknown hazards. I accept all risks of participating in public spaces and/or group settings, including encounters with dogs, wildlife, traffic, and known or unknown risks. I bear full responsibility for any unforeseen incidents, damages, or care requirements that occur while the dog is in the custody of the Trainer. I will be responsible for providing the Trainer with requested supplies and accept alternatives used by the Trainer or refusal of service if items were not provided. I authorize vehicle transport of my dog when required for services, and hold the Trainer harmless for any transit-related incidents.</p>
+                
+                <p>If my dog is not picked up at the agreed time and all attempts by the Trainer to reach both me and my Emergency Contacts are unsuccessful for 24 hours, the dog may be deemed abandoned and transferred to local animal control or a rescue facility. I remain responsible for all accumulated costs. If I am unable to receive my dog in the agreed time-frame, I accept double the current hourly rate and that there is an additional $100 fee for each overnight stay.</p>
+                
+                <p>I authorize the below individuals to act as emergency contacts and to pick up my dog on my behalf without requiring separate prior permission. All authorized individuals must present an official state or drivers license ID upon pickup.</p>
+            </div>
+        </div>
+
+        <hr>
+        <h3>Emergency Contacts</h3>
+
+        <!-- Emergency Contact 1 -->
+        <div class="form-group">
+            <label>Emergency Contact 1:</label>
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                <input type="text" name="emergency_name_1" placeholder="Name">
+                <input type="tel" name="emergency_phone_1" placeholder="Phone Number (e.g., 555-555-5555)" oninput="validatePhone(this, 'emergencyPhone1Err')">
+                <input type="text" name="emergency_relation_1" placeholder="Relation">
+            </div>
+            <span id="emergencyPhone1Err" class="error">Please enter a valid 10-digit phone number formatted as 123-456-7890.</span>
+        </div>
+
+        <!-- Emergency Contact 2 -->
+        <div class="form-group">
+            <label>Emergency Contact 2:</label>
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                <input type="text" name="emergency_name_2" placeholder="Name">
+                <input type="tel" name="emergency_phone_2" placeholder="Phone Number (e.g., 555-555-5555)" oninput="validatePhone(this, 'emergencyPhone2Err')">
+                <input type="text" name="emergency_relation_2" placeholder="Relation">
+            </div>
+            <span id="emergencyPhone2Err" class="error">Please enter a valid 10-digit phone number formatted as 123-456-7890.</span>
+        </div>
+
+        <hr>
+
+        <!-- Client's Printed Name -->
+        <div class="form-group">
+            <label>Client’s Printed Name: *</label>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" name="client_first_name" placeholder="First Name" required>
+                <input type="text" name="client_last_name" placeholder="Last Name" required>
+            </div>
+        </div>
+
+        <!-- Client's Signature -->
+        <div class="form-group">
+            <label>Client’s Signature: *</label>
+            <canvas id="clientSigCanvas" class="signature-pad" width="400" height="120"></canvas>
+            <img id="clientSigImg" class="signature-img" alt="Client Signature">
+            <button type="button" class="clear-btn" onclick="clearCanvas('clientSigCanvas')">Clear Signature</button>
+            <input type="hidden" name="client_signature_data" id="clientSigData">
+        </div>
+
+        <button type="submit" id="submitBtn">Submit Addendum</button>
+    </form>
+
+    <!-- Success Options Modal -->
+    <div id="successModal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <h3>Addendum Submitted!</h3>
+            <p>Would you like to print or save a copy of this completed addendum for your records before closing?</p>
+            <div class="modal-buttons">
+                <button type="button" class="modal-btn btn-print" onclick="handlePrint()">Print</button>
+                <button type="button" class="modal-btn btn-pdf" onclick="handleSavePDF()">Save PDF</button>
+                <button type="button" class="modal-btn btn-continue" onclick="handleContinue()">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Real-Time Phone Validation (Optional fields)
+        function validatePhone(input, errorSpanId) {
+            const phoneRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+            const errorElement = document.getElementById(errorSpanId);
+
+            if (input.value.trim() === "") {
+                input.classList.remove('invalid');
+                errorElement.style.display = 'none';
+                input.setCustomValidity("");
+                return true;
+            }
+
+            if (!phoneRegex.test(input.value)) {
+                input.classList.add('invalid');
+                errorElement.style.display = 'block';
+                input.setCustomValidity("Invalid phone number format.");
+                return false;
+            } else {
+                input.classList.remove('invalid');
+                errorElement.style.display = 'none';
+                input.setCustomValidity("");
+                return true;
+            }
+        }
+
+        // Canvas Setup Logic
+        function setupCanvas(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            let drawing = false;
+
+            canvas.addEventListener('mousedown', () => drawing = true);
+            canvas.addEventListener('mouseup', () => { drawing = false; ctx.beginPath(); });
+            canvas.addEventListener('mousemove', draw);
+
+            canvas.addEventListener('touchstart', (e) => { drawing = true; draw(e.touches[0]); });
+            canvas.addEventListener('touchend', () => { drawing = false; ctx.beginPath(); });
+            canvas.addEventListener('touchmove', (e) => { draw(e.touches[0]); e.preventDefault(); });
+
+            function draw(e) {
+                if (!drawing) return;
+                const rect = canvas.getBoundingClientRect();
+                ctx.lineWidth = 2;
+                ctx.lineCap = 'round';
+                ctx.strokeStyle = '#000';
+                ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+            }
+        }
+
+        function clearCanvas(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function isCanvasBlank(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            const pixelData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+            
+            for (let i = 3; i < pixelData.length; i += 4) {
+                if (pixelData[i] !== 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        setupCanvas('clientSigCanvas');
+
+        function prepareSignaturesForPrint() {
+            const clientCanvas = document.getElementById('clientSigCanvas');
+            const clientImg = document.getElementById('clientSigImg');
+            if (!isCanvasBlank('clientSigCanvas')) {
+                clientImg.src = clientCanvas.toDataURL();
+            }
+        }
+
+        // Form Submission Handler
+        document.getElementById('addendumForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            if (isCanvasBlank('clientSigCanvas')) {
+                alert("Please provide a signature in the Client’s Signature box before submitting.");
+                return false;
+            }
+
+            const phone1 = document.getElementById('emergency_phone_1');
+            const phone2 = document.getElementById('emergency_phone_2');
+            let isValid = true;
+
+            if (phone1 && phone1.value.trim() !== "") {
+                if (!validatePhone(phone1, 'emergencyPhone1Err')) isValid = false;
+            }
+            if (phone2 && phone2.value.trim() !== "") {
+                if (!validatePhone(phone2, 'emergencyPhone2Err')) isValid = false;
+            }
+
+            if (!isValid) {
+                alert("Please correct the phone number formatting before submitting.");
+                return false;
+            }
+
+            prepareSignaturesForPrint();
+            document.getElementById('clientSigData').value = document.getElementById('clientSigCanvas').toDataURL();
+
+            // Simulating successful submission since backend/web3forms isn't wired up yet
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('active');
+        });
+
+        // Modal Action Handlers
+        function handlePrint() {
+            window.print();
+            finishAndReset();
+        }
+
+        function handleSavePDF() {
+            alert("To save as PDF, select 'Save as PDF' from the Destination drop-down in the print dialog.");
+            window.print();
+            finishAndReset();
+        }
+
+        function handleContinue() {
+            finishAndReset();
+        }
+
+        function finishAndReset() {
+            const modal = document.getElementById('successModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('active');
+            
+            const form = document.getElementById('addendumForm');
+            form.reset();
+            clearCanvas('clientSigCanvas');
+        }
+    </script>
+</body>
+</html>
