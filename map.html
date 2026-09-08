@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cooper Canines Service Area Map</title>
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <title>Cooper Canines Service Area</title>
     <style>
         :root {
-            --primary: #2ecc71;
-            --orange: #e67e22;
+            --primary: #00793c;
+            --accent: #2ecc71;
+            --logo-orange: #e67e22;
             --bg-light: #121212;
             --text-dark: #ecf0f1;
         }
@@ -22,140 +21,49 @@
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
 
-        header {
-            padding: 1rem;
-            text-align: center;
+        .service-box {
             background-color: #1e1e1e;
-            border-bottom: 1px solid #2c3e50;
-        }
-
-        h1 {
-            margin: 0;
-            font-size: 1.4rem;
-            color: var(--primary);
-        }
-
-        #map {
-            flex: 1;
-            width: 100%;
-            background-color: #1a1a1a;
-        }
-
-        .leaflet-container {
-            background: #1a1a1a !important;
-        }
-        
-        .legend {
-            background: rgba(30, 30, 30, 0.95);
-            color: #ecf0f1;
-            padding: 10px 14px;
-            border-radius: 6px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.4);
-            line-height: 1.5;
-            font-size: 0.9rem;
             border: 1px solid #2c3e50;
+            border-left: 5px solid var(--accent);
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            line-height: 1.6;
         }
-        .legend i {
-            width: 16px;
-            height: 16px;
-            float: left;
-            margin-right: 8px;
-            opacity: 0.9;
-            border-radius: 3px;
+
+        .service-box h2 {
+            color: var(--accent);
+            margin-top: 0;
+            font-size: 1.5rem;
+            border-bottom: 1px solid #2c3e50;
+            padding-bottom: 0.5rem;
+        }
+
+        .service-box p {
+            margin: 0.75rem 0;
+            font-size: 1rem;
+        }
+
+        .service-box strong {
+            color: #ffffff;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Cooper Canines - Service Area Coverage Map</h1>
-    </header>
+    <div class="service-box">
+        <h2>Service Areas</h2>
+        <p><strong>Primary Service Area:</strong> Camden County</p>
+        <p><strong>Secondary Service Areas:</strong> Burlington, Gloucester</p>
+        <p><strong>Limited Service Areas:</strong> South Jersey, Eastern PA, Delaware</p>
+    </div>
 
-    <div id="map"></div>
-
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
-    <script>
-        // Initialize map centered around the Delaware Valley region
-        const map = L.map('map', {
-            zoomControl: false
-        }).setView([39.75, -75.00], 9);
-
-        L.control.zoom({ position: 'bottomright' }).addTo(map);
-
-        // Dark base tile layer (Esri Dark Gray)
-        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Tiles &copy; Esri',
-            maxZoom: 16
-        }).addTo(map);
-
-        // Common style for Orange regions
-        const orangeStyle = {
-            color: '#d35400',
-            weight: 1.5,
-            fillColor: '#e67e22',
-            fillOpacity: 0.3
-        };
-
-        // Style specifically for Camden County (Green outline, transparent fill so orange shows through or stands out)
-        const camdenStyle = {
-            color: '#2ecc71',
-            weight: 3.5,
-            fillColor: '#2ecc71',
-            fillOpacity: 0.4
-        };
-
-        // --- 1. ORANGE REGIONS: South Jersey, Delaware, and Eastern PA Bordering Counties ---
-
-        // South Jersey Group (Approximate combined regional boundary)
-        const southJerseyCoords = [
-            [40.22, -74.75], [40.15, -74.15], [39.50, -74.18], [38.93, -74.75], 
-            [39.20, -75.30], [39.50, -75.55], [39.65, -75.35], [39.95, -75.25], 
-            [40.15, -75.05], [40.22, -74.75]
-        ];
-        L.polygon(southJerseyCoords, orangeStyle).addTo(map).bindPopup("<strong>South Jersey Region</strong><br>Limited Services Area");
-
-        // Delaware (Entire State Region)
-        const delawareCoords = [
-            [39.84, -75.78], [39.84, -75.45], [39.45, -75.35], [38.90, -75.35], 
-            [38.45, -75.05], [38.45, -75.78], [39.84, -75.78]
-        ];
-        L.polygon(delawareCoords, orangeStyle).addTo(map).bindPopup("<strong>State of Delaware</strong><br>Limited Services Area");
-
-        // Eastern PA Bordering Counties Group (Bucks, Philly, Delaware, Montgomery, Chester)
-        const easternPaCoords = [
-            [40.60, -75.30], [40.40, -74.88], [40.10, -74.95], [39.88, -75.08], 
-            [39.80, -75.55], [39.72, -75.80], [40.10, -76.00], [40.50, -75.60], 
-            [40.60, -75.30]
-        ];
-        L.polygon(easternPaCoords, orangeStyle).addTo(map).bindPopup("<strong>Eastern Pennsylvania Border Counties</strong><br>Limited Services Area");
-
-
-        // --- 2. CAMDEN COUNTY (Drawn on top with a Green outline) ---
-        const camdenCoords = [
-            [39.95, -75.10], [39.90, -74.85], [39.80, -74.75], 
-            [39.70, -74.90], [39.75, -75.15], [39.95, -75.10]
-        ];
-        L.polygon(camdenCoords, camdenStyle).addTo(map).bindPopup("<strong style='color: #2ecc71;'>Camden County, NJ</strong><br>Primary Service Area (Green Outline)");
-
-
-        // --- Map Legend ---
-        const legend = L.control({position: 'topright'});
-        legend.onAdd = function (map) {
-            const div = L.DomUtil.create('div', 'legend');
-            const styleString = 'width: 16px; height: 16px; float: left; margin-right: 8px; opacity: 0.9; border-radius: 3px;';
-            div.innerHTML = `
-                <b>Service Legend</b><br>
-                <i style="background: #2ecc71; border: 2px solid #2ecc71; ${styleString}"></i> Camden County (Green Outline)<br>
-                <i style="background: #e67e22; ${styleString}"></i> South Jersey, Delaware & Eastern PA (Orange)<br>
-            `;
-            return div;
-        };
-        legend.addTo(map);
-    </script>
 </body>
 </html>
