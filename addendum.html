@@ -57,18 +57,11 @@
     <h1>Cooper Canines Conditional Addendum</h1>
 
     <form id="addendumForm">
-        <!-- Addendum Text Box -->
+        <!-- Dynamic Addendum Box -->
         <div class="form-group">
             <label>Conditional Addendum Terms</label>
-            <div class="scroll-box">
-                <p><strong>Conditional Addendum</strong><br>
-                The terms of this Addendum apply only if the Client utilizes conditional or expanded services, including vehicle transport of the Dog (between personal property, the Trainer’s location, or public spaces), boarding, daycare, private training sessions conducted without the Client present, group settings, or socialization in public areas. The payment, cancellation, and expiration terms outlined in the main Liability Waiver apply equally to these additional services.</p>
-                
-                <p>I acknowledge there are additional risks involved with environments that may contain other dogs, people, open spaces, or unknown hazards. I accept all risks of participating in public spaces and/or group settings, including encounters with dogs, wildlife, traffic, and known or unknown risks. I bear full responsibility for any unforeseen incidents, damages, or care requirements that occur while the dog is in the custody of the Trainer. I will be responsible for providing the Trainer with requested supplies and accept alternatives used by the Trainer or refusal of service if items were not provided. I authorize vehicle transport of my dog when required for services, and hold the Trainer harmless for any transit-related incidents.</p>
-                
-                <p>If my dog is not picked up at the agreed time and all attempts by the Trainer to reach both me and my Emergency Contacts are unsuccessful for 24 hours, the dog may be deemed abandoned and transferred to local animal control or a rescue facility. I remain responsible for all accumulated costs. If I am unable to receive my dog in the agreed time-frame, I accept double the current hourly rate and that there is an additional $100 fee for each overnight stay.</p>
-                
-                <p>I authorize the below individuals to act as emergency contacts and to pick up my dog on my behalf without requiring separate prior permission. All authorized individuals must present an official state or drivers license ID upon pickup.</p>
+            <div id="addendumContent" class="scroll-box">
+                <p><em>Loading addendum text...</em></p>
             </div>
         </div>
 
@@ -134,6 +127,30 @@
     </div>
 
     <script>
+        // Fetch and load addendum text dynamically from waiver.html (expects an element with class 'scroll-box' or matching structure inside waiver.html)
+        window.addEventListener('DOMContentLoaded', () => {
+            fetch('waiver.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response failed');
+                    return response.text();
+                })
+                .then(htmlText => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(htmlText, 'text/html');
+                    // Looks for the scroll-box inside waiver.html. You can adjust the query selector if your addendum has a specific id or class inside waiver.html
+                    const addendumBox = doc.querySelector('.scroll-box');
+                    if (addendumBox) {
+                        document.getElementById('addendumContent').innerHTML = addendumBox.innerHTML;
+                    } else {
+                        document.getElementById('addendumContent').innerHTML = '<p style="color:red;">Addendum content container not found in waiver.html.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching addendum content:', error);
+                    document.getElementById('addendumContent').innerHTML = '<p style="color:red;">Unable to load addendum content dynamically. Please ensure waiver.html is placed in the same folder.</p>';
+                });
+        });
+
         // Real-Time Phone Validation (Optional fields)
         function validatePhone(input, errorSpanId) {
             const phoneRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
