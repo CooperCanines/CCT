@@ -92,6 +92,14 @@
             </select>
         </div>
 
+        <!-- Separate Signature Option (Revealed when multiple owners selected) -->
+        <div id="separateSignContainer" class="form-group hidden">
+            <label style="font-weight: normal; cursor: pointer;">
+                <input type="checkbox" id="separateSignCheck" name="separate_signature" onchange="toggleSecondaryFields()">
+                Please check this box if the Secondary Owner/Handler will sign separately
+            </label>
+        </div>
+
         <!-- Primary Owner -->
         <div class="form-group">
             <label>Owner/Handler Name: *</label>
@@ -378,20 +386,36 @@
         setupCanvas('primarySigCanvas');
         setupCanvas('secondarySigCanvas');
 
-        // Dynamic Dropdown logic
+        // Dynamic Dropdown & Separate Signature logic
         function toggleSecondaryFields() {
             const dropdown = document.getElementById('ownershipType');
+            const separateSignContainer = document.getElementById('separateSignContainer');
+            const separateSignCheck = document.getElementById('separateSignCheck');
             const secSection = document.getElementById('secondarySection');
             const secFirst = document.getElementById('secFirst');
             const secLast = document.getElementById('secLast');
             const secPhone = document.getElementById('secondaryPhone');
 
-            if (dropdown.selectedIndex !== 0) { 
-                secSection.classList.remove('hidden');
-                secFirst.required = true;
-                secLast.required = true;
-                secPhone.required = false;
+            const isMultipleOwners = dropdown.selectedIndex !== 0;
+
+            if (isMultipleOwners) {
+                separateSignContainer.classList.remove('hidden');
+                
+                if (separateSignCheck.checked) {
+                    secSection.classList.add('hidden');
+                    secFirst.required = false;
+                    secLast.required = false;
+                    secPhone.required = false;
+                } else {
+                    secSection.classList.remove('hidden');
+                    secFirst.required = true;
+                    secLast.required = true;
+                    secPhone.required = false;
+                }
             } else {
+                separateSignContainer.classList.add('hidden');
+                separateSignCheck.checked = false;
+                
                 secSection.classList.add('hidden');
                 secFirst.required = false;
                 secLast.required = false;
@@ -457,7 +481,9 @@
             }
 
             const ownershipType = document.getElementById('ownershipType');
-            if (ownershipType.selectedIndex !== 0 && isCanvasBlank('secondarySigCanvas')) {
+            const separateSignCheck = document.getElementById('separateSignCheck');
+            
+            if (ownershipType.selectedIndex !== 0 && !separateSignCheck.checked && isCanvasBlank('secondarySigCanvas')) {
                 alert("Please provide a signature in the Secondary Owner Signature box before submitting.");
                 return false;
             }
@@ -468,7 +494,7 @@
 
             let isValid = validatePhone(primaryPhone, 'primaryPhoneErr');
 
-            if (ownershipType.selectedIndex !== 0) {
+            if (ownershipType.selectedIndex !== 0 && !separateSignCheck.checked) {
                 const secValid = validatePhone(secondaryPhone, 'secondaryPhoneErr');
                 if (!secValid) isValid = false;
             }
@@ -486,7 +512,7 @@
             // Save signatures to hidden inputs & update printable images
             prepareSignaturesForPrint();
             document.getElementById('primarySigData').value = document.getElementById('primarySigCanvas').toDataURL();
-            if (ownershipType.selectedIndex !== 0) {
+            if (ownershipType.selectedIndex !== 0 && !separateSignCheck.checked) {
                 document.getElementById('secondarySigData').value = document.getElementById('secondarySigCanvas').toDataURL();
             }
 
