@@ -6,15 +6,35 @@
     <title>Client Intake Questions - Cooper Canines LLC</title>
     <style>
         :root {
-            --primary: #00b300;
-            --primary-hover: #00d900;
-            --bg-dark: #12181b;
-            --card-bg: #1e262c;
-            --card-inner: #2a343d;
-            --text-light: #e0e6ed;
-            --text-muted: #9ba8b5;
-            --border-color: #3a4754;
-            --input-bg: #171d22;
+            --primary: #009100;
+            --primary-hover: #007300;
+            --text-dark: #2c3e50;
+            --bg-light: #f8f9fa;
+            --border-color: #cccccc;
+            --card-bg: #ffffff;
+            --card-inner: #f1f3f5;
+            --text-light: #2c3e50;
+            --text-muted: #6c757d;
+            --input-bg: #ffffff;
+            --btn-secondary-bg: #ffffff;
+            --btn-secondary-text: #009100;
+            --btn-secondary-border: #009100;
+        }
+
+        [data-theme="dark"] {
+            --primary: #2ecc71;
+            --primary-hover: #27ae60;
+            --text-dark: #ecf0f1;
+            --bg-light: #121212;
+            --border-color: #2c3e50;
+            --card-bg: #1e1e1e;
+            --card-inner: #2a2a2a;
+            --text-light: #ecf0f1;
+            --text-muted: #95a5a6;
+            --input-bg: #171717;
+            --btn-secondary-bg: #1e1e1e;
+            --btn-secondary-text: #2ecc71;
+            --btn-secondary-border: #2ecc71;
         }
 
         html {
@@ -25,14 +45,71 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            color: var(--text-light);
-            background-color: var(--bg-dark);
+            font-family: Arial, sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
         }
 
         body {
             display: flex;
             flex-direction: column;
+            position: relative;
+        }
+
+        /* Faded Side Logos */
+        .side-logo {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            opacity: 0.15;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: var(--primary);
+            z-index: 100;
+            cursor: pointer;
+            white-space: nowrap;
+            text-transform: uppercase;
+            transition: opacity 0.3s ease;
+            user-select: none;
+        }
+
+        .side-logo-left {
+            left: 20px;
+        }
+
+        .side-logo-right {
+            right: 20px;
+            transform: translateY(-50%) rotate(90deg);
+        }
+
+        /* Pong Ball */
+        #pongBall {
+            position: fixed;
+            font-size: 2rem;
+            z-index: 150;
+            display: none;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Pong Scoreboard */
+        #pongScore {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--primary);
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--primary);
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
         }
 
         .container {
@@ -41,10 +118,15 @@
             margin: 2rem auto;
             padding: 0 1.5rem;
             box-sizing: border-box;
+            position: relative;
+            z-index: 20;
         }
 
-        /* Top Back Button */
+        /* Top Navigation Container */
         .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 1.5rem;
         }
 
@@ -68,6 +150,24 @@
             color: #ffffff;
         }
 
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background-color: var(--card-bg);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--primary);
+            color: #ffffff;
+        }
+
         /* Header Styling */
         .header-card {
             background-color: var(--card-bg);
@@ -76,7 +176,7 @@
             border: 1px solid var(--border-color);
             text-align: center;
             margin-bottom: 2rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         h1 {
@@ -96,7 +196,7 @@
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 2rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             margin-bottom: 2rem;
         }
 
@@ -111,7 +211,7 @@
         .question-title {
             font-size: 1.05rem;
             font-weight: bold;
-            color: #ffffff;
+            color: var(--text-light);
             margin-bottom: 0.75rem;
             line-height: 1.4;
         }
@@ -151,11 +251,11 @@
             cursor: pointer;
             transition: border-color 0.2s ease, background-color 0.2s ease;
             font-size: 0.95rem;
+            color: var(--text-light);
         }
 
         label.option-label:hover {
             border-color: var(--primary);
-            background-color: #1f272e;
         }
 
         input[type="radio"], input[type="checkbox"] {
@@ -166,7 +266,7 @@
         }
 
         /* Text Inputs & Textareas */
-        input[type="text"], textarea {
+        input[type="text"], input[type="email"], textarea {
             width: 100%;
             background-color: var(--input-bg);
             border: 1px solid var(--border-color);
@@ -179,7 +279,7 @@
             transition: border-color 0.2s ease;
         }
 
-        input[type="text"]:focus, textarea:focus {
+        input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
             outline: none;
             border-color: var(--primary);
         }
@@ -229,7 +329,7 @@
             height: 48px;
             font-size: 1.2rem;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             display: none;
             align-items: center;
             justify-content: center;
@@ -245,22 +345,44 @@
 </head>
 <body id="top">
 
+    <!-- Faded Side Logos -->
+    <div class="side-logo side-logo-left" id="leftLogo">Cooper Canines</div>
+    <div class="side-logo side-logo-right" id="rightLogo">Cooper Canines</div>
+
+    <!-- Pong Elements -->
+    <div id="pongBall">🎾</div>
+    <div id="pongScore">Score: 0</div>
+
     <div class="container">
         <!-- Top Navigation -->
         <div class="top-nav">
             <a href="https://coopercanines.com" class="back-home-btn">
                 &larr; Back to Website
             </a>
+            <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌓 Theme</button>
         </div>
 
         <!-- Header -->
         <div class="header-card">
-            <h1>Client Intake Questionnaire In Construction - Please Do Not Fill Out</h1>
+            <h1>Client Intake Questionnaire</h1>
             <p>Please complete the details below to help us tailor our training programs for your dog.</p>
         </div>
 
         <!-- Main Questionnaire Form -->
-        <form class="form-card" action="#" method="POST">
+        <form class="form-card" action="https://api.web3forms.com/submit" method="POST">
+
+            <input type="hidden" name="access_key" value="5085b913-0cdc-49ef-9cff-79030702f254">
+
+            <!-- Contact Details Fields required for Web3Forms functionality -->
+            <div class="question-block">
+                <div class="question-title">Your Name <span class="required">*</span></div>
+                <input type="text" name="name" placeholder="Full Name" required>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">Your Email <span class="required">*</span></div>
+                <input type="email" name="email" placeholder="Email Address" required>
+            </div>
 
             <!-- Q1 -->
             <div class="question-block">
@@ -532,6 +654,111 @@
                 scrollTopBtn.style.display = 'none';
             }
         });
+
+        // Theme Toggle Functionality
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                html.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load Saved Theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+
+        // Pong Game Easter Egg Script using Side Logos
+        const leftLogo = document.getElementById('leftLogo');
+        const rightLogo = document.getElementById('rightLogo');
+        const pongBall = document.getElementById('pongBall');
+        const pongScore = document.getElementById('pongScore');
+
+        let pongActive = false;
+        let score = 0;
+        let ballX, ballY, vx, vy;
+        let leftY, rightY;
+        const paddleHeight = 100;
+        const paddleWidth = 20;
+
+        function startPong() {
+            if (pongActive) return;
+            pongActive = true;
+            score = 0;
+            pongScore.textContent = 'Score: 0';
+            pongScore.style.display = 'block';
+            pongBall.style.display = 'block';
+
+            leftY = window.innerHeight / 2;
+            rightY = window.innerHeight / 2;
+
+            ballX = window.innerWidth / 2;
+            ballY = window.innerHeight / 2;
+            vx = (Math.random() > 0.5 ? 1 : -1) * 5;
+            vy = (Math.random() * 4 - 2);
+
+            requestAnimationFrame(updatePong);
+        }
+
+        function updatePong() {
+            if (!pongActive) return;
+
+            ballX += vx;
+            ballY += vy;
+
+            // Top/Bottom boundary bounce
+            if (ballY <= 0 || ballY >= window.innerHeight) {
+                vy *= -1;
+            }
+
+            // Left paddle collision (approx leftLogo position)
+            if (ballX <= 40 && ballY >= leftY - paddleHeight / 2 && ballY <= leftY + paddleHeight / 2) {
+                vx *= -1;
+                score++;
+                pongScore.textContent = 'Score: ' + score;
+                vx *= 1.05; // speed up slightly
+            }
+
+            // Right paddle collision (approx rightLogo position)
+            if (ballX >= window.innerWidth - 40 && ballY >= rightY - paddleHeight / 2 && ballY <= rightY + paddleHeight / 2) {
+                vx *= -1;
+                score++;
+                pongScore.textContent = 'Score: ' + score;
+                vx *= 1.05;
+            }
+
+            // Game over check
+            if (ballX < 0 || ballX > window.innerWidth) {
+                pongActive = false;
+                pongBall.style.display = 'none';
+                pongScore.textContent = 'Game Over! Final Score: ' + score;
+                setTimeout(() => {
+                    pongScore.style.display = 'none';
+                }, 3000);
+                return;
+            }
+
+            // AI movement for paddles to track the ball
+            leftY += (ballY - leftY) * 0.08;
+            rightY += (ballY - rightY) * 0.08;
+
+            leftLogo.style.top = leftY + 'px';
+            rightLogo.style.top = rightY + 'px';
+
+            pongBall.style.left = ballX + 'px';
+            pongBall.style.top = ballY + 'px';
+
+            requestAnimationFrame(updatePong);
+        }
+
+        leftLogo.addEventListener('click', startPong);
+        rightLogo.addEventListener('click', startPong);
     </script>
 
 </body>
