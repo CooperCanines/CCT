@@ -57,7 +57,7 @@
     <h1>Cooper Canines Conditional Addendum</h1>
 
     <form id="addendumForm">
-        <!-- Dynamic Addendum Box -->
+        <!-- Dynamic Conditional Addendum Box -->
         <div class="form-group">
             <label>Conditional Addendum Terms</label>
             <div id="addendumContent" class="scroll-box">
@@ -127,7 +127,7 @@
     </div>
 
     <script>
-        // Fetch and load addendum text dynamically from waiver.html (expects an element with class 'scroll-box' or matching structure inside waiver.html)
+        // Fetch and load Conditional Addendum content dynamically from waiver.html
         window.addEventListener('DOMContentLoaded', () => {
             fetch('waiver.html')
                 .then(response => {
@@ -137,12 +137,12 @@
                 .then(htmlText => {
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(htmlText, 'text/html');
-                    // Looks for the scroll-box inside waiver.html. You can adjust the query selector if your addendum has a specific id or class inside waiver.html
-                    const addendumBox = doc.querySelector('.scroll-box');
-                    if (addendumBox) {
-                        document.getElementById('addendumContent').innerHTML = addendumBox.innerHTML;
+                    // Finds the second card-box in waiver.html which corresponds to the Conditional Addendum section
+                    const cardBoxes = doc.querySelectorAll('.card-box');
+                    if (cardBoxes.length >= 2) {
+                        document.getElementById('addendumContent').innerHTML = cardBoxes[1].innerHTML;
                     } else {
-                        document.getElementById('addendumContent').innerHTML = '<p style="color:red;">Addendum content container not found in waiver.html.</p>';
+                        throw new Error('Conditional Addendum section not found in waiver.html');
                     }
                 })
                 .catch(error => {
