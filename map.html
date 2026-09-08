@@ -53,34 +53,34 @@
         /* Floating Info Box in the Middle */
         .service-info-box {
             position: absolute;
-            top: 58%;
+            top: 60%;
             left: 50%;
             transform: translate(-50%, -50%);
             background: rgba(20, 20, 20, 0.95);
             color: #ecf0f1;
-            padding: 20px 22px;
+            padding: 18px 22px;
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.7);
             z-index: 1000;
             border: 1px solid #2c3e50;
-            max-width: 460px;
+            max-width: 480px;
             width: 90%;
             text-align: left;
         }
 
         .service-info-box h3 {
             margin-top: 0;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             color: var(--primary);
             font-size: 1.1rem;
             text-align: center;
             border-bottom: 1px solid #333;
-            padding-bottom: 8px;
+            padding-bottom: 6px;
         }
 
         .service-info-box p {
-            margin: 6px 0;
-            font-size: 0.9rem;
+            margin: 5px 0;
+            font-size: 0.88rem;
             line-height: 1.4;
         }
 
@@ -88,16 +88,25 @@
             color: #ffffff;
         }
 
+        /* Location Subheader Styling */
+        .location-note {
+            font-size: 0.82rem;
+            color: #38ef7d;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
         /* 7-Day Forecast Section Styling */
         .forecast-section {
-            margin-top: 14px;
-            padding-top: 10px;
+            margin-top: 10px;
+            padding-top: 8px;
             border-top: 1px dashed #333;
         }
 
         .forecast-section h4 {
-            margin: 0 0 8px 0;
-            font-size: 0.95rem;
+            margin: 0 0 6px 0;
+            font-size: 0.9rem;
             color: var(--primary);
             text-align: center;
         }
@@ -105,15 +114,15 @@
         .forecast-grid {
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            max-height: 160px;
+            gap: 3px;
+            max-height: 140px;
             overflow-y: auto;
         }
 
         .forecast-row {
             display: flex;
             justify-content: space-between;
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             background: rgba(255, 255, 255, 0.04);
             padding: 4px 8px;
             border-radius: 4px;
@@ -129,7 +138,7 @@
 
     <div id="map"></div>
 
-    <!-- Floating Service Box with 7-Day Forecast -->
+    <!-- Floating Service Box with Dynamic Location & Forecast -->
     <div class="service-info-box">
         <h3>Service Coverage Areas</h3>
         <p><strong>Primary Service Area:</strong> Camden County</p>
@@ -137,9 +146,10 @@
         <p><strong>Limited Service Areas:</strong> South Jersey, Eastern PA, Delaware</p>
         
         <div class="forecast-section">
-            <h4>7-Day Regional Weather Forecast</h4>
+            <div class="location-note" id="locationNote">Detecting your location...</div>
+            <h4>Local 7-Day Weather Forecast</h4>
             <div class="forecast-grid" id="forecastDisplay">
-                Loading 7-day forecast...
+                Loading forecast for your area...
             </div>
         </div>
     </div>
@@ -161,32 +171,52 @@
             maxZoom: 16
         }).addTo(map);
 
-        // Fetch Free 7-Day Daily Forecast from Open-Meteo for South Jersey coordinates
-        async function loadWeeklyForecast() {
+        // Helper to translate weather codes
+        function getWeatherDescription(code) {
+            if (code === 0) return '☀️ Clear sky';
+            if (code >= 1 && code <= 3) return '⛅ Partly cloudy';
+            if (code >= 45 && code <= 48) return '🌫️ Foggy';
+            if (code >= 51 && code <= 67) return '🌧️ Rain showers';
+            if (code >= 71 && code <= 77) return '🌨️ Snow';
+            if (code >= 95) return '⛈️ Thunderstorm';
+            return '🌤️ Fair conditions';
+        }
+
+        // Fetch user location based on their IP address, fallback to South Jersey if blocked/fails
+        async function detectUserLocationAndWeather() {
+            let lat = 39.89;   // Default fallback (South Jersey)
+            let lon = -75.07;
+            let locationName = "South Jersey (Default Region)";
+
             try {
-                const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=39.89&longitude=-75.07&daily=weather_code,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=auto');
-                const data = await response.json();
+                const ipResponse = await fetch('https://ipapi.co/json/');
+                const ipData = await ipResponse.json();
                 
-                const times = data.daily.time;
-                const maxTemps = data.daily.temperature_2m_max;
-                const minTemps = data.daily.temperature_2m_min;
-                const weatherCodes = data.daily.weather_code;
+                if (ipData && ipData.latitude && ipData.longitude) {
+                    lat = ipData.latitude;
+                    lon = ipData.longitude;
+                    locationName = `${ipData.city}, ${ipData.region}`;
+                }
+            } catch (err) {
+                console.log("IP geolocation lookup failed, using default South Jersey coordinates.");
+            }
+
+            // Update the display note showing where the forecast is pulling from
+            document.getElementById('locationNote').innerText = `📍 Forecast for: ${locationName}`;
+
+            // Fetch the 7-day weather forecast for these specific coordinates
+            try {
+                const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=auto`);
+                const weatherData = await weatherResponse.json();
+                
+                const times = weatherData.daily.time;
+                const maxTemps = weatherData.daily.temperature_2m_max;
+                const minTemps = weatherData.daily.temperature_2m_min;
+                const weatherCodes = weatherData.daily.weather_code;
 
                 let htmlContent = '';
 
-                // Helper to map weather code numbers to text descriptions
-                function getWeatherDescription(code) {
-                    if (code === 0) return '☀️ Clear sky';
-                    if (code >= 1 && code <= 3) return '⛅ Partly cloudy';
-                    if (code >= 45 && code <= 48) return '🌫️ Foggy';
-                    if (code >= 51 && code <= 67) return '🌧️ Rain showers';
-                    if (code >= 71 && code <= 77) return '🌨️ Snow';
-                    if (code >= 95) return '⛈️ Thunderstorm';
-                    return '🌤️ Fair conditions';
-                }
-
                 for (let i = 0; i < times.length; i++) {
-                    // Format date string nicely (e.g., "Mon, Sep 7")
                     const dateObj = new Date(times[i] + 'T00:00:00');
                     const options = { weekday: 'short', month: 'short', day: 'numeric' };
                     const formattedDate = dateObj.toLocaleDateString('en-US', options);
@@ -206,11 +236,11 @@
                 document.getElementById('forecastDisplay').innerHTML = htmlContent;
             } catch (error) {
                 console.error("Could not load 7-day forecast", error);
-                document.getElementById('forecastDisplay').innerHTML = "7-day forecast currently unavailable.";
+                document.getElementById('forecastDisplay').innerHTML = "Forecast currently unavailable.";
             }
         }
 
-        loadWeeklyForecast();
+        detectUserLocationAndWeather();
     </script>
 </body>
 </html>
