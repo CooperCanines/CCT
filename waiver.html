@@ -43,6 +43,7 @@
             color: var(--text-dark);
             background-color: var(--bg-light);
             transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
         }
 
         body {
@@ -62,10 +63,12 @@
             font-weight: bold;
             letter-spacing: 2px;
             color: var(--primary);
-            z-index: 10;
-            pointer-events: none;
+            z-index: 100;
+            cursor: pointer;
             white-space: nowrap;
             text-transform: uppercase;
+            transition: opacity 0.3s ease;
+            user-select: none;
         }
 
         .side-logo-left {
@@ -75,6 +78,33 @@
         .side-logo-right {
             right: 20px;
             transform: translateY(-50%) rotate(90deg);
+        }
+
+        /* Pong Ball */
+        #pongBall {
+            position: fixed;
+            font-size: 2rem;
+            z-index: 150;
+            display: none;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Pong Scoreboard */
+        #pongScore {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--primary);
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--primary);
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
         }
 
         .container {
@@ -242,8 +272,12 @@
 <body id="top">
 
     <!-- Faded Sideways Margin Logos -->
-    <div class="side-logo side-logo-left">Cooper Canines</div>
-    <div class="side-logo side-logo-right">Cooper Canines</div>
+    <div class="side-logo side-logo-left" id="logoLeft">Cooper Canines</div>
+    <div class="side-logo side-logo-right" id="logoRight">Cooper Canines</div>
+
+    <!-- Pong Elements -->
+    <div id="pongBall">🐶</div>
+    <div id="pongScore">Score: <span id="scoreVal">0</span></div>
 
     <div class="container">
         <!-- Top Navigation -->
@@ -423,6 +457,148 @@
                 scrollTopBtn.style.display = 'none';
             }
         });
+
+        /* --- Pong Game Logic --- */
+        const logoLeft = document.getElementById('logoLeft');
+        const logoRight = document.getElementById('logoRight');
+        const pongBall = document.getElementById('pongBall');
+        const pongScore = document.getElementById('pongScore');
+        const scoreVal = document.getElementById('scoreVal');
+
+        let gameActive = false;
+        let mousePosY = window.innerHeight / 2;
+        let score = 0;
+        let ballX = window.innerWidth / 2;
+        let ballY = window.innerHeight / 2;
+        let ballSpeedX = 4;
+        let ballSpeedY = 3;
+        let speedMultiplier = 1;
+
+        // Track mouse position anywhere on screen once game starts
+        window.addEventListener('mousemove', (e) => {
+            if (gameActive) {
+                mousePosY = e.clientY;
+            }
+        });
+
+        // Click logos to start game
+        logoLeft.addEventListener('click', startPong);
+        logoRight.addEventListener('click', startPong);
+
+        function startPong() {
+            if (gameActive) return;
+            gameActive = true;
+            score = 0;
+            scoreVal.textContent = score;
+            speedMultiplier = 1;
+
+            // Make logos 100% visible
+            logoLeft.style.opacity = '1';
+            logoRight.style.opacity = '1';
+
+            // Show ball and scoreboard
+            pongBall.style.display = 'block';
+            pongScore.style.display = 'block';
+
+            // Reset ball position to center
+            ballX = window.innerWidth / 2;
+            ballY = window.innerHeight / 2;
+            ballSpeedX = (Math.random() > 0.5 ? 1 : -1) * 4;
+            ballSpeedY = (Math.random() * 4 - 2);
+
+            requestAnimationFrame(updatePong);
+        }
+
+        function updatePong() {
+            if (!gameActive) return;
+
+            // Increase speed slightly over time
+            speedMultiplier += 0.0005;
+
+            // Move ball
+            ballX += ballSpeedX * speedMultiplier;
+            ballY += ballSpeedY * speedMultiplier;
+
+            // Top and bottom boundary bouncing
+            if (ballY <= 20) {
+                ballY = 20;
+                ballSpeedY *= -1;
+            }
+            if (ballY >= window.innerHeight - 20) {
+                ballY = window.innerHeight - 20;
+                ballSpeedY *= -1;
+            }
+
+            // Paddle tracking mouse (centered on mouse Y)
+            const paddleHeight = 120; // approximate pixel height of sideways text element
+            let paddleY = mousePosY;
+
+            // Keep paddles within screen bounds
+            if (paddleY < paddleHeight / 2) paddleY = paddleHeight / 2;
+            if (paddleY > window.innerHeight - paddleHeight / 2) paddleY = window.innerHeight - paddleHeight / 2;
+
+            // Apply movement to both side logo elements
+            logoLeft.style.top = paddleY + 'px';
+            logoRight.style.top = paddleY + 'px';
+
+            // Collision Detection: Left Paddle (Logo Left is at x ≈ 20 + offset)
+            const leftRect = logoLeft.getBoundingClientRect();
+            const rightRect = logoRight.getBoundingClientRect();
+            const ballRect = pongBall.getBoundingClientRect();
+
+            // Check Left Paddle Hit
+            if (ballX <= leftRect.right && ballX >= leftRect.left && ballY >= leftRect.top && ballY <= leftRect.bottom) {
+                ballX = leftRect.right + 10;
+                ballSpeedX *= -1;
+                // Add a little spin based on where it hit the paddle
+                let hitOffset = (ballY - leftRect.top) / leftRect.height - 0.5;
+                ballSpeedY += hitOffset * 3;
+                score++;
+                scoreVal.textContent = score;
+            }
+
+            // Check Right Paddle Hit
+            if (ballX >= rightRect.left && ballX <= rightRect.right && ballY >= rightRect.top && ballY <= rightRect.bottom) {
+                ballX = rightRect.left - 10;
+                ballSpeedX *= -1;
+                let hitOffset = (ballY - rightRect.top) / rightRect.height - 0.5;
+                ballSpeedY += hitOffset * 3;
+                score++;
+                scoreVal.textContent = score;
+            }
+
+            // Update ball DOM position
+            pongBall.style.left = ballX + 'px';
+            pongBall.style.top = ballY + 'px';
+
+            // Game Over Check: Did the ball escape past the left or right edges?
+            if (ballX < -30 || ballX > window.innerWidth + 30) {
+                endPong();
+                return;
+            }
+
+            requestAnimationFrame(updatePong);
+        }
+
+        function endPong() {
+            gameActive = false;
+            pongBall.style.display = 'none';
+            
+            // Fade logos back to normal watermark state
+            logoLeft.style.opacity = '0.15';
+            logoRight.style.opacity = '0.15';
+            
+            // Reset logo positions back to center screen
+            logoLeft.style.top = '50%';
+            logoRight.style.top = '50%';
+
+            // Show final score briefly before hiding scoreboard
+            pongScore.innerHTML = `Game Over! Score: ${score}`;
+            setTimeout(() => {
+                pongScore.style.display = 'none';
+                pongScore.innerHTML = `Score: <span id="scoreVal">${score}</span>`;
+            }, 3000);
+        }
     </script>
 
 </body>
