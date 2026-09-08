@@ -79,7 +79,7 @@
             transform: translateY(-50%) rotate(90deg);
         }
 
-        /* Pong Ball */
+        /* Pong Ball / Dog */
         #pongBall {
             position: fixed;
             font-size: 2rem;
@@ -287,6 +287,19 @@
             margin-top: 0.5rem;
         }
 
+        .email-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .email-error {
+            color: #ff5555;
+            font-size: 0.85rem;
+            display: none;
+            margin-top: 0.25rem;
+        }
+
         /* Submit Button */
         .submit-btn {
             display: block;
@@ -353,7 +366,7 @@
             <a href="https://coopercanines.com" class="back-home-btn">
                 &larr; Back to Website
             </a>
-            <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌓 Theme</button>
+            <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">Light Mode</button>
         </div>
 
         <!-- Header -->
@@ -363,7 +376,7 @@
         </div>
 
         <!-- Main Questionnaire Form -->
-        <form class="form-card" action="https://api.web3forms.com/submit" method="POST">
+        <form class="form-card" id="intakeForm" action="https://api.web3forms.com/submit" method="POST">
 
             <input type="hidden" name="access_key" value="5085b913-0cdc-49ef-9cff-79030702f254">
 
@@ -374,8 +387,17 @@
             </div>
 
             <div class="question-block">
+                <div class="question-title">Your Dog's Name <span class="required">*</span></div>
+                <input type="text" name="dog_name" placeholder="Dog's Name" required>
+            </div>
+
+            <div class="question-block">
                 <div class="question-title">Your Email <span class="required">*</span></div>
-                <input type="email" name="email" placeholder="Email Address" required>
+                <div class="email-container">
+                    <input type="email" id="email" name="email" placeholder="Email Address" required>
+                    <input type="email" id="emailConfirm" placeholder="Verify Email Address" required>
+                    <div id="emailError" class="email-error">Email addresses do not match or format is invalid.</div>
+                </div>
             </div>
 
             <!-- Q1 -->
@@ -604,7 +626,7 @@
                     <label class="option-label"><input type="checkbox" name="q15_training[]" value="Clicker Training"> Clicker Training</label>
                     <label class="option-label"><input type="checkbox" name="q15_training[]" value="Destructive Behavior"> Destructive Behavior</label>
                     <label class="option-label"><input type="checkbox" name="q15_training[]" value="First-Time Owner / New Dog Support"> First-Time Owner / New Dog Support</label>
-                    <label class="option-label"><input type="checkbox" name="q15_training[]" value="Leash Walking Skills"> Leash Walking Skills</label>
+                    <label class="option-label"><input type="checkbox" name="q15_training[]" value="Left Walking Skills"> Leash Walking Skills</label>
                     <label class="option-label"><input type="checkbox" name="q15_training[]" value="Obedience and Basic Skills"> Obedience and Basic Skills</label>
                     <label class="option-label"><input type="checkbox" name="q15_training[]" value="Puppy Training"> Puppy Training</label>
                     <label class="option-label"><input type="checkbox" name="q15_training[]" value="Recall and Off-Leash"> Recall and Off-Leash</label>
@@ -640,6 +662,7 @@
 
     <script>
         const scrollTopBtn = document.getElementById('scrollTopBtn');
+        const themeToggleBtn = document.getElementById('themeToggle');
 
         window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
@@ -648,6 +671,16 @@
                 scrollTopBtn.style.display = 'none';
             }
         });
+
+        // Update Theme Button Text based on current mode
+        function updateThemeButtonText() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                themeToggleBtn.textContent = 'Dark Mode';
+            } else {
+                themeToggleBtn.textContent = 'Light Mode';
+            }
+        }
 
         // Theme Toggle Functionality
         function toggleTheme() {
@@ -660,100 +693,142 @@
                 html.setAttribute('data-theme', 'dark');
                 localStorage.setItem('theme', 'dark');
             }
+            updateThemeButtonText();
         }
 
-        // Load Saved Theme
+        // Load saved theme on initial load
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') {
             document.documentElement.setAttribute('data-theme', 'dark');
         }
+        updateThemeButtonText();
 
-        // Pong Game Easter Egg Script using Side Logos
+        // Email Validation & Form Submission Handling
+        const intakeForm = document.getElementById('intakeForm');
+        const emailInput = document.getElementById('email');
+        const emailConfirmInput = document.getElementById('emailConfirm');
+        const emailError = document.getElementById('emailError');
+
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        intakeForm.addEventListener('submit', function(e) {
+            const emailVal = emailInput.value.trim();
+            const confirmVal = emailConfirmInput.value.trim();
+
+            if (!isValidEmail(emailVal) || emailVal !== confirmVal) {
+                e.preventDefault();
+                emailError.style.display = 'block';
+                emailConfirmInput.focus();
+            } else {
+                emailError.style.display = 'none';
+            }
+        });
+
+        emailConfirmInput.addEventListener('input', function() {
+            if (emailConfirmInput.value.trim() === emailInput.value.trim() && isValidEmail(emailConfirmInput.value.trim())) {
+                emailError.style.display = 'none';
+            }
+        });
+
+        // Pong / Logo Minigame Script matching waiver.html implementation
         const leftLogo = document.getElementById('leftLogo');
         const rightLogo = document.getElementById('rightLogo');
         const pongBall = document.getElementById('pongBall');
         const pongScore = document.getElementById('pongScore');
 
-        let pongActive = false;
+        let gameActive = false;
         let score = 0;
-        let ballX, ballY, vx, vy;
-        let leftY, rightY;
-        const paddleHeight = 100;
-        const paddleWidth = 20;
+        let ballX = 0, ballY = 0;
+        let ballVX = 0, ballVY = 0;
+        let activePaddle = null; // 'left' or 'right'
 
-        function startPong() {
-            if (pongActive) return;
-            pongActive = true;
+        function startGame(side) {
+            if (gameActive) return;
+            gameActive = true;
+            activePaddle = side;
             score = 0;
-            pongScore.textContent = 'Score: 0';
+            pongScore.textContent = `Score: ${score}`;
             pongScore.style.display = 'block';
             pongBall.style.display = 'block';
 
-            leftY = window.innerHeight / 2;
-            rightY = window.innerHeight / 2;
+            const rect = (side === 'left' ? leftLogo : rightLogo).getBoundingClientRect();
+            ballX = rect.left + rect.width / 2;
+            ballY = rect.top + rect.height / 2;
 
-            ballX = window.innerWidth / 2;
-            ballY = window.innerHeight / 2;
-            vx = (Math.random() > 0.5 ? 1 : -1) * 5;
-            vy = (Math.random() * 4 - 2);
+            const angle = (Math.random() * 60 - 30) * (Math.PI / 180);
+            const speed = 6;
+            ballVX = (side === 'left' ? 1 : -1) * speed * Math.cos(angle);
+            ballVY = speed * Math.sin(angle);
 
-            requestAnimationFrame(updatePong);
+            requestAnimationFrame(updateGame);
         }
 
-        function updatePong() {
-            if (!pongActive) return;
+        leftLogo.addEventListener('click', () => startGame('left'));
+        rightLogo.addEventListener('click', () => startGame('right'));
 
-            ballX += vx;
-            ballY += vy;
+        function updateGame() {
+            if (!gameActive) return;
 
-            // Top/Bottom boundary bounce
-            if (ballY <= 0 || ballY >= window.innerHeight) {
-                vy *= -1;
-            }
+            ballX += ballVX;
+            ballY += ballVY;
 
-            // Left paddle collision (approx leftLogo position)
-            if (ballX <= 40 && ballY >= leftY - paddleHeight / 2 && ballY <= leftY + paddleHeight / 2) {
-                vx *= -1;
+            // Check walls (top / bottom)
+            if (ballY <= 20) { ballY = 20; ballVY *= -1; }
+            if (ballY >= window.innerHeight - 20) { ballY = window.innerHeight - 20; ballVY *= -1; }
+
+            // Check paddle collision
+            const paddle = activePaddle === 'left' ? leftLogo : rightLogo;
+            const prect = paddle.getBoundingClientRect();
+
+            if (activePaddle === 'left' && ballX <= prect.right + 10 && ballY >= prect.top && ballY <= prect.bottom) {
+                ballX = prect.right + 10;
+                ballVX *= -1;
                 score++;
-                pongScore.textContent = 'Score: ' + score;
-                vx *= 1.05; // speed up slightly
-            }
-
-            // Right paddle collision (approx rightLogo position)
-            if (ballX >= window.innerWidth - 40 && ballY >= rightY - paddleHeight / 2 && ballY <= rightY + paddleHeight / 2) {
-                vx *= -1;
+                pongScore.textContent = `Score: ${score}`;
+            } else if (activePaddle === 'right' && ballX >= prect.left - 10 && ballY >= prect.top && ballY <= prect.bottom) {
+                ballX = prect.left - 10;
+                ballVX *= -1;
                 score++;
-                pongScore.textContent = 'Score: ' + score;
-                vx *= 1.05;
+                pongScore.textContent = `Score: ${score}`;
             }
 
-            // Game over check
-            if (ballX < 0 || ballX > window.innerWidth) {
-                pongActive = false;
-                pongBall.style.display = 'none';
-                pongScore.textContent = 'Game Over! Final Score: ' + score;
-                setTimeout(() => {
-                    pongScore.style.display = 'none';
-                }, 3000);
+            // Game over conditions (passed the side logo)
+            if (activePaddle === 'left' && ballX > window.innerWidth + 30) {
+                endGame();
+                return;
+            }
+            if (activePaddle === 'right' && ballX < -30) {
+                endGame();
                 return;
             }
 
-            // AI movement for paddles to track the ball
-            leftY += (ballY - leftY) * 0.08;
-            rightY += (ballY - rightY) * 0.08;
+            pongBall.style.left = `${ballX}px`;
+            pongBall.style.top = `${ballY}px`;
 
-            leftLogo.style.top = leftY + 'px';
-            rightLogo.style.top = rightY + 'px';
-
-            pongBall.style.left = ballX + 'px';
-            pongBall.style.top = ballY + 'px';
-
-            requestAnimationFrame(updatePong);
+            requestAnimationFrame(updateGame);
         }
 
-        leftLogo.addEventListener('click', startPong);
-        rightLogo.addEventListener('click', startPong);
-    </script>
+        function endGame() {
+            gameActive = false;
+            pongBall.style.display = 'none';
+            pongScore.style.display = 'none';
+            alert(`Game Over! Final Score: ${score}`);
+        }
 
+        // Mouse move to control active side logo
+        window.addEventListener('mousemove', (e) => {
+            if (!gameActive) return;
+            const paddle = activePaddle === 'left' ? leftLogo : rightLogo;
+            let newY = e.clientY;
+            const halfHeight = paddle.offsetHeight / 2;
+            if (newY < halfHeight + 20) newY = halfHeight + 20;
+            if (newY > window.innerHeight - halfHeight - 20) newY = window.innerHeight - halfHeight - 20;
+            paddle.style.top = `${newY}px`;
+            paddle.style.transform = `translateY(-50%) rotate(${activePaddle === 'left' ? '-90deg' : '90deg'})`;
+        });
+    </script>
 </body>
 </html>
