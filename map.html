@@ -83,7 +83,7 @@
         // Initialize map centered around the Delaware Valley region
         const map = L.map('map', {
             zoomControl: false
-        }).setView([39.85, -75.10], 9);
+        }).setView([39.75, -75.00], 9);
 
         L.control.zoom({ position: 'bottomright' }).addTo(map);
 
@@ -93,114 +93,65 @@
             maxZoom: 16
         }).addTo(map);
 
-        // Target definitions
-        const greenCounty = "Camden";
-        
-        // South Jersey counties (All 8 southern/central counties)
-        const southJerseyCounties = ["Camden", "Gloucester", "Burlington", "Atlantic", "Cape May", "Cumberland", "Salem", "Ocean", "Mercer"];
-        
-        // Entire state of Delaware
-        const delawareCounties = ["New Castle", "Kent", "Sussex"];
-        
-        // Eastern PA counties bordering NJ (Bucks, Philadelphia, Delaware, Montgomery, Chester, Northampton, Lehigh)
-        const easternPaFips = ["42017", "42029", "42045", "42091", "42101", "42077", "42095"];
+        // Common style for Orange regions
+        const orangeStyle = {
+            color: '#d35400',
+            weight: 1.5,
+            fillColor: '#e67e22',
+            fillOpacity: 0.3
+        };
 
-        // Style function based on precise geographical filters
-        function styleFeature(feature) {
-            const props = feature.properties;
-            const countyName = (props.NAME || props.name || props.NAME_2 || props.COUNTY || "").replace(" County", "").trim();
-            const stateFp = props.STATEFP;
-            const countyFp = props.GEOID || (stateFp + (props.COUNTYFP || ""));
+        // Style specifically for Camden County (Green outline, transparent fill so orange shows through or stands out)
+        const camdenStyle = {
+            color: '#2ecc71',
+            weight: 3.5,
+            fillColor: '#2ecc71',
+            fillOpacity: 0.4
+        };
 
-            // 1. Camden County gets outlined in Green
-            if (stateFp === "34" && countyName === greenCounty) {
-                return {
-                    color: "#2ecc71",       // Bright green outline
-                    weight: 3.5,
-                    fillColor: "#e67e22",   // Orange fill interior
-                    fillOpacity: 0.35
-                };
-            } 
-            
-            // 2. Rest of South Jersey, all of Delaware, and Eastern PA get Orange
-            const isSouthJersey = (stateFp === "34" && southJerseyCounties.includes(countyName));
-            const isDelaware = (stateFp === "10");
-            const isEasternPa = (stateFp === "42" && easternPaFips.includes(countyFp));
+        // --- 1. ORANGE REGIONS: South Jersey, Delaware, and Eastern PA Bordering Counties ---
 
-            if (isSouthJersey || isDelaware || isEasternPa) {
-                return {
-                    color: "#d35400",       // Darker orange border
-                    weight: 1.5,
-                    fillColor: "#e67e22",   // Orange fill
-                    fillOpacity: 0.28       // Faded orange tint
-                };
-            } 
-            
-            // 3. Everything else (untracked regions) hidden/faded away
-            return {
-                color: "#333333",
-                weight: 0.5,
-                fillColor: "#111111",
-                fillOpacity: 0.05
-            };
-        }
+        // South Jersey Group (Approximate combined regional boundary)
+        const southJerseyCoords = [
+            [40.22, -74.75], [40.15, -74.15], [39.50, -74.18], [38.93, -74.75], 
+            [39.20, -75.30], [39.50, -75.55], [39.65, -75.35], [39.95, -75.25], 
+            [40.15, -75.05], [40.22, -74.75]
+        ];
+        L.polygon(southJerseyCoords, orangeStyle).addTo(map).bindPopup("<strong>South Jersey Region</strong><br>Limited Services Area");
 
-        // Add popups
-        function onEachFeature(feature, layer) {
-            const props = feature.properties;
-            const countyName = (props.NAME || props.name || props.NAME_2 || props.COUNTY || "County").replace(" County", "").trim();
-            const stateFp = props.STATEFP;
-            const countyFp = props.GEOID || (stateFp + (props.COUNTYFP || ""));
+        // Delaware (Entire State Region)
+        const delawareCoords = [
+            [39.84, -75.78], [39.84, -75.45], [39.45, -75.35], [38.90, -75.35], 
+            [38.45, -75.05], [38.45, -75.78], [39.84, -75.78]
+        ];
+        L.polygon(delawareCoords, orangeStyle).addTo(map).bindPopup("<strong>State of Delaware</strong><br>Limited Services Area");
 
-            const isPrimaryGreen = (stateFp === "34" && countyName === greenCounty);
-            const isOrangeArea = (
-                (stateFp === "34" && southJerseyCounties.includes(countyName)) || 
-                (stateFp === "10") || 
-                (stateFp === "42" && easternPaFips.includes(countyFp))
-            );
+        // Eastern PA Bordering Counties Group (Bucks, Philly, Delaware, Montgomery, Chester)
+        const easternPaCoords = [
+            [40.60, -75.30], [40.40, -74.88], [40.10, -74.95], [39.88, -75.08], 
+            [39.80, -75.55], [39.72, -75.80], [40.10, -76.00], [40.50, -75.60], 
+            [40.60, -75.30]
+        ];
+        L.polygon(easternPaCoords, orangeStyle).addTo(map).bindPopup("<strong>Eastern Pennsylvania Border Counties</strong><br>Limited Services Area");
 
-            if (isPrimaryGreen) {
-                layer.bindPopup(`<strong style="color: #2ecc71;">${countyName} County, NJ</strong><br>Primary Service Area (Green Outline / Orange Region)`);
-            } else if (isOrangeArea) {
-                const stateName = stateFp === "34" ? "New Jersey" : (stateFp === "10" ? "Delaware" : "Pennsylvania");
-                layer.bindPopup(`<strong style="color: #e67e22;">${countyName} County, ${stateName}</strong><br>Limited Services Area`);
-            } else {
-                layer.bindPopup(`<strong>${countyName} County</strong><br>Outside Service Region`);
-            }
-        }
 
-        // Fetch official US county shapes via public GeoJSON endpoint
-        const geojsonUrl = 'https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-counties.json';
+        // --- 2. CAMDEN COUNTY (Drawn on top with a Green outline) ---
+        const camdenCoords = [
+            [39.95, -75.10], [39.90, -74.85], [39.80, -74.75], 
+            [39.70, -74.90], [39.75, -75.15], [39.95, -75.10]
+        ];
+        L.polygon(camdenCoords, camdenStyle).addTo(map).bindPopup("<strong style='color: #2ecc71;'>Camden County, NJ</strong><br>Primary Service Area (Green Outline)");
 
-        fetch(geojsonUrl)
-            .then(response => response.json())
-            .then(data => {
-                // Filter specifically to NJ (34), DE (10), and target PA counties (42)
-                data.features = data.features.filter(feature => {
-                    const stateFp = feature.properties.STATEFP;
-                    const countyFp = feature.properties.GEOID || (stateFp + (feature.properties.COUNTYFP || ""));
-                    
-                    if (stateFp === "34" || stateFp === "10") return true; 
-                    if (stateFp === "42" && easternPaFips.includes(countyFp)) return true; 
-                    return false;
-                });
 
-                L.geoJSON(data, {
-                    style: styleFeature,
-                    onEachFeature: onEachFeature
-                }).addTo(map);
-            })
-            .catch(err => console.error("Error loading map boundaries: ", err));
-
-        // Map Legend
+        // --- Map Legend ---
         const legend = L.control({position: 'topright'});
         legend.onAdd = function (map) {
             const div = L.DomUtil.create('div', 'legend');
             const styleString = 'width: 16px; height: 16px; float: left; margin-right: 8px; opacity: 0.9; border-radius: 3px;';
             div.innerHTML = `
                 <b>Service Legend</b><br>
-                <i style="background: #e67e22; border: 2px solid #2ecc71; ${styleString}"></i> Camden County (Green Outline)<br>
-                <i style="background: #e67e22; ${styleString}"></i> South Jersey, Delaware & Eastern PA<br>
+                <i style="background: #2ecc71; border: 2px solid #2ecc71; ${styleString}"></i> Camden County (Green Outline)<br>
+                <i style="background: #e67e22; ${styleString}"></i> South Jersey, Delaware & Eastern PA (Orange)<br>
             `;
             return div;
         };
