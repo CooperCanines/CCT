@@ -174,22 +174,135 @@
             display: block;
         }
 
-        .dropdown-menu a {
+        .dropdown-menu a, .dropdown-menu button {
             color: var(--dark);
             display: block;
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
             padding: 0.75rem 1rem;
             text-decoration: none;
             font-weight: bold;
+            font-size: 1rem;
+            font-family: Arial, sans-serif;
+            cursor: pointer;
             border-bottom: 1px solid #eee;
+            box-sizing: border-box;
         }
 
-        .dropdown-menu a:last-child {
+        .dropdown-menu a:last-child, .dropdown-menu button:last-child {
             border-bottom: none;
         }
 
-        .dropdown-menu a:hover {
+        .dropdown-menu a:hover, .dropdown-menu button:hover {
             background-color: var(--light);
             color: var(--primary);
+        }
+
+        /* Service Area Modal Styles */
+        .service-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .service-modal-overlay.show {
+            display: flex;
+        }
+
+        .service-info-box {
+            background: rgba(20, 20, 20, 0.98);
+            color: #ecf0f1;
+            padding: 22px 24px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            border: 1px solid #2c3e50;
+            max-width: 480px;
+            width: 90%;
+            text-align: left;
+            position: relative;
+        }
+
+        .service-info-box h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: #2ecc71;
+            font-size: 1.1rem;
+            text-align: center;
+            border-bottom: 1px solid #333;
+            padding-bottom: 6px;
+        }
+
+        .service-info-box p {
+            margin: 5px 0;
+            font-size: 0.88rem;
+            line-height: 1.4;
+        }
+
+        .service-info-box strong {
+            color: #ffffff;
+        }
+
+        .location-note {
+            font-size: 0.82rem;
+            color: #38ef7d;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .forecast-section {
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px dashed #333;
+        }
+
+        .forecast-section h4 {
+            margin: 0 0 6px 0;
+            font-size: 0.9rem;
+            color: #2ecc71;
+            text-align: center;
+        }
+
+        .forecast-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            max-height: 140px;
+            overflow-y: auto;
+        }
+
+        .forecast-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: #cbd5e1;
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .close-modal-btn:hover {
+            color: #fff;
         }
 
         /* Hero Banner Styling */
@@ -248,7 +361,6 @@
             padding: 0 1rem;
         }
 
-        /* Flexbox for side-by-side alignment and equal heights */
         .services-grid {
             display: flex;
             flex-wrap: wrap;
@@ -270,15 +382,14 @@
         .card h3 {
             color: var(--primary);
             margin-top: 0;
-            text-align: center; /* Centered card titles */
+            text-align: center;
         }
 
-        /* Program Card Images - Fully Visible */
         .card img {
             width: 100%;
             height: 200px;
-            object-fit: contain; /* Keeps entire image visible without cropping */
-            background-color: #f8f9fa; /* Light subtle backdrop filling empty letterbox space */
+            object-fit: contain;
+            background-color: #f8f9fa;
             border-radius: 6px;
             margin-bottom: 1rem;
         }
@@ -321,7 +432,6 @@
             transform: translateY(-3px);
         }
 
-        /* Keyframes for the Orange Flash / Glow Animation */
         @keyframes flashOrange {
             0% {
                 background-color: var(--primary);
@@ -342,7 +452,6 @@
             animation: flashOrange 1s ease-in-out 2;
         }
 
-        /* Footer Container */
         footer {
             position: relative;
             background-color: var(--primary);
@@ -357,7 +466,6 @@
             box-sizing: border-box;
         }
 
-        /* Generic Badge Link Styling */
         .badge-link {
             display: inline-flex;
             align-items: center;
@@ -371,7 +479,6 @@
             filter: brightness(1.1);
         }
 
-        /* Max size enforced at 80px */
         .badge-link img {
             max-width: 80px;
             max-height: 80px;
@@ -382,7 +489,6 @@
             border-radius: 4px;
         }
 
-        /* Far-Left Hugging Badge (Pet Care Insurance) */
         .footer-badge-left {
             position: absolute;
             left: 1.5rem;
@@ -391,7 +497,6 @@
             z-index: 2;
         }
 
-        /* Far-Right Hugging Badge (APDT Logo) */
         .footer-badge-right {
             position: absolute;
             right: 1.5rem;
@@ -400,7 +505,6 @@
             z-index: 2;
         }
 
-        /* Floating Scroll-to-Top Button */
         .scroll-top-btn {
             position: fixed;
             bottom: 25px;
@@ -433,7 +537,6 @@
             background-color: #d35400;
         }
 
-        /* Responsive Breakpoints for Nav Layout */
         @media (max-width: 900px) {
             .nav-links {
                 display: none;
@@ -459,43 +562,37 @@
             }
         }
 
-        /* Mobile responsiveness adjustment */
         @media (max-width: 768px) {
-            /* Prevent overall horizontal scroll */
             html, body {
                 overflow-x: hidden;
             }
 
-            /* Force the navigation bar to act as the positioning container for the dropdown */
             nav {
                 position: sticky;
                 top: 0;
             }
 
-/* Ensure menu container acts as the anchor point on mobile */
-    .menu-container {
-        position: relative;
-    }
+            .menu-container {
+                position: relative;
+            }
 
-    /* Right-align the mobile dropdown so it stays within the viewport */
-    .dropdown-menu {
-        position: absolute;
-        top: 120%;
-        right: 0;
-        left: auto;
-        width: 240px;
-        max-width: 85vw;
-        min-width: unset;
-        border-radius: 8px;
-        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-    }
+            .dropdown-menu {
+                position: absolute;
+                top: 120%;
+                right: 0;
+                left: auto;
+                width: 240px;
+                max-width: 85vw;
+                min-width: unset;
+                border-radius: 8px;
+                box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+            }
 
             .scroll-top-btn {
                 bottom: 20px;
                 right: 15px;
             }
 
-            /* Container for mobile badges centered above the footer text */
             .mobile-badge-container {
                 display: flex;
                 justify-content: center;
@@ -546,7 +643,7 @@
             </button>
             <div class="dropdown-menu" id="dropdownMenu">
                 <a href="/start.html" target="_blank" rel="noopener">New Client</a>
-                <a href="/portal"_blank" rel="noopener">Returning Client</a>
+                <a href="/portal.html" target="_blank" rel="noopener">Returning Client</a>
                 <br>
                 <a href="index.html#top" target="_blank" rel="noopener">Home</a>
                 <a href="guides.html" target="_blank" rel="noopener">Resources</a>
@@ -556,11 +653,30 @@
                 <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Google Reviews</a>
                 <a href="/waiver.html" target="_blank" rel="noopener">Liability Waiver</a>
                 <a href="/rates.html" target="_blank" rel="noopener">Estimated Rates</a>
-                <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Service Area</a>
+                <button id="serviceAreaBtn">Service Area</button>
             </div>
         </div>
     </nav>
 </header>
+
+<!-- Service Area & Forecast Popup Modal -->
+<div class="service-modal-overlay" id="serviceModal">
+    <div class="service-info-box">
+        <button class="close-modal-btn" id="closeModalBtn">&times;</button>
+        <h3>Service Coverage Areas</h3>
+        <p><strong>Primary Service Area:</strong> Camden County</p>
+        <p><strong>Secondary Service Areas:</strong> Burlington, Gloucester</p>
+        <p><strong>Limited Service Areas:</strong> South Jersey, Eastern PA, Delaware</p>
+        
+        <div class="forecast-section">
+            <div class="location-note" id="locationNote">Detecting your location...</div>
+            <h4>Local 7-Day Weather Forecast</h4>
+            <div class="forecast-grid" id="forecastDisplay">
+                Loading forecast for your area...
+            </div>
+        </div>
+    </div>
+</div>
 
 <main>
     <section class="hero" id="about" aria-label="Introduction">
@@ -687,6 +803,99 @@
     const footer = document.getElementById('mainFooter');
     const getStartedBtn = document.getElementById('getStartedBtn');
     const actionBoxes = document.querySelectorAll('.action-box');
+
+    // Service Area Modal Logic
+    const serviceAreaBtn = document.getElementById('serviceAreaBtn');
+    const serviceModal = document.getElementById('serviceModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    serviceAreaBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        dropdownMenu.classList.remove('show');
+        serviceModal.classList.add('show');
+        loadServiceAreaWeather();
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+        serviceModal.classList.remove('show');
+    });
+
+    serviceModal.addEventListener('click', (e) => {
+        if (e.target === serviceModal) {
+            serviceModal.classList.remove('show');
+        }
+    });
+
+    // Helper to translate weather codes
+    function getWeatherDescription(code) {
+        if (code === 0) return '☀️ Clear sky';
+        if (code >= 1 && code <= 3) return '⛅ Partly cloudy';
+        if (code >= 45 && code <= 48) return '🌫️ Foggy';
+        if (code >= 51 && code <= 67) return '🌧️ Rain showers';
+        if (code >= 71 && code <= 77) return '🌨️ Snow';
+        if (code >= 95) return '⛈️ Thunderstorm';
+        return '🌤️ Fair conditions';
+    }
+
+    // Fetch user location and weather forecast dynamically
+    let weatherLoaded = false;
+    async function loadServiceAreaWeather() {
+        if (weatherLoaded) return; // Prevent multiple fetches if clicked again
+        
+        let lat = 39.89;   
+        let lon = -75.07;
+        let locationName = "South Jersey (Default Region)";
+
+        try {
+            const ipResponse = await fetch('https://ipapi.co/json/');
+            const ipData = await ipResponse.json();
+            
+            if (ipData && ipData.latitude && ipData.longitude) {
+                lat = ipData.latitude;
+                lon = ipData.longitude;
+                locationName = `${ipData.city}, ${ipData.region}`;
+            }
+        } catch (err) {
+            console.log("IP geolocation lookup failed, using default South Jersey coordinates.");
+        }
+
+        document.getElementById('locationNote').innerText = `📍 Forecast for: ${locationName}`;
+
+        try {
+            const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=auto`);
+            const weatherData = await weatherResponse.json();
+            
+            const times = weatherData.daily.time;
+            const maxTemps = weatherData.daily.temperature_2m_max;
+            const minTemps = weatherData.daily.temperature_2m_min;
+            const weatherCodes = weatherData.daily.weather_code;
+
+            let htmlContent = '';
+
+            for (let i = 0; i < times.length; i++) {
+                const dateObj = new Date(times[i] + 'T00:00:00');
+                const options = { weekday: 'short', month: 'short', day: 'numeric' };
+                const formattedDate = dateObj.toLocaleDateString('en-US', options);
+
+                const conditionText = getWeatherDescription(weatherCodes[i]);
+                const maxT = Math.round(maxTemps[i]);
+                const minT = Math.round(minTemps[i]);
+
+                htmlContent += `
+                    <div class="forecast-row">
+                        <span><strong>${formattedDate}</strong> (${conditionText})</span>
+                        <span>High: <strong>${maxT}°F</strong> | Low: ${minT}°F</span>
+                    </div>
+                `;
+            }
+
+            document.getElementById('forecastDisplay').innerHTML = htmlContent;
+            weatherLoaded = true;
+        } catch (error) {
+            console.error("Could not load 7-day forecast", error);
+            document.getElementById('forecastDisplay').innerHTML = "Forecast currently unavailable.";
+        }
+    }
 
     // Trigger orange fade pulse when "Get Started Today" is clicked
     getStartedBtn.addEventListener('click', () => {
