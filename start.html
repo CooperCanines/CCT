@@ -5,13 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Start Training - Cooper Canines</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; color: #2c3e50; }
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            color: #2c3e50; 
+            background-color: #ffffff;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Top Bar & Theme Toggle Button */
+        .top-bar {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+        }
+        .theme-toggle {
+            background: #6c757d;
+            color: #fff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+        .theme-toggle:hover {
+            background: #5a6268;
+        }
+
+        /* Dark Mode Styles matching questions.html */
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        body.dark-mode input[type="text"], 
+        body.dark-mode input[type="email"], 
+        body.dark-mode input[type="tel"], 
+        body.dark-mode input[type="number"], 
+        body.dark-mode select {
+            background-color: #2a2a2a;
+            color: #e0e0e0;
+            border: 1px solid #444;
+        }
+        body.dark-mode .scroll-box {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            border-color: #444;
+        }
+        body.dark-mode .modal-card {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+        }
+        body.dark-mode .signature-pad {
+            background-color: #2a2a2a;
+        }
+
+        /* Form Controls & General Formatting */
         .form-group { margin-bottom: 20px; }
         label { display: block; font-weight: bold; margin-bottom: 5px; }
         input[type="text"], input[type="email"], input[type="tel"], input[type="number"], select {
             width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
         }
         input.invalid { border-color: red; background-color: #fff0f0; }
+        body.dark-mode input.invalid { background-color: #3b1e1e; }
+        
+        /* Red Required Asterisks */
+        .required { color: red; font-weight: bold; }
+        .required-note { font-size: 0.85rem; margin-bottom: 12px; }
+
         .signature-pad { border: 2px dashed #009100; background: #fff; cursor: crosshair; }
         .signature-img { border: 2px dashed #009100; display: none; max-width: 400px; width: 100%; height: auto; }
         .hidden { display: none !important; }
@@ -46,13 +110,17 @@
 
         /* Print Specific Styles */
         @media print {
-            .modal-overlay, button, .clear-btn { display: none !important; }
+            .top-bar, .modal-overlay, button, .clear-btn { display: none !important; }
             .signature-pad { display: none !important; }
             .signature-img { display: block !important; }
         }
     </style>
 </head>
 <body>
+
+    <div class="top-bar">
+        <button type="button" class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()">🌙 Dark Mode</button>
+    </div>
 
     <h1>Cooper Canines Client Registration</h1>
 
@@ -72,7 +140,7 @@
 
         <!-- Question with 3 Choices -->
         <div class="form-group">
-            <label>May Cooper Canines LLC use photos or recordings of you and your dog for promotional, marketing, and educational purposes? (Full use may obtain gift(s) per Clause 5.B of the Waiver.) *</label>
+            <label>May Cooper Canines LLC use photos or recordings of you and your dog for promotional, marketing, and educational purposes? (Full use may obtain gift(s) per Clause 5.B of the Waiver.) <span class="required">*</span></label>
             <div class="radio-group">
                 <label><input type="radio" name="media_consent" value="Full Media Consent" required> Full - Public Media & Educational Use Approved.</label>
                 <label><input type="radio" name="media_consent" value="Limited Photo Only"> Limited - Public Photo & Private Client Instruction Only.</label>
@@ -82,7 +150,7 @@
 
         <!-- Additional Owner/Handler Dropdown -->
         <div class="form-group">
-            <label>Will an additional Owner/Handler be involved with the training? *</label>
+            <label>Will an additional Owner/Handler be involved with the training? <span class="required">*</span></label>
             <select id="ownershipType" name="ownership_type" required onchange="toggleSecondaryFields()">
                 <option value="single">Single Owner / Single Handler</option>
                 <option value="significant_other">Significant Other</option>
@@ -102,7 +170,7 @@
 
         <!-- Primary Owner -->
         <div class="form-group">
-            <label>Owner/Handler Name: *</label>
+            <label>Owner/Handler Name: <span class="required">*</span></label>
             <div style="display: flex; gap: 10px;">
                 <input type="text" name="owner_first_name" placeholder="First Name" required>
                 <input type="text" name="owner_last_name" placeholder="Last Name" required>
@@ -111,7 +179,7 @@
 
         <!-- Primary Signature -->
         <div class="form-group">
-            <label>Client Signature: *</label>
+            <label>Client Signature: <span class="required">*</span></label>
             <canvas id="primarySigCanvas" class="signature-pad" width="400" height="120"></canvas>
             <img id="primarySigImg" class="signature-img" alt="Primary Signature">
             <button type="button" class="clear-btn" onclick="clearCanvas('primarySigCanvas')">Clear Signature</button>
@@ -120,7 +188,7 @@
 
         <!-- Primary Phone -->
         <div class="form-group">
-            <label>Phone Number (Format: 123-456-7890): *</label>
+            <label>Phone Number (Format: 123-456-7890): <span class="required">*</span></label>
             <input type="tel" id="primaryPhone" name="primary_phone" 
                    pattern="^[0-9]{3}-[0-9]{3}-[0-9]{4}$" 
                    placeholder="555-555-5555" required oninput="validatePhone(this, 'primaryPhoneErr')">
@@ -133,7 +201,7 @@
             <h3>Secondary Owner Information</h3>
 
             <div class="form-group">
-                <label>Secondary Owner Name: *</label>
+                <label>Secondary Owner Name: <span class="required">*</span></label>
                 <div style="display: flex; gap: 10px;">
                     <input type="text" id="secFirst" name="secondary_first_name" placeholder="First Name">
                     <input type="text" id="secLast" name="secondary_last_name" placeholder="Last Name">
@@ -141,7 +209,7 @@
             </div>
 
             <div class="form-group">
-                <label>Secondary Owner Signature: *</label>
+                <label>Secondary Owner Signature: <span class="required">*</span></label>
                 <canvas id="secondarySigCanvas" class="signature-pad" width="400" height="120"></canvas>
                 <img id="secondarySigImg" class="signature-img" alt="Secondary Signature">
                 <button type="button" class="clear-btn" onclick="clearCanvas('secondarySigCanvas')">Clear Signature</button>
@@ -159,11 +227,11 @@
 
         <!-- Email Setup -->
         <div class="form-group">
-            <label>Email: *</label>
+            <label>Email: <span class="required">*</span></label>
             <input type="email" id="email" name="email" required>
         </div>
         <div class="form-group">
-            <label>Confirm Email: *</label>
+            <label>Confirm Email: <span class="required">*</span></label>
             <input type="email" id="confirmEmail" name="confirm_email" oninput="validateEmails()" required>
             <span id="emailError" class="error">Emails do not match!</span>
         </div>
@@ -176,7 +244,7 @@
 
         <!-- Dog Details -->
         <div class="form-group">
-            <label>Dog Name: *</label>
+            <label>Dog Name: <span class="required">*</span></label>
             <input type="text" name="dog_name" required>
         </div>
 
@@ -207,7 +275,7 @@
 
         <!-- Blocking Behavior Question -->
         <div class="form-group">
-            <label>Are your dog’s vaccinations current, as required by your state and are you willing to show proof if requested? *</label>
+            <label>Are your dog’s vaccinations current, as required by your state and are you willing to show proof if requested? <span class="required">*</span></label>
             <select id="rabiesVaccine" name="rabies" onchange="checkRabiesVaccine()" required>
                 <option value="">-- Select Answer --</option>
                 <option value="No">No</option>
@@ -218,7 +286,7 @@
 
         <!-- Vet Information -->
         <div class="form-group">
-            <label>Vet Clinic: *</label>
+            <label>Vet Clinic: <span class="required">*</span></label>
             <input type="text" name="vet_clinic" required>
         </div>
         <div class="form-group">
@@ -232,10 +300,11 @@
         <div class="form-group">
             <label>
                 <input type="checkbox" name="certify_info" required> 
-                I certify that the information provided is accurate and complete. I understand that any failure to disclose relevant information does not invalidate or limit the terms of the Liability Waiver.*
+                I certify that the information provided is accurate and complete. I understand that any failure to disclose relevant information does not invalidate or limit the terms of the Liability Waiver.<span class="required">*</span>
             </label>
         </div>
 
+        <p class="required-note"><span class="required">*</span> indicates required field</p>
         <button type="submit" id="submitBtn">Submit Onboarding</button>
     </form>
 
@@ -253,8 +322,29 @@
     </div>
 
     <script>
-        // Fetch and load waiver content dynamically from waiver.html
+        // Light / Dark Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.getElementById('themeToggleBtn');
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                btn.textContent = '☀️ Light Mode';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                btn.textContent = '🌙 Dark Mode';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Apply saved theme preference on page load
         window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('themeToggleBtn').textContent = '☀️ Light Mode';
+            }
+
+            // Fetch and load waiver content dynamically from waiver.html
             fetch('waiver.html')
                 .then(response => {
                     if (!response.ok) throw new Error('Network response failed');
@@ -344,7 +434,7 @@
                 const rect = canvas.getBoundingClientRect();
                 ctx.lineWidth = 2;
                 ctx.lineCap = 'round';
-                ctx.strokeStyle = '#000';
+                ctx.strokeStyle = document.body.classList.contains('dark-mode') ? '#fff' : '#000';
                 ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
                 ctx.stroke();
                 ctx.beginPath();
