@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header Template</title>
+    <style>
+        /* ==========================================================
+           HEADER COLOR & THEMING (Easily change per page)
+           ========================================================== */
+        :root {
+            --header-bg-color: #2c3e50;      /* Main header background color */
+            --header-text-color: #ffffff;    /* Header text color */
+            --active-tab-color: #e67e22;     /* Orange active button color */
+            --active-tab-text: #ffffff;      /* Text color for active tab */
+            --hover-tab-color: rgba(255, 255, 255, 0.15); /* Hover effect */
+        }
+
+        /* Standard Resets */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header Container */
+        .site-header {
+            background-color: var(--header-bg-color);
+            color: var(--header-text-color);
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 1.5rem;
+            position: relative;
+        }
+
+        /* 1. Left Section: Logo */
+        .header-logo-container {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-logo-container img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* 2. Middle Section: Scaling Menu Links */
+        .center-nav {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            color: var(--header-text-color);
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            font-weight: bold;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .nav-btn:hover {
+            background-color: var(--hover-tab-color);
+        }
+
+        /* Active Orange Button Style */
+        .nav-btn.active {
+            background-color: var(--active-tab-color) !important;
+            color: var(--active-tab-text) !important;
+        }
+
+        /* Search Button Container */
+        .search-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.6rem;
+            color: var(--header-text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+        }
+
+        .search-btn:hover {
+            background-color: var(--hover-tab-color);
+        }
+
+        .search-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* 3. Right Section: Dropdown Menu Button */
+        .right-menu-container {
+            flex: 0 0 auto;
+            position: relative;
+        }
+
+        .menu-toggle {
+            background-color: transparent;
+            color: var(--header-text-color);
+            border: 2px solid var(--header-text-color);
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .menu-toggle:hover {
+            background-color: var(--hover-tab-color);
+        }
+
+        .hamburger-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .hamburger-icon span {
+            display: block;
+            width: 16px;
+            height: 2px;
+            background-color: currentColor;
+        }
+
+        /* Dropdown Menu Box */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: calc(100% + 0.5rem);
+            background-color: #ffffff;
+            min-width: 230px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 1001;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #333333;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.2s ease;
+        }
+
+        .dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f8f9fa;
+            color: var(--active-tab-color);
+        }
+
+        /* ==========================================================
+           RESPONSIVE MOBILE & SHRINK STYLES
+           ========================================================== */
+        @media (max-width: 850px) {
+            .header-container {
+                flex-wrap: wrap;
+                padding: 0.5rem 1rem;
+            }
+
+            /* Hug logo left */
+            .header-logo-container {
+                order: 1;
+            }
+
+            /* Top Right Search Button on Mobile */
+            .search-btn-mobile-wrapper {
+                order: 2;
+                margin-left: auto;
+            }
+
+            /* Move center nav and dropdown menu underneath logo */
+            .center-nav {
+                order: 3;
+                width: 100%;
+                justify-content: space-around;
+                margin-top: 0.5rem;
+                padding-top: 0.5rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.15);
+                flex-wrap: wrap;
+            }
+
+            .right-menu-container {
+                order: 4;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                margin-top: 0.5rem;
+            }
+
+            .menu-toggle {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .dropdown-menu {
+                width: 100%;
+                right: 0;
+                left: 0;
+            }
+
+            /* Hide the desktop search button position in center nav when collapsed */
+            .center-nav .search-btn {
+                display: none;
+            }
+        }
+
+        @media (min-width: 851px) {
+            .search-btn-mobile-wrapper {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="header-container">
+            
+            <!-- Left: Logo -->
+            <div class="header-logo-container">
+                <a href="index.html">
+                    <img src="images/cctwordingnophrase.png" alt="Cooper Canines Logo">
+                </a>
+            </div>
+
+            <!-- Mobile Top-Right Search Icon -->
+            <div class="search-btn-mobile-wrapper">
+                <button class="search-btn" aria-label="Search">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Middle: Navigation Links -->
+            <nav class="center-nav">
+                <a href="index.html" class="nav-btn">Home</a>
+                <a href="resources.html" class="nav-btn">Resources</a>
+                <a href="store.html" class="nav-btn">Store</a>
+                <a href="contact.html" class="nav-btn">Contact Us</a>
+                
+                <!-- Desktop Search Icon -->
+                <button class="search-btn" aria-label="Search">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                </button>
+            </nav>
+
+            <!-- Right: Dropdown Menu -->
+            <div class="right-menu-container">
+                <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation menu">
+                    <span class="menu-text">Menu</span>
+                    <div class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="https://start.coopercanines.com" target="_blank" rel="noopener">🚀 New Client Onboarding</a>
+                    <a href="https://start.coopercanines.com" target="_blank" rel="noopener">🚀 Penguinee</a>
+                    <a href="https://portal.coopercanines.com" target="_blank" rel="noopener">🐶 Client Portal</a>
+                    <a href="https://pricing.coopercanines.com" target="_blank" rel="noopener">Estimated Rates</a>
+                    <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Liability Waiver</a>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <script>
+        // Toggle Dropdown Menu Visibility
+        const menuBtn = document.getElementById('menuBtn');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+
+        document.addEventListener('click', () => {
+            dropdownMenu.classList.remove('show');
+        });
+
+        // Highlight Active Page Button
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = document.querySelectorAll('.nav-btn');
+
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPath || (currentPath === '' && href === 'index.html')) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
