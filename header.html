@@ -124,7 +124,7 @@
             padding: 4px;
         }
 
-        /* Google CSE Styling Overrides */
+        /* Google CSE Input Styling Overrides */
         .gcse-search {
             width: 100%;
         }
@@ -135,6 +135,27 @@
         }
         td.gsc-search-button {
             display: none !important;
+        }
+
+        /* Google CSE Overlay Search Results Box Fix (Prevents tiny inline result rendering) */
+        .gsc-results-wrapper-overlay {
+            position: fixed !important;
+            top: 80px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            width: 90% !important;
+            max-width: 900px !important;
+            height: 80vh !important;
+            z-index: 99999 !important;
+            background: #ffffff !important;
+            border-radius: 12px !important;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+            padding: 20px !important;
+            overflow-y: auto !important;
+        }
+
+        .gsc-overflow-hidden {
+            overflow: auto !important;
         }
 
         .search-btn {
@@ -262,17 +283,10 @@
             display: flex;
         }
 
-        .service-info-box {
+        .modal-content-wrapper {
             position: relative;
-            background: #141414;
-            color: #ecf0f1;
-            padding: 22px 24px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-            border: 1px solid #2c3e50;
             max-width: 480px;
             width: 90%;
-            text-align: left;
         }
 
         .close-modal {
@@ -284,11 +298,28 @@
             color: #ecf0f1;
             font-size: 1.5rem;
             cursor: pointer;
+            z-index: 2001;
         }
 
-        .service-info-box h3 {
+        /* Scoped styling to support injected .service-info-box from maps.html */
+        .modal-content-wrapper .service-info-box {
+            position: relative;
+            top: auto;
+            left: auto;
+            transform: none;
+            background: #141414;
+            color: #ecf0f1;
+            padding: 22px 24px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            border: 1px solid #2c3e50;
+            width: 100%;
+            text-align: left;
+        }
+
+        .modal-content-wrapper .service-info-box h3 {
             margin-top: 0;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             color: var(--primary);
             font-size: 1.2rem;
             text-align: center;
@@ -296,53 +327,23 @@
             padding-bottom: 6px;
         }
 
-        .service-info-box p {
+        .modal-content-wrapper .service-info-box p {
             margin: 6px 0;
             font-size: 0.9rem;
             line-height: 1.4;
         }
 
-        .service-info-box strong {
+        .modal-content-wrapper .service-info-box strong {
             color: #ffffff;
         }
 
-        .location-note {
-            font-size: 0.82rem;
-            color: #38ef7d;
-            margin-bottom: 10px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .forecast-section {
-            margin-top: 12px;
-            padding-top: 8px;
+        .modal-content-wrapper .weather-section {
+            margin-top: 14px;
+            padding-top: 10px;
             border-top: 1px dashed #333;
-        }
-
-        .forecast-section h4 {
-            margin: 0 0 6px 0;
-            font-size: 0.95rem;
-            color: var(--primary);
+            font-size: 0.85rem;
+            color: #a0aec0;
             text-align: center;
-        }
-
-        .forecast-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            max-height: 160px;
-            overflow-y: auto;
-        }
-
-        .forecast-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 5px 8px;
-            border-radius: 4px;
-            color: #cbd5e1;
         }
 
         /* Responsive Mobile Adjustments */
@@ -388,6 +389,11 @@
 
             .search-wrapper.open .search-box-container {
                 width: 200px;
+            }
+
+            .gsc-results-wrapper-overlay {
+                width: 95% !important;
+                top: 60px !important;
             }
         }
     </style>
@@ -456,21 +462,12 @@
         </div>
     </header>
 
-    <!-- Service Coverage Areas Modal Popup -->
+    <!-- Dynamic Modal Popup Container -->
     <div class="modal-overlay" id="serviceModal">
-        <div class="service-info-box">
+        <div class="modal-content-wrapper">
             <button class="close-modal" id="closeModalBtn">&times;</button>
-            <h3>Service Coverage Areas</h3>
-            <p><strong>Primary Service Area:</strong> Camden County</p>
-            <p><strong>Secondary Service Areas:</strong> Burlington, Gloucester</p>
-            <p><strong>Limited Service Areas:</strong> South Jersey, Eastern PA, Delaware</p>
-            
-            <div class="forecast-section">
-                <div class="location-note" id="locationNote">Detecting your location...</div>
-                <h4>Local 7-Day Weather Forecast</h4>
-                <div class="forecast-grid" id="forecastDisplay">
-                    Loading forecast for your area...
-                </div>
+            <div id="dynamicModalTarget">
+                <!-- Data from maps.html will be injected here dynamically -->
             </div>
         </div>
     </div>
@@ -517,21 +514,52 @@
             });
         });
 
-        // Service Area Modal Logic & Weather Forecast Integration
+        // Dynamic Loading from maps.html / map.html
         const serviceModal = document.getElementById('serviceModal');
         const serviceAreaLink = document.getElementById('serviceAreaLink');
         const closeModalBtn = document.getElementById('closeModalBtn');
-        let forecastLoaded = false;
+        const dynamicModalTarget = document.getElementById('dynamicModalTarget');
+
+        async function fetchServiceAreaFromMaps() {
+            try {
+                // Fetch maps.html (or fallback to map.html)
+                let response = await fetch('maps.html');
+                if (!response.ok) {
+                    response = await fetch('map.html');
+                }
+                const htmlText = await response.text();
+
+                // Parse the fetched HTML text
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlText, 'text/html');
+
+                // Extract .service-info-box container
+                const fetchedBox = doc.querySelector('.service-info-box');
+
+                if (fetchedBox) {
+                    dynamicModalTarget.innerHTML = fetchedBox.outerHTML;
+                    
+                    // Extract script tags from fetched document to execute weather API if present
+                    const scripts = doc.querySelectorAll('script');
+                    scripts.forEach(script => {
+                        if (script.textContent.includes('loadWeather')) {
+                            eval(script.textContent);
+                        }
+                    });
+                } else {
+                    dynamicModalTarget.innerHTML = '<p style="color:#fff; padding: 20px;">Could not locate service info in maps.html.</p>';
+                }
+            } catch (err) {
+                console.error('Error loading maps file:', err);
+                dynamicModalTarget.innerHTML = '<p style="color:#fff; padding: 20px;">Unable to load service area data.</p>';
+            }
+        }
 
         serviceAreaLink.addEventListener('click', (e) => {
             e.preventDefault();
             dropdownMenu.classList.remove('show');
             serviceModal.classList.add('active');
-            
-            if (!forecastLoaded) {
-                detectUserLocationAndWeather();
-                forecastLoaded = true;
-            }
+            fetchServiceAreaFromMaps();
         });
 
         closeModalBtn.addEventListener('click', () => {
@@ -543,73 +571,6 @@
                 serviceModal.classList.remove('active');
             }
         });
-
-        // Weather Translation Helper
-        function getWeatherDescription(code) {
-            if (code === 0) return '☀️ Clear sky';
-            if (code >= 1 && code <= 3) return '⛅ Partly cloudy';
-            if (code >= 45 && code <= 48) return '🌫️ Foggy';
-            if (code >= 51 && code <= 67) return '🌧️ Rain showers';
-            if (code >= 71 && code <= 77) return '🌨️ Snow';
-            if (code >= 95) return '⛈️ Thunderstorm';
-            return '🌤️ Fair conditions';
-        }
-
-        // Location & Forecast Detection
-        async function detectUserLocationAndWeather() {
-            let lat = 39.89;   // Default fallback (South Jersey)
-            let lon = -75.07;
-            let locationName = "South Jersey (Default Region)";
-
-            try {
-                const ipResponse = await fetch('https://ipapi.co/json/');
-                const ipData = await ipResponse.json();
-                
-                if (ipData && ipData.latitude && ipData.longitude) {
-                    lat = ipData.latitude;
-                    lon = ipData.longitude;
-                    locationName = `${ipData.city}, ${ipData.region}`;
-                }
-            } catch (err) {
-                console.log("IP geolocation lookup failed, using default South Jersey coordinates.");
-            }
-
-            document.getElementById('locationNote').innerText = `📍 Forecast for: ${locationName}`;
-
-            try {
-                const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=auto`);
-                const weatherData = await weatherResponse.json();
-                
-                const times = weatherData.daily.time;
-                const maxTemps = weatherData.daily.temperature_2m_max;
-                const minTemps = weatherData.daily.temperature_2m_min;
-                const weatherCodes = weatherData.daily.weather_code;
-
-                let htmlContent = '';
-
-                for (let i = 0; i < times.length; i++) {
-                    const dateObj = new Date(times[i] + 'T00:00:00');
-                    const options = { weekday: 'short', month: 'short', day: 'numeric' };
-                    const formattedDate = dateObj.toLocaleDateString('en-US', options);
-
-                    const conditionText = getWeatherDescription(weatherCodes[i]);
-                    const maxT = Math.round(maxTemps[i]);
-                    const minT = Math.round(minTemps[i]);
-
-                    htmlContent += `
-                        <div class="forecast-row">
-                            <span><strong>${formattedDate}</strong> (${conditionText})</span>
-                            <span>High: <strong>${maxT}°F</strong> | Low: ${minT}°F</span>
-                        </div>
-                    `;
-                }
-
-                document.getElementById('forecastDisplay').innerHTML = htmlContent;
-            } catch (error) {
-                console.error("Could not load 7-day forecast", error);
-                document.getElementById('forecastDisplay').innerHTML = "Forecast currently unavailable.";
-            }
-        }
     </script>
 </body>
 </html>
