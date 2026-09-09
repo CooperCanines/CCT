@@ -3,20 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Questions & FAQ | Cooper Canines</title>
+    <title>Client Intake Questions - Cooper Canines LLC</title>
     <style>
         :root {
-            --primary: #2ecc71;
-            --primary-hover: #27ae60;
-            --text-dark: #ecf0f1;
-            --bg-light: #121212;
-            --border-color: #2c3e50;
-            --card-bg: #1e1e1e;
-            --trainer-bg: #1a2f23;
-            --btn-secondary-bg: #1e1e1e;
-            --btn-secondary-text: #2ecc71;
-            --btn-secondary-border: #2ecc71;
-            --block-color: #e67e22;
+            --primary: #00b300;
+            --primary-hover: #00d900;
+            --bg-dark: #12181b;
+            --card-bg: #1e262c;
+            --card-inner: #2a343d;
+            --text-light: #e0e6ed;
+            --text-muted: #9ba8b5;
+            --border-color: #3a4754;
+            --input-bg: #171d22;
         }
 
         html {
@@ -26,362 +24,515 @@
         html, body {
             margin: 0;
             padding: 0;
-            height: 100%;
-            font-family: Arial, sans-serif;
-            color: var(--text-dark);
-            background-color: var(--bg-light);
-            transition: background-color 0.3s ease, color 0.3s ease;
-            overflow-x: hidden;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: var(--text-light);
+            background-color: var(--bg-dark);
         }
 
         body {
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-            position: relative;
         }
 
-        /* Side Logos / Paddles */
-        .side-logo {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%) rotate(-90deg);
-            opacity: 0.15;
-            font-size: 1.5rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            color: var(--primary);
-            z-index: 5; /* Lower than container so it stays behind main content */
-            pointer-events: auto; /* Clickable to start game */
-            white-space: nowrap;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: opacity 0.3s ease;
-            user-select: none;
-        }
-
-        .side-logo-left {
-            left: 20px;
-        }
-
-        .side-logo-right {
-            right: 20px;
-            transform: translateY(-50%) rotate(90deg);
-        }
-
-        .side-logo.active {
-            opacity: 1;
-        }
-
-        /* Container & Question Boxes */
         .container {
             flex: 1 0 auto;
-            max-width: 800px;
+            max-width: 850px;
             margin: 2rem auto;
-            padding: 0 1rem;
+            padding: 0 1.5rem;
             box-sizing: border-box;
-            position: relative;
-            z-index: 20; /* Ensures main content sits above active paddles/game elements */
         }
 
+        /* Top Back Button */
         .top-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            gap: 1rem;
         }
 
-        .btn-custom {
+        .back-home-btn {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background-color: var(--btn-secondary-bg);
-            color: var(--btn-secondary-text);
-            border: 2px solid var(--btn-secondary-border);
+            background-color: var(--card-bg);
+            color: var(--primary);
+            border: 2px solid var(--primary);
             padding: 0.6rem 1.2rem;
             border-radius: 6px;
             text-decoration: none;
             font-weight: bold;
             font-size: 0.95rem;
             transition: all 0.2s ease;
-            cursor: pointer;
         }
 
-        .btn-custom:hover {
+        .back-home-btn:hover {
             background-color: var(--primary);
             color: #ffffff;
-            border-color: var(--primary);
         }
 
-        .faq-card {
+        /* Header Styling */
+        .header-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: var(--primary);
+            margin: 0 0 0.5rem 0;
+            font-size: 2rem;
+        }
+
+        .header-card p {
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Form Card Layout */
+        .form-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            margin-bottom: 2rem;
+        }
+
+        .question-block {
+            background-color: var(--card-inner);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 1.25rem;
             margin-bottom: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
 
-        .faq-card h3 {
-            margin-top: 0;
-            color: var(--primary);
+        .question-title {
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
         }
 
-        /* Game Elements Layer */
-        #game-canvas-layer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 10; /* Behind main content container (20), above paddles (5) */
+        .required {
+            color: #ff5555;
+            margin-left: 0.2rem;
         }
 
-        .dog-ball {
-            position: fixed;
-            font-size: 2rem;
-            line-height: 1;
-            z-index: 10;
-            display: none;
-            user-select: none;
-            pointer-events: none;
+        .optional {
+            font-weight: normal;
+            font-size: 0.9rem;
+            color: var(--text-muted);
         }
 
-        .block {
-            position: fixed;
-            width: 70px;
-            height: 25px;
-            background-color: var(--block-color);
-            border: 2px solid #f39c12;
+        /* Inputs & Options */
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0.5rem;
+        }
+
+        label.option-label {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background-color: var(--input-bg);
+            padding: 0.6rem 0.8rem;
             border-radius: 4px;
-            z-index: 10;
-            display: none;
-            transition: opacity 0.5s ease;
-            box-shadow: 0 0 8px rgba(230, 126, 34, 0.6);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+            font-size: 0.95rem;
         }
 
-        .score-board {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.85);
-            color: var(--primary);
-            border: 2px solid var(--primary);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
+        label.option-label:hover {
+            border-color: var(--primary);
+            background-color: #1f272e;
+        }
+
+        input[type="radio"], input[type="checkbox"] {
+            accent-color: var(--primary);
+            width: 1.1rem;
+            height: 1.1rem;
+            cursor: pointer;
+        }
+
+        /* Text Inputs & Textareas */
+        input[type="text"], textarea {
+            width: 100%;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-light);
+            padding: 0.75rem;
+            font-size: 0.95rem;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .other-input {
+            margin-top: 0.5rem;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            display: block;
+            width: 100%;
+            background-color: var(--primary);
+            color: #ffffff;
+            border: none;
+            padding: 1rem;
+            border-radius: 6px;
             font-weight: bold;
             font-size: 1.1rem;
-            z-index: 30;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.99);
+        }
+
+        /* Floating Scroll Top Button */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
             display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            text-decoration: none;
+        }
+
+        footer {
+            min-height: 3rem;
+            margin-top: auto;
         }
     </style>
 </head>
-<body>
+<body id="top">
 
-    <!-- Watermark / Paddles -->
-    <div class="side-logo side-logo-left" id="logo-left">Cooper Canines</div>
-    <div class="side-logo side-logo-right" id="logo-right">Cooper Canines</div>
-
-    <!-- Active Score Display -->
-    <div class="score-board" id="scoreboard">Score: <span id="score">0</span></div>
-
-    <!-- Dynamic Game Blocks & Ball -->
-    <div id="dog-ball" class="dog-ball">🐶</div>
-    <div id="block-container"></div>
-
-    <!-- Main Question Cards Container -->
     <div class="container">
+        <!-- Top Navigation -->
         <div class="top-nav">
-            <div>
-                <a href="index.html" class="btn-custom">← Back to Home</a>
+            <a href="https://coopercanines.com" class="back-home-btn">
+                &larr; Back to Website
+            </a>
+        </div>
+
+        <!-- Header -->
+        <div class="header-card">
+            <h1>Client Intake Questionnaire In Construction - Please Do Not Fill Out</h1>
+            <p>Please complete the details below to help us tailor our training programs for your dog.</p>
+        </div>
+
+        <!-- Main Questionnaire Form -->
+        <form class="form-card" action="#" method="POST">
+
+            <!-- Q1 -->
+            <div class="question-block">
+                <div class="question-title">1. Are you a first time dog owner? <span class="required">*</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q1_first_owner" value="First Dog / New Owner" required> First Dog / New Owner</label>
+                    <label class="option-label"><input type="radio" name="q1_first_owner" value="I have previously owned a dog"> I have previously owned a dog</label>
+                </div>
             </div>
-        </div>
 
-        <h1>Frequently Asked Questions</h1>
+            <!-- Q2 -->
+            <div class="question-block">
+                <div class="question-title">2. Have you worked with a dog trainer or class before? <span class="required">*</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q2_trainer_before" value="Yes - current dog(s)" required> Yes - current dog(s)</label>
+                    <label class="option-label"><input type="radio" name="q2_trainer_before" value="Yes - different dog"> Yes - different dog</label>
+                    <label class="option-label"><input type="radio" name="q2_trainer_before" value="No"> No</label>
+                </div>
+            </div>
 
-        <div class="faq-card">
-            <h3>What training methods do you use?</h3>
-            <p>We utilize positive reinforcement methods tailored to your dog's unique personality and needs.</p>
-        </div>
+            <!-- Q2A -->
+            <div class="question-block">
+                <div class="question-title">2A. How effective was your previous training experience? <span class="optional">(Optional)</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q2a_effectiveness" value="Very effective"> Very effective</label>
+                    <label class="option-label"><input type="radio" name="q2a_effectiveness" value="Somewhat effective"> Somewhat effective</label>
+                    <label class="option-label"><input type="radio" name="q2a_effectiveness" value="Not effective and/or had concerns about the experience"> Not effective and/or had concerns about the experience</label>
+                </div>
+            </div>
 
-        <div class="faq-card">
-            <h3>What should I bring to our first session?</h3>
-            <p>Please bring high-value treats, a standard 6-foot leash, and your dog's favorite toy.</p>
-        </div>
+            <!-- Q3 -->
+            <div class="question-block">
+                <div class="question-title">3. Has your dog (or either dog) ever shown possessive, protective, or guarding behavior over any of the following? <span class="required">*</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q3_guarding[]" value="People"> People</label>
+                    <label class="option-label"><input type="checkbox" name="q3_guarding[]" value="Food or treats"> Food or treats</label>
+                    <label class="option-label"><input type="checkbox" name="q3_guarding[]" value="Toys or objects"> Toys or objects</label>
+                    <label class="option-label"><input type="checkbox" name="q3_guarding[]" value="Other dogs or animals"> Other dogs or animals</label>
+                    <label class="option-label"><input type="checkbox" name="q3_guarding[]" value="None or unsure"> None or unsure</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q3_guarding_other" placeholder="Other (please specify)">
+                </div>
+            </div>
 
-        <div class="faq-card">
-            <h3>How long does each training program take?</h3>
-            <p>Program lengths vary from 3-week basic obedience tracks to multi-month behavior modification plans.</p>
-        </div>
+            <!-- Q4 -->
+            <div class="question-block">
+                <div class="question-title">4. Has your dog (or either dog) ever shown aggressive or threatening behavior toward a person or animal? <span class="optional">(Select all that apply)</span> <span class="required">*</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="None"> None</label>
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="Person in same household"> Person in same household</label>
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="Known person (non-household)"> Known person (non-household)</label>
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="Unfamiliar person"> Unfamiliar person</label>
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="Other dog in household"> Other dog in household</label>
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="Known dog (non-household)"> Known dog (non-household)</label>
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="Unfamiliar dog"> Unfamiliar dog</label>
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="Other animal"> Other animal</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q4_aggression_other" placeholder="Other (please specify)">
+                </div>
+            </div>
+
+            <!-- Q4A -->
+            <div class="question-block">
+                <div class="question-title">4A. Type of Behavior <span class="optional">(Select all that apply)</span> <span class="required">*</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q4a_behavior[]" value="Growling"> Growling</label>
+                    <label class="option-label"><input type="checkbox" name="q4a_behavior[]" value="Snapping"> Snapping</label>
+                    <label class="option-label"><input type="checkbox" name="q4a_behavior[]" value="Lunging"> Lunging</label>
+                    <label class="option-label"><input type="checkbox" name="q4a_behavior[]" value="Biting (no broken skin)"> Biting (no broken skin)</label>
+                    <label class="option-label"><input type="checkbox" name="q4a_behavior[]" value="Biting (broke skin)"> Biting (broke skin)</label>
+                    <label class="option-label"><input type="checkbox" name="q4a_behavior[]" value="Required medical attention"> Required medical attention</label>
+                    <label class="option-label"><input type="checkbox" name="q4a_behavior[]" value="Animal control involved"> Animal control involved</label>
+                    <label class="option-label"><input type="checkbox" name="q4a_behavior[]" value="Legally declared dangerous/restricted"> Legally declared dangerous/restricted</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q4a_behavior_other" placeholder="Other (please specify)">
+                </div>
+            </div>
+
+            <!-- Q4B -->
+            <div class="question-block">
+                <div class="question-title">4B. Did any incident result in known injury or property damage? <span class="required">*</span></div>
+                <textarea name="q4b_injury_details" placeholder="Please describe any injuries or property damage caused by an incident..." required></textarea>
+            </div>
+
+            <!-- Q5 -->
+            <div class="question-block">
+                <div class="question-title">5. Does your dog (or either dog) have any health conditions, allergies, medication, or physical limitations that may affect training? <span class="optional">(Select all that apply)</span> <span class="required">*</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q5_health_flags[]" value="None"> None</label>
+                    <label class="option-label"><input type="checkbox" name="q5_health_flags[]" value="Allergies"> Allergies</label>
+                    <label class="option-label"><input type="checkbox" name="q5_health_flags[]" value="Medication"> Medication</label>
+                    <label class="option-label"><input type="checkbox" name="q5_health_flags[]" value="Physical Limitation"> Physical Limitation</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q5_health_flags_other" placeholder="Other (please specify)">
+                </div>
+            </div>
+
+            <!-- Q5A -->
+            <div class="question-block">
+                <div class="question-title">5A. Please list your dog's health conditions, allergies, medication, or physical limitations: <span class="required">*</span></div>
+                <textarea name="q5a_health_details" placeholder="List details here..." required></textarea>
+            </div>
+
+            <!-- Q6 -->
+            <div class="question-block">
+                <div class="question-title">6. Must any of the below be avoided during training due to allergies, sensitivities, or restrictions for any person or other animal present? <span class="optional">(Select all that apply)</span> <span class="required">*</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q6_avoid[]" value="None of the below"> None of the below</label>
+                    <label class="option-label"><input type="checkbox" name="q6_avoid[]" value="Beef / Pork"> Beef / Pork</label>
+                    <label class="option-label"><input type="checkbox" name="q6_avoid[]" value="Chicken"> Chicken</label>
+                    <label class="option-label"><input type="checkbox" name="q6_avoid[]" value="Peanut Butter"> Peanut Butter</label>
+                    <label class="option-label"><input type="checkbox" name="q6_avoid[]" value="Wheat / Grains"> Wheat / Grains</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q6_avoid_other" placeholder="Other (please specify)">
+                </div>
+            </div>
+
+            <!-- Q7 -->
+            <div class="question-block">
+                <div class="question-title">7. Are there children or other regular household members who interact with your dog(s)? <span class="optional">(Select all that apply)</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="checkbox" name="q7_household[]" value="Children"> Children</label>
+                    <label class="option-label"><input type="checkbox" name="q7_household[]" value="Adults"> Adults</label>
+                    <label class="option-label"><input type="checkbox" name="q7_household[]" value="None"> None</label>
+                </div>
+            </div>
+
+            <!-- Q8 -->
+            <div class="question-block">
+                <div class="question-title">8. Are there other dogs in the same household? <span class="required">*</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q8_other_dogs" value="Yes" required> Yes</label>
+                    <label class="option-label"><input type="radio" name="q8_other_dogs" value="No"> No</label>
+                </div>
+            </div>
+
+            <!-- Q9 -->
+            <div class="question-block">
+                <div class="question-title">9. Is the dog (or both dogs) crate trained? <span class="required">*</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q9_crate" value="Yes" required> Yes</label>
+                    <label class="option-label"><input type="radio" name="q9_crate" value="No"> No</label>
+                    <label class="option-label"><input type="radio" name="q9_crate" value="Unsure"> Unsure</label>
+                </div>
+            </div>
+
+            <!-- Q10 -->
+            <div class="question-block">
+                <div class="question-title">10. Is there a secure, fenced area at your residence? <span class="required">*</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q10_fence" value="Yes" required> Yes</label>
+                    <label class="option-label"><input type="radio" name="q10_fence" value="No"> No</label>
+                </div>
+            </div>
+
+            <!-- Q11 -->
+            <div class="question-block">
+                <div class="question-title">11. Daily physical and mental exercise for your dog is important for training success. Are you able to incorporate this into your routine? <span class="required">*</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q11_exercise" value="Yes" required> Yes</label>
+                    <label class="option-label"><input type="radio" name="q11_exercise" value="Sometimes"> Sometimes</label>
+                    <label class="option-label"><input type="radio" name="q11_exercise" value="Unsure"> Unsure</label>
+                    <label class="option-label"><input type="radio" name="q11_exercise" value="No"> No</label>
+                </div>
+            </div>
+
+            <!-- Q12 -->
+            <div class="question-block">
+                <div class="question-title">12. Training success depends on consistency between sessions. How often are you able to practice at home? <span class="required">*</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q12_practice" value="Daily" required> Daily</label>
+                    <label class="option-label"><input type="radio" name="q12_practice" value="Several times per week"> Several times per week</label>
+                    <label class="option-label"><input type="radio" name="q12_practice" value="Occasionally"> Occasionally</label>
+                    <label class="option-label"><input type="radio" name="q12_practice" value="Rarely"> Rarely</label>
+                    <label class="option-label"><input type="radio" name="q12_practice" value="Unsure"> Unsure</label>
+                </div>
+            </div>
+
+            <!-- Q13 -->
+            <div class="question-block">
+                <div class="question-title">13. What motivates your dog? <span class="optional">(Optional: Select all that apply)</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q13_motivates[]" value="Food / Treats"> Food / Treats</label>
+                    <label class="option-label"><input type="checkbox" name="q13_motivates[]" value="Toys"> Toys</label>
+                    <label class="option-label"><input type="checkbox" name="q13_motivates[]" value="Praise / Affection"> Praise / Affection</label>
+                    <label class="option-label"><input type="checkbox" name="q13_motivates[]" value="Play"> Play</label>
+                    <label class="option-label"><input type="checkbox" name="q13_motivates[]" value="Not Sure"> Not Sure</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q13_motivates_other" placeholder="Other (please specify)">
+                </div>
+            </div>
+
+            <!-- Q14 -->
+            <div class="question-block">
+                <div class="question-title">14. Does your dog have any known triggers or situations that may cause fear, stress, reactivity, or aggression? <span class="optional">(Optional: Select all that apply)</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="None or Unsure"> None or Unsure</label>
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="People"> People</label>
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="Children"> Children</label>
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="Other dogs"> Other dogs</label>
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="Other animals"> Other animals</label>
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="Loud noises"> Loud noises</label>
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="Handling (ears, paws, collar, etc.)"> Handling (ears, paws, collar, etc.)</label>
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="Food or toy guarding"> Food or toy guarding</label>
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="Door knocking"> Door knocking</label>
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="Moving objects (bikes, cars, etc.)"> Moving objects (bikes, cars, etc.)</label>
+                    <label class="option-label"><input type="checkbox" name="q14_triggers[]" value="Strangers approaching or entering the home"> Strangers approaching/entering home</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q14_triggers_other" placeholder="Other (please specify)">
+                </div>
+            </div>
+
+            <!-- Q15 -->
+            <div class="question-block">
+                <div class="question-title">15. Training Requested <span class="optional">(Select all that apply)</span> <span class="required">*</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q15_training[]" value="Aggression / Anxiety / Reactivity"> Aggression / Anxiety / Reactivity</label>
+                    <label class="option-label"><input type="checkbox" name="q15_training[]" value="Clicker Training"> Clicker Training</label>
+                    <label class="option-label"><input type="checkbox" name="q15_training[]" value="Destructive Behavior"> Destructive Behavior</label>
+                    <label class="option-label"><input type="checkbox" name="q15_training[]" value="First-Time Owner / New Dog Support"> First-Time Owner / New Dog Support</label>
+                    <label class="option-label"><input type="checkbox" name="q15_training[]" value="Leash Walking Skills"> Leash Walking Skills</label>
+                    <label class="option-label"><input type="checkbox" name="q15_training[]" value="Obedience and Basic Skills"> Obedience and Basic Skills</label>
+                    <label class="option-label"><input type="checkbox" name="q15_training[]" value="Puppy Training"> Puppy Training</label>
+                    <label class="option-label"><input type="checkbox" name="q15_training[]" value="Recall and Off-Leash"> Recall and Off-Leash</label>
+                    <label class="option-label"><input type="checkbox" name="q15_training[]" value="Socialization"> Socialization</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q15_training_other" placeholder="Other (please specify)">
+                </div>
+            </div>
+
+            <!-- Goals -->
+            <div class="question-block">
+                <div class="question-title">What are your primary training goals? <span class="optional">(Optional)</span></div>
+                <textarea name="primary_goals" placeholder="Tell us about what you want to achieve with training..."></textarea>
+            </div>
+
+            <!-- Additional Notes -->
+            <div class="question-block">
+                <div class="question-title">Additional Requests, Questions, or Concerns? <span class="optional">(Optional)</span></div>
+                <textarea name="additional_concerns" placeholder="Any additional notes for the trainer..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Questionnaire</button>
+        </form>
     </div>
 
+    <!-- Scroll To Top Button -->
+    <a href="#top" id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top" title="Scroll to top">
+        ▲
+    </a>
+
+    <footer></footer>
+
     <script>
-        const logoLeft = document.getElementById('logo-left');
-        const logoRight = document.getElementById('logo-right');
-        const dogBall = document.getElementById('dog-ball');
-        const scoreBoard = document.getElementById('scoreboard');
-        const scoreVal = document.getElementById('score');
-        const blockContainer = document.getElementById('block-container');
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
 
-        let isPlaying = false;
-        let score = 0;
-        let ballX = window.innerWidth / 2;
-        let ballY = window.innerHeight / 2;
-        let speedX = 4;
-        let speedY = 4;
-        let paddleY = window.innerHeight / 2;
-        let blocks = [];
-        let gameLoopId;
-
-        const TOTAL_BLOCKS = 6;
-
-        function createBlocks() {
-            blockContainer.innerHTML = '';
-            blocks = [];
-
-            const startX = (window.innerWidth / 2) - 150;
-            const startY = (window.innerHeight / 2) - 100;
-
-            for (let i = 0; i < TOTAL_BLOCKS; i++) {
-                const el = document.createElement('div');
-                el.className = 'block';
-                
-                // Position blocks in two center columns
-                const col = i % 2;
-                const row = Math.floor(i / 2);
-                const x = startX + (col * 160);
-                const y = startY + (row * 60);
-
-                el.style.left = x + 'px';
-                el.style.top = y + 'px';
-                el.style.display = 'block';
-                el.style.opacity = '1';
-                
-                blockContainer.appendChild(el);
-                blocks.push({ el, x, y, width: 70, height: 25, active: true });
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.style.display = 'flex';
+            } else {
+                scrollTopBtn.style.display = 'none';
             }
-        }
-
-        function respawnBlock(block) {
-            setTimeout(() => {
-                if (!isPlaying) return;
-                // Fade back in at a slight center offset
-                const offsetX = (Math.random() - 0.5) * 100;
-                const offsetY = (Math.random() - 0.5) * 100;
-                block.x = (window.innerWidth / 2 - 35) + offsetX;
-                block.y = (window.innerHeight / 2 - 12) + offsetY;
-                
-                block.el.style.left = block.x + 'px';
-                block.el.style.top = block.y + 'px';
-                block.el.style.opacity = '0';
-                block.el.style.display = 'block';
-
-                setTimeout(() => {
-                    block.el.style.opacity = '1';
-                    block.active = true;
-                }, 50);
-            }, 2000);
-        }
-
-        function startGame() {
-            if (isPlaying) return;
-            isPlaying = true;
-            score = 0;
-            scoreVal.textContent = score;
-
-            logoLeft.classList.add('active');
-            logoRight.classList.add('active');
-            scoreBoard.style.display = 'block';
-            dogBall.style.display = 'block';
-
-            ballX = window.innerWidth / 2;
-            ballY = window.innerHeight / 2;
-            speedX = Math.random() > 0.5 ? 4 : -4;
-            speedY = (Math.random() - 0.5) * 6;
-
-            createBlocks();
-            gameLoop();
-        }
-
-        function stopGame() {
-            isPlaying = false;
-            cancelAnimationFrame(gameLoopId);
-            
-            logoLeft.classList.remove('active');
-            logoRight.classList.remove('active');
-            scoreBoard.style.display = 'none';
-            dogBall.style.display = 'none';
-            blockContainer.innerHTML = '';
-
-            logoLeft.style.top = '50%';
-            logoRight.style.top = '50%';
-        }
-
-        window.addEventListener('mousemove', (e) => {
-            if (!isPlaying) return;
-            paddleY = e.clientY;
-            logoLeft.style.top = paddleY + 'px';
-            logoRight.style.top = paddleY + 'px';
         });
-
-        function gameLoop() {
-            if (!isPlaying) return;
-
-            ballX += speedX;
-            ballY += speedY;
-
-            // Bounce off top/bottom
-            if (ballY <= 0 || ballY >= window.innerHeight - 30) {
-                speedY *= -1;
-            }
-
-            // Paddle collisions
-            const paddleHeight = 150;
-            if (ballX <= 50 && Math.abs(ballY - paddleY) < paddleHeight / 2) {
-                speedX = Math.abs(speedX) * 1.05; // Slightly speed up
-                ballX = 51;
-            } else if (ballX >= window.innerWidth - 70 && Math.abs(ballY - paddleY) < paddleHeight / 2) {
-                speedX = -Math.abs(speedX) * 1.05;
-                ballX = window.innerWidth - 71;
-            }
-
-            // Miss conditions (Game Over)
-            if (ballX < 0 || ballX > window.innerWidth) {
-                alert(`Game Over! Final Score: ${score}`);
-                stopGame();
-                return;
-            }
-
-            // Block collisions
-            blocks.forEach(b => {
-                if (b.active) {
-                    if (ballX + 30 >= b.x && ballX <= b.x + b.width &&
-                        ballY + 30 >= b.y && ballY <= b.y + b.height) {
-                        
-                        b.active = false;
-                        b.el.style.opacity = '0';
-                        setTimeout(() => b.el.style.display = 'none', 500);
-
-                        speedY *= -1;
-                        score += 10;
-                        scoreVal.textContent = score;
-
-                        respawnBlock(b);
-                    }
-                }
-            });
-
-            dogBall.style.left = ballX + 'px';
-            dogBall.style.top = ballY + 'px';
-
-            gameLoopId = requestAnimationFrame(gameLoop);
-        }
-
-        logoLeft.addEventListener('click', startGame);
-        logoRight.addEventListener('click', startGame);
     </script>
+
 </body>
 </html>
