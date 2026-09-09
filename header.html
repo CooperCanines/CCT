@@ -16,7 +16,6 @@
             --hover-tab-color: rgba(255, 255, 255, 0.15); /* Hover effect */
         }
 
-        /* Standard Resets */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -66,15 +65,16 @@
         .center-nav {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            flex: 1;
             justify-content: center;
+            flex: 1;
+            gap: 2px; /* Small tight spacing prevents gap accumulation when scaling */
+            margin: 0 1rem;
         }
 
         .nav-btn {
             color: var(--header-text-color);
             text-decoration: none;
-            padding: 0.6rem 1.2rem;
+            padding: 0.5rem 0.8rem;
             font-weight: bold;
             border-radius: 6px;
             font-size: 0.95rem;
@@ -94,27 +94,32 @@
             color: var(--active-tab-text) !important;
         }
 
-        /* Search Button Container */
+        /* Search Button (Locked on the right edge with a distinct border) */
         .search-btn {
-            background: none;
-            border: none;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.4);
             cursor: pointer;
-            padding: 0.6rem;
+            padding: 0.4rem 0.5rem;
             color: var(--header-text-color);
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             border-radius: 6px;
+            flex: 0 0 auto; /* Keeps icon from stretching */
+            margin-left: 0.3rem; /* Small offset from the last nav item */
+            transition: all 0.2s ease;
         }
 
         .search-btn:hover {
             background-color: var(--hover-tab-color);
+            border-color: rgba(255, 255, 255, 0.8);
         }
 
         .search-btn svg {
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             fill: currentColor;
+            display: block;
         }
 
         /* 3. Right Section: Dropdown Menu Button */
@@ -201,12 +206,10 @@
                 padding: 0.5rem 1rem;
             }
 
-            /* Hug logo left */
             .header-logo-container {
                 order: 1;
             }
 
-            /* Top Right Search Button on Mobile */
             .search-btn-mobile-wrapper {
                 order: 2;
                 margin-left: auto;
@@ -216,11 +219,12 @@
             .center-nav {
                 order: 3;
                 width: 100%;
-                justify-content: space-around;
-                margin-top: 0.5rem;
+                justify-content: center;
+                margin: 0.5rem 0 0 0;
                 padding-top: 0.5rem;
                 border-top: 1px solid rgba(255, 255, 255, 0.15);
                 flex-wrap: wrap;
+                gap: 2px; /* Removes wide gaps on small screens */
             }
 
             .right-menu-container {
@@ -242,9 +246,8 @@
                 left: 0;
             }
 
-            /* Hide the desktop search button position in center nav when collapsed */
             .center-nav .search-btn {
-                display: none;
+                display: inline-flex; /* Ensures search button stays on right of menu on mobile */
             }
         }
 
@@ -267,15 +270,6 @@
                 </a>
             </div>
 
-            <!-- Mobile Top-Right Search Icon -->
-            <div class="search-btn-mobile-wrapper">
-                <button class="search-btn" aria-label="Search">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                    </svg>
-                </button>
-            </div>
-
             <!-- Middle: Navigation Links -->
             <nav class="center-nav">
                 <a href="index.html" class="nav-btn">Home</a>
@@ -283,7 +277,7 @@
                 <a href="store.html" class="nav-btn">Store</a>
                 <a href="contact.html" class="nav-btn">Contact Us</a>
                 
-                <!-- Desktop Search Icon -->
+                <!-- Search Button locked on the right end of center menu -->
                 <button class="search-btn" aria-label="Search">
                     <svg viewBox="0 0 24 24">
                         <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
