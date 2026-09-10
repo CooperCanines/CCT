@@ -1,0 +1,11 @@
+# ==========================================
+# This page prevents search engines from finding the below folders.
+# Last updated: September 2026
+# ==========================================
+User-agent: *
+Disallow: /components/
+Disallow: /images/
+Disallow: /obsolete/
+
+# Link to the XML Sitemap for faster crawling
+Sitemap: https://coopercanines.com/sitemap.xml
