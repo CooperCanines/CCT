@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referral & Perks - Cooper Canines</title>
+    <style>
+        :root {
+            --primary: #009100;
+            --bg-color: #f4f6f8;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #e0e0e0;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --border-color: #333333;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 2rem 1rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .card-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .card-box h2, .card-box h3 {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        p {
+            margin: 0.5rem 0;
+        }
+
+        .scroll-top-btn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .updated-note {
+            font-size: 0.85rem;
+            color: #666;
+            text-align: center;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="top">
+        
+        <!-- Referral Program Section -->
+        <section class="card-box">
+            <h2>Referral Program</h2>
+            <p>
+                <strong>Reward:</strong> Existing clients who refer a new client can receive up to $25 in service credits or gift cards. Referred new clients may also receive up to $25 off their training services or a $25 gift card.
+            </p>
+            <p>
+                <strong>Eligibility Requirement:</strong> The referred client must purchase a training package or complete a minimum of three (3) paid training sessions with a total value of $300 or more.
+            </p>
+            <p>
+                <strong>How to Claim:</strong> The new client must enter the referring client's name in the Referral section of their Client Intake Form at initial booking and the Trainer must be informed.
+            </p>
+            <p>
+                <strong>Program Terms:</strong> Applies to new clients only. Cannot be combined with other promotional offers or discounts exceeding 20% in total value. Issued at the Trainer's sole discretion via account credit, gift certificates, or a combination thereof. The Trainer reserves the right to modify or end promotional programs at any time without prior notice.
+            </p>
+        </section>
+
+        <!-- First Responder, Military & Educator Discount Section -->
+        <section class="card-box">
+            <h3>First Responder, Military & Educator Discount</h3>
+            <p>
+                <strong>Discount:</strong> Active-duty military, veterans, law enforcement, firefighters, EMTs, healthcare workers, and teachers receive 10% off standard training packages.
+            </p>
+            <p>
+                <strong>Eligibility Requirement:</strong> Client must purchase a full training package valued at $300 or more. Proof of ID, service, or employment is required prior to invoice payment.
+            </p>
+            <p>
+                <strong>How to Claim:</strong> Present valid ID or verification documentation to Trainer prior to invoice payment.
+            </p>
+            <p>
+                <strong>Program Terms:</strong> Applies to eligible personnel only. Cannot be combined with other promotional offers or discounts exceeding 20% in total value. The Trainer reserves the right to modify or end promotional programs at any time without prior notice.
+            </p>
+        </section>
+
+        <div class="updated-note">
+            <p><em>Last updated: February 2026</em></p>
+        </div>
+
+    </div>
+
+    <!-- Floating Scroll To Top Button -->
+    <a href="#top" id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top" title="Scroll to top">
+        ▲
+    </a>
+
+    <footer></footer>
+
+    <script>
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.style.display = 'flex';
+            } else {
+                scrollTopBtn.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
