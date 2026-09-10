@@ -8,14 +8,14 @@
     <script async src="https://cse.google.com/cse.js?cx=e4f71822d5b0943bb"></script>
     <style>
         /* ==========================================================
-           HEADER COLOR & THEMING (Easily change per page)
+           HEADER COLOR & THEMING 
            ========================================================== */
         :root {
-            --header-bg-color: #009100;      /* Main header background color */
-            --header-text-color: #ffffff;    /* Header text color */
-            --active-tab-color: #e67e22;     /* Orange active button color */
-            --active-tab-text: #ffffff;      /* Text color for active tab */
-            --hover-tab-color: rgba(255, 255, 255, 0.15); /* Hover effect */
+            --header-bg-color: #009100;      
+            --header-text-color: #ffffff;    
+            --active-tab-color: #e67e22;     
+            --active-tab-text: #ffffff;      
+            --hover-tab-color: rgba(255, 255, 255, 0.15); 
             --primary: #2ecc71;
         }
 
@@ -50,7 +50,7 @@
             position: relative;
         }
 
-        /* 1. Left Section: Logo */
+        /* Logo */
         .header-logo-container {
             flex: 0 0 auto;
             display: flex;
@@ -64,7 +64,7 @@
             display: block;
         }
 
-        /* 2. Middle Section: Scaling Menu Links */
+        /* Navigation Links */
         .center-nav {
             display: flex;
             align-items: center;
@@ -91,13 +91,12 @@
             background-color: var(--hover-tab-color);
         }
 
-        /* Active Orange Button Style */
         .nav-btn.active {
             background-color: var(--active-tab-color) !important;
             color: var(--active-tab-text) !important;
         }
 
-        /* Expandable Search Component */
+        /* Search Wrapper */
         .search-wrapper {
             display: inline-flex;
             align-items: center;
@@ -124,7 +123,7 @@
             padding: 4px;
         }
 
-        /* Google CSE Input Styling Overrides */
+        /* Google CSE Input Overrides */
         .gcse-search {
             width: 100%;
         }
@@ -137,7 +136,7 @@
             display: none !important;
         }
 
-        /* Google CSE Overlay Search Results Box Fix (Prevents tiny inline result rendering) */
+        /* Google CSE Modal Search Results Display Fix */
         .gsc-results-wrapper-overlay {
             position: fixed !important;
             top: 80px !important;
@@ -152,6 +151,12 @@
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
             padding: 20px !important;
             overflow-y: auto !important;
+            pointer-events: auto !important;
+        }
+
+        .gsc-results-wrapper-overlay a {
+            pointer-events: auto !important;
+            cursor: pointer !important;
         }
 
         .gsc-overflow-hidden {
@@ -184,7 +189,7 @@
             display: block;
         }
 
-        /* 3. Right Section: Dropdown Menu Button */
+        /* Dropdown Menu Button */
         .right-menu-container {
             flex: 0 0 auto;
             position: relative;
@@ -222,7 +227,7 @@
             background-color: currentColor;
         }
 
-        /* Dropdown Menu Box */
+        /* Dropdown Menu Container */
         .dropdown-menu {
             display: none;
             position: absolute;
@@ -301,7 +306,7 @@
             z-index: 2001;
         }
 
-        /* Scoped styling to support injected .service-info-box from maps.html */
+        /* Modal Styles matching maps.html service box */
         .modal-content-wrapper .service-info-box {
             position: relative;
             top: auto;
@@ -337,16 +342,46 @@
             color: #ffffff;
         }
 
-        .modal-content-wrapper .weather-section {
-            margin-top: 14px;
-            padding-top: 10px;
+        .modal-content-wrapper .location-note {
+            font-size: 0.82rem;
+            color: #38ef7d;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .modal-content-wrapper .forecast-section {
+            margin-top: 10px;
+            padding-top: 8px;
             border-top: 1px dashed #333;
-            font-size: 0.85rem;
-            color: #a0aec0;
+        }
+
+        .modal-content-wrapper .forecast-section h4 {
+            margin: 0 0 6px 0;
+            font-size: 0.9rem;
+            color: var(--primary);
             text-align: center;
         }
 
-        /* Responsive Mobile Adjustments */
+        .modal-content-wrapper .forecast-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            max-height: 140px;
+            overflow-y: auto;
+        }
+
+        .modal-content-wrapper .forecast-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: #cbd5e1;
+        }
+
+        /* Responsive Adjustments */
         @media (max-width: 850px) {
             .header-container {
                 flex-wrap: wrap;
@@ -410,13 +445,12 @@
                 </a>
             </div>
 
-            <!-- Middle: Navigation Links -->
+            <!-- Middle: Nav -->
             <nav class="center-nav">
                 <a href="index.html" class="nav-btn">Home</a>
                 <a href="guides.html" class="nav-btn">Resources</a>
                 <a href="index.html#contact" class="nav-btn">Contact Us</a>
                 
-                <!-- Expandable Search Wrapper -->
                 <div class="search-wrapper" id="searchWrapper">
                     <div class="search-box-container">
                         <div class="gcse-search"></div>
@@ -454,7 +488,6 @@
                     <a href="/waiver.html" target="_blank" rel="noopener">Liability Waiver</a>
                     <a href="/waiver.html#Referral Program" target="_blank" rel="noopener">Referral & Perks</a>
                     <a href="/rates.html" target="_blank" rel="noopener">Estimated Rates</a>
-                    <!-- Service Area Modal Trigger -->
                     <a href="#" id="serviceAreaLink">Service Area</a>
                 </div>
             </div>
@@ -462,18 +495,18 @@
         </div>
     </header>
 
-    <!-- Dynamic Modal Popup Container -->
+    <!-- Modal Popup Container -->
     <div class="modal-overlay" id="serviceModal">
         <div class="modal-content-wrapper">
             <button class="close-modal" id="closeModalBtn">&times;</button>
             <div id="dynamicModalTarget">
-                <!-- Data from maps.html will be injected here dynamically -->
+                <!-- Data injected dynamically from maps.html -->
             </div>
         </div>
     </div>
 
     <script>
-        // Toggle Dropdown Menu Visibility
+        // Dropdown Menu Toggle
         const menuBtn = document.getElementById('menuBtn');
         const dropdownMenu = document.getElementById('dropdownMenu');
 
@@ -486,7 +519,7 @@
             dropdownMenu.classList.remove('show');
         });
 
-        // Expandable Search Bar Functionality
+        // Search Bar Toggle
         const searchWrapper = document.getElementById('searchWrapper');
         const searchToggleBtn = document.getElementById('searchToggleBtn');
 
@@ -501,7 +534,15 @@
             }
         });
 
-        // Highlight Active Page Button
+        // Search Result Click Fix
+        document.addEventListener('click', (e) => {
+            const searchLink = e.target.closest('.gsc-results-wrapper-overlay a');
+            if (searchLink && searchLink.href) {
+                window.open(searchLink.href, '_blank');
+            }
+        });
+
+        // Highlight Active Page
         document.addEventListener('DOMContentLoaded', () => {
             const currentPath = window.location.pathname.split('/').pop() || 'index.html';
             const navLinks = document.querySelectorAll('.nav-btn');
@@ -514,7 +555,7 @@
             });
         });
 
-        // Dynamic Loading from maps.html / map.html
+        // Dynamic Loading & Script Execution for maps.html
         const serviceModal = document.getElementById('serviceModal');
         const serviceAreaLink = document.getElementById('serviceAreaLink');
         const closeModalBtn = document.getElementById('closeModalBtn');
@@ -522,29 +563,26 @@
 
         async function fetchServiceAreaFromMaps() {
             try {
-                // Fetch maps.html (or fallback to map.html)
                 let response = await fetch('maps.html');
                 if (!response.ok) {
                     response = await fetch('map.html');
                 }
                 const htmlText = await response.text();
 
-                // Parse the fetched HTML text
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(htmlText, 'text/html');
-
-                // Extract .service-info-box container
                 const fetchedBox = doc.querySelector('.service-info-box');
 
                 if (fetchedBox) {
                     dynamicModalTarget.innerHTML = fetchedBox.outerHTML;
-                    
-                    // Extract script tags from fetched document to execute weather API if present
+
+                    // Execute scripts contained in fetched html
                     const scripts = doc.querySelectorAll('script');
-                    scripts.forEach(script => {
-                        if (script.textContent.includes('loadWeather')) {
-                            eval(script.textContent);
-                        }
+                    scripts.forEach(oldScript => {
+                        const newScript = document.createElement('script');
+                        Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                        newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                        document.body.appendChild(newScript);
                     });
                 } else {
                     dynamicModalTarget.innerHTML = '<p style="color:#fff; padding: 20px;">Could not locate service info in maps.html.</p>';
