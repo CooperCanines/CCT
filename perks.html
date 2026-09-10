@@ -11,6 +11,7 @@
             --card-bg: #ffffff;
             --text-color: #333333;
             --border-color: #e0e0e0;
+            --trainer-bg: #f1f8f1;
         }
 
         [data-theme="dark"] {
@@ -18,6 +19,7 @@
             --card-bg: #1e1e1e;
             --text-color: #e0e0e0;
             --border-color: #333333;
+            --trainer-bg: #1a2f23;
         }
 
         body {
@@ -35,6 +37,18 @@
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
+        }
+
+        .trainer-info {
+            background-color: var(--trainer-bg);
+            padding: 1rem;
+            border-left: 4px solid var(--primary);
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+        }
+
+        .trainer-info p {
+            margin: 0.3rem 0;
         }
 
         .card-box {
@@ -81,11 +95,9 @@
     <div class="container" id="top">
         
         <!-- Document Info Box -->
-        <section class="card-box">
-            <p style="margin: 0;">
-                <em>Document last updated: February 2026. Terms and offers subject to change without notice.</em>
-            </p>
-        </section>
+        <div class="trainer-info">
+            <p><strong>Last Updated:</strong> September 2026</p>
+        </div>
 
         <!-- Referral Program Section -->
         <section class="card-box">
