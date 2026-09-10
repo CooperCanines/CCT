@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <!-- Home / Main Page -->
+  <url>
+    <loc>https://coopercanines.com/</loc>
+    <priority>1.00</priority>
+  </url>
+
+  <!-- Get Started Page -->
+  <url>
+    <loc>https://coopercanines.com/start.html</loc>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Guides / Resources Page -->
+  <url>
+    <loc>https://coopercanines.com/guides.html</loc>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Referral & Perks Page -->
+  <url>
+    <loc>https://coopercanines.com/perks.html</loc>
+    <priority>0.80</priority>
+  </url>
+
+</urlset>
