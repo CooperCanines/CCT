@@ -3,732 +3,829 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- SEO Meta Tags -->
-    <title>CCT Guides & Resources | Cooper Canines</title>
-    <meta name="description" content="Free expert dog training resources, puppy care tips, and obedience advice from Cooper Canines. Help your dog succeed with positive reinforcement tips.">
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>Cooper Canines LLC - Force-Free Dog Training in South Jersey</title>
+    <meta name="description" content="Science-based, positive reinforcement methods to build clear communication, confidence, and lasting respect between you and your dog.">
     <meta name="robots" content="index, follow">
-    <link rel="icon" type="image/png" href="../Cooper Canines5 Logo 03-18-26.png">
+    <link rel="canonical" href="https://coopercanines.com/">
 
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://coopercanines.com/">
+    <meta property="og:title" content="Cooper Canines LLC">
+    <meta property="og:description" content="Positive reinforcement dog training with no force, fear, or harsh corrections.">
+    <meta property="og:image" content="images/cctwordlogo.png">
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "DogTrainer",
+      "name": "Cooper Canines LLC",
+      "image": "images/cctwordingwithphrase.png",
+      "telephone": "856-433-1259",
+      "email": "Dan@coopercanines.com",
+      "url": "https://coopercanines.com",
+      "priceRange": "$$",
+      "description": "Science-based, positive reinforcement dog training methods building clear communication and confidence."
+    }
+    </script>
+
+    <link rel="icon" type="image/png" href="images/cctlogo.png">
+    
     <style>
         :root {
-            --primary: #009191;
+            --primary: #006060;
             --accent: #27ae60;
             --light: #f8f9fa;
             --dark: #333;
-            --border: #e2e8f0;
-            --logo-orange: #e67e22; /* Custom brand orange */
+            --logo-orange: #e67e22; /* Custom orange matching the logo */
         }
 
-        /* Enable smooth scrolling across the page */
+        /* Smooth scrolling for anchor links */
         html {
             scroll-behavior: smooth;
         }
 
-        /* Remove default margins and set up full-height flex container */
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-        }
-
         body {
             font-family: Arial, sans-serif;
+            line-height: 1.6;
             margin: 0;
-            padding: 0;
             color: var(--dark);
+            background-color: var(--light);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            position: relative;
-
-            /* Background Image Setup */
-            background-image: url('Jotform Background.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
         }
 
-        header {
-            background-color: var(--primary);
-            text-align: center;
-            padding: 1rem;
-        }
-
-        header img {
-            max-width: 100%;
-            height: auto;
-            max-height: 240px;
-        }
-
-        /* Sticky Nav Bar with Logo, Centered Links, and Right Menu Button */
-        nav {
-            background-color: #34495e;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.5rem 1.5rem;
+        /* Sticky Wrapper for Dynamic Component Header */
+        #header-placeholder {
             position: sticky;
             top: 0;
             z-index: 1000;
+            width: 100%;
         }
 
-        .nav-logo img {
-            height: 40px;
-            width: auto;
-            display: block;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-            margin-left: auto;
-            margin-right: auto;
-            align-items: center;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            font-weight: bold;
-            border-radius: 4px;
-        }
-
-        nav a:hover {
-            color: var(--accent);
-        }
-
-        /* Active Selected Orange Tab for Resources */
-        nav a.active-tab {
-            background-color: var(--logo-orange);
-            color: white !important;
-        }
-
-        nav a.active-tab:hover {
-            background-color: #d35400;
-        }
-
-        /* Hamburger Container Box */
-        .menu-container {
+        /* Hero Banner Styling */
+        .hero {
             position: relative;
+            background: 
+                linear-gradient(rgba(0, 50, 25, 0.75), rgba(0, 50, 25, 0.75)), 
+                url('images/aislopbackground.png') center/cover;
+            background-color: #00793c;
+            text-align: center;
+            padding: 5rem 1rem;
+            color: #ffffff;
+            overflow: hidden;
         }
 
-        /* White Rounded Box Button */
-        .menu-toggle {
-            background-color: #ffffff;
-            border: none;
-            border-radius: 8px;
-            padding: 0.4rem 0.8rem;
+        #hero-splash-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 50, 25, 0.95);
             display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-            transition: transform 0.1s ease;
+            z-index: 10;
+            opacity: 1;
+            transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+            pointer-events: none;
         }
 
-        .menu-toggle:active {
-            transform: scale(0.98);
+        #hero-splash-overlay img {
+            max-width: 90%;
+            max-height: 80%;
+            object-fit: contain;
         }
 
-        /* Matches navbar font style & uses brand orange */
-        .menu-text {
-            color: var(--logo-orange);
-            font-family: Arial, sans-serif;
-            font-weight: bold;
-            font-size: 0.95rem;
+        #hero-splash-overlay.fade-out {
+            opacity: 0;
+            visibility: hidden;
         }
 
-        /* Orange Hamburger Icon */
-        .hamburger-icon {
-            width: 20px;
-            height: 15px;
+        .hero .btn {
+            background-color: #2ecc71;
+            color: #ffffff;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .services-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            flex: 1 1 250px;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
         }
 
-        .hamburger-icon span {
-            display: block;
-            height: 3px;
+        .card h3 {
+            color: #006060;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .card img {
             width: 100%;
-            background-color: var(--logo-orange);
-            border-radius: 2px;
-        }
-
-        /* Dropdown Menu Box */
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 120%;
-            background-color: #ffffff;
-            min-width: 200px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border-radius: 8px;
-            overflow: hidden;
-            z-index: 1001;
-        }
-
-        .dropdown-menu.show {
-            display: block;
-        }
-
-        .dropdown-menu a {
-            color: var(--dark);
-            display: block;
-            padding: 0.75rem 1rem;
-            text-decoration: none;
-            font-weight: bold;
-            border-bottom: 1px solid #eee;
-            border-radius: 0;
-        }
-
-        .dropdown-menu a:last-child {
-            border-bottom: none;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: var(--light);
-            color: var(--primary);
-        }
-
-        /* Sidebar & Main Content Layout - Updated for wider responsiveness */
-        .layout-container {
-            max-width: 1400px; /* Expanded max-width for wider screens */
-            width: 92%;        /* Takes up most of the page width dynamically */
-            margin: 2rem auto 4rem auto;
-            padding: 0 1rem;
-            display: flex;
-            gap: 2rem;
-            flex: 1;
-            box-sizing: border-box;
-        }
-
-        /* Left Sidebar Menu */
-        .sidebar {
-            flex: 0 0 280px;
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            height: fit-content;
-        }
-
-        /* Topics & Guides Header Button Style */
-        .sidebar-home-btn {
-            width: 100%;
-            text-align: left;
-            background: var(--primary);
-            color: white;
-            border: none;
+            height: 200px;
+            object-fit: contain;
+            background-color: #f8f9fa;
             border-radius: 6px;
-            padding: 0.6rem 0.8rem;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
             margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: background 0.2s ease;
         }
 
-        .sidebar-home-btn:hover {
+        .btn {
+            display: inline-block;
             background: var(--accent);
-        }
-
-        .resource-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .resource-list li button {
-            width: 100%;
-            text-align: left;
-            background: none;
-            border: none;
-            padding: 0.8rem 0.5rem;
-            font-size: 0.95rem;
-            color: var(--dark);
-            cursor: pointer;
-            border-bottom: 1px solid var(--border);
-            transition: all 0.2s ease;
-        }
-
-        .resource-list li button:hover,
-        .resource-list li button.active {
-            color: var(--accent);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
             font-weight: bold;
-            padding-left: 0.8rem;
-        }
-
-        /* Right Content Area */
-        .content-area {
-            flex: 1;
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            min-width: 0; /* Prevents grid items from overflowing flex container */
-        }
-
-        /* --- Topics Grid Styling (Auto-fitting Responsive Grid) --- */
-        .topics-grid {
-            display: grid;
-            /* Auto-fit dynamically distributes items into as many columns as fit */
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 2.5rem 1.5rem;
             margin-top: 1rem;
         }
 
-        .topic-card {
-            background: white;
-            border-radius: 10px;
-            padding: 2.2rem 1rem 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            position: relative;
-            margin-top: 2rem;
+        .contact-buttons {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-top: 5px solid #ccc;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            cursor: pointer;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .action-box {
+            display: block;
+            background-color: #006060;
+            color: white;
             text-decoration: none;
+            padding: 1.2rem 2rem;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.05rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+            min-width: 200px;
+        }
+
+        .action-box:hover {
+            background-color: #004d4d;
+            transform: translateY(-3px);
+        }
+
+        @keyframes flashOrange {
+            0% {
+                background-color: #006060;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+            50% {
+                background-color: var(--logo-orange);
+                box-shadow: 0 0 20px rgba(230, 126, 34, 0.8);
+                transform: scale(1.03);
+            }
+            100% {
+                background-color: #006060;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+        }
+
+        .action-box.pulse-orange {
+            animation: flashOrange 1s ease-in-out 2;
+        }
+
+        /* Question Form Card Styling */
+        .question-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 2.5rem auto 0 auto;
+            text-align: left;
             box-sizing: border-box;
         }
 
-        .topic-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.12);
-        }
-
-        .topic-img-container {
-            position: absolute;
-            top: -38px;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            overflow: hidden;
-            background: white;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.16);
-            border: 3px solid white;
-        }
-
-        .topic-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .topic-card h4 {
-            margin: 1.2rem 0 0.4rem 0;
-            font-size: 1.1rem;
-            color: var(--dark);
-        }
-
-        .topic-card p {
-            font-size: 0.9rem;
-            color: #555;
-            margin: 0;
-            line-height: 1.4;
-        }
-
-        /* Color classes */
-        .topic-orange { border-top-color: #e67e22; }
-        .topic-red { border-top-color: #e74c3c; }
-        .topic-tan { border-top-color: #d2b48c; }
-        .topic-cyan { border-top-color: #00bcd4; }
-        .topic-purple { border-top-color: #8e44ad; }
-        .topic-green { border-top-color: #2ecc71; }
-        .topic-pink { border-top-color: #ff69b4; }
-        .topic-forest { border-top-color: #1e8449; }
-        .topic-grey { border-top-color: #95a5a6; }
-        .topic-black { border-top-color: #2c3e50; }
-        .topic-yellow { border-top-color: #f1c40f; }
-        .topic-brown { border-top-color: #8b4513; }
-
-        .discounts-box {
-            margin-top: 2rem;
-            padding: 1rem;
-            background-color: var(--light);
-            border: 1px solid var(--border);
-            border-radius: 6px;
+        .question-card h3 {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 0.5rem;
             text-align: center;
+            font-size: 1.5rem;
         }
 
-        .discounts-box p {
-            font-size: 0.85rem;
+        .question-card p.subtitle {
+            text-align: center;
+            font-size: 0.9rem;
             color: #666;
-            margin-bottom: 0.8rem;
-            line-height: 1.4;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
         }
 
-        .discount-link-btn {
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
             display: block;
+            font-weight: bold;
+            margin-bottom: 0.35rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group label span.req-star {
+            color: #e74c3c;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(0, 96, 96, 0.2);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .char-counter {
+            text-align: right;
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 0.25rem;
+        }
+
+        .btn-submit {
+            width: 100%;
             background-color: var(--primary);
             color: white;
-            padding: 0.6rem 0.8rem;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.9rem;
+            border: none;
+            padding: 0.85rem;
+            font-size: 1.05rem;
             font-weight: bold;
-            transition: background 0.2s ease;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
         }
 
-        .discount-link-btn:hover {
-            background-color: var(--accent);
+        .btn-submit:hover {
+            background-color: #004d4d;
+        }
+
+        .contact-method-hint {
+            font-size: 0.82rem;
+            color: #e67e22;
+            margin-top: 0.25rem;
+            display: none;
+            font-weight: bold;
+        }
+
+        #form-status {
+            display: none;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        #form-status.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        #form-status.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        footer {
+            position: relative;
+            background-color: #006060;
             color: white;
+            padding: 1.5rem 1rem;
+            margin-top: 3rem;
+            width: 100vw;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            box-sizing: border-box;
         }
 
-        /* Floating Scroll to Top Button Styles */
+        .badge-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.2s ease, filter 0.2s ease;
+        }
+
+        .badge-link:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        .badge-link img {
+            max-width: 80px;
+            max-height: 80px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .footer-badge-left {
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        .footer-badge-right {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
         .scroll-top-btn {
             position: fixed;
             bottom: 25px;
             right: 25px;
             background-color: var(--logo-orange);
             color: white;
-            border: none;
-            border-radius: 24px;
+            border: 2px solid white;
+            border-radius: 6px;
             padding: 0.6rem 1rem;
-            font-size: 0.9rem;
             font-weight: bold;
-            font-family: Arial, sans-serif;
+            font-size: 0.9rem;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-            display: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            display: flex;
             align-items: center;
             gap: 0.4rem;
-            z-index: 1000;
-            transition: opacity 0.3s ease, transform 0.2s ease, background-color 0.2s ease;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.2s ease, bottom 0.2s ease;
+        }
+
+        .scroll-top-btn.show {
+            opacity: 1;
+            visibility: visible;
         }
 
         .scroll-top-btn:hover {
-            background-color: #d35400;
             transform: translateY(-3px);
-        }
-
-        @media (max-width: 900px) {
-            .layout-container {
-                flex-direction: column;
-                width: 95%;
-                margin-bottom: 2rem;
-            }
-            .sidebar {
-                flex: 100%;
-            }
+            background-color: #d35400;
         }
 
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+            html, body {
+                overflow-x: hidden;
             }
+
             .scroll-top-btn {
                 bottom: 20px;
-                right: 20px;
-                padding: 0.5rem 0.8rem;
-                font-size: 0.85rem;
+                right: 15px;
+            }
+
+            .mobile-badge-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .footer-badge-left,
+            .footer-badge-right {
+                position: static;
+                transform: none;
+            }
+
+            .badge-link img {
+                max-width: 60px;
+                max-height: 60px;
             }
         }
     </style>
 </head>
 <body>
 
-<header id="top">
-    <img src="../CCT(HDPrint)WordLogo08-17-26.png" alt="Cooper Canines Logo">
-</header>
+<!-- Dynamic Header Injection Placeholder -->
+<div id="header-placeholder"></div>
 
-<nav>
-    <a href="../index.html" class="nav-logo">
-        <img src="../Cooper Canines5 Logo 03-18-26.png" alt="Cooper Canines Logo">
-    </a>
+<main>
+    <section class="hero" id="about" aria-label="Introduction">
+        <!-- Localized Section Overlay -->
+        <div id="hero-splash-overlay">
+            <img src="images/cctwordingwithphrase.png" alt="Cooper Canines Dog Training">
+        </div>
 
-    <div class="nav-links">
-        <a href="../index.html">Home</a>
-        <a href="Guides.html" class="active-tab">Resources</a>
-        <a href="../index.html#services">Services</a>
-        <a href="../store/Store.html">Store</a>
-        <a href="../index.html#contact">Contact Us</a>
-    </div>
+        <h1>Sit Happens, <span style="color: var(--logo-orange);">Stay Pawsitive</span></h1>
+        <p>Science-based, positive reinforcement methods to build clear communication, confidence, and lasting respect between you and your dog. <br>Dog training in South Jersey, with no force, fear, or harsh corrections.</p>
+        <a href="#contact" class="btn" id="getStartedBtn">Get Started Today</a>
+    </section>
 
-    <div class="menu-container">
-        <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation menu">
-            <span class="menu-text">Menu</span>
-            <div class="hamburger-icon">
-                <span></span>
-                <span></span>
-                <span></span>
+    <div class="container">
+        <section id="services" aria-labelledby="services-heading">
+
+            <div class="services-grid">
+                <div class="card">
+                    <h3>Force-Free Training</h3>
+                    <img src="images/forcefree.png" alt="Force-Free Dog Training Methods">
+                    <p>Positive methods, positive results.</p>
+                </div>
+                <div class="card">
+                    <h3>Free In-Home Consultation</h3>
+                    <img src="images/in-home.png" alt="Free In-Home Dog Training Consultation">
+                    <p>Free evaluation for a limited time.</p>
+                </div>
+                <div class="card">
+                    <h3>Private 1-on-1 Sessions</h3>
+                    <img src="images/1-on-1.png" alt="Private 1-on-1 Dog Training Sessions">
+                    <p>Directly with you and your dog.</p>
+                </div>
             </div>
-        </button>
-        <div class="dropdown-menu" id="dropdownMenu">
-            <a href="https://start.coopercanines.com" target="_blank" rel="noopener">🚀 New Client Onboarding</a>
-            <a href="https://portal.coopercanines.com" target="_blank" rel="noopener">🐶 Client Portal</a>
-            <a href="https://pricing.coopercanines.com" target="_blank" rel="noopener">Estimated Rates</a>
-            <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Liability Waiver</a>
-        </div>
-    </div>
-</nav>
+        </section>
 
-<div class="layout-container">
-    <!-- Left Sidebar Navigation -->
-    <aside class="sidebar">
-        <button class="sidebar-home-btn" onclick="showMainGrid()">
-            <span>Guides</span>
-            <span>🏠</span>
-        </button>
-        <ul class="resource-list">
-            <li><button class="tab-btn" onclick="loadArticle('Basic Skills')">Basic Skills</button></li>
-            <li><button class="tab-btn" onclick="loadArticle('Behavior')">Behavior</button></li>
-            <li><button class="tab-btn" onclick="loadArticle('Crate Training')">Crate Training</button></li>
-            <li><button class="tab-btn" onclick="loadArticle('Desensitization')">Desensitization</button></li>
-            <li><button class="tab-btn" onclick="loadArticle('Impulse Control')">Impulse Control</button></li>
-            <li><button class="tab-btn" onclick="loadArticle('Obedience')">Obedience</button></li>
-            <li><button class="tab-btn" onclick="loadArticle('Puppy Training')">Puppy Training</button></li>
-            <li><button class="tab-btn" onclick="loadArticle('Recall')">Recall</button></li>
-            <li><button class="tab-btn" onclick="loadArticle('Resource Guarding')">Resource Guarding</button></li>
-            <li><button class="tab-btn" onclick="loadArticle('Separation')">Separation</button></li>
-            <li><button class="tab-btn" onclick="loadArticle('Socialization')">Socialization</button></li>
-            <li><button class="tab-btn" onclick="loadArticle('Walking')">Walking</button></li>
-        </ul>
-
-        <div class="discounts-box">
-            <p>Check out discounts for services.</p>
-            <a href="discounts/index.html" class="discount-link-btn">
-                🏷️ View External Discounts
-            </a>
-        </div>
-    </aside>
-
-    <!-- Main Content Display Container -->
-    <main class="content-area" id="mainContent">
-        <!-- Default Content: 12 Topics Grid -->
-        <div id="gridContainer">
-            <h2 style="margin-top:0; color: var(--primary); text-align: center;">Resource Directory</h2>
-            <p style="text-align: center; color: #666; margin-bottom: 2rem;"><b>THIS PAGE IS CURRENTLY UNDER CONSTRUCTION</b>
-<br>Select a topic below to explore guides and training articles.</p>
+        <section id="contact" style="margin-top: 3rem; text-align: center;" aria-labelledby="contact-heading">
+            <h2 id="contact-heading">Ready to Begin?</h2>
+            <p>Reach out to schedule your initial consultation or get started below.</p>
             
-            <div class="topics-grid">
-                <div class="topic-card topic-orange" onclick="loadArticle('Basic Skills')">
-                    <div class="topic-img-container">
-                        <img src="../images/Behavior.png" alt="Basic Skills">
-                    </div>
-                    <h4>Basic Skills</h4>
-                    <p>Teaching essential day-to-day manners and focus.</p>
-                </div>
+            <p style="text-align: center; margin: 1rem auto;">
+                <strong>Email:</strong> 
+                <a href="mailto:Dan@coopercanines.com" style="color: var(--primary); text-decoration: underline;">
+                    Dan@coopercanines.com
+                </a> 
+                | 
+                <strong>Phone:</strong> 
+                <a href="tel:8564331259" style="color: var(--primary); text-decoration: underline;">
+                    (856) 433-1259
+                </a>
+            </p>
 
-                <div class="topic-card topic-red" onclick="loadArticle('Behavior')">
-                    <div class="topic-img-container">
-                        <img src="../images/Behavior.png" alt="Behavior">
-                    </div>
-                    <h4>Behavior</h4>
-                    <p>Addressing reactivity, fear, barking, and unwanted habits.</p>
-                </div>
-
-                <div class="topic-card topic-tan" onclick="loadArticle('Crate Training')">
-                    <div class="topic-img-container">
-                        <img src="../images/Behavior.png" alt="Crate Training">
-                    </div>
-                    <h4>Crate Training</h4>
-                    <p>Creating a cozy, stress-free safe space for relaxed resting.</p>
-                </div>
-
-                <div class="topic-card topic-cyan" onclick="loadArticle('Desensitization')">
-                    <div class="topic-img-container">
-                        <img src="../images/Behavior.png" alt="Desensitization">
-                    </div>
-                    <h4>Desensitization</h4>
-                    <p>Gradual exposure techniques to build confidence.</p>
-                </div>
-
-                <div class="topic-card topic-purple" onclick="loadArticle('Impulse Control')">
-                    <div class="topic-img-container">
-                        <img src="../images/Behavior.png" alt="Impulse Control">
-                    </div>
-                    <h4>Impulse Control</h4>
-                    <p>Emotional regulation, stays, and the "Place" command.</p>
-                </div>
-
-                <div class="topic-card topic-green" onclick="loadArticle('Obedience')">
-                    <div class="topic-img-container">
-                        <img src="../images/Behavior.png" alt="Obedience">
-                    </div>
-                    <h4>Obedience</h4>
-                    <p>Establishing solid foundation cues like sit, stay, and down.</p>
-                </div>
-
-                <div class="topic-card topic-pink" onclick="loadArticle('Puppy Training')">
-                    <div class="topic-img-container">
-                        <img src="../images/Behavior.png" alt="Puppy Training">
-                    </div>
-                    <h4>Puppy Training</h4>
-                    <p>Potty training, bite inhibition, and settling techniques.</p>
-                </div>
-
-                <div class="topic-card topic-forest" onclick="loadArticle('Recall')">
-                    <div class="topic-img-container">
-                        <img src="../images/Behavior.png" alt="Recall">
-                    </div>
-                    <h4>Recall</h4>
-                    <p>Building a reliable emergency come cue.</p>
-                </div>
-
-                <div class="topic-card topic-grey" onclick="loadArticle('Resource Guarding')">
-                    <div class="topic-img-container">
-                        <img src="../images/Behavior.png" alt="Resource Guarding">
-                    </div>
-                    <h4>Resource Guarding</h4>
-                    <p>Building trust around food, toys, and resting spots.</p>
-                </div>
-
-                <div class="topic-card topic-black" onclick="loadArticle('Separation')">
-                    <div class="topic-img-container">
-                        <img src="../images/Behavior.png" alt="Separation">
-                    </div>
-                    <h4>Separation</h4>
-                    <p>Routines to reduce distress when left home alone.</p>
-                </div>
-
-                <div class="topic-card topic-yellow" onclick="loadArticle('Socialization')">
-                    <div class="topic-img-container">
-                        <img src="../images/Behavior.png" alt="Socialization">
-                    </div>
-                    <h4>Socialization</h4>
-                    <p>Controlled exposure to novel environments and sounds.</p>
-                </div>
-
-                <div class="topic-card topic-brown" onclick="loadArticle('Walking')">
-                    <div class="topic-img-container">
-                        <img src="../images/Behavior.png" alt="Walking">
-                    </div>
-                    <h4>Walking</h4>
-                    <p>Mastering loose-leash walking without pulling.</p>
-                </div>
+            <div class="contact-buttons">
+                <a href="/start.html" target="_blank" rel="noopener" class="action-box">
+                    New Client
+                </a>
+                <a href="/portal.html" target="_blank" rel="noopener" class="action-box">
+                    Returning Client
+                </a>
             </div>
+
+            <!-- Web3Forms Question Box -->
+            <div class="question-card">
+                <h3>Ask Us a Question</h3>
+                <p class="subtitle">Have a quick question? Send us a message and we'll get right back to you!</p>
+                
+                <form id="questionForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+                    <!-- Web3Forms Config Inputs -->
+                    <input type="hidden" name="access_key" value="91cbff36-1cd3-4394-b34c-c23da94441eb">
+                    <input type="hidden" name="subject" id="emailSubject" value="Question">
+                    <input type="hidden" name="from_name" value="Cooper Canines Web Inquiry">
+                    <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
+
+                    <!-- Name Field -->
+                    <div class="form-group">
+                        <label for="userName">Name <span class="req-star">*</span></label>
+                        <input type="text" id="userName" name="name" class="form-control" placeholder="Your Full Name" required>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label for="userEmail">Email Address</label>
+                        <input type="email" id="userEmail" name="email" class="form-control" placeholder="name@example.com">
+                    </div>
+
+                    <!-- Phone Field -->
+                    <div class="form-group">
+                        <label for="userPhone">Phone Number</label>
+                        <input type="tel" id="userPhone" name="phone" class="form-control" placeholder="(856) 555-0123" pattern="^(\+?1[-.\s]?)?\(?[0-9]{3}\)?[-.\s]?[0-9]{3}[-.\s]?[0-9]{4}$">
+                    </div>
+
+                    <div id="contactMethodHint" class="contact-method-hint">
+                        * Please provide either an email address or a phone number so we can respond.
+                    </div>
+
+                    <!-- Message Box (300 Char Limit) -->
+                    <div class="form-group" style="margin-top: 1.25rem;">
+                        <label for="userMessage">Question <span class="req-star">*</span></label>
+                        <textarea id="userMessage" name="message" class="form-control" maxlength="300" placeholder="Type your question here..." required></textarea>
+                        <div class="char-counter"><span id="charCount">0</span>/300 characters</div>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="submitBtn">Submit Question</button>
+                    <div id="form-status"></div>
+                </form>
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer id="mainFooter">
+    <!-- Mobile Badge Wrapper -->
+    <div class="mobile-badge-container">
+        <div class="footer-badge-left">
+            <a href="https://www.petcareins.com" target="_blank" rel="noopener" class="badge-link" aria-label="Pet Care Insurance Verification">
+                <img src="https://app.petcareins.com/media/site_seals/0001/11/8a64628beaa11b47d4ca86378c096fa416c7797d.png" alt="Pet Care and Pet Sitting Insurance Seal">
+            </a>
         </div>
 
-        <!-- Article Container Placeholder -->
-        <div id="articleView" style="display: none;"></div>
-    </main>
-</div>
-
-<!-- Floating Scroll to Top Button -->
-<button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top" title="Scroll to top">
-    <span>▲</span>
-    <span>To Top</span>
-</button>
-
-<footer style="background-color: var(--primary); color: white; padding: 2rem 1rem; width: 100%; box-sizing: border-box; margin-top: auto;">
-    <div style="max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2rem; text-align: center;">
-        <div>
-            <a href="https://pricing.coopercanines.com" target="_blank" rel="noopener" style="color: white; text-decoration: none; margin: 0 1rem; font-size: 0.95rem;">
-                View Estimated Rates
-            </a>
-            <span style="color: #4a6572;">|</span>
-            <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener" style="color: white; text-decoration: none; margin: 0 1rem; font-size: 0.95rem;">
-                Liability Waiver
-            </a>
-            <span style="color: #4a6572;">|</span>
-            <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener" style="color: white; text-decoration: none; margin: 0 1rem; font-size: 0.95rem;">
-                Follow on Facebook
-            </a>
-            <span style="color: #4a6572;">|</span>
-            <a href="https://g.page/r/YOUR_GOOGLE_REVIEW_ID/review" target="_blank" rel="noopener" style="color: #f1c40f; text-decoration: none; margin: 0 1rem; font-weight: bold;">
-                ⭐ Leave a Google Review
+        <div class="footer-badge-right">
+            <a href="https://training.apdt.com/profile/8cc8c1a6-f064-4259-bdbd-3d3438a45c66?search_term=Daniel%20Weissberg&page=1" target="_blank" rel="noopener" class="badge-link" aria-label="APDT Member Profile">
+                <img src="images/apdt.jpg" alt="Association of Professional Dog Trainers Member">
             </a>
         </div>
     </div>
 
-    <div style="text-align: center; border-top: 1px solid #4a6572; margin-top: 1.5rem; padding-top: 1rem; font-size: 0.85rem; color: #bdc3c7;">
-        <p style="margin: 0;">&copy; 2026 Cooper Canines LLC. All rights reserved.</p>
+    <!-- Center Footer Links -->
+    <div style="max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.75rem 1rem; text-align: center;">
+        <a href="/rates.html" target="_blank" rel="noopener" style="color: white; text-decoration: none; font-size: 0.95rem;">
+            View Estimated Rates
+        </a>
+        <span style="color: #4a6572;">|</span>
+        <a href="/waiver.html" target="_blank" rel="noopener" style="color: white; text-decoration: none; font-size: 0.95rem;">
+            Liability Waiver
+        </a>
+        <span style="color: #4a6572;">|</span>
+        <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener" style="color: white; text-decoration: none; font-size: 0.95rem;">
+            Follow on Facebook
+        </a>
+        <span style="color: #4a6572;">|</span>
+        <a href="https://g.page/r/YOUR_GOOGLE_REVIEW_ID/review" target="_blank" rel="noopener" style="color: #f1c40f; text-decoration: none; font-weight: bold; font-size: 0.95rem;">
+            Leave a Google Review
+        </a>
+    </div>
+
+    <!-- Copyright Text -->
+    <div style="text-align: center; border-top: 1px solid #4a6572; margin-top: 1rem; padding-top: 0.75rem; font-size: 0.85rem; color: #bdc3c7;">
+        <p style="margin: 0;">&copy; 2026 Cooper Canines LLC. | All rights reserved. | Services provided in South Jersey. | Limited services in Eastern PA and DE.</p>
     </div>
 </footer>
 
+<!-- Floating Scroll-To-Top Button -->
+<button class="scroll-top-btn" id="scrollTopBtn" aria-label="Scroll to top">
+    ▲ To Top
+</button>
+
 <script>
-    // Hamburger menu toggle
-    const menuBtn = document.getElementById('menuBtn');
-    const dropdownMenu = document.getElementById('dropdownMenu');
-
-    menuBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dropdownMenu.classList.toggle('show');
-    });
-
-    document.addEventListener('click', () => {
-        dropdownMenu.classList.remove('show');
-    });
-
-    // Dynamic Article Loader Function
-    function loadArticle(topicName) {
-        const gridContainer = document.getElementById('gridContainer');
-        const articleView = document.getElementById('articleView');
-        const fileName = `${topicName}.html`;
-
-        // Highlight active sidebar button
-        const buttons = document.querySelectorAll('.tab-btn');
-        buttons.forEach(btn => {
-            if (btn.textContent.trim() === topicName) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
-        });
-
-        // Fetch HTML file from same directory
-        fetch(fileName)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+    // Dynamically Load Header Component & Execute Interactive Scripts
+    fetch('components/header.html')
+        .then(response => response.text())
+        .then(data => {
+            const headerPlaceholder = document.getElementById('header-placeholder');
+            headerPlaceholder.innerHTML = data;
+            
+            // Re-execute scripts embedded inside header.html
+            const scripts = headerPlaceholder.querySelectorAll('script');
+            scripts.forEach(script => {
+                const newScript = document.createElement('script');
+                if (script.src) {
+                    newScript.src = script.src;
+                } else {
+                    newScript.textContent = script.textContent;
                 }
-                return response.text();
-            })
-            .then(htmlContent => {
-                gridContainer.style.display = 'none';
-                articleView.style.display = 'block';
-                articleView.innerHTML = htmlContent;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            })
-            .catch(error => {
-                gridContainer.style.display = 'none';
-                articleView.style.display = 'block';
-                articleView.innerHTML = `
-                    <h2 style="color: var(--primary);">${topicName}</h2>
-                    <p>The guide for <strong>${topicName}</strong> is coming soon!</p>
-                    <button onclick="showMainGrid()" style="background: var(--primary); color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">← Back to Topic Directory</button>
-                `;
+                document.body.appendChild(newScript);
             });
+
+            // Initialize Header Event Listeners
+            initHeaderInteractions();
+        })
+        .catch(error => console.error('Error fetching header component:', error));
+
+    function initHeaderInteractions() {
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn') || document.querySelector('.mobile-menu-btn');
+        const navMenu = document.getElementById('navMenu') || document.querySelector('.nav-links');
+        if (menuBtn && navMenu) {
+            menuBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                navMenu.classList.toggle('show');
+            });
+        }
+
+        // Dark / Light Mode Toggle
+        const themeBtn = document.getElementById('themeToggleBtn');
+        if (themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const isDark = document.body.classList.contains('dark-mode');
+                themeBtn.textContent = isDark ? '☀️' : '🌙';
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            });
+
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeBtn.textContent = '☀️';
+            }
+        }
+
+        // Search Toggle / Function
+        const searchBtn = document.getElementById('searchBtn');
+        const searchModal = document.getElementById('searchModal');
+        if (searchBtn && searchModal) {
+            searchBtn.addEventListener('click', () => {
+                searchModal.classList.toggle('active');
+                searchModal.classList.toggle('show');
+            });
+        }
     }
 
-    // Reset View Back to Grid Directory
-    function showMainGrid() {
-        document.getElementById('gridContainer').style.display = 'block';
-        document.getElementById('articleView').style.display = 'none';
-        
-        // Remove active state from sidebar buttons
-        const buttons = document.querySelectorAll('.tab-btn');
-        buttons.forEach(btn => btn.classList.remove('active'));
-    }
+    // Fade out section overlay on page load
+    window.addEventListener('DOMContentLoaded', () => {
+        const heroOverlay = document.getElementById('hero-splash-overlay');
+        setTimeout(() => {
+            heroOverlay.classList.add('fade-out');
+        }, 1500);
+    });
 
-    // Scroll to Top Button Logic
     const scrollTopBtn = document.getElementById('scrollTopBtn');
+    const footer = document.getElementById('mainFooter');
+    const getStartedBtn = document.getElementById('getStartedBtn');
+    const actionBoxes = document.querySelectorAll('.action-box');
 
+    // Trigger orange fade pulse when "Get Started Today" is clicked
+    getStartedBtn.addEventListener('click', () => {
+        actionBoxes.forEach(box => {
+            box.classList.remove('pulse-orange');
+            void box.offsetWidth; // Force CSS reflow
+            box.classList.add('pulse-orange');
+        });
+    });
+
+    // Handle scroll behavior for To Top Button
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            scrollTopBtn.style.display = 'flex';
+        if (window.scrollY > 200) {
+            scrollTopBtn.classList.add('show');
         } else {
-            scrollTopBtn.style.display = 'none';
+            scrollTopBtn.classList.remove('show');
+        }
+
+        const footerRect = footer.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        if (footerRect.top < windowHeight) {
+            const overlap = windowHeight - footerRect.top;
+            scrollTopBtn.style.bottom = `${overlap + 20}px`;
+        } else {
+            scrollTopBtn.style.bottom = '25px';
         }
     });
 
+    // Smooth scroll back to top
     scrollTopBtn.addEventListener('click', () => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
     });
+
+    // Question Form Functionality (Web3Forms AJAX submission & dynamic validation)
+    const questionForm = document.getElementById('questionForm');
+    const userName = document.getElementById('userName');
+    const userEmail = document.getElementById('userEmail');
+    const userPhone = document.getElementById('userPhone');
+    const userMessage = document.getElementById('userMessage');
+    const charCount = document.getElementById('charCount');
+    const emailSubject = document.getElementById('emailSubject');
+    const formStatus = document.getElementById('form-status');
+    const contactMethodHint = document.getElementById('contactMethodHint');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // Live Character Counter
+    userMessage.addEventListener('input', () => {
+        charCount.textContent = userMessage.value.length;
+    });
+
+    // Dynamic subject update
+    userName.addEventListener('input', () => {
+        const nameVal = userName.value.trim();
+        emailSubject.value = nameVal ? `Question - ${nameVal}` : 'Question';
+    });
+
+    // Form Submission Handler
+    questionForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Reset status message & hints
+        formStatus.style.display = 'none';
+        formStatus.className = '';
+        contactMethodHint.style.display = 'none';
+
+        // 1. Validate Required Fields
+        if (!userName.value.trim()) {
+            showStatus('Please enter your name.', 'error');
+            userName.focus();
+            return;
+        }
+
+        if (!userMessage.value.trim()) {
+            showStatus('Please write your question before submitting.', 'error');
+            userMessage.focus();
+            return;
+        }
+
+        // 2. Validate At Least One Contact Method (Email OR Phone)
+        const hasEmail = userEmail.value.trim() !== '';
+        const hasPhone = userPhone.value.trim() !== '';
+
+        if (!hasEmail && !hasPhone) {
+            contactMethodHint.style.display = 'block';
+            showStatus('Please provide either an email address or phone number.', 'error');
+            return;
+        }
+
+        // 3. Validate Email Format if filled out
+        if (hasEmail && !userEmail.checkValidity()) {
+            showStatus('Please enter a valid email address.', 'error');
+            userEmail.focus();
+            return;
+        }
+
+        // 4. Validate Phone Format if filled out
+        if (hasPhone) {
+            const phonePattern = /^(\+?1[-.\s]?)?\(?[0-9]{3}\)?[-.\s]?[0-9]{3}[-.\s]?[0-9]{4}$/;
+            if (!phonePattern.test(userPhone.value.trim())) {
+                showStatus('Please enter a valid phone number format (e.g., 856-555-0123).', 'error');
+                userPhone.focus();
+                return;
+            }
+        }
+
+        // 5. Submit Form via Web3Forms AJAX
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+
+        const formData = new FormData(questionForm);
+
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+        })
+        .then(async (response) => {
+            let json = await response.json();
+            if (response.status === 200) {
+                showStatus('Thank you! Your question has been sent. We will get back to you shortly.', 'success');
+                questionForm.reset();
+                charCount.textContent = '0';
+                emailSubject.value = 'Question';
+            } else {
+                showStatus(json.message || 'Something went wrong. Please try again later.', 'error');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            showStatus('An error occurred. Please check your internet connection and try again.', 'error');
+        })
+        .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Question';
+        });
+    });
+
+    function showStatus(msg, type) {
+        formStatus.textContent = msg;
+        formStatus.className = type;
+        formStatus.style.display = 'block';
+    }
 </script>
 
 </body>
