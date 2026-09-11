@@ -1,504 +1,484 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Header Template</title>
-    <!-- Custom Google Search Script -->
-    <script async src="https://cse.google.com/cse.js?cx=e4f71822d5b0943bb"></script>
-    <style>
-        /* ==========================================================
-           HEADER COLOR & THEMING 
-           ========================================================== */
-        :root {
-            --header-bg-color: #009100;    
-            --header-text-color: #ffffff;   
-            --active-tab-color: #e67e22;    
-            --active-tab-text: #ffffff;     
-            --hover-tab-color: rgba(255, 255, 255, 0.15); 
-            --primary: #2ecc71;
+<!-- Custom Google Search Script -->
+<script async src="https://cse.google.com/cse.js?cx=e4f71822d5b0943bb"></script>
 
-            /* Questions.html Theme Variables */
-            --bg-dark: #12181b;
-            --card-bg: #1e262c;
-            --card-inner: #2a343d;
-            --text-light: #e0e6ed;
-            --text-muted: #9ba8b5;
-            --border-color: #3a4754;
-            --input-bg: #171d22;
-        }
+<style>
+    /* Ensure the placeholder wrapper handles stickiness across pages */
+    #header-placeholder {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+    }
 
-        /* Dark Mode Theme Overrides (Excludes Site Header) */
-        body.dark-mode {
-            background-color: var(--bg-dark) !important;
-            color: var(--text-light) !important;
-        }
+    /* ==========================================================
+       HEADER COLOR & THEMING 
+       ========================================================== */
+    :root {
+        --header-bg-color: #009100;    
+        --header-text-color: #ffffff;   
+        --active-tab-color: #e67e22;    
+        --active-tab-text: #ffffff;     
+        --hover-tab-color: rgba(255, 255, 255, 0.15); 
+        --primary: #2ecc71;
 
-        body.dark-mode .card-box,
-        body.dark-mode .header-card,
-        body.dark-mode .form-card {
-            background-color: var(--card-bg) !important;
-            border-color: var(--border-color) !important;
-            color: var(--text-light) !important;
-        }
+        /* Questions.html Theme Variables */
+        --bg-dark: #12181b;
+        --card-bg: #1e262c;
+        --card-inner: #2a343d;
+        --text-light: #e0e6ed;
+        --text-muted: #9ba8b5;
+        --border-color: #3a4754;
+        --input-bg: #171d22;
+    }
 
-        body.dark-mode .trainer-info,
-        body.dark-mode .question-block {
-            background-color: var(--card-inner) !important;
-            border-color: var(--border-color) !important;
-            color: var(--text-light) !important;
-        }
+    /* Dark Mode Theme Overrides (Excludes Site Header) */
+    body.dark-mode {
+        background-color: var(--bg-dark) !important;
+        color: var(--text-light) !important;
+    }
 
-        body.dark-mode input[type="text"],
-        body.dark-mode textarea,
-        body.dark-mode label.option-label {
-            background-color: var(--input-bg) !important;
-            border-color: var(--border-color) !important;
-            color: var(--text-light) !important;
-        }
+    body.dark-mode .card-box,
+    body.dark-mode .header-card,
+    body.dark-mode .form-card {
+        background-color: var(--card-bg) !important;
+        border-color: var(--border-color) !important;
+        color: var(--text-light) !important;
+    }
 
-        body.dark-mode p,
-        body.dark-mode span:not(.required) {
-            color: var(--text-muted);
-        }
+    body.dark-mode .trainer-info,
+    body.dark-mode .question-block {
+        background-color: var(--card-inner) !important;
+        border-color: var(--border-color) !important;
+        color: var(--text-light) !important;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    body.dark-mode input[type="text"],
+    body.dark-mode textarea,
+    body.dark-mode label.option-label {
+        background-color: var(--input-bg) !important;
+        border-color: var(--border-color) !important;
+        color: var(--text-light) !important;
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+    body.dark-mode p,
+    body.dark-mode span:not(.required) {
+        color: var(--text-muted);
+    }
 
-        /* Header Container */
-        .site-header {
-            background-color: var(--header-bg-color);
-            color: var(--header-text-color);
-            width: 100%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-        }
+    .site-header {
+        background-color: var(--header-bg-color);
+        color: var(--header-text-color);
+        width: 100%;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    }
 
+    .header-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 1.5rem;
+        position: relative;
+    }
+
+    /* Logo */
+    .header-logo-container {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+    }
+
+    .header-logo-container img {
+        height: 50px;
+        width: auto;
+        object-fit: contain;
+        display: block;
+    }
+
+    /* Navigation Links */
+    .center-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        gap: 2px;
+        margin: 0 1rem;
+    }
+
+    .nav-btn {
+        color: var(--header-text-color);
+        text-decoration: none;
+        padding: 0.5rem 0.8rem;
+        font-weight: bold;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        transition: background-color 0.2s ease, color 0.2s ease;
+        white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .nav-btn:hover {
+        background-color: var(--hover-tab-color);
+    }
+
+    .nav-btn.active {
+        background-color: var(--active-tab-color) !important;
+        color: var(--active-tab-text) !important;
+    }
+
+    /* Theme Toggle & Search Trigger Buttons */
+    .theme-toggle-btn,
+    .search-btn {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        cursor: pointer;
+        padding: 0.4rem 0.5rem;
+        color: var(--header-text-color);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        flex: 0 0 auto;
+        margin-left: 0.3rem;
+        transition: all 0.2s ease;
+    }
+
+    .theme-toggle-btn:hover,
+    .search-btn:hover {
+        background-color: var(--hover-tab-color);
+        border-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .theme-toggle-btn svg,
+    .search-btn svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+        display: block;
+    }
+
+    /* Dropdown Menu */
+    .right-menu-container {
+        flex: 0 0 auto;
+        position: relative;
+    }
+
+    .menu-toggle {
+        background-color: transparent;
+        color: var(--header-text-color);
+        border: 2px solid var(--header-text-color);
+        padding: 0.5rem 0.8rem;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+    }
+
+    .menu-toggle:hover {
+        background-color: var(--hover-tab-color);
+    }
+
+    .hamburger-icon {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .hamburger-icon span {
+        display: block;
+        width: 16px;
+        height: 2px;
+        background-color: currentColor;
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: calc(100% + 0.5rem);
+        background-color: #ffffff;
+        min-width: 230px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        border-radius: 8px;
+        overflow: hidden;
+        z-index: 1001;
+    }
+
+    .dropdown-menu.show {
+        display: block;
+    }
+
+    .dropdown-menu a {
+        display: block;
+        padding: 0.75rem 1rem;
+        color: #333333;
+        text-decoration: none;
+        font-size: 0.9rem;
+        border-bottom: 1px solid #f0f0f0;
+        transition: background-color 0.2s ease;
+    }
+
+    .dropdown-menu a:last-child {
+        border-bottom: none;
+    }
+
+    .dropdown-menu a:hover {
+        background-color: #f8f9fa;
+        color: var(--active-tab-color);
+    }
+
+    .dropdown-divider {
+        height: 1px;
+        background-color: #e0e0e0;
+        margin: 0.5rem 0;
+    }
+
+    /* Search Modal Overlay */
+    .search-modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.75);
+        z-index: 9999;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 80px;
+    }
+
+    .search-modal-overlay.active {
+        display: flex;
+    }
+
+    .search-modal-container {
+        background: #ffffff;
+        width: 90%;
+        max-width: 800px;
+        border-radius: 12px;
+        padding: 24px;
+        position: relative;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .close-search-modal {
+        position: absolute;
+        top: 12px;
+        right: 16px;
+        background: none;
+        border: none;
+        font-size: 1.8rem;
+        color: #666;
+        cursor: pointer;
+        line-height: 1;
+        z-index: 10000;
+    }
+
+    .close-search-modal:hover {
+        color: #000;
+    }
+
+    .gcse-search {
+        width: 100%;
+    }
+
+    .gsc-control-cse {
+        padding: 0 !important;
+        border: none !important;
+        background: transparent !important;
+    }
+
+    .gsc-results-wrapper-overlay {
+        position: static !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 850px) {
         .header-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.5rem 1.5rem;
-            position: relative;
+            flex-wrap: wrap;
+            padding: 0.5rem 1rem;
         }
 
-        /* Logo */
         .header-logo-container {
-            flex: 0 0 auto;
-            display: flex;
-            align-items: center;
+            order: 1;
         }
 
-        .header-logo-container img {
-            height: 50px;
-            width: auto;
-            object-fit: contain;
-            display: block;
-        }
-
-        /* Navigation Links */
         .center-nav {
-            display: flex;
-            align-items: center;
+            order: 3;
+            width: 100%;
             justify-content: center;
-            flex: 1;
+            margin: 0.5rem 0 0 0;
+            padding-top: 0.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            flex-wrap: wrap;
             gap: 2px;
-            margin: 0 1rem;
         }
 
-        .nav-btn {
-            color: var(--header-text-color);
-            text-decoration: none;
-            padding: 0.5rem 0.8rem;
-            font-weight: bold;
-            border-radius: 6px;
-            font-size: 0.95rem;
-            transition: background-color 0.2s ease, color 0.2s ease;
-            white-space: nowrap;
-            display: inline-flex;
-            align-items: center;
-        }
-
-        .nav-btn:hover {
-            background-color: var(--hover-tab-color);
-        }
-
-        .nav-btn.active {
-            background-color: var(--active-tab-color) !important;
-            color: var(--active-tab-text) !important;
-        }
-
-        /* Theme Toggle & Search Trigger Buttons */
-        .theme-toggle-btn,
-        .search-btn {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            cursor: pointer;
-            padding: 0.4rem 0.5rem;
-            color: var(--header-text-color);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 6px;
-            flex: 0 0 auto;
-            margin-left: 0.3rem;
-            transition: all 0.2s ease;
-        }
-
-        .theme-toggle-btn:hover,
-        .search-btn:hover {
-            background-color: var(--hover-tab-color);
-            border-color: rgba(255, 255, 255, 0.8);
-        }
-
-        .theme-toggle-btn svg,
-        .search-btn svg {
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
-            display: block;
-        }
-
-        /* Dropdown Menu */
         .right-menu-container {
-            flex: 0 0 auto;
-            position: relative;
+            order: 4;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 0.5rem;
         }
 
         .menu-toggle {
-            background-color: transparent;
-            color: var(--header-text-color);
-            border: 2px solid var(--header-text-color);
-            padding: 0.5rem 0.8rem;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        }
-
-        .menu-toggle:hover {
-            background-color: var(--hover-tab-color);
-        }
-
-        .hamburger-icon {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-        }
-
-        .hamburger-icon span {
-            display: block;
-            width: 16px;
-            height: 2px;
-            background-color: currentColor;
+            width: 100%;
+            justify-content: center;
         }
 
         .dropdown-menu {
-            display: none;
-            position: absolute;
+            width: 100%;
             right: 0;
-            top: calc(100% + 0.5rem);
-            background-color: #ffffff;
-            min-width: 230px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            border-radius: 8px;
-            overflow: hidden;
-            z-index: 1001;
-        }
-
-        .dropdown-menu.show {
-            display: block;
-        }
-
-        .dropdown-menu a {
-            display: block;
-            padding: 0.75rem 1rem;
-            color: #333333;
-            text-decoration: none;
-            font-size: 0.9rem;
-            border-bottom: 1px solid #f0f0f0;
-            transition: background-color 0.2s ease;
-        }
-
-        .dropdown-menu a:last-child {
-            border-bottom: none;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: #f8f9fa;
-            color: var(--active-tab-color);
-        }
-
-        .dropdown-divider {
-            height: 1px;
-            background-color: #e0e0e0;
-            margin: 0.5rem 0;
-        }
-
-        /* ==========================================================
-           SEARCH MODAL & GOOGLE CSE STYLES
-           ========================================================== */
-        .search-modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.75);
-            z-index: 9999;
-            justify-content: center;
-            align-items: flex-start;
-            padding-top: 80px;
         }
+    }
+</style>
 
-        .search-modal-overlay.active {
-            display: flex;
-        }
+<header class="site-header">
+    <div class="header-container">
+        
+        <!-- Logo -->
+        <div class="header-logo-container">
+            <a href="index.html">
+                <img src="images/cctwordingnophrase.png" alt="Cooper Canines Logo">
+            </a>
+        </div>
 
-        .search-modal-container {
-            background: #ffffff;
-            width: 90%;
-            max-width: 800px;
-            border-radius: 12px;
-            padding: 24px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .close-search-modal {
-            position: absolute;
-            top: 12px;
-            right: 16px;
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            color: #666;
-            cursor: pointer;
-            line-height: 1;
-            z-index: 10000;
-        }
-
-        .close-search-modal:hover {
-            color: #000;
-        }
-
-        /* Google CSE Overrides inside Modal */
-        .gcse-search {
-            width: 100%;
-        }
-
-        .gsc-control-cse {
-            padding: 0 !important;
-            border: none !important;
-            background: transparent !important;
-        }
-
-        .gsc-results-wrapper-overlay {
-            position: static !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 850px) {
-            .header-container {
-                flex-wrap: wrap;
-                padding: 0.5rem 1rem;
-            }
-
-            .header-logo-container {
-                order: 1;
-            }
-
-            .center-nav {
-                order: 3;
-                width: 100%;
-                justify-content: center;
-                margin: 0.5rem 0 0 0;
-                padding-top: 0.5rem;
-                border-top: 1px solid rgba(255, 255, 255, 0.15);
-                flex-wrap: wrap;
-                gap: 2px;
-            }
-
-            .right-menu-container {
-                order: 4;
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                margin-top: 0.5rem;
-            }
-
-            .menu-toggle {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .dropdown-menu {
-                width: 100%;
-                right: 0;
-                left: 0;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <header class="site-header">
-        <div class="header-container">
+        <!-- Navigation Links -->
+        <nav class="center-nav">
+            <a href="index.html" class="nav-btn">Home</a>
+            <a href="guides.html" class="nav-btn">Resources</a>
+            <a href="index.html#contact" class="nav-btn">Contact Us</a>
             
-            <!-- Logo -->
-            <div class="header-logo-container">
-                <a href="index.html">
-                    <img src="../images/cctwordingnophrase.png" alt="Cooper Canines Logo">
-                </a>
-            </div>
+            <!-- Theme Toggle Button -->
+            <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Mode">
+                <svg id="sunIcon" viewBox="0 0 24 24">
+                    <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>
+                </svg>
+                <svg id="moonIcon" viewBox="0 0 24 24" style="display: none;">
+                    <path d="M12.3 2c.43 0 .77.35.72.78-.34 2.87.68 5.8 2.83 7.95 2.15 2.15 5.08 3.17 7.95 2.83.43-.05.78.29.78.72-.02 4.97-4.03 9-9 9B6.48 23.3 2 18.82 2 13.3c0-4.97 4.03-9 9-9z"/>
+                </svg>
+            </button>
 
-            <!-- Navigation Links -->
-            <nav class="center-nav">
-                <a href="../index.html" class="nav-btn">Home</a>
-                <a href="../guides.html" class="nav-btn">Resources</a>
-                <a href="../index.html#contact" class="nav-btn">Contact Us</a>
-                
-                <!-- Theme Toggle Button -->
-                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Mode">
-                    <svg id="sunIcon" viewBox="0 0 24 24">
-                        <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>
-                    </svg>
-                    <svg id="moonIcon" viewBox="0 0 24 24" style="display: none;">
-                        <path d="M12.3 2c.43 0 .77.35.72.78-.34 2.87.68 5.8 2.83 7.95 2.15 2.15 5.08 3.17 7.95 2.83.43-.05.78.29.78.72-.02 4.97-4.03 9-9 9B6.48 23.3 2 18.82 2 13.3c0-4.97 4.03-9 9-9z"/>
-                    </svg>
-                </button>
+            <!-- Search Button -->
+            <button class="search-btn" id="openSearchBtn" aria-label="Open Search">
+                <svg viewBox="0 0 24 24">
+                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                </svg>
+            </button>
+        </nav>
 
-                <!-- Search Button -->
-                <button class="search-btn" id="openSearchBtn" aria-label="Open Search">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                    </svg>
-                </button>
-            </nav>
-
-            <!-- Dropdown Menu Toggle -->
-            <div class="right-menu-container">
-                <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation menu">
-                    <span class="menu-text">Menu</span>
-                    <div class="hamburger-icon">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </button>
-                <div class="dropdown-menu" id="dropdownMenu">
-                    <a href="../start.html">Get Started</a>
-                    <a href="../portal.html">Returning Client</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="../index.html#top">About Us</a>
-                    <a href="../guides.html">Guides</a>
-                    <a href="../index.html#contact">Contact Us</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener">Our Facebook</a>
-                    <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Google Reviews</a>
-                    <a href="../waiver.html">Liability Waiver</a>
-                    <a href="../perks.html">Referral & Perks</a>
-                    <a href="../rates.html">Estimated Rates</a>
+        <!-- Dropdown Menu Toggle -->
+        <div class="right-menu-container">
+            <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation menu">
+                <span class="menu-text">Menu</span>
+                <div class="hamburger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
+            </button>
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="start.html">Get Started</a>
+                <a href="portal.html">Returning Client</a>
+                <div class="dropdown-divider"></div>
+                <a href="index.html#top">About Us</a>
+                <a href="guides.html">Guides</a>
+                <a href="index.html#contact">Contact Us</a>
+                <div class="dropdown-divider"></div>
+                <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener">Our Facebook</a>
+                <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Google Reviews</a>
+                <a href="waiver.html">Liability Waiver</a>
+                <a href="perks.html">Referral & Perks</a>
+                <a href="rates.html">Estimated Rates</a>
             </div>
-
         </div>
-    </header>
 
-    <!-- Search Modal Overlay -->
-    <div class="search-modal-overlay" id="searchModal">
-        <div class="search-modal-container">
-            <button class="close-search-modal" id="closeSearchBtn">&times;</button>
-            <div class="gcse-search"></div>
-        </div>
     </div>
+</header>
 
-    <script>
-        // Dropdown Toggle
-        const menuBtn = document.getElementById('menuBtn');
-        const dropdownMenu = document.getElementById('dropdownMenu');
+<!-- Search Modal Overlay -->
+<div class="search-modal-overlay" id="searchModal">
+    <div class="search-modal-container">
+        <button class="close-search-modal" id="closeSearchBtn">&times;</button>
+        <div class="gcse-search"></div>
+    </div>
+</div>
 
-        menuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            dropdownMenu.classList.toggle('show');
-        });
+<script>
+    // Dropdown Toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const dropdownMenu = document.getElementById('dropdownMenu');
 
-        document.addEventListener('click', () => {
-            dropdownMenu.classList.remove('show');
-        });
+    menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdownMenu.classList.toggle('show');
+    });
 
-        // Theme Mode Toggle Handler
-        const themeToggleBtn = document.getElementById('themeToggleBtn');
-        const sunIcon = document.getElementById('sunIcon');
-        const moonIcon = document.getElementById('moonIcon');
+    document.addEventListener('click', () => {
+        dropdownMenu.classList.remove('show');
+    });
 
-        themeToggleBtn.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            
-            sunIcon.style.display = isDark ? 'none' : 'block';
-            moonIcon.style.display = isDark ? 'block' : 'none';
-        });
+    // Theme Mode Toggle Handler
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
 
-        // Search Modal Handlers
-        const openSearchBtn = document.getElementById('openSearchBtn');
-        const closeSearchBtn = document.getElementById('closeSearchBtn');
-        const searchModal = document.getElementById('searchModal');
+    themeToggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        
+        sunIcon.style.display = isDark ? 'none' : 'block';
+        moonIcon.style.display = isDark ? 'block' : 'none';
+    });
 
-        openSearchBtn.addEventListener('click', () => {
-            searchModal.classList.add('active');
-            // Auto-focus Google search input field when modal opens
-            setTimeout(() => {
-                const searchInput = document.querySelector('.gsc-input input');
-                if (searchInput) searchInput.focus();
-            }, 200);
-        });
+    // Search Modal Handlers
+    const openSearchBtn = document.getElementById('openSearchBtn');
+    const closeSearchBtn = document.getElementById('closeSearchBtn');
+    const searchModal = document.getElementById('searchModal');
 
-        closeSearchBtn.addEventListener('click', () => {
+    openSearchBtn.addEventListener('click', () => {
+        searchModal.classList.add('active');
+        setTimeout(() => {
+            const searchInput = document.querySelector('.gsc-input input');
+            if (searchInput) searchInput.focus();
+        }, 200);
+    });
+
+    closeSearchBtn.addEventListener('click', () => {
+        searchModal.classList.remove('active');
+    });
+
+    searchModal.addEventListener('click', (e) => {
+        if (e.target === searchModal) {
             searchModal.classList.remove('active');
-        });
+        }
+    });
 
-        searchModal.addEventListener('click', (e) => {
-            if (e.target === searchModal) {
-                searchModal.classList.remove('active');
+    // Active Link Highlighting
+    document.addEventListener('DOMContentLoaded', () => {
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        const navLinks = document.querySelectorAll('.nav-btn');
+
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPath || (currentPath === '' && href === 'index.html')) {
+                link.classList.add('active');
             }
         });
-
-        // Active Link Highlighting
-        document.addEventListener('DOMContentLoaded', () => {
-            const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-            const navLinks = document.querySelectorAll('.nav-btn');
-
-            navLinks.forEach(link => {
-                const href = link.getAttribute('href');
-                if (href === currentPath || (currentPath === '' && href === 'index.html')) {
-                    link.classList.add('active');
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+    });
+</script>
