@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Point fetch to the header.html file in /components/
-    fetch('header.html')
+    fetch('components/header.html')
         .then(response => {
             if (!response.ok) throw new Error("Header fetch failed");
             return response.text();
