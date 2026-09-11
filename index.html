@@ -59,145 +59,12 @@
             min-height: 100vh;
         }
 
-        /* Sticky Nav Bar with Flexible Layout */
-        nav {
-            background-color: #009100;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.5rem 1rem;
+        /* Sticky Wrapper for Dynamic Component Header */
+        #header-placeholder {
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-sizing: border-box;
             width: 100%;
-            flex-wrap: wrap;
-        }
-
-        .nav-logo {
-            flex-shrink: 0;
-        }
-
-        .nav-logo img {
-            height: 40px;
-            width: auto;
-            max-width: 100%;
-            display: block;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            font-weight: bold;
-            white-space: nowrap;
-        }
-
-        nav a:hover {
-            color: #34495e;
-        }
-
-        /* Hamburger Container Box */
-        .menu-container {
-            position: relative;
-            flex-shrink: 0;
-            margin-left: auto;
-        }
-
-        /* White Rounded Box Button */
-        .menu-toggle {
-            background-color: #ffffff;
-            border: none;
-            border-radius: 8px;
-            padding: 0.4rem 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-            transition: transform 0.1s ease;
-            white-space: nowrap;
-        }
-
-        .menu-toggle:active {
-            transform: scale(0.98);
-        }
-
-        /* Matches navbar font style & uses brand orange */
-        .menu-text {
-            color: var(--logo-orange);
-            font-family: Arial, sans-serif;
-            font-weight: bold;
-            font-size: 0.95rem;
-        }
-
-        /* Orange Hamburger Icon */
-        .hamburger-icon {
-            width: 20px;
-            height: 15px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            flex-shrink: 0;
-        }
-
-        .hamburger-icon span {
-            display: block;
-            height: 3px;
-            width: 100%;
-            background-color: var(--logo-orange);
-            border-radius: 2px;
-        }
-
-        /* Dropdown Menu Box */
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 120%;
-            background-color: #ffffff;
-            min-width: 200px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border-radius: 8px;
-            overflow: hidden;
-            z-index: 1001;
-        }
-
-        .dropdown-menu.show {
-            display: block;
-        }
-
-        .dropdown-menu a, .dropdown-menu button {
-            color: var(--dark);
-            display: block;
-            width: 100%;
-            text-align: left;
-            background: none;
-            border: none;
-            padding: 0.75rem 1rem;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1rem;
-            font-family: Arial, sans-serif;
-            cursor: pointer;
-            border-bottom: 1px solid #eee;
-            box-sizing: border-box;
-        }
-
-        .dropdown-menu a:last-child, .dropdown-menu button:last-child {
-            border-bottom: none;
-        }
-
-        .dropdown-menu a:hover, .dropdown-menu button:hover {
-            background-color: var(--light);
-            color: var(--primary);
         }
 
         /* Service Area Modal Styles */
@@ -537,55 +404,9 @@
             background-color: #d35400;
         }
 
-        @media (max-width: 900px) {
-            .nav-links {
-                display: none;
-            }
-        }
-
-        @media (max-width: 480px) {
-            nav {
-                justify-content: space-between;
-                padding: 0.5rem 0.75rem;
-            }
-
-            .nav-logo img {
-                height: 32px;
-            }
-
-            .menu-toggle {
-                padding: 0.35rem 0.6rem;
-            }
-
-            .menu-text {
-                font-size: 0.85rem;
-            }
-        }
-
         @media (max-width: 768px) {
             html, body {
                 overflow-x: hidden;
-            }
-
-            nav {
-                position: sticky;
-                top: 0;
-            }
-
-            .menu-container {
-                position: relative;
-            }
-
-            .dropdown-menu {
-                position: absolute;
-                top: 120%;
-                right: 0;
-                left: auto;
-                width: 240px;
-                max-width: 85vw;
-                min-width: unset;
-                border-radius: 8px;
-                box-shadow: 0 6px 12px rgba(0,0,0,0.2);
             }
 
             .scroll-top-btn {
@@ -616,48 +437,8 @@
 </head>
 <body>
 
-<header>
-    <nav aria-label="Main Navigation">
-        <!-- Far-Left Clickable Logo -->
-        <a href="index.html" class="nav-logo" aria-label="Cooper Canines Home">
-            <img src="images/cctwordingnophrase.png" alt="Cooper Canines LLC Logo">
-        </a>
-
-        <!-- Centered Navigation Links -->
-        <div class="nav-links">
-            <a href="guides.html">Resources</a>
-            <a href="index.html#top">About Us</a>
-            <a href="store/Store.html">S̶t̶o̶r̶e̶</a>
-            <a href="index.html#contact">Contact Us</a>
-        </div>
-
-        <!-- Far-Right Hamburger Menu Button Container -->
-        <div class="menu-container">
-            <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation menu">
-                <span class="menu-text">Menu</span>
-                <div class="hamburger-icon">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </button>
-            <div class="dropdown-menu" id="dropdownMenu">
-                <a href="/start.html" target="_blank" rel="noopener">New Client</a>
-                <a href="/portal.html" target="_blank" rel="noopener">Returning Client</a>
-                <br>
-                <a href="index.html#top" target="_blank" rel="noopener">Home</a>
-                <a href="guides.html" target="_blank" rel="noopener">Resources</a>
-                <a href="index.html#contact" target="_blank" rel="noopener">Contact Us</a>
-                <br>
-                <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" rel="noopener">Our Facebook</a>
-                <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Google Reviews</a>
-                <a href="/waiver.html" target="_blank" rel="noopener">Liability Waiver</a>
-                <a href="/rates.html" target="_blank" rel="noopener">Estimated Rates</a>
-                <button id="serviceAreaBtn">Service Area</button>
-            </div>
-        </div>
-    </nav>
-</header>
+<!-- Dynamic Header Injection Placeholder -->
+<div id="header-placeholder"></div>
 
 <!-- Service Area & Forecast Popup Modal -->
 <div class="service-modal-overlay" id="serviceModal">
@@ -741,16 +522,14 @@
 </main>
 
 <footer id="mainFooter">
-    <!-- Mobile Badge Wrapper (Used to display side-by-side on smaller screens) -->
+    <!-- Mobile Badge Wrapper -->
     <div class="mobile-badge-container">
-        <!-- Far-Left Hugging Badge (Pet Care Insurance) -->
         <div class="footer-badge-left">
             <a href="https://www.petcareins.com" target="_blank" rel="noopener" class="badge-link" aria-label="Pet Care Insurance Verification">
                 <img src="https://app.petcareins.com/media/site_seals/0001/11/8a64628beaa11b47d4ca86378c096fa416c7797d.png" alt="Pet Care and Pet Sitting Insurance Seal">
             </a>
         </div>
 
-        <!-- Far-Right Hugging Badge (APDT Logo) -->
         <div class="footer-badge-right">
             <a href="https://training.apdt.com/profile/8cc8c1a6-f064-4259-bdbd-3d3438a45c66?search_term=Daniel%20Weissberg&page=1" target="_blank" rel="noopener" class="badge-link" aria-label="APDT Member Profile">
                 <img src="images/apdt.jpg" alt="Association of Professional Dog Trainers Member">
@@ -789,6 +568,26 @@
 </button>
 
 <script>
+    // Dynamically Load Header Component
+    fetch('components/header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header-placeholder').innerHTML = data;
+            
+            // Attach Service Area Modal trigger to dynamic header dropdown item
+            const serviceAreaBtn = document.getElementById('serviceAreaBtn');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            if (serviceAreaBtn) {
+                serviceAreaBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (dropdownMenu) dropdownMenu.classList.remove('show');
+                    serviceModal.classList.add('show');
+                    loadServiceAreaWeather();
+                });
+            }
+        })
+        .catch(error => console.error('Error fetching header component:', error));
+
     // Fade out section overlay on page load
     window.addEventListener('DOMContentLoaded', () => {
         const heroOverlay = document.getElementById('hero-splash-overlay');
@@ -797,24 +596,14 @@
         }, 1500);
     });
 
-    const menuBtn = document.getElementById('menuBtn');
-    const dropdownMenu = document.getElementById('dropdownMenu');
     const scrollTopBtn = document.getElementById('scrollTopBtn');
     const footer = document.getElementById('mainFooter');
     const getStartedBtn = document.getElementById('getStartedBtn');
     const actionBoxes = document.querySelectorAll('.action-box');
 
     // Service Area Modal Logic
-    const serviceAreaBtn = document.getElementById('serviceAreaBtn');
     const serviceModal = document.getElementById('serviceModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
-
-    serviceAreaBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        dropdownMenu.classList.remove('show');
-        serviceModal.classList.add('show');
-        loadServiceAreaWeather();
-    });
 
     closeModalBtn.addEventListener('click', () => {
         serviceModal.classList.remove('show');
@@ -840,7 +629,7 @@
     // Fetch user location and weather forecast dynamically
     let weatherLoaded = false;
     async function loadServiceAreaWeather() {
-        if (weatherLoaded) return; // Prevent multiple fetches if clicked again
+        if (weatherLoaded) return;
         
         let lat = 39.89;   
         let lon = -75.07;
@@ -904,17 +693,6 @@
             void box.offsetWidth; // Force CSS reflow
             box.classList.add('pulse-orange');
         });
-    });
-
-    // Toggle dropdown visibility
-    menuBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dropdownMenu.classList.toggle('show');
-    });
-
-    // Close dropdown when clicking anywhere outside
-    document.addEventListener('click', () => {
-        dropdownMenu.classList.remove('show');
     });
 
     // Handle scroll behavior for To Top Button
