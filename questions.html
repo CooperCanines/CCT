@@ -547,6 +547,14 @@
             transform: scale(0.99);
         }
 
+        /* Form Result Status Message */
+        #formResult {
+            margin-top: 1rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
         /* Floating Scroll Top Button */
         .scroll-top-btn {
             position: fixed;
@@ -704,13 +712,13 @@
             </div>
         </div>
 
-        <!-- Main Questionnaire Form configured with Web3Forms -->
-        <form class="form-card" action="https://api.web3forms.com/submit" method="POST">
+        <!-- Main Questionnaire Form configured safely via Javascript Fetch -->
+        <form class="form-card" id="questionnaireForm">
 
             <!-- Web3Forms Access Key Hidden Input -->
             <input type="hidden" name="access_key" value="5085b913-0cdc-49ef-9cff-79030702f254">
             
-            <!-- Optional Web3Forms configuration: Redirect or Subject can go here if desired -->
+            <!-- Optional Web3Forms configuration: Subject can go here -->
             <input type="hidden" name="subject" value="New Client Intake Questionnaire Submission">
 
             <!-- General Information (Name & Dog Name Box) -->
@@ -954,7 +962,8 @@
                 <textarea name="additional_concerns" placeholder="Any additional notes for the trainer..."></textarea>
             </div>
 
-            <button type="submit" class="submit-btn">Submit Questionnaire</button>
+            <button type="submit" class="submit-btn" id="submitBtn">Submit Questionnaire</button>
+            <div id="formResult"></div>
         </form>
     </div>
 
@@ -1143,6 +1152,52 @@
             updateBorders();
         });
 
+        // AJAX Form Submission to prevent Web3Forms URL phishing flags
+        const form = document.getElementById('questionnaireForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const formResult = document.getElementById('formResult');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Sending...";
+            formResult.style.color = "var(--text-muted)";
+            formResult.textContent = "Please wait while we submit your questionnaire...";
+
+            const formData = new FormData(form);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: json
+            })
+            .then(async (response) => {
+                let jsonResponse = await response.json();
+                if (response.status == 200) {
+                    formResult.style.color = "var(--primary)";
+                    formResult.textContent = "Success! Your questionnaire has been submitted.";
+                    form.reset();
+                } else {
+                    formResult.style.color = "#ff5555";
+                    formResult.textContent = jsonResponse.message || "Something went wrong. Please try again.";
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                formResult.style.color = "#ff5555";
+                formResult.textContent = "Network error. Please check your connection and try again.";
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Submit Questionnaire";
+            });
+        });
+
         // Search Modal Handlers
         const openSearchBtn = document.getElementById('openSearchBtn');
         const closeSearchBtn = document.getElementById('closeSearchBtn');
@@ -1159,6 +1214,8 @@
         closeSearchBtn.addEventListener('click', () => {
             searchModal.classList.remove('active');
         });
+
+        searchModal.classList.remove('active');
 
         searchModal.addEventListener('click', (e) => {
             if (e.target === searchModal) {
