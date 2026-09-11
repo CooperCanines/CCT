@@ -468,7 +468,7 @@
         }
 
         /* Text Inputs & Textareas */
-        input[type="text"], textarea {
+        input[type="text"], input[type="email"], textarea {
             width: 100%;
             background-color: var(--input-bg);
             border: 1px solid var(--border-color);
@@ -481,7 +481,7 @@
             transition: border-color 0.2s ease, background-color 0.3s ease;
         }
 
-        input[type="text"]:focus, textarea:focus {
+        input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
             outline: none;
             border-color: var(--primary);
         }
@@ -661,19 +661,29 @@
     <div class="container">
         <!-- Header -->
         <div class="header-card">
-            <h1>Client Intake Questionnaire In Construction - Please Do Not Fill Out</h1>
+            <h1>Client Intake Questionnaire</h1>
             <p>Please complete the details below to help us tailor our training programs for your dog.</p>
         </div>
 
-        <!-- Main Questionnaire Form -->
-        <form class="form-card" action="#" method="POST">
+        <!-- Main Questionnaire Form configured with Web3Forms -->
+        <form class="form-card" action="https://api.web3forms.com/submit" method="POST">
 
-            <!-- General Information (Name & Dog Name Box) -->
+            <!-- Web3Forms Access Key Hidden Input -->
+            <input type="hidden" name="access_key" value="5085b913-0cdc-49ef-9cff-79030702f254">
+            
+            <!-- Optional Web3Forms configuration: Redirect or Subject can go here if desired -->
+            <input type="hidden" name="subject" value="New Client Intake Questionnaire Submission">
+
+            <!-- General Information (Name, Email & Dog Name Box) -->
             <div class="question-block">
                 <div class="input-grid">
                     <div class="input-field-group">
                         <label for="owner_name"><strong>Your Name</strong> <span class="required">*</span></label>
                         <input type="text" id="owner_name" name="owner_name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="input-field-group">
+                        <label for="email"><strong>Email Address</strong> <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
                     </div>
                     <div class="input-field-group">
                         <label for="dog_name"><strong>Dog Name</strong> <span class="required">*</span></label>
@@ -978,7 +988,7 @@
 
             // Helper to check if a block is answered
             const checkBlockAnswered = (block) => {
-                const inputs = block.querySelectorAll('input[type="text"], textarea');
+                const inputs = block.querySelectorAll('input[type="text"], input[type="email"], textarea');
                 for (let input of inputs) {
                     if (input.value.trim() !== '') return true;
                 }
