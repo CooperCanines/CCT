@@ -1,426 +1,1033 @@
-<!-- Custom Google Search Script -->
-<script async src="https://cse.google.com/cse.js?cx=e4f71822d5b0943bb"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>Cooper Canines LLC - Force-Free Dog Training in South Jersey</title>
+    <meta name="description" content="Science-based, positive reinforcement methods to build clear communication, confidence, and lasting respect between you and your dog.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://coopercanines.com/">
 
-<style>
-    /* Ensure the placeholder wrapper handles stickiness across pages */
-    #header-placeholder {
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        width: 100%;
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://coopercanines.com/">
+    <meta property="og:title" content="Cooper Canines LLC">
+    <meta property="og:description" content="Positive reinforcement dog training with no force, fear, or harsh corrections.">
+    <meta property="og:image" content="images/cctwordlogo.png">
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "DogTrainer",
+      "name": "Cooper Canines LLC",
+      "image": "images/cctwordingwithphrase.png",
+      "telephone": "856-433-1259",
+      "email": "Dan@coopercanines.com",
+      "url": "https://coopercanines.com",
+      "priceRange": "$$",
+      "description": "Science-based, positive reinforcement dog training methods building clear communication and confidence."
     }
+    </script>
 
-    /* ==========================================================
-       HEADER COLOR & THEMING 
-       ========================================================== */
-    :root {
-        --header-bg-color: #009100;    
-        --header-text-color: #ffffff;   
-        --active-tab-color: #e67e22;    
-        --active-tab-text: #ffffff;     
-        --hover-tab-color: rgba(255, 255, 255, 0.15); 
-        --primary: #2ecc71;
+    <link rel="icon" type="image/png" href="images/cctlogo.png">
+    
+    <!-- Custom Google Search Script -->
+    <script async src="https://cse.google.com/cse.js?cx=e4f71822d5b0943bb"></script>
 
-        /* Questions.html Theme Variables */
-        --bg-dark: #12181b;
-        --card-bg: #1e262c;
-        --card-inner: #2a343d;
-        --text-light: #e0e6ed;
-        --text-muted: #9ba8b5;
-        --border-color: #3a4754;
-        --input-bg: #171d22;
-    }
-
-    /* Dark Mode Theme Overrides (Excludes Site Header) */
-    body.dark-mode {
-        background-color: var(--bg-dark) !important;
-        color: var(--text-light) !important;
-    }
-
-    body.dark-mode .card-box,
-    body.dark-mode .header-card,
-    body.dark-mode .form-card {
-        background-color: var(--card-bg) !important;
-        border-color: var(--border-color) !important;
-        color: var(--text-light) !important;
-    }
-
-    body.dark-mode .trainer-info,
-    body.dark-mode .question-block {
-        background-color: var(--card-inner) !important;
-        border-color: var(--border-color) !important;
-        color: var(--text-light) !important;
-    }
-
-    body.dark-mode input[type="text"],
-    body.dark-mode textarea,
-    body.dark-mode label.option-label {
-        background-color: var(--input-bg) !important;
-        border-color: var(--border-color) !important;
-        color: var(--text-light) !important;
-    }
-
-    body.dark-mode p,
-    body.dark-mode span:not(.required) {
-        color: var(--text-muted);
-    }
-
-    .site-header {
-        background-color: var(--header-bg-color);
-        color: var(--header-text-color);
-        width: 100%;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-    }
-
-    .header-container {
-        max-width: 1400px;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0.5rem 1.5rem;
-        position: relative;
-    }
-
-    /* Logo */
-    .header-logo-container {
-        flex: 0 0 auto;
-        display: flex;
-        align-items: center;
-    }
-
-    .header-logo-container img {
-        height: 50px;
-        width: auto;
-        object-fit: contain;
-        display: block;
-    }
-
-    /* Navigation Links */
-    .center-nav {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex: 1;
-        gap: 2px;
-        margin: 0 1rem;
-    }
-
-    .nav-btn {
-        color: var(--header-text-color);
-        text-decoration: none;
-        padding: 0.5rem 0.8rem;
-        font-weight: bold;
-        border-radius: 6px;
-        font-size: 0.95rem;
-        transition: background-color 0.2s ease, color 0.2s ease;
-        white-space: nowrap;
-        display: inline-flex;
-        align-items: center;
-    }
-
-    .nav-btn:hover {
-        background-color: var(--hover-tab-color);
-    }
-
-    .nav-btn.active {
-        background-color: var(--active-tab-color) !important;
-        color: var(--active-tab-text) !important;
-    }
-
-    /* Theme Toggle & Search Trigger Buttons */
-    .theme-toggle-btn,
-    .search-btn {
-        background: transparent;
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        cursor: pointer;
-        padding: 0.4rem 0.5rem;
-        color: var(--header-text-color);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 6px;
-        flex: 0 0 auto;
-        margin-left: 0.3rem;
-        transition: all 0.2s ease;
-    }
-
-    .theme-toggle-btn:hover,
-    .search-btn:hover {
-        background-color: var(--hover-tab-color);
-        border-color: rgba(255, 255, 255, 0.8);
-    }
-
-    .theme-toggle-btn svg,
-    .search-btn svg {
-        width: 16px;
-        height: 16px;
-        fill: currentColor;
-        display: block;
-    }
-
-    /* Dropdown Menu */
-    .right-menu-container {
-        flex: 0 0 auto;
-        position: relative;
-    }
-
-    .menu-toggle {
-        background-color: transparent;
-        color: var(--header-text-color);
-        border: 2px solid var(--header-text-color);
-        padding: 0.5rem 0.8rem;
-        border-radius: 6px;
-        font-weight: bold;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: 0.9rem;
-        transition: all 0.2s ease;
-    }
-
-    .menu-toggle:hover {
-        background-color: var(--hover-tab-color);
-    }
-
-    .hamburger-icon {
-        display: flex;
-        flex-direction: column;
-        gap: 3px;
-    }
-
-    .hamburger-icon span {
-        display: block;
-        width: 16px;
-        height: 2px;
-        background-color: currentColor;
-    }
-
-    .dropdown-menu {
-        display: none;
-        position: absolute;
-        right: 0;
-        top: calc(100% + 0.5rem);
-        background-color: #ffffff;
-        min-width: 230px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        border-radius: 8px;
-        overflow: hidden;
-        z-index: 1001;
-    }
-
-    .dropdown-menu.show {
-        display: block;
-    }
-
-    .dropdown-menu a {
-        display: block;
-        padding: 0.75rem 1rem;
-        color: #333333;
-        text-decoration: none;
-        font-size: 0.9rem;
-        border-bottom: 1px solid #f0f0f0;
-        transition: background-color 0.2s ease;
-    }
-
-    .dropdown-menu a:last-child {
-        border-bottom: none;
-    }
-
-    .dropdown-menu a:hover {
-        background-color: #f8f9fa;
-        color: var(--active-tab-color);
-    }
-
-    .dropdown-divider {
-        height: 1px;
-        background-color: #e0e0e0;
-        margin: 0.5rem 0;
-    }
-
-    /* Search Modal Overlay */
-    .search-modal-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.75);
-        z-index: 9999;
-        justify-content: center;
-        align-items: flex-start;
-        padding-top: 80px;
-    }
-
-    .search-modal-overlay.active {
-        display: flex;
-    }
-
-    .search-modal-container {
-        background: #ffffff;
-        width: 90%;
-        max-width: 800px;
-        border-radius: 12px;
-        padding: 24px;
-        position: relative;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-        max-height: 80vh;
-        overflow-y: auto;
-    }
-
-    .close-search-modal {
-        position: absolute;
-        top: 12px;
-        right: 16px;
-        background: none;
-        border: none;
-        font-size: 1.8rem;
-        color: #666;
-        cursor: pointer;
-        line-height: 1;
-        z-index: 10000;
-    }
-
-    .close-search-modal:hover {
-        color: #000;
-    }
-
-    .gcse-search {
-        width: 100%;
-    }
-
-    .gsc-control-cse {
-        padding: 0 !important;
-        border: none !important;
-        background: transparent !important;
-    }
-
-    .gsc-results-wrapper-overlay {
-        position: static !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        box-shadow: none !important;
-        padding: 0 !important;
-    }
-
-    /* Responsive Styles */
-    @media (max-width: 850px) {
-        .header-container {
-            flex-wrap: wrap;
-            padding: 0.5rem 1rem;
-        }
-
-        .header-logo-container {
-            order: 1;
-        }
-
-        .center-nav {
-            order: 3;
+    <style>
+        /* Ensure the placeholder wrapper handles stickiness across pages */
+        #header-placeholder {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
             width: 100%;
-            justify-content: center;
-            margin: 0.5rem 0 0 0;
-            padding-top: 0.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            flex-wrap: wrap;
-            gap: 2px;
         }
 
-        .right-menu-container {
-            order: 4;
-            width: 100%;
+        /* ==========================================================
+           HEADER COLOR & THEMING 
+           ========================================================== */
+        :root {
+            --header-bg-color: #009100;    
+            --header-text-color: #ffffff;   
+            --active-tab-color: #e67e22;    
+            --active-tab-text: #ffffff;     
+            --hover-tab-color: rgba(255, 255, 255, 0.15); 
+            --primary: #006060;
+            --accent: #27ae60;
+            --light: #f8f9fa;
+            --dark: #333;
+            --logo-orange: #e67e22;
+
+            /* Questions/Dark Mode Theme Variables */
+            --bg-dark: #12181b;
+            --card-bg: #1e262c;
+            --card-inner: #2a343d;
+            --text-light: #e0e6ed;
+            --text-muted: #9ba8b5;
+            --border-color: #3a4754;
+            --input-bg: #171d22;
+        }
+
+        /* Smooth scrolling for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            color: var(--dark);
+            background-color: var(--light);
             display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Dark Mode Theme Overrides (Excludes Site Header) */
+        body.dark-mode {
+            background-color: var(--bg-dark) !important;
+            color: var(--text-light) !important;
+        }
+
+        body.dark-mode .card,
+        body.dark-mode .question-card,
+        body.dark-mode .card-box,
+        body.dark-mode .header-card,
+        body.dark-mode .form-card {
+            background-color: var(--card-bg) !important;
+            border-color: var(--border-color) !important;
+            color: var(--text-light) !important;
+        }
+
+        body.dark-mode .card h3,
+        body.dark-mode .question-card h3 {
+            color: var(--text-light) !important;
+        }
+
+        body.dark-mode .card img {
+            background-color: var(--card-inner) !important;
+        }
+
+        body.dark-mode .trainer-info,
+        body.dark-mode .question-block {
+            background-color: var(--card-inner) !important;
+            border-color: var(--border-color) !important;
+            color: var(--text-light) !important;
+        }
+
+        body.dark-mode input[type="text"],
+        body.dark-mode input[type="email"],
+        body.dark-mode input[type="tel"],
+        body.dark-mode textarea,
+        body.dark-mode label.option-label {
+            background-color: var(--input-bg) !important;
+            border-color: var(--border-color) !important;
+            color: var(--text-light) !important;
+        }
+
+        body.dark-mode p,
+        body.dark-mode span:not(.required) {
+            color: var(--text-muted);
+        }
+
+        .site-header {
+            background-color: var(--header-bg-color);
+            color: var(--header-text-color);
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 1.5rem;
+            position: relative;
+        }
+
+        /* Logo */
+        .header-logo-container {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-logo-container img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* Navigation Links */
+        .center-nav {
+            display: flex;
+            align-items: center;
             justify-content: center;
-            margin-top: 0.5rem;
+            flex: 1;
+            gap: 2px;
+            margin: 0 1rem;
+        }
+
+        .nav-btn {
+            color: var(--header-text-color);
+            text-decoration: none;
+            padding: 0.5rem 0.8rem;
+            font-weight: bold;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .nav-btn:hover {
+            background-color: var(--hover-tab-color);
+        }
+
+        .nav-btn.active {
+            background-color: var(--active-tab-color) !important;
+            color: var(--active-tab-text) !important;
+        }
+
+        /* Theme Toggle & Search Trigger Buttons */
+        .theme-toggle-btn,
+        .search-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            padding: 0.4rem 0.5rem;
+            color: var(--header-text-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            flex: 0 0 auto;
+            margin-left: 0.3rem;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle-btn:hover,
+        .search-btn:hover {
+            background-color: var(--hover-tab-color);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .theme-toggle-btn svg,
+        .search-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            display: block;
+        }
+
+        /* Dropdown Menu */
+        .right-menu-container {
+            flex: 0 0 auto;
+            position: relative;
         }
 
         .menu-toggle {
-            width: 100%;
-            justify-content: center;
+            background-color: transparent;
+            color: var(--header-text-color);
+            border: 2px solid var(--header-text-color);
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .menu-toggle:hover {
+            background-color: var(--hover-tab-color);
+        }
+
+        .hamburger-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .hamburger-icon span {
+            display: block;
+            width: 16px;
+            height: 2px;
+            background-color: currentColor;
         }
 
         .dropdown-menu {
-            width: 100%;
+            display: none;
+            position: absolute;
             right: 0;
-            left: 0;
+            top: calc(100% + 0.5rem);
+            background-color: #ffffff;
+            min-width: 230px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 1001;
         }
-    }
-</style>
 
-<header class="site-header">
-    <div class="header-container">
-        
-        <!-- Logo -->
-        <div class="header-logo-container">
-            <a href="index.html">
-                <img src="images/cctwordingnophrase.png" alt="Cooper Canines Logo">
-            </a>
-        </div>
+        .dropdown-menu.show {
+            display: block;
+        }
 
-        <!-- Navigation Links -->
-        <nav class="center-nav">
-            <a href="index.html" class="nav-btn">Home</a>
-            <a href="guides.html" class="nav-btn">Resources</a>
-            <a href="index.html#contact" class="nav-btn">Contact Us</a>
+        .dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #333333;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.2s ease;
+        }
+
+        .dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f8f9fa;
+            color: var(--active-tab-color);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background-color: #e0e0e0;
+            margin: 0.5rem 0;
+        }
+
+        /* Search Modal Overlay */
+        .search-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 9999;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 80px;
+        }
+
+        .search-modal-overlay.active {
+            display: flex;
+        }
+
+        .search-modal-container {
+            background: #ffffff;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close-search-modal {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #666;
+            cursor: pointer;
+            line-height: 1;
+            z-index: 10000;
+        }
+
+        .close-search-modal:hover {
+            color: #000;
+        }
+
+        .gcse-search {
+            width: 100%;
+        }
+
+        .gsc-control-cse {
+            padding: 0 !important;
+            border: none !important;
+            background: transparent !important;
+        }
+
+        .gsc-results-wrapper-overlay {
+            position: static !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+        }
+
+        /* Hero Banner Styling */
+        .hero {
+            position: relative;
+            background: 
+                linear-gradient(rgba(0, 50, 25, 0.75), rgba(0, 50, 25, 0.75)), 
+                url('images/aislopbackground.png') center/cover;
+            background-color: #00793c;
+            text-align: center;
+            padding: 5rem 1rem;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        #hero-splash-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 50, 25, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            opacity: 1;
+            transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+            pointer-events: none;
+        }
+
+        #hero-splash-overlay img {
+            max-width: 90%;
+            max-height: 80%;
+            object-fit: contain;
+        }
+
+        #hero-splash-overlay.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .hero .btn {
+            background-color: #2ecc71;
+            color: #ffffff;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .services-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            flex: 1 1 250px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card h3 {
+            color: #006060;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .action-box {
+            display: block;
+            background-color: #006060;
+            color: white;
+            text-decoration: none;
+            padding: 1.2rem 2rem;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.05rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+            min-width: 200px;
+        }
+
+        .action-box:hover {
+            background-color: #004d4d;
+            transform: translateY(-3px);
+        }
+
+        @keyframes flashOrange {
+            0% {
+                background-color: #006060;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+            50% {
+                background-color: var(--logo-orange);
+                box-shadow: 0 0 20px rgba(230, 126, 34, 0.8);
+                transform: scale(1.03);
+            }
+            100% {
+                background-color: #006060;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+        }
+
+        .action-box.pulse-orange {
+            animation: flashOrange 1s ease-in-out 2;
+        }
+
+        /* Question Form Card Styling */
+        .question-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 2.5rem auto 0 auto;
+            text-align: left;
+            box-sizing: border-box;
+        }
+
+        .question-card h3 {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .question-card p.subtitle {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.35rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group label span.req-star {
+            color: #e74c3c;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(0, 96, 96, 0.2);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .char-counter {
+            text-align: right;
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 0.25rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.85rem;
+            font-size: 1.05rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #004d4d;
+        }
+
+        .contact-method-hint {
+            font-size: 0.82rem;
+            color: #e67e22;
+            margin-top: 0.25rem;
+            display: none;
+            font-weight: bold;
+        }
+
+        #form-status {
+            display: none;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        #form-status.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        #form-status.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        footer {
+            position: relative;
+            background-color: #006060;
+            color: white;
+            padding: 1.5rem 1rem;
+            margin-top: 3rem;
+            width: 100vw;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            box-sizing: border-box;
+        }
+
+        .badge-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.2s ease, filter 0.2s ease;
+        }
+
+        .badge-link:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        .badge-link img {
+            max-width: 80px;
+            max-height: 80px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .footer-badge-left {
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        .footer-badge-right {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: var(--logo-orange);
+            color: white;
+            border: 2px solid white;
+            border-radius: 6px;
+            padding: 0.6rem 1rem;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.2s ease, bottom 0.2s ease;
+        }
+
+        .scroll-top-btn.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top-btn:hover {
+            transform: translateY(-3px);
+            background-color: #d35400;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 850px) {
+            .header-container {
+                flex-wrap: wrap;
+                padding: 0.5rem 1rem;
+            }
+
+            .header-logo-container {
+                order: 1;
+            }
+
+            .center-nav {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                margin: 0.5rem 0 0 0;
+                padding-top: 0.5rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.15);
+                flex-wrap: wrap;
+                gap: 2px;
+            }
+
+            .right-menu-container {
+                order: 4;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                margin-top: 0.5rem;
+            }
+
+            .menu-toggle {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .dropdown-menu {
+                width: 100%;
+                right: 0;
+                left: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+            }
+
+            .scroll-top-btn {
+                bottom: 20px;
+                right: 15px;
+            }
+
+            .mobile-badge-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .footer-badge-left,
+            .footer-badge-right {
+                position: static;
+                transform: none;
+            }
+
+            .badge-link img {
+                max-width: 60px;
+                max-height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header Container Wrapper -->
+<div id="header-placeholder">
+    <header class="site-header">
+        <div class="header-container">
             
-            <!-- Theme Toggle Button -->
-            <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Mode">
-                <svg id="sunIcon" viewBox="0 0 24 24">
-                    <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>
-                </svg>
-                <svg id="moonIcon" viewBox="0 0 24 24" style="display: none;">
-                    <path d="M12.3 2c.43 0 .77.35.72.78-.34 2.87.68 5.8 2.83 7.95 2.15 2.15 5.08 3.17 7.95 2.83.43-.05.78.29.78.72-.02 4.97-4.03 9-9 9B6.48 23.3 2 18.82 2 13.3c0-4.97 4.03-9 9-9z"/>
-                </svg>
-            </button>
-
-            <!-- Search Button -->
-            <button class="search-btn" id="openSearchBtn" aria-label="Open Search">
-                <svg viewBox="0 0 24 24">
-                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                </svg>
-            </button>
-        </nav>
-
-        <!-- Dropdown Menu Toggle -->
-        <div class="right-menu-container">
-            <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation menu">
-                <span class="menu-text">Menu</span>
-                <div class="hamburger-icon">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </button>
-            <div class="dropdown-menu" id="dropdownMenu">
-                <a href="start.html">Get Started</a>
-                <a href="portal.html">Returning Client</a>
-                <div class="dropdown-divider"></div>
-                <a href="index.html#top">About Us</a>
-                <a href="guides.html">Guides</a>
-                <a href="index.html#contact">Contact Us</a>
-                <div class="dropdown-divider"></div>
-                <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener">Our Facebook</a>
-                <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Google Reviews</a>
-                <a href="waiver.html">Liability Waiver</a>
-                <a href="perks.html">Referral & Perks</a>
-                <a href="rates.html">Estimated Rates</a>
+            <!-- Logo -->
+            <div class="header-logo-container">
+                <a href="index.html">
+                    <img src="images/cctwordingnophrase.png" alt="Cooper Canines Logo">
+                </a>
             </div>
+
+            <!-- Navigation Links -->
+            <nav class="center-nav">
+                <a href="index.html" class="nav-btn active">Home</a>
+                <a href="guides.html" class="nav-btn">Resources</a>
+                <a href="index.html#contact" class="nav-btn">Contact Us</a>
+                
+                <!-- Theme Toggle Button -->
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Mode">
+                    <svg id="sunIcon" viewBox="0 0 24 24">
+                        <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>
+                    </svg>
+                    <svg id="moonIcon" viewBox="0 0 24 24" style="display: none;">
+                        <path d="M12.3 2c.43 0 .77.35.72.78-.34 2.87.68 5.8 2.83 7.95 2.15 2.15 5.08 3.17 7.95 2.83.43-.05.78.29.78.72-.02 4.97-4.03 9-9 9B6.48 23.3 2 18.82 2 13.3c0-4.97 4.03-9 9-9z"/>
+                    </svg>
+                </button>
+
+                <!-- Search Button -->
+                <button class="search-btn" id="openSearchBtn" aria-label="Open Search">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                </button>
+            </nav>
+
+            <!-- Dropdown Menu Toggle -->
+            <div class="right-menu-container">
+                <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation menu">
+                    <span class="menu-text">Menu</span>
+                    <div class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="start.html">Get Started</a>
+                    <a href="portal.html">Returning Client</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="index.html#top">About Us</a>
+                    <a href="guides.html">Guides</a>
+                    <a href="index.html#contact">Contact Us</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener">Our Facebook</a>
+                    <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Google Reviews</a>
+                    <a href="waiver.html">Liability Waiver</a>
+                    <a href="perks.html">Referral & Perks</a>
+                    <a href="rates.html">Estimated Rates</a>
+                </div>
+            </div>
+
         </div>
+    </header>
 
-    </div>
-</header>
-
-<!-- Search Modal Overlay -->
-<div class="search-modal-overlay" id="searchModal">
-    <div class="search-modal-container">
-        <button class="close-search-modal" id="closeSearchBtn">&times;</button>
-        <div class="gcse-search"></div>
+    <!-- Search Modal Overlay -->
+    <div class="search-modal-overlay" id="searchModal">
+        <div class="search-modal-container">
+            <button class="close-search-modal" id="closeSearchBtn">&times;</button>
+            <div class="gcse-search"></div>
+        </div>
     </div>
 </div>
 
+<main>
+    <section class="hero" id="about" aria-label="Introduction">
+        <!-- Localized Section Overlay -->
+        <div id="hero-splash-overlay">
+            <img src="images/cctwordingwithphrase.png" alt="Cooper Canines Dog Training">
+        </div>
+
+        <h1>Sit Happens, <span style="color: var(--logo-orange);">Stay Pawsitive</span></h1>
+        <p>Science-based, positive reinforcement methods to build clear communication, confidence, and lasting respect between you and your dog. <br>Dog training in South Jersey, with no force, fear, or harsh corrections.</p>
+        <a href="#contact" class="btn" id="getStartedBtn">Get Started Today</a>
+    </section>
+
+    <div class="container">
+        <section id="services" aria-labelledby="services-heading">
+
+            <div class="services-grid">
+                <div class="card">
+                    <h3>Force-Free Training</h3>
+                    <img src="images/forcefree.png" alt="Force-Free Dog Training Methods">
+                    <p>Positive methods, positive results.</p>
+                </div>
+                <div class="card">
+                    <h3>Free In-Home Consultation</h3>
+                    <img src="images/in-home.png" alt="Free In-Home Dog Training Consultation">
+                    <p>Free evaluation for a limited time.</p>
+                </div>
+                <div class="card">
+                    <h3>Private 1-on-1 Sessions</h3>
+                    <img src="images/1-on-1.png" alt="Private 1-on-1 Dog Training Sessions">
+                    <p>Directly with you and your dog.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" style="margin-top: 3rem; text-align: center;" aria-labelledby="contact-heading">
+            <h2 id="contact-heading">Ready to Begin?</h2>
+            <p>Reach out to schedule your initial consultation or get started below.</p>
+            
+            <p style="text-align: center; margin: 1rem auto;">
+                <strong>Email:</strong> 
+                <a href="mailto:Dan@coopercanines.com" style="color: var(--primary); text-decoration: underline;">
+                    Dan@coopercanines.com
+                </a> 
+                | 
+                <strong>Phone:</strong> 
+                <a href="tel:8564331259" style="color: var(--primary); text-decoration: underline;">
+                    (856) 433-1259
+                </a>
+            </p>
+
+            <div class="contact-buttons">
+                <a href="/start.html" target="_blank" rel="noopener" class="action-box">
+                    New Client
+                </a>
+                <a href="/portal.html" target="_blank" rel="noopener" class="action-box">
+                    Returning Client
+                </a>
+            </div>
+
+            <!-- Web3Forms Question Box -->
+            <div class="question-card">
+                <h3>Ask Us a Question</h3>
+                <p class="subtitle">Have a quick question? Send us a message and we'll get right back to you!</p>
+                
+                <form id="questionForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+                    <!-- Web3Forms Config Inputs -->
+                    <input type="hidden" name="access_key" value="91cbff36-1cd3-4394-b34c-c23da94441eb">
+                    <input type="hidden" name="subject" id="emailSubject" value="Question">
+                    <input type="hidden" name="from_name" value="Cooper Canines Web Inquiry">
+                    <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
+
+                    <!-- Name Field -->
+                    <div class="form-group">
+                        <label for="userName">Name <span class="req-star">*</span></label>
+                        <input type="text" id="userName" name="name" class="form-control" placeholder="Your Full Name" required>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label for="userEmail">Email Address</label>
+                        <input type="email" id="userEmail" name="email" class="form-control" placeholder="name@example.com">
+                    </div>
+
+                    <!-- Phone Field -->
+                    <div class="form-group">
+                        <label for="userPhone">Phone Number</label>
+                        <input type="tel" id="userPhone" name="phone" class="form-control" placeholder="(856) 555-0123" pattern="^(\+?1[-.\s]?)?\(?[0-9]{3}\)?[-.\s]?[0-9]{3}[-.\s]?[0-9]{4}$">
+                    </div>
+
+                    <div id="contactMethodHint" class="contact-method-hint">
+                        * Please provide either an email address or a phone number so we can respond.
+                    </div>
+
+                    <!-- Message Box (300 Char Limit) -->
+                    <div class="form-group" style="margin-top: 1.25rem;">
+                        <label for="userMessage">Question <span class="req-star">*</span></label>
+                        <textarea id="userMessage" name="message" class="form-control" maxlength="300" placeholder="Type your question here..." required></textarea>
+                        <div class="char-counter"><span id="charCount">0</span>/300 characters</div>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="submitBtn">Submit Question</button>
+                    <div id="form-status"></div>
+                </form>
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer id="mainFooter">
+    <!-- Mobile Badge Wrapper -->
+    <div class="mobile-badge-container">
+        <div class="footer-badge-left">
+            <a href="https://www.petcareins.com" target="_blank" rel="noopener" class="badge-link" aria-label="Pet Care Insurance Verification">
+                <img src="https://app.petcareins.com/media/site_seals/0001/11/8a64628beaa11b47d4ca86378c096fa416c7797d.png" alt="Pet Care and Pet Sitting Insurance Seal">
+            </a>
+        </div>
+
+        <div class="footer-badge-right">
+            <a href="https://training.apdt.com/profile/8cc8c1a6-f064-4259-bdbd-3d3438a45c66?search_term=Daniel%20Weissberg&page=1" target="_blank" rel="noopener" class="badge-link" aria-label="APDT Member Profile">
+                <img src="images/apdt.jpg" alt="Association of Professional Dog Trainers Member">
+            </a>
+        </div>
+    </div>
+
+    <!-- Center Footer Links -->
+    <div style="max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.75rem 1rem; text-align: center;">
+        <a href="/rates.html" target="_blank" rel="noopener" style="color: white; text-decoration: none; font-size: 0.95rem;">
+            View Estimated Rates
+        </a>
+        <span style="color: #4a6572;">|</span>
+        <a href="/waiver.html" target="_blank" rel="noopener" style="color: white; text-decoration: none; font-size: 0.95rem;">
+            Liability Waiver
+        </a>
+        <span style="color: #4a6572;">|</span>
+        <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener" style="color: white; text-decoration: none; font-size: 0.95rem;">
+            Follow on Facebook
+        </a>
+        <span style="color: #4a6572;">|</span>
+        <a href="https://g.page/r/YOUR_GOOGLE_REVIEW_ID/review" target="_blank" rel="noopener" style="color: #f1c40f; text-decoration: none; font-weight: bold; font-size: 0.95rem;">
+            Leave a Google Review
+        </a>
+    </div>
+
+    <!-- Copyright Text -->
+    <div style="text-align: center; border-top: 1px solid #4a6572; margin-top: 1rem; padding-top: 0.75rem; font-size: 0.85rem; color: #bdc3c7;">
+        <p style="margin: 0;">&copy; 2026 Cooper Canines LLC. | All rights reserved. | Services provided in South Jersey. | Limited services in Eastern PA and DE.</p>
+    </div>
+</footer>
+
+<!-- Floating Scroll-To-Top Button -->
+<button class="scroll-top-btn" id="scrollTopBtn" aria-label="Scroll to top">
+    ▲ To Top
+</button>
+
 <script>
-    // Dropdown Toggle
+    // Navigation Dropdown Handler
     const menuBtn = document.getElementById('menuBtn');
     const dropdownMenu = document.getElementById('dropdownMenu');
 
@@ -433,17 +1040,32 @@
         dropdownMenu.classList.remove('show');
     });
 
-    // Theme Mode Toggle Handler
+    // Light / Dark Theme Mode Handler
     const themeToggleBtn = document.getElementById('themeToggleBtn');
     const sunIcon = document.getElementById('sunIcon');
     const moonIcon = document.getElementById('moonIcon');
 
+    function applyTheme(isDark) {
+        if (isDark) {
+            document.body.classList.add('dark-mode');
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'block';
+        } else {
+            document.body.classList.remove('dark-mode');
+            sunIcon.style.display = 'block';
+            moonIcon.style.display = 'none';
+        }
+    }
+
+    // Initialize stored theme state
+    const isSavedDark = localStorage.getItem('theme') === 'dark';
+    applyTheme(isSavedDark);
+
     themeToggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        const isDark = document.body.classList.contains('dark-mode');
-        
-        sunIcon.style.display = isDark ? 'none' : 'block';
-        moonIcon.style.display = isDark ? 'block' : 'none';
+        const isCurrentlyDark = document.body.classList.contains('dark-mode');
+        const nextDarkState = !isCurrentlyDark;
+        applyTheme(nextDarkState);
+        localStorage.setItem('theme', nextDarkState ? 'dark' : 'light');
     });
 
     // Search Modal Handlers
@@ -478,7 +1100,159 @@
             const href = link.getAttribute('href');
             if (href === currentPath || (currentPath === '' && href === 'index.html')) {
                 link.classList.add('active');
+            } else if (href !== 'index.html') {
+                link.classList.remove('active');
             }
         });
     });
+
+    // Hero Section Splash Overlay
+    window.addEventListener('DOMContentLoaded', () => {
+        const heroOverlay = document.getElementById('hero-splash-overlay');
+        setTimeout(() => {
+            heroOverlay.classList.add('fade-out');
+        }, 1500);
+    });
+
+    // Scroll to Top & Action Box Pulse
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    const footer = document.getElementById('mainFooter');
+    const getStartedBtn = document.getElementById('getStartedBtn');
+    const actionBoxes = document.querySelectorAll('.action-box');
+
+    getStartedBtn.addEventListener('click', () => {
+        actionBoxes.forEach(box => {
+            box.classList.remove('pulse-orange');
+            void box.offsetWidth; // Force CSS reflow
+            box.classList.add('pulse-orange');
+        });
+    });
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 200) {
+            scrollTopBtn.classList.add('show');
+        } else {
+            scrollTopBtn.classList.remove('show');
+        }
+
+        const footerRect = footer.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        if (footerRect.top < windowHeight) {
+            const overlap = windowHeight - footerRect.top;
+            scrollTopBtn.style.bottom = `${overlap + 20}px`;
+        } else {
+            scrollTopBtn.style.bottom = '25px';
+        }
+    });
+
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // Web3Forms AJAX Handling
+    const questionForm = document.getElementById('questionForm');
+    const userName = document.getElementById('userName');
+    const userEmail = document.getElementById('userEmail');
+    const userPhone = document.getElementById('userPhone');
+    const userMessage = document.getElementById('userMessage');
+    const charCount = document.getElementById('charCount');
+    const emailSubject = document.getElementById('emailSubject');
+    const formStatus = document.getElementById('form-status');
+    const contactMethodHint = document.getElementById('contactMethodHint');
+    const submitBtn = document.getElementById('submitBtn');
+
+    userMessage.addEventListener('input', () => {
+        charCount.textContent = userMessage.value.length;
+    });
+
+    userName.addEventListener('input', () => {
+        const nameVal = userName.value.trim();
+        emailSubject.value = nameVal ? `Question - ${nameVal}` : 'Question';
+    });
+
+    questionForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        formStatus.style.display = 'none';
+        formStatus.className = '';
+        contactMethodHint.style.display = 'none';
+
+        if (!userName.value.trim()) {
+            showStatus('Please enter your name.', 'error');
+            userName.focus();
+            return;
+        }
+
+        if (!userMessage.value.trim()) {
+            showStatus('Please write your question before submitting.', 'error');
+            userMessage.focus();
+            return;
+        }
+
+        const hasEmail = userEmail.value.trim() !== '';
+        const hasPhone = userPhone.value.trim() !== '';
+
+        if (!hasEmail && !hasPhone) {
+            contactMethodHint.style.display = 'block';
+            showStatus('Please provide either an email address or phone number.', 'error');
+            return;
+        }
+
+        if (hasEmail && !userEmail.checkValidity()) {
+            showStatus('Please enter a valid email address.', 'error');
+            userEmail.focus();
+            return;
+        }
+
+        if (hasPhone) {
+            const phonePattern = /^(\+?1[-.\s]?)?\(?[0-9]{3}\)?[-.\s]?[0-9]{3}[-.\s]?[0-9]{4}$/;
+            if (!phonePattern.test(userPhone.value.trim())) {
+                showStatus('Please enter a valid phone number format (e.g., 856-555-0123).', 'error');
+                userPhone.focus();
+                return;
+            }
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+
+        const formData = new FormData(questionForm);
+
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+        })
+        .then(async (response) => {
+            let json = await response.json();
+            if (response.status === 200) {
+                showStatus('Thank you! Your question has been sent. We will get back to you shortly.', 'success');
+                questionForm.reset();
+                charCount.textContent = '0';
+                emailSubject.value = 'Question';
+            } else {
+                showStatus(json.message || 'Something went wrong. Please try again later.', 'error');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            showStatus('An error occurred. Please check your internet connection and try again.', 'error');
+        })
+        .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Question';
+        });
+    });
+
+    function showStatus(msg, type) {
+        formStatus.textContent = msg;
+        formStatus.className = type;
+        formStatus.style.display = 'block';
+    }
 </script>
+
+</body>
+</html>
