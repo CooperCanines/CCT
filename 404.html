@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 - Page Straying | Cooper Canines</title>
     
-    <!-- Favicon pointing back to root folder -->
-    <link rel="icon" type="image/png" href="../Cooper Canines5 Logo 03-18-26.png">
+    <!-- Favicon pointing to root folder -->
+    <link rel="icon" type="image/png" href="Cooper Canines5 Logo 03-18-26.png">
 
     <style>
         :root {
-            /* Per-Page Header Color */
+            /* Per-Page Header Color Variable */
             --header-bg-color: #2c3e50; 
 
             --primary-orange: #e67e22;
@@ -35,11 +35,11 @@
             position: relative;
         }
 
-        /* Container for injected header.html */
+        /* Container where header component renders */
         #header-placeholder {
             width: 100%;
             position: relative;
-            z-index: 20; /* Keeps header controls active above game layers */
+            z-index: 20; /* Keeps header interactive above background elements */
         }
 
         /* Background Canvas Layer for Falling Treats */
@@ -239,7 +239,7 @@
 </head>
 <body>
 
-    <!-- Dynamic Header Component Placeholder -->
+    <!-- Container for Injected Header -->
     <div id="header-placeholder"></div>
 
     <!-- Background Canvas Layer for Falling Treats -->
@@ -253,8 +253,8 @@
             <h2>Looks like this page barked up the wrong tree!</h2>
             
             <div class="btn-group">
-                <a href="../index.html" class="btn">🏠 Heel (Go Home)</a>
-                <a href="../index.html#contact" class="btn btn-secondary">📞 Contact Us</a>
+                <a href="index.html" class="btn">🏠 Heel (Go Home)</a>
+                <a href="index.html#contact" class="btn btn-secondary">📞 Contact Us</a>
             </div>
         </div>
 
@@ -275,10 +275,10 @@
         </div>
     </div>
 
-    <!-- Loads Header Component Logic -->
+    <!-- Script to Load Header -->
     <script src="components/header.js"></script>
 
-    <!-- Page Specific Interactive Game Script -->
+    <!-- Interactive Game Script -->
     <script>
         // ----------------------------------------------------
         // 1. Background Canvas Treats Effect
