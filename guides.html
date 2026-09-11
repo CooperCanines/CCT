@@ -511,7 +511,7 @@
                 </a>
             </div>
 
-            <!-- Web3Forms Question Box -->
+            <!-- Ask Us A Question Card Block -->
             <div class="question-card">
                 <h3>Ask Us a Question</h3>
                 <p class="subtitle">Have a quick question? Send us a message and we'll get right back to you!</p>
@@ -735,7 +735,7 @@
         charCount.textContent = userMessage.value.length;
     });
 
-    // Dynamic subject update
+    // Dynamic subject update: "Question - {field:name}"
     userName.addEventListener('input', () => {
         const nameVal = userName.value.trim();
         emailSubject.value = nameVal ? `Question - ${nameVal}` : 'Question';
@@ -750,7 +750,7 @@
         formStatus.className = '';
         contactMethodHint.style.display = 'none';
 
-        // 1. Validate Required Fields
+        // 1. Validate Required Name & Message
         if (!userName.value.trim()) {
             showStatus('Please enter your name.', 'error');
             userName.focus();
