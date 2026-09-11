@@ -67,111 +67,6 @@
             width: 100%;
         }
 
-        /* Service Area Modal Styles */
-        .service-modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .service-modal-overlay.show {
-            display: flex;
-        }
-
-        .service-info-box {
-            background: rgba(20, 20, 20, 0.98);
-            color: #ecf0f1;
-            padding: 22px 24px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-            border: 1px solid #2c3e50;
-            max-width: 480px;
-            width: 90%;
-            text-align: left;
-            position: relative;
-        }
-
-        .service-info-box h3 {
-            margin-top: 0;
-            margin-bottom: 8px;
-            color: #2ecc71;
-            font-size: 1.1rem;
-            text-align: center;
-            border-bottom: 1px solid #333;
-            padding-bottom: 6px;
-        }
-
-        .service-info-box p {
-            margin: 5px 0;
-            font-size: 0.88rem;
-            line-height: 1.4;
-        }
-
-        .service-info-box strong {
-            color: #ffffff;
-        }
-
-        .location-note {
-            font-size: 0.82rem;
-            color: #38ef7d;
-            margin-bottom: 10px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .forecast-section {
-            margin-top: 10px;
-            padding-top: 8px;
-            border-top: 1px dashed #333;
-        }
-
-        .forecast-section h4 {
-            margin: 0 0 6px 0;
-            font-size: 0.9rem;
-            color: #2ecc71;
-            text-align: center;
-        }
-
-        .forecast-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-            max-height: 140px;
-            overflow-y: auto;
-        }
-
-        .forecast-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            background: rgba(255, 255, 255, 0.04);
-            padding: 4px 8px;
-            border-radius: 4px;
-            color: #cbd5e1;
-        }
-
-        .close-modal-btn {
-            position: absolute;
-            top: 10px;
-            right: 12px;
-            background: none;
-            border: none;
-            color: #aaa;
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-
-        .close-modal-btn:hover {
-            color: #fff;
-        }
-
         /* Hero Banner Styling */
         .hero {
             position: relative;
@@ -282,8 +177,8 @@
 
         .action-box {
             display: block;
-            background-color: #006060 !important;
-            color: #ffffff !important;
+            background-color: #006060;
+            color: white;
             text-decoration: none;
             padding: 1.2rem 2rem;
             border-radius: 8px;
@@ -295,13 +190,13 @@
         }
 
         .action-box:hover {
-            background-color: var(--accent);
+            background-color: #004d4d;
             transform: translateY(-3px);
         }
 
         @keyframes flashOrange {
             0% {
-                background-color: var(--primary);
+                background-color: #006060;
                 box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             }
             50% {
@@ -310,7 +205,7 @@
                 transform: scale(1.03);
             }
             100% {
-                background-color: var(--primary);
+                background-color: #006060;
                 box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             }
         }
@@ -321,7 +216,7 @@
 
         footer {
             position: relative;
-            background-color: var(--primary);
+            background-color: #006060;
             color: white;
             padding: 1.5rem 1rem;
             margin-top: 3rem;
@@ -440,25 +335,6 @@
 <!-- Dynamic Header Injection Placeholder -->
 <div id="header-placeholder"></div>
 
-<!-- Service Area & Forecast Popup Modal -->
-<div class="service-modal-overlay" id="serviceModal">
-    <div class="service-info-box">
-        <button class="close-modal-btn" id="closeModalBtn">&times;</button>
-        <h3>Service Coverage Areas</h3>
-        <p><strong>Primary Service Area:</strong> Camden County</p>
-        <p><strong>Secondary Service Areas:</strong> Burlington, Gloucester</p>
-        <p><strong>Limited Service Areas:</strong> South Jersey, Eastern PA, Delaware</p>
-        
-        <div class="forecast-section">
-            <div class="location-note" id="locationNote">Detecting your location...</div>
-            <h4>Local 7-Day Weather Forecast</h4>
-            <div class="forecast-grid" id="forecastDisplay">
-                Loading forecast for your area...
-            </div>
-        </div>
-    </div>
-</div>
-
 <main>
     <section class="hero" id="about" aria-label="Introduction">
         <!-- Localized Section Overlay -->
@@ -567,79 +443,82 @@
     ▲ To Top
 </button>
 
-// Dynamically Load Header Component & Initialize Interactive Features
-fetch('components/header.html')
-    .then(response => response.text())
-    .then(data => {
-        const headerPlaceholder = document.getElementById('header-placeholder');
-        headerPlaceholder.innerHTML = data;
+<script>
+    // Dynamically Load Header Component & Execute Interactive Scripts
+    fetch('components/header.html')
+        .then(response => response.text())
+        .then(data => {
+            const headerPlaceholder = document.getElementById('header-placeholder');
+            headerPlaceholder.innerHTML = data;
+            
+            // Re-execute scripts embedded inside header.html
+            const scripts = headerPlaceholder.querySelectorAll('script');
+            scripts.forEach(script => {
+                const newScript = document.createElement('script');
+                if (script.src) {
+                    newScript.src = script.src;
+                } else {
+                    newScript.textContent = script.textContent;
+                }
+                document.body.appendChild(newScript);
+            });
 
-        // Re-execute scripts embedded inside header.html (if any exist)
-        const scripts = headerPlaceholder.querySelectorAll('script');
-        scripts.forEach(script => {
-            const newScript = document.createElement('script');
-            if (script.src) {
-                newScript.src = script.src;
-            } else {
-                newScript.textContent = script.textContent;
+            // Initialize Header Event Listeners
+            initHeaderInteractions();
+        })
+        .catch(error => console.error('Error fetching header component:', error));
+
+    function initHeaderInteractions() {
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn') || document.querySelector('.mobile-menu-btn');
+        const navMenu = document.getElementById('navMenu') || document.querySelector('.nav-links');
+        if (menuBtn && navMenu) {
+            menuBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                navMenu.classList.toggle('show');
+            });
+        }
+
+        // Dark / Light Mode Toggle
+        const themeBtn = document.getElementById('themeToggleBtn');
+        if (themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const isDark = document.body.classList.contains('dark-mode');
+                themeBtn.textContent = isDark ? '☀️' : '🌙';
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            });
+
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeBtn.textContent = '☀️';
             }
-            document.body.appendChild(newScript);
-        });
+        }
 
-        // Initialize Header Event Listeners
-        initHeaderInteractions();
-    })
-    .catch(error => console.error('Error fetching header component:', error));
-
-function initHeaderInteractions() {
-    // Mobile Menu Toggle
-    const menuBtn = document.getElementById('menuBtn') || document.querySelector('.mobile-menu-btn');
-    const navMenu = document.getElementById('navMenu') || document.querySelector('.nav-links');
-    if (menuBtn && navMenu) {
-        menuBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            navMenu.classList.toggle('show');
-        });
-    }
-
-    // Dark / Light Mode Toggle
-    const themeBtn = document.getElementById('themeToggleBtn');
-    if (themeBtn) {
-        themeBtn.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            themeBtn.textContent = isDark ? '☀️' : '🌙';
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        });
-
-        // Load saved theme preference
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark-mode');
-            themeBtn.textContent = '☀️';
+        // Search Toggle / Function
+        const searchBtn = document.getElementById('searchBtn');
+        const searchModal = document.getElementById('searchModal');
+        if (searchBtn && searchModal) {
+            searchBtn.addEventListener('click', () => {
+                searchModal.classList.toggle('active');
+                searchModal.classList.toggle('show');
+            });
         }
     }
 
-    // Search Toggle / Function
-    const searchBtn = document.getElementById('searchBtn');
-    const searchModal = document.getElementById('searchModal');
-    if (searchBtn && searchModal) {
-        searchBtn.addEventListener('click', () => {
-            searchModal.classList.toggle('active');
-            searchModal.classList.toggle('show');
-        });
-    }
+    // Fade out section overlay on page load
+    window.addEventListener('DOMContentLoaded', () => {
+        const heroOverlay = document.getElementById('hero-splash-overlay');
+        setTimeout(() => {
+            heroOverlay.classList.add('fade-out');
+        }, 1500);
+    });
 
-    // Service Area Modal trigger
-    const serviceAreaBtn = document.getElementById('serviceAreaBtn');
-    if (serviceAreaBtn) {
-        serviceAreaBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const serviceModal = document.getElementById('serviceModal');
-            if (serviceModal) serviceModal.classList.add('show');
-            if (typeof loadServiceAreaWeather === 'function') loadServiceAreaWeather();
-        });
-    }
-}
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    const footer = document.getElementById('mainFooter');
+    const getStartedBtn = document.getElementById('getStartedBtn');
+    const actionBoxes = document.querySelectorAll('.action-box');
+
     // Trigger orange fade pulse when "Get Started Today" is clicked
     getStartedBtn.addEventListener('click', () => {
         actionBoxes.forEach(box => {
