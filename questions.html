@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Client Intake Questions - Cooper Canines LLC</title>
+    <title>Pre-Training Questions - Cooper Canines LLC</title>
     <!-- Custom Google Search Script -->
     <script async src="https://cse.google.com/cse.js?cx=e4f71822d5b0943bb"></script>
     <style>
@@ -337,7 +337,36 @@
 
         .header-card p {
             color: var(--text-muted);
-            margin: 0;
+            margin: 0 0 1.25rem 0;
+        }
+
+        /* Optional Alternative Action Banner */
+        .optional-alt-banner {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background-color: var(--card-inner);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .alt-contact-btn {
+            background-color: var(--primary);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background-color 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .alt-contact-btn:hover {
+            background-color: var(--primary-hover);
         }
 
         /* Form Card Layout */
@@ -584,6 +613,12 @@
                 right: 0;
                 left: 0;
             }
+
+            .optional-alt-banner {
+                flex-direction: column;
+                gap: 0.4rem;
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -636,13 +671,11 @@
                     <a href="index.html#top">About Us</a>
                     <a href="guides.html">Guides</a>
                     <a href="index.html#contact">Contact Us</a>
-                    <a href="arcade.html#contact">Games</a>
-                    <a href="store.html">Store</a>
                     <div class="dropdown-divider"></div>
                     <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener">Our Facebook</a>
                     <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Google Reviews</a>
                     <a href="/waiver.html">Liability Waiver</a>
-                    <a href="/waiver.html#Referral Program">Referral & Perks</a>
+                    <a href="/perks">Referral & Perks</a>
                     <a href="/rates.html">Estimated Rates</a>
                 </div>
             </div>
@@ -661,8 +694,14 @@
     <div class="container">
         <!-- Header -->
         <div class="header-card">
-            <h1>Client Intake Questionnaire</h1>
+            <h1>Pre-Training Questions</h1>
             <p>Please complete the details below to help us tailor our training programs for your dog.</p>
+            
+            <!-- Optional alternative contact banner -->
+            <div class="optional-alt-banner">
+                <span>Optional: Prefer not to fill this out?</span>
+                <a href="index.html#contact" class="alt-contact-btn">Contact Us Instead</a>
+            </div>
         </div>
 
         <!-- Main Questionnaire Form configured with Web3Forms -->
