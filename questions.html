@@ -4,10 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Client Intake Questions - Cooper Canines LLC</title>
+    <!-- Custom Google Search Script -->
+    <script async src="https://cse.google.com/cse.js?cx=e4f71822d5b0943bb"></script>
     <style>
+        /* ==========================================================
+           HEADER COLOR & THEMING 
+           ========================================================== */
         :root {
-            /* Page-specific header color */
-            --header-bg-color: #12181b; 
+            --header-bg-color: #009100;    
+            --header-text-color: #ffffff;   
+            --active-tab-color: #e67e22;    
+            --active-tab-text: #ffffff;     
+            --hover-tab-color: rgba(255, 255, 255, 0.15); 
 
             --primary: #00b300;
             --primary-hover: #00d900;
@@ -38,6 +46,244 @@
             flex-direction: column;
         }
 
+        /* Header Styles */
+        .site-header {
+            background-color: var(--header-bg-color);
+            color: var(--header-text-color);
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 1.5rem;
+            position: relative;
+        }
+
+        .header-logo-container {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-logo-container img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .center-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            gap: 2px;
+            margin: 0 1rem;
+        }
+
+        .nav-btn {
+            color: var(--header-text-color);
+            text-decoration: none;
+            padding: 0.5rem 0.8rem;
+            font-weight: bold;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .nav-btn:hover {
+            background-color: var(--hover-tab-color);
+        }
+
+        .nav-btn.active {
+            background-color: var(--active-tab-color) !important;
+            color: var(--active-tab-text) !important;
+        }
+
+        .search-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            padding: 0.4rem 0.5rem;
+            color: var(--header-text-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            flex: 0 0 auto;
+            margin-left: 0.3rem;
+            transition: all 0.2s ease;
+        }
+
+        .search-btn:hover {
+            background-color: var(--hover-tab-color);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .search-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            display: block;
+        }
+
+        .right-menu-container {
+            flex: 0 0 auto;
+            position: relative;
+        }
+
+        .menu-toggle {
+            background-color: transparent;
+            color: var(--header-text-color);
+            border: 2px solid var(--header-text-color);
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .menu-toggle:hover {
+            background-color: var(--hover-tab-color);
+        }
+
+        .hamburger-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .hamburger-icon span {
+            display: block;
+            width: 16px;
+            height: 2px;
+            background-color: currentColor;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: calc(100% + 0.5rem);
+            background-color: #ffffff;
+            min-width: 230px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 1001;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #333333;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.2s ease;
+        }
+
+        .dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f8f9fa;
+            color: var(--active-tab-color);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background-color: #e0e0e0;
+            margin: 0.5rem 0;
+        }
+
+        /* Search Modal Styles */
+        .search-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 9999;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 80px;
+        }
+
+        .search-modal-overlay.active {
+            display: flex;
+        }
+
+        .search-modal-container {
+            background: #ffffff;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close-search-modal {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #666;
+            cursor: pointer;
+            line-height: 1;
+            z-index: 10000;
+        }
+
+        .close-search-modal:hover {
+            color: #000;
+        }
+
+        .gcse-search {
+            width: 100%;
+        }
+
+        .gsc-control-cse {
+            padding: 0 !important;
+            border: none !important;
+            background: transparent !important;
+        }
+
+        .gsc-results-wrapper-overlay {
+            position: static !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+        }
+
+        /* Page Layout Styles */
         .container {
             flex: 1 0 auto;
             max-width: 850px;
@@ -71,7 +317,7 @@
             color: #ffffff;
         }
 
-        /* Header Styling */
+        /* Header Card Styling */
         .header-card {
             background-color: var(--card-bg);
             border-radius: 8px;
@@ -244,12 +490,114 @@
             min-height: 3rem;
             margin-top: auto;
         }
+
+        /* Header Responsive Styles */
+        @media (max-width: 850px) {
+            .header-container {
+                flex-wrap: wrap;
+                padding: 0.5rem 1rem;
+            }
+
+            .header-logo-container {
+                order: 1;
+            }
+
+            .center-nav {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                margin: 0.5rem 0 0 0;
+                padding-top: 0.5rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.15);
+                flex-wrap: wrap;
+                gap: 2px;
+            }
+
+            .right-menu-container {
+                order: 4;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                margin-top: 0.5rem;
+            }
+
+            .menu-toggle {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .dropdown-menu {
+                width: 100%;
+                right: 0;
+                left: 0;
+            }
+        }
     </style>
 </head>
 <body id="top">
 
-    <!-- Header Placeholder -->
-    <div id="header-placeholder"></div>
+    <!-- Integrated Header -->
+    <header class="site-header">
+        <div class="header-container">
+            
+            <!-- Logo -->
+            <div class="header-logo-container">
+                <a href="index.html">
+                    <img src="images/cctwordingnophrase.png" alt="Cooper Canines Logo">
+                </a>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="center-nav">
+                <a href="index.html" class="nav-btn">Home</a>
+                <a href="guides.html" class="nav-btn">Resources</a>
+                <a href="index.html#contact" class="nav-btn">Contact Us</a>
+                
+                <button class="search-btn" id="openSearchBtn" aria-label="Open Search">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                </button>
+            </nav>
+
+            <!-- Dropdown Menu Toggle -->
+            <div class="right-menu-container">
+                <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation menu">
+                    <span class="menu-text">Menu</span>
+                    <div class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="/start.html">Get Started</a>
+                    <a href="/portal.html">Returning Client</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="index.html#top">About Us</a>
+                    <a href="guides.html">Guides</a>
+                    <a href="index.html#contact">Contact Us</a>
+                    <a href="arcade.html#contact">Games</a>
+                    <a href="store.html">Store</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener">Our Facebook</a>
+                    <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Google Reviews</a>
+                    <a href="/waiver.html">Liability Waiver</a>
+                    <a href="/waiver.html#Referral Program">Referral & Perks</a>
+                    <a href="/rates.html">Estimated Rates</a>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Search Modal Overlay -->
+    <div class="search-modal-overlay" id="searchModal">
+        <div class="search-modal-container">
+            <button class="close-search-modal" id="closeSearchBtn">&times;</button>
+            <div class="gcse-search"></div>
+        </div>
+    </div>
 
     <div class="container">
         <!-- Top Navigation -->
@@ -529,6 +877,7 @@
     <footer></footer>
 
     <script>
+        // Scroll to Top Button
         const scrollTopBtn = document.getElementById('scrollTopBtn');
 
         window.addEventListener('scroll', () => {
@@ -538,10 +887,56 @@
                 scrollTopBtn.style.display = 'none';
             }
         });
-    </script>
 
-    <!-- Dynamic Header Loader -->
-    <script src="components/header.js"></script>
+        // Dropdown Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+
+        document.addEventListener('click', () => {
+            dropdownMenu.classList.remove('show');
+        });
+
+        // Search Modal Handlers
+        const openSearchBtn = document.getElementById('openSearchBtn');
+        const closeSearchBtn = document.getElementById('closeSearchBtn');
+        const searchModal = document.getElementById('searchModal');
+
+        openSearchBtn.addEventListener('click', () => {
+            searchModal.classList.add('active');
+            setTimeout(() => {
+                const searchInput = document.querySelector('.gsc-input input');
+                if (searchInput) searchInput.focus();
+            }, 200);
+        });
+
+        closeSearchBtn.addEventListener('click', () => {
+            searchModal.classList.remove('active');
+        });
+
+        searchModal.addEventListener('click', (e) => {
+            if (e.target === searchModal) {
+                searchModal.classList.remove('active');
+            }
+        });
+
+        // Active Link Highlighting
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = document.querySelectorAll('.nav-btn');
+
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPath || (currentPath === '' && href === 'index.html')) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
