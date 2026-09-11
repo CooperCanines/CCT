@@ -479,21 +479,29 @@
             });
         }
 
-        // Dark / Light Mode Toggle
-        const themeBtn = document.getElementById('themeToggleBtn');
-        if (themeBtn) {
-            themeBtn.addEventListener('click', () => {
-                document.body.classList.toggle('dark-mode');
-                const isDark = document.body.classList.contains('dark-mode');
-                themeBtn.textContent = isDark ? '☀️' : '🌙';
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            });
+// Dark / Light Mode Toggle Function
+const themeBtn = document.getElementById('themeToggleBtn');
+if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        
+        // Dynamic icon switch
+        themeBtn.textContent = isDark ? '☀️' : '🌙';
+        
+        // Save user preference
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
 
-            if (localStorage.getItem('theme') === 'dark') {
-                document.body.classList.add('dark-mode');
-                themeBtn.textContent = '☀️';
-            }
-        }
+    // Check saved theme preference on page load
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeBtn.textContent = '☀️';
+    } else {
+        document.body.classList.remove('dark-mode');
+        themeBtn.textContent = '🌙';
+    }
+}
 
         // Search Toggle / Function
         const searchBtn = document.getElementById('searchBtn');
