@@ -41,6 +41,58 @@
             --light: #f8f9fa;
             --dark: #333;
             --logo-orange: #e67e22; /* Custom orange matching the logo */
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --input-bg: #ffffff;
+            --input-border: #ccc;
+        }
+
+        /* Dark Mode Theme Variables & Overrides */
+        body.dark-mode {
+            --light: #121212;
+            --dark: #f8f9fa;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --input-bg: #2d2d2d;
+            --input-border: #444444;
+            background-color: var(--light);
+            color: var(--text-color);
+        }
+
+        body.dark-mode .card,
+        body.dark-mode .question-card {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        body.dark-mode .card h3,
+        body.dark-mode .question-card h3 {
+            color: #4db6ac;
+        }
+
+        body.dark-mode .card img {
+            background-color: #2b2b2b;
+        }
+
+        body.dark-mode .form-control {
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            border-color: var(--input-border);
+        }
+
+        body.dark-mode .form-control:focus {
+            border-color: #4db6ac;
+            box-shadow: 0 0 0 2px rgba(77, 182, 172, 0.3);
+        }
+
+        body.dark-mode .question-card p.subtitle {
+            color: #aaa;
+        }
+
+        body.dark-mode .contact-email-link,
+        body.dark-mode .contact-phone-link {
+            color: #4db6ac !important;
         }
 
         /* Smooth scrolling for anchor links */
@@ -57,6 +109,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* Sticky Wrapper for Dynamic Component Header */
@@ -131,7 +184,7 @@
         }
 
         .card {
-            background: white;
+            background: var(--card-bg);
             border-radius: 8px;
             padding: 1.5rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -139,6 +192,7 @@
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
+            transition: background-color 0.3s ease;
         }
 
         .card h3 {
@@ -216,7 +270,7 @@
 
         /* Question Form Card Styling */
         .question-card {
-            background: white;
+            background: var(--card-bg);
             border-radius: 8px;
             padding: 2rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -224,6 +278,7 @@
             margin: 2.5rem auto 0 auto;
             text-align: left;
             box-sizing: border-box;
+            transition: background-color 0.3s ease;
         }
 
         .question-card h3 {
@@ -260,11 +315,14 @@
         .form-control {
             width: 100%;
             padding: 0.75rem;
-            border: 1px solid #ccc;
+            border: 1px solid var(--input-border);
             border-radius: 5px;
             font-size: 1rem;
             box-sizing: border-box;
             font-family: inherit;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .form-control:focus {
@@ -492,12 +550,12 @@
             
             <p style="text-align: center; margin: 1rem auto;">
                 <strong>Email:</strong> 
-                <a href="mailto:Dan@coopercanines.com" style="color: var(--primary); text-decoration: underline;">
+                <a href="mailto:Dan@coopercanines.com" class="contact-email-link" style="color: var(--primary); text-decoration: underline;">
                     Dan@coopercanines.com
                 </a> 
                 | 
                 <strong>Phone:</strong> 
-                <a href="tel:8564331259" style="color: var(--primary); text-decoration: underline;">
+                <a href="tel:8564331259" class="contact-phone-link" style="color: var(--primary); text-decoration: underline;">
                     (856) 433-1259
                 </a>
             </p>
@@ -607,6 +665,11 @@
 </button>
 
 <script>
+    // Apply saved theme state prior to render to avoid page flickering
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+
     // Dynamically Load Header Component & Execute Interactive Scripts
     fetch('components/header.html')
         .then(response => response.text())
@@ -642,20 +705,19 @@
             });
         }
 
-        // Dark / Light Mode Toggle
+        // Dark / Light Mode Toggle Button Handler
         const themeBtn = document.getElementById('themeToggleBtn');
         if (themeBtn) {
+            // Sync button icon with current state on load
+            const isDark = document.body.classList.contains('dark-mode');
+            themeBtn.textContent = isDark ? '☀️' : '🌙';
+
             themeBtn.addEventListener('click', () => {
                 document.body.classList.toggle('dark-mode');
-                const isDark = document.body.classList.contains('dark-mode');
-                themeBtn.textContent = isDark ? '☀️' : '🌙';
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                const darkActive = document.body.classList.contains('dark-mode');
+                themeBtn.textContent = darkActive ? '☀️' : '🌙';
+                localStorage.setItem('theme', darkActive ? 'dark' : 'light');
             });
-
-            if (localStorage.getItem('theme') === 'dark') {
-                document.body.classList.add('dark-mode');
-                themeBtn.textContent = '☀️';
-            }
         }
 
         // Search Toggle / Function
