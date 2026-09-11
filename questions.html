@@ -153,6 +153,7 @@
             font-size: 1rem;
             line-height: 1;
             display: inline-block;
+            transition: transform 0.2s ease;
         }
 
         .search-btn svg {
@@ -350,13 +351,29 @@
             transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
+        /* Section Dividers Styling */
+        .section-header {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.3rem;
+            border-bottom: 2px solid var(--primary);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
         .question-block {
             background-color: var(--card-inner);
-            border: 1px solid var(--border-color);
+            border: 2px solid var(--primary); /* Default unanswered green border */
             border-radius: 6px;
             padding: 1.25rem;
             margin-bottom: 1.5rem;
             transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .question-block.answered {
+            border: 1px solid var(--border-color); /* Reverts to default once answered */
         }
 
         .conditional-block {
@@ -591,7 +608,7 @@
                 
                 <!-- Theme Toggle Button -->
                 <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Mode">
-                    <span class="moon-emoji">🌙</span>
+                    <span class="moon-emoji" id="themeIcon">🌙</span>
                 </button>
 
                 <!-- Search Button -->
@@ -653,18 +670,20 @@
 
             <!-- General Information (Name & Dog Name Box) -->
             <div class="question-block">
-                <div class="question-title">Client & Dog Details <span class="required">*</span></div>
                 <div class="input-grid">
                     <div class="input-field-group">
-                        <label for="owner_name">Your Name <span class="required">*</span></label>
+                        <label for="owner_name"><strong>Your Name</strong> <span class="required">*</span></label>
                         <input type="text" id="owner_name" name="owner_name" placeholder="Enter your full name" required>
                     </div>
                     <div class="input-field-group">
-                        <label for="dog_name">Dog Name <span class="required">*</span></label>
+                        <label for="dog_name"><strong>Dog Name</strong> <span class="required">*</span></label>
                         <input type="text" id="dog_name" name="dog_name" placeholder="Enter your dog's name" required>
                     </div>
                 </div>
             </div>
+
+            <!-- SECTION 1 -->
+            <div class="section-header">Background</div>
 
             <!-- Q1 -->
             <div class="question-block">
@@ -694,6 +713,9 @@
                     <label class="option-label"><input type="radio" name="q2a_effectiveness" value="Not effective and/or had concerns about the experience"> Not effective and/or had concerns about the experience</label>
                 </div>
             </div>
+
+            <!-- SECTION 2 -->
+            <div class="section-header">Behavior</div>
 
             <!-- Q3 -->
             <div class="question-block">
@@ -728,13 +750,16 @@
                 </div>
             </div>
 
-            <!-- Q4A (Formerly Q4B, Conditional) -->
+            <!-- Q4A (Conditional) -->
             <div class="question-block conditional-block" id="q4a_container">
                 <div class="question-title">4A. Did any incident result in known injury or property damage? <span class="required">*</span></div>
                 <textarea id="q4a_input" name="q4a_injury_details" placeholder="Please describe any injuries or property damage caused by an incident..."></textarea>
             </div>
 
-            <!-- Q5 (Redesigned Health Question with 2 Columns) -->
+            <!-- SECTION 3 -->
+            <div class="section-header">Environment</div>
+
+            <!-- Q5 -->
             <div class="question-block">
                 <div class="question-title">5. Does your dog have any health conditions, allergies, medication, or physical limitations? <span class="required">*</span></div>
                 <div class="options-grid two-column-grid">
@@ -766,7 +791,7 @@
 
             <!-- Q7 -->
             <div class="question-block">
-                <div class="question-title">7. Are there children or other regular household members who interact with your dog? <span class="optional">(Select all that apply)</span></div>
+                <div class="question-title">7. Are there children or other regular household members who interact with your dog? <span class="optional">(Select all that apply)</span> <span class="required">*</span></div>
                 <div class="options-group">
                     <label class="option-label"><input type="checkbox" name="q7_household[]" value="Children"> Children</label>
                     <label class="option-label"><input type="checkbox" name="q7_household[]" value="Adults"> Adults</label>
@@ -814,7 +839,10 @@
                 </div>
             </div>
 
-            <!-- Q12 (Formerly Q13) -->
+            <!-- SECTION 4 -->
+            <div class="section-header">Goals</div>
+
+            <!-- Q12 -->
             <div class="question-block">
                 <div class="question-title">12. What motivates your dog? <span class="optional">(Optional: Select all that apply)</span></div>
                 <div class="options-grid">
@@ -829,7 +857,7 @@
                 </div>
             </div>
 
-            <!-- Q13 (Formerly Q14) -->
+            <!-- Q13 -->
             <div class="question-block">
                 <div class="question-title">13. Does your dog have any known triggers or situations that may cause fear, stress, reactivity, or aggression? <span class="optional">(Optional: Select all that apply)</span></div>
                 <div class="options-grid">
@@ -850,7 +878,7 @@
                 </div>
             </div>
 
-            <!-- Q14 (Formerly Q15) -->
+            <!-- Q14 -->
             <div class="question-block">
                 <div class="question-title">14. Training Requested <span class="optional">(Select all that apply)</span> <span class="required">*</span></div>
                 <div class="options-grid">
@@ -917,14 +945,17 @@
             dropdownMenu.classList.remove('show');
         });
 
-        // Theme Mode Toggle Handler
+        // Theme Mode Toggle Handler with Dynamic Sun/Moon Emoji Toggle
         const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
 
         const setTheme = (isDark) => {
             if (isDark) {
                 document.body.classList.add('dark-mode');
+                themeIcon.textContent = '🌙';
             } else {
                 document.body.classList.remove('dark-mode');
+                themeIcon.textContent = '☀️';
             }
         };
 
@@ -941,8 +972,49 @@
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         });
 
-        // Dynamic Conditional Logic Handlers
+        // Interactive Logic Helpers (Borders, Auto-Scroll, Conditionals)
         document.addEventListener('DOMContentLoaded', () => {
+            const questionBlocks = document.querySelectorAll('.question-block');
+
+            // Helper to check if a block is answered
+            const checkBlockAnswered = (block) => {
+                const inputs = block.querySelectorAll('input[type="text"], textarea');
+                for (let input of inputs) {
+                    if (input.value.trim() !== '') return true;
+                }
+                const radiosOrCheckboxes = block.querySelectorAll('input[type="radio"], input[type="checkbox"]');
+                for (let rc of radiosOrCheckboxes) {
+                    if (rc.checked) return true;
+                }
+                return false;
+            };
+
+            // Update border states for all blocks
+            const updateBorders = () => {
+                questionBlocks.forEach(block => {
+                    if (block.style.display !== 'none') {
+                        if (checkBlockAnswered(block)) {
+                            block.classList.add('answered');
+                        } else {
+                            block.classList.remove('answered');
+                        }
+                    }
+                });
+            };
+
+            // Auto scroll to next unanswered question block
+            const scrollToNextUnanswered = (currentBlock) => {
+                const visibleBlocks = Array.from(questionBlocks).filter(b => b.style.display !== 'none');
+                const currentIndex = visibleBlocks.indexOf(currentBlock);
+                for (let i = currentIndex + 1; i < visibleBlocks.length; i++) {
+                    const block = visibleBlocks[i];
+                    if (!checkBlockAnswered(block)) {
+                        block.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        break;
+                    }
+                }
+            };
+
             // Q2 -> Q2A Dynamic Visibility
             const q2Radios = document.querySelectorAll('input[name="q2_trainer_before"]');
             const q2aContainer = document.getElementById('q2a_container');
@@ -956,27 +1028,40 @@
                         const checkedQ2a = q2aContainer.querySelector('input[type="radio"]:checked');
                         if (checkedQ2a) checkedQ2a.checked = false;
                     }
+                    updateBorders();
+                    scrollToNextUnanswered(radio.closest('.question-block'));
                 });
             });
 
-            // Q4 -> Q4A Dynamic Visibility
+            // Q4 -> Q4A Dynamic Visibility & "None" exclusivity logic
             const q4Checkboxes = document.querySelectorAll('input[name="q4_aggression[]"]');
             const q4aContainer = document.getElementById('q4a_container');
             const q4aInput = document.getElementById('q4a_input');
+            const noneCheckbox = Array.from(q4Checkboxes).find(cb => cb.value === 'None');
 
-            const toggleQ4A = () => {
-                const anyChecked = Array.from(q4Checkboxes).some(cb => cb.checked);
-                if (anyChecked) {
-                    q4aContainer.style.display = 'block';
-                    q4aInput.setAttribute('required', 'required');
-                } else {
-                    q4aContainer.style.display = 'none';
-                    q4aInput.removeAttribute('required');
-                    q4aInput.value = '';
-                }
-            };
+            q4Checkboxes.forEach(cb => {
+                cb.addEventListener('change', (e) => {
+                    if (e.target === noneCheckbox && e.target.checked) {
+                        q4Checkboxes.forEach(other => {
+                            if (other !== noneCheckbox) other.checked = false;
+                        });
+                    } else if (e.target.checked && noneCheckbox) {
+                        noneCheckbox.checked = false;
+                    }
 
-            q4Checkboxes.forEach(cb => cb.addEventListener('change', toggleQ4A));
+                    const anyNonNoneChecked = Array.from(q4Checkboxes).some(c => c !== noneCheckbox && c.checked);
+                    if (anyNonNoneChecked) {
+                        q4aContainer.style.display = 'block';
+                        q4aInput.setAttribute('required', 'required');
+                    } else {
+                        q4aContainer.style.display = 'none';
+                        q4aInput.removeAttribute('required');
+                        q4aInput.value = '';
+                    }
+                    updateBorders();
+                    scrollToNextUnanswered(cb.closest('.question-block'));
+                });
+            });
 
             // Q5 -> Q5 Details Dynamic Visibility
             const q5Radios = document.querySelectorAll('input[name="q5_health"]');
@@ -993,8 +1078,24 @@
                         q5DetailsInput.removeAttribute('required');
                         q5DetailsInput.value = '';
                     }
+                    updateBorders();
+                    scrollToNextUnanswered(radio.closest('.question-block'));
                 });
             });
+
+            // Global listener for automatic border updates and auto-scroll on inputs/changes
+            questionBlocks.forEach(block => {
+                block.addEventListener('change', (e) => {
+                    updateBorders();
+                    scrollToNextUnanswered(block);
+                });
+                block.addEventListener('input', (e) => {
+                    updateBorders();
+                });
+            });
+
+            // Initial border state setup
+            updateBorders();
         });
 
         // Search Modal Handlers
