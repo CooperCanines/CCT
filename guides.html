@@ -486,77 +486,59 @@
             </div>
         </section>
 
-        <section id="contact" style="margin-top: 3rem; text-align: center;" aria-labelledby="contact-heading">
-            <h2 id="contact-heading">Ready to Begin?</h2>
-            <p>Reach out to schedule your initial consultation or get started below.</p>
-            
-            <p style="text-align: center; margin: 1rem auto;">
-                <strong>Email:</strong> 
-                <a href="mailto:Dan@coopercanines.com" style="color: var(--primary); text-decoration: underline;">
-                    Dan@coopercanines.com
-                </a> 
-                | 
-                <strong>Phone:</strong> 
-                <a href="tel:8564331259" style="color: var(--primary); text-decoration: underline;">
-                    (856) 433-1259
-                </a>
-            </p>
+        <section id="contact" style="margin-top: 3rem; text-align: center; display: block !important; visibility: visible !important;" aria-labelledby="contact-heading">
+    <h2 id="contact-heading">Ready to Begin?</h2>
+    <p>Reach out to schedule your initial consultation or get started below.</p>
+    
+    <p style="text-align: center; margin: 1rem auto;">
+        <strong>Email:</strong> 
+        <a href="mailto:Dan@coopercanines.com" style="color: #006060; text-decoration: underline;">Dan@coopercanines.com</a> 
+        | 
+        <strong>Phone:</strong> 
+        <a href="tel:8564331259" style="color: #006060; text-decoration: underline;">(856) 433-1259</a>
+    </p>
 
-            <div class="contact-buttons">
-                <a href="/start.html" target="_blank" rel="noopener" class="action-box">
-                    New Client
-                </a>
-                <a href="/portal.html" target="_blank" rel="noopener" class="action-box">
-                    Returning Client
-                </a>
+    <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 2rem;">
+        <a href="/start.html" target="_blank" rel="noopener" style="display: block; background-color: #006060; color: white; padding: 1.2rem 2rem; border-radius: 8px; font-weight: bold; text-decoration: none; min-width: 200px;">New Client</a>
+        <a href="/portal.html" target="_blank" rel="noopener" style="display: block; background-color: #006060; color: white; padding: 1.2rem 2rem; border-radius: 8px; font-weight: bold; text-decoration: none; min-width: 200px;">Returning Client</a>
+    </div>
+
+    <!-- FORCE VISIBLE QUESTION BOX -->
+    <div style="background: #ffffff; border: 2px solid #006060; border-radius: 8px; padding: 2rem; max-width: 600px; margin: 2.5rem auto 0 auto; text-align: left; display: block !important; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <h3 style="color: #006060; margin-top: 0; text-align: center; font-size: 1.5rem;">Ask Us a Question</h3>
+        <p style="text-align: center; font-size: 0.9rem; color: #666; margin-bottom: 1.5rem;">Have a quick question? Send us a message and we'll get right back to you!</p>
+        
+        <form id="questionForm" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="91cbff36-1cd3-4394-b34c-c23da94441eb">
+            <input type="hidden" name="subject" id="emailSubject" value="Question">
+            <input type="hidden" name="from_name" value="Cooper Canines Web Inquiry">
+
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; font-weight: bold; margin-bottom: 0.3rem;">Name *</label>
+                <input type="text" id="userName" name="name" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;" required>
             </div>
 
-            <!-- Ask Us A Question Card Block -->
-            <div class="question-card">
-                <h3>Ask Us a Question</h3>
-                <p class="subtitle">Have a quick question? Send us a message and we'll get right back to you!</p>
-                
-                <form id="questionForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
-                    <!-- Web3Forms Config Inputs -->
-                    <input type="hidden" name="access_key" value="91cbff36-1cd3-4394-b34c-c23da94441eb">
-                    <input type="hidden" name="subject" id="emailSubject" value="Question">
-                    <input type="hidden" name="from_name" value="Cooper Canines Web Inquiry">
-                    <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
-
-                    <!-- Name Field -->
-                    <div class="form-group">
-                        <label for="userName">Name <span class="req-star">*</span></label>
-                        <input type="text" id="userName" name="name" class="form-control" placeholder="Your Full Name" required>
-                    </div>
-
-                    <!-- Email Field -->
-                    <div class="form-group">
-                        <label for="userEmail">Email Address</label>
-                        <input type="email" id="userEmail" name="email" class="form-control" placeholder="name@example.com">
-                    </div>
-
-                    <!-- Phone Field -->
-                    <div class="form-group">
-                        <label for="userPhone">Phone Number</label>
-                        <input type="tel" id="userPhone" name="phone" class="form-control" placeholder="(856) 555-0123" pattern="^(\+?1[-.\s]?)?\(?[0-9]{3}\)?[-.\s]?[0-9]{3}[-.\s]?[0-9]{4}$">
-                    </div>
-
-                    <div id="contactMethodHint" class="contact-method-hint">
-                        * Please provide either an email address or a phone number so we can respond.
-                    </div>
-
-                    <!-- Message Box (300 Char Limit) -->
-                    <div class="form-group" style="margin-top: 1.25rem;">
-                        <label for="userMessage">Question <span class="req-star">*</span></label>
-                        <textarea id="userMessage" name="message" class="form-control" maxlength="300" placeholder="Type your question here..." required></textarea>
-                        <div class="char-counter"><span id="charCount">0</span>/300 characters</div>
-                    </div>
-
-                    <button type="submit" class="btn-submit" id="submitBtn">Submit Question</button>
-                    <div id="form-status"></div>
-                </form>
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; font-weight: bold; margin-bottom: 0.3rem;">Email Address</label>
+                <input type="email" id="userEmail" name="email" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
             </div>
-        </section>
+
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; font-weight: bold; margin-bottom: 0.3rem;">Phone Number</label>
+                <input type="tel" id="userPhone" name="phone" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+            </div>
+
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; font-weight: bold; margin-bottom: 0.3rem;">Question *</label>
+                <textarea id="userMessage" name="message" maxlength="300" style="width: 100%; height: 100px; padding: 0.75rem; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;" required></textarea>
+                <div style="text-align: right; font-size: 0.8rem; color: #777;"><span id="charCount">0</span>/300 characters</div>
+            </div>
+
+            <button type="submit" id="submitBtn" style="width: 100%; background-color: #006060; color: white; border: none; padding: 0.85rem; font-size: 1rem; font-weight: bold; border-radius: 5px; cursor: pointer;">Submit Question</button>
+            <div id="form-status" style="display:none; padding: 1rem; margin-top: 1rem; text-align: center; border-radius: 5px;"></div>
+        </form>
+    </div>
+</section>
     </div>
 </main>
 
