@@ -10,6 +10,9 @@
 
     <style>
         :root {
+            /* Per-Page Header Color */
+            --header-bg-color: #2c3e50; 
+
             --primary-orange: #e67e22;
             --primary-orange-hover: #d35400;
             --forest-green: #00793c;
@@ -26,10 +29,17 @@
             color: var(--text-dark);
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             min-height: 100vh;
             position: relative;
+        }
+
+        /* Container for injected header.html */
+        #header-placeholder {
+            width: 100%;
+            position: relative;
+            z-index: 20; /* Keeps header controls active above game layers */
         }
 
         /* Background Canvas Layer for Falling Treats */
@@ -229,6 +239,9 @@
 </head>
 <body>
 
+    <!-- Dynamic Header Component Placeholder -->
+    <div id="header-placeholder"></div>
+
     <!-- Background Canvas Layer for Falling Treats -->
     <canvas id="treat-canvas"></canvas>
 
@@ -262,7 +275,10 @@
         </div>
     </div>
 
-    <!-- JavaScript Logic -->
+    <!-- Loads Header Component Logic -->
+    <script src="components/header.js"></script>
+
+    <!-- Page Specific Interactive Game Script -->
     <script>
         // ----------------------------------------------------
         // 1. Background Canvas Treats Effect
