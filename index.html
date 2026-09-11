@@ -282,8 +282,8 @@
 
         .action-box {
             display: block;
-            background-color: var(--primary);
-            color: white;
+            background-color: #006060 !important;
+            color: #ffffff !important;
             text-decoration: none;
             padding: 1.2rem 2rem;
             border-radius: 8px;
@@ -567,125 +567,79 @@
     ▲ To Top
 </button>
 
-<script>
-    // Dynamically Load Header Component
-    fetch('components/header.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('header-placeholder').innerHTML = data;
-            
-            // Attach Service Area Modal trigger to dynamic header dropdown item
-            const serviceAreaBtn = document.getElementById('serviceAreaBtn');
-            const dropdownMenu = document.getElementById('dropdownMenu');
-            if (serviceAreaBtn) {
-                serviceAreaBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    if (dropdownMenu) dropdownMenu.classList.remove('show');
-                    serviceModal.classList.add('show');
-                    loadServiceAreaWeather();
-                });
+// Dynamically Load Header Component & Initialize Interactive Features
+fetch('components/header.html')
+    .then(response => response.text())
+    .then(data => {
+        const headerPlaceholder = document.getElementById('header-placeholder');
+        headerPlaceholder.innerHTML = data;
+
+        // Re-execute scripts embedded inside header.html (if any exist)
+        const scripts = headerPlaceholder.querySelectorAll('script');
+        scripts.forEach(script => {
+            const newScript = document.createElement('script');
+            if (script.src) {
+                newScript.src = script.src;
+            } else {
+                newScript.textContent = script.textContent;
             }
-        })
-        .catch(error => console.error('Error fetching header component:', error));
+            document.body.appendChild(newScript);
+        });
 
-    // Fade out section overlay on page load
-    window.addEventListener('DOMContentLoaded', () => {
-        const heroOverlay = document.getElementById('hero-splash-overlay');
-        setTimeout(() => {
-            heroOverlay.classList.add('fade-out');
-        }, 1500);
-    });
+        // Initialize Header Event Listeners
+        initHeaderInteractions();
+    })
+    .catch(error => console.error('Error fetching header component:', error));
 
-    const scrollTopBtn = document.getElementById('scrollTopBtn');
-    const footer = document.getElementById('mainFooter');
-    const getStartedBtn = document.getElementById('getStartedBtn');
-    const actionBoxes = document.querySelectorAll('.action-box');
-
-    // Service Area Modal Logic
-    const serviceModal = document.getElementById('serviceModal');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-
-    closeModalBtn.addEventListener('click', () => {
-        serviceModal.classList.remove('show');
-    });
-
-    serviceModal.addEventListener('click', (e) => {
-        if (e.target === serviceModal) {
-            serviceModal.classList.remove('show');
-        }
-    });
-
-    // Helper to translate weather codes
-    function getWeatherDescription(code) {
-        if (code === 0) return '☀️ Clear sky';
-        if (code >= 1 && code <= 3) return '⛅ Partly cloudy';
-        if (code >= 45 && code <= 48) return '🌫️ Foggy';
-        if (code >= 51 && code <= 67) return '🌧️ Rain showers';
-        if (code >= 71 && code <= 77) return '🌨️ Snow';
-        if (code >= 95) return '⛈️ Thunderstorm';
-        return '🌤️ Fair conditions';
+function initHeaderInteractions() {
+    // Mobile Menu Toggle
+    const menuBtn = document.getElementById('menuBtn') || document.querySelector('.mobile-menu-btn');
+    const navMenu = document.getElementById('navMenu') || document.querySelector('.nav-links');
+    if (menuBtn && navMenu) {
+        menuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            navMenu.classList.toggle('show');
+        });
     }
 
-    // Fetch user location and weather forecast dynamically
-    let weatherLoaded = false;
-    async function loadServiceAreaWeather() {
-        if (weatherLoaded) return;
-        
-        let lat = 39.89;   
-        let lon = -75.07;
-        let locationName = "South Jersey (Default Region)";
+    // Dark / Light Mode Toggle
+    const themeBtn = document.getElementById('themeToggleBtn');
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            themeBtn.textContent = isDark ? '☀️' : '🌙';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
 
-        try {
-            const ipResponse = await fetch('https://ipapi.co/json/');
-            const ipData = await ipResponse.json();
-            
-            if (ipData && ipData.latitude && ipData.longitude) {
-                lat = ipData.latitude;
-                lon = ipData.longitude;
-                locationName = `${ipData.city}, ${ipData.region}`;
-            }
-        } catch (err) {
-            console.log("IP geolocation lookup failed, using default South Jersey coordinates.");
-        }
-
-        document.getElementById('locationNote').innerText = `📍 Forecast for: ${locationName}`;
-
-        try {
-            const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=auto`);
-            const weatherData = await weatherResponse.json();
-            
-            const times = weatherData.daily.time;
-            const maxTemps = weatherData.daily.temperature_2m_max;
-            const minTemps = weatherData.daily.temperature_2m_min;
-            const weatherCodes = weatherData.daily.weather_code;
-
-            let htmlContent = '';
-
-            for (let i = 0; i < times.length; i++) {
-                const dateObj = new Date(times[i] + 'T00:00:00');
-                const options = { weekday: 'short', month: 'short', day: 'numeric' };
-                const formattedDate = dateObj.toLocaleDateString('en-US', options);
-
-                const conditionText = getWeatherDescription(weatherCodes[i]);
-                const maxT = Math.round(maxTemps[i]);
-                const minT = Math.round(minTemps[i]);
-
-                htmlContent += `
-                    <div class="forecast-row">
-                        <span><strong>${formattedDate}</strong> (${conditionText})</span>
-                        <span>High: <strong>${maxT}°F</strong> | Low: ${minT}°F</span>
-                    </div>
-                `;
-            }
-
-            document.getElementById('forecastDisplay').innerHTML = htmlContent;
-            weatherLoaded = true;
-        } catch (error) {
-            console.error("Could not load 7-day forecast", error);
-            document.getElementById('forecastDisplay').innerHTML = "Forecast currently unavailable.";
+        // Load saved theme preference
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeBtn.textContent = '☀️';
         }
     }
 
+    // Search Toggle / Function
+    const searchBtn = document.getElementById('searchBtn');
+    const searchModal = document.getElementById('searchModal');
+    if (searchBtn && searchModal) {
+        searchBtn.addEventListener('click', () => {
+            searchModal.classList.toggle('active');
+            searchModal.classList.toggle('show');
+        });
+    }
+
+    // Service Area Modal trigger
+    const serviceAreaBtn = document.getElementById('serviceAreaBtn');
+    if (serviceAreaBtn) {
+        serviceAreaBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const serviceModal = document.getElementById('serviceModal');
+            if (serviceModal) serviceModal.classList.add('show');
+            if (typeof loadServiceAreaWeather === 'function') loadServiceAreaWeather();
+        });
+    }
+}
     // Trigger orange fade pulse when "Get Started Today" is clicked
     getStartedBtn.addEventListener('click', () => {
         actionBoxes.forEach(box => {
