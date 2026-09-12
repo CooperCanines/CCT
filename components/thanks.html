@@ -23,7 +23,10 @@
             min-height: 100vh;
             font-family: 'Segoe UI', Arial, sans-serif;
             color: var(--text-light);
-            background-color: var(--bg-dark);
+            /* Full-screen background image styling with a dark overlay for readability */
+            background: linear-gradient(rgba(18, 24, 27, 0.75), rgba(18, 24, 27, 0.75)), 
+                        url('images/thankyoubackground.jpg') no-repeat center center fixed;
+            background-size: cover;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -37,7 +40,7 @@
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 2rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
             text-align: center;
             box-sizing: border-box;
         }
@@ -158,10 +161,10 @@
         <p>Thank you for submitting your client intake details.</p>
 
         <div class="actions">
-            <!-- Return to Main Website is now on top and styled primary (green) -->
+            <!-- Return to Main Website (Primary Green) -->
             <a href="https://coopercanines.com" class="btn btn-primary">&larr; Return to Main Website</a>
 
-            <!-- Optional consultation block is now below and styled secondary -->
+            <!-- Optional consultation block -->
             <div>
                 <a href="/questions" class="btn btn-secondary">
                     Optional: Fill Out Consultation Questions &rarr;
