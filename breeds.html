@@ -695,6 +695,15 @@
             }
         }
 
+        // Specific Wikipedia overrides for ambiguous breed names
+        const wikiOverrides = {
+            "Newfoundland": {
+                url: "https://en.wikipedia.org/wiki/Newfoundland_dog",
+                query: "Newfoundland dog"
+            }
+            // Add other overrides here if needed in the future
+        };
+
         // Fetch Breeds from JSON and build cards grouped alphabetically with multi-tier wiki search & redirects
         async function loadBreedDirectory() {
             const grid = document.getElementById('breedsGrid');
@@ -732,49 +741,77 @@
                     let imageUrl = 'images/l-paw.png';
 
                     if (breed !== "Unknown" && breed !== "Mixed Breed") {
-                        try {
-                            const queriesToTry = [
-                                breed,
-                                breed + " dog",
-                                breed + " (dog)",
-                                breed + " (dog breed)"
-                            ];
-
-                            for (const q of queriesToTry) {
-                                const apiEndpoint = `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages|info|imageinfo&pithumbsize=300&inprop=url&iiprop=extmetadata|url&redirects=1&titles=${encodeURIComponent(q)}&format=json&origin=*`;
+                        if (wikiOverrides[breed]) {
+                            wikiUrl = wikiOverrides[breed].url;
+                            try {
+                                const apiEndpoint = `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages|info|imageinfo&pithumbsize=300&inprop=url&iiprop=extmetadata|url&titles=${encodeURIComponent(wikiOverrides[breed].query)}&format=json&origin=*`;
                                 const response = await fetch(apiEndpoint);
                                 const wikiData = await response.json();
-                                
                                 const pages = wikiData.query && wikiData.query.pages;
                                 if (pages) {
                                     const pageId = Object.keys(pages)[0];
-                                    if (pageId !== "-1") {
-                                        const pageData = pages[pageId];
-                                        
-                                        if (pageData.fullurl) {
-                                            wikiUrl = pageData.fullurl;
-                                        }
-
-                                        if (pageData.thumbnail && pageData.thumbnail.source) {
-                                            const thumbSource = pageData.thumbnail.source;
-                                            let isSafeImage = true;
-                                            if (pageData.imageinfo && pageData.imageinfo.length > 0) {
-                                                const metadata = pageData.imageinfo[0].extmetadata;
-                                                if (metadata && metadata.UsageTerms) {
-                                                    isSafeImage = isLicenseAllowed(metadata.UsageTerms.value);
-                                                }
-                                            }
-
-                                            if (isSafeImage) {
-                                                imageUrl = thumbSource;
+                                    if (pageId !== "-1" && pages[pageId].thumbnail && pages[pageId].thumbnail.source) {
+                                        const thumbSource = pages[pageId].thumbnail.source;
+                                        let isSafeImage = true;
+                                        if (pages[pageId].imageinfo && pages[pageId].imageinfo.length > 0) {
+                                            const metadata = pages[pageId].imageinfo[0].extmetadata;
+                                            if (metadata && metadata.UsageTerms) {
+                                                isSafeImage = isLicenseAllowed(metadata.UsageTerms.value);
                                             }
                                         }
-                                        break; 
+                                        if (isSafeImage) {
+                                            imageUrl = thumbSource;
+                                        }
                                     }
                                 }
+                            } catch (err) {
+                                console.warn(`Could not fetch wiki data for override ${breed}:`, err);
                             }
-                        } catch (err) {
-                            console.warn(`Could not fetch wiki data for ${breed}:`, err);
+                        } else {
+                            try {
+                                const queriesToTry = [
+                                    breed,
+                                    breed + " dog",
+                                    breed + " (dog)",
+                                    breed + " (dog breed)"
+                                ];
+
+                                for (const q of queriesToTry) {
+                                    const apiEndpoint = `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages|info|imageinfo&pithumbsize=300&inprop=url&iiprop=extmetadata|url&redirects=1&titles=${encodeURIComponent(q)}&format=json&origin=*`;
+                                    const response = await fetch(apiEndpoint);
+                                    const wikiData = await response.json();
+                                    
+                                    const pages = wikiData.query && wikiData.query.pages;
+                                    if (pages) {
+                                        const pageId = Object.keys(pages)[0];
+                                        if (pageId !== "-1") {
+                                            const pageData = pages[pageId];
+                                            
+                                            if (pageData.fullurl) {
+                                                wikiUrl = pageData.fullurl;
+                                            }
+
+                                            if (pageData.thumbnail && pageData.thumbnail.source) {
+                                                const thumbSource = pageData.thumbnail.source;
+                                                let isSafeImage = true;
+                                                if (pageData.imageinfo && pageData.imageinfo.length > 0) {
+                                                    const metadata = pageData.imageinfo[0].extmetadata;
+                                                    if (metadata && metadata.UsageTerms) {
+                                                        isSafeImage = isLicenseAllowed(metadata.UsageTerms.value);
+                                                    }
+                                                }
+
+                                                if (isSafeImage) {
+                                                    imageUrl = thumbSource;
+                                                }
+                                            }
+                                            break; 
+                                        }
+                                    }
+                                }
+                            } catch (err) {
+                                console.warn(`Could not fetch wiki data for ${breed}:`, err);
+                            }
                         }
 
                         // Pacing delay to prevent Wikipedia API rate-limiting / blocking
