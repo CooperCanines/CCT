@@ -671,7 +671,7 @@
 
             <!-- Blocking Behavior Question -->
             <div class="form-group">
-                <label>Is your dog up to date on their rabies vaccination and currently free of contagious diseases or parasites<span class="required">*</span></label>
+                <label>Is your dog up to date on their Rabies vaccination and currently free of contagious diseases or parasites<span class="required">*</span></label>
                 <select id="rabiesVaccine" name="rabies" onchange="checkRabiesVaccine()" required>
                     <option value="">-- Select Answer --</option>
                     <option value="No">No</option>
@@ -682,14 +682,8 @@
 
             <!-- Vet Information -->
             <div class="form-group">
-                <label>Vet Clinic: <span class="required">*</span></label>
+                <label>Vet Clinic Name: <span class="required">*</span></label>
                 <input type="text" name="vet_clinic" required>
-            </div>
-            <div class="form-group">
-                <label>Vet Phone Number (Optional):</label>
-                <input type="tel" id="vetPhone" name="vet_phone" 
-                       placeholder="555-555-5555" oninput="validatePhone(this, 'vetPhoneErr')">
-                <span id="vetPhoneErr" class="error">Please enter a valid 10-digit phone number formatted as 123-456-7890.</span>
             </div>
 
             <!-- Media & Checkbox -->
@@ -1020,18 +1014,12 @@
 
             const primaryPhone = document.getElementById('primaryPhone');
             const secondaryPhone = document.getElementById('secondaryPhone');
-            const vetPhone = document.getElementById('vetPhone');
 
             let isValid = validatePhone(primaryPhone, 'primaryPhoneErr');
 
             if (ownershipType.selectedIndex !== 0 && !separateSignCheck.checked) {
                 const secValid = validatePhone(secondaryPhone, 'secondaryPhoneErr');
                 if (!secValid) isValid = false;
-            }
-
-            if (vetPhone.value.trim() !== "") {
-                const vetValid = validatePhone(vetPhone, 'vetPhoneErr');
-                if (!vetValid) isValid = false;
             }
 
             if (!isValid) {
