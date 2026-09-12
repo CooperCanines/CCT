@@ -28,6 +28,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            scroll-behavior: smooth;
         }
 
         body { 
@@ -335,11 +336,11 @@
         .gsc-control-cse { padding: 0 !important; border: none !important; background: transparent !important; }
 
         /* ==========================================================
-           DIRECTORY SEARCH & BREEDS GRID STYLES
+           DIRECTORY SEARCH, A-Z BAR & BETA NOTICE
            ========================================================== */
         .search-container {
             max-width: 500px;
-            margin: 0 auto 10px auto;
+            margin: 0 auto 8px auto;
         }
 
         .breed-search-input {
@@ -359,13 +360,50 @@
 
         .beta-notice {
             max-width: 500px;
-            margin: 0 auto 30px auto;
+            margin: 0 auto 15px auto;
             text-align: center;
             font-size: 0.85rem;
             color: var(--text-muted);
             font-style: italic;
         }
 
+        /* A-Z Jump Bar Styles */
+        .az-jump-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 4px;
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+            padding: 10px;
+            background: #f4f6f8;
+            border-radius: 8px;
+            border: 1px solid #e1e8ed;
+        }
+
+        .az-jump-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--header-bg-color);
+            background: #ffffff;
+            border: 1px solid #ccd6dd;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .az-jump-btn:hover {
+            background-color: var(--header-bg-color);
+            color: #ffffff;
+            border-color: var(--header-bg-color);
+        }
+
+        /* Alphabet Header Scroll Offset */
         .alphabet-section-header {
             grid-column: 1 / -1;
             font-size: 1.5rem;
@@ -375,6 +413,7 @@
             margin-bottom: 10px;
             border-bottom: 2px solid var(--header-bg-color);
             padding-bottom: 5px;
+            scroll-margin-top: 90px; /* Accounts for sticky header */
         }
 
         body.dark-mode .alphabet-section-header {
@@ -434,6 +473,46 @@
         }
 
         /* ==========================================================
+           FLOATING JUMP TO TOP BUTTON
+           ========================================================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: var(--header-bg-color);
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.2s ease, transform 0.2s ease;
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--active-tab-color);
+            transform: translateY(-3px);
+        }
+
+        .back-to-top svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* ==========================================================
            DARK MODE OVERRIDES
            ========================================================== */
         body.dark-mode {
@@ -448,6 +527,23 @@
         }
 
         body.dark-mode .breed-search-input:focus {
+            border-color: var(--primary);
+        }
+
+        body.dark-mode .az-jump-bar {
+            background-color: var(--card-bg);
+            border-color: var(--border-color);
+        }
+
+        body.dark-mode .az-jump-btn {
+            background-color: var(--card-inner);
+            color: var(--primary);
+            border-color: var(--border-color);
+        }
+
+        body.dark-mode .az-jump-btn:hover {
+            background-color: var(--primary);
+            color: var(--bg-dark);
             border-color: var(--primary);
         }
 
@@ -488,6 +584,11 @@
             color: var(--text-light);
         }
 
+        body.dark-mode .back-to-top {
+            background-color: var(--primary);
+            color: var(--bg-dark);
+        }
+
         @media (max-width: 850px) {
             .header-container { flex-wrap: wrap; padding: 0.5rem 1rem; }
             .header-logo-container { order: 1; }
@@ -511,7 +612,7 @@
 
     <!-- Header Section -->
     <header class="site-header">
-        <div class="header-container">
+        <div class="header-container" id="top">
             <div class="header-logo-container">
                 <a href="index.html">
                     <img src="images/cctwordingnophrase.png" alt="Cooper Canines Logo">
@@ -584,10 +685,22 @@
         </div>
         <div class="beta-notice">Note: This directory is currently in beta and will later contain more detailed information.</div>
 
+        <!-- A-Z Jump Bar -->
+        <div class="az-jump-bar" id="azJumpBar">
+            <!-- Dynamically populated or static A-Z buttons -->
+        </div>
+
         <div class="breeds-grid" id="breedsGrid">
             <!-- Dynamically populated breed cards -->
         </div>
     </div>
+
+    <!-- Floating Jump to Top Button -->
+    <button class="back-to-top" id="backToTopBtn" aria-label="Jump to top">
+        <svg viewBox="0 0 24 24">
+            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+        </svg>
+    </button>
 
     <script>
         // Dropdown Menu Toggle Handler
@@ -648,6 +761,20 @@
             if (e.target === searchModal) {
                 searchModal.classList.remove('active');
             }
+        });
+
+        // Scroll to Top Button Visibility Handler
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
         // Helper function to check if a license is open-content / safe to display
@@ -713,6 +840,7 @@
         // Fetch Breeds from JSON and build cards with batch-fetching to prevent rate limits
         async function loadBreedDirectory() {
             const grid = document.getElementById('breedsGrid');
+            const azJumpBar = document.getElementById('azJumpBar');
             const loadingOverlay = document.getElementById('loadingOverlay');
             
             grid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: var(--text-muted);">Loading breed directory from JSON...</p>';
@@ -723,10 +851,33 @@
                 const dogBreeds = data.breeds;
 
                 grid.innerHTML = '';
+                azJumpBar.innerHTML = '';
                 let currentLetter = '';
                 let sectionCount = 0;
+                const availableLetters = new Set();
 
-                // Step 1: Render structure skeleton immediately so users see cards/sections right away
+                // Step 1: Pre-collect available letters
+                dogBreeds.forEach(breed => {
+                    availableLetters.add(breed.charAt(0).toUpperCase());
+                });
+
+                // Populate A-Z Jump Bar buttons dynamically
+                for (let i = 65; i <= 90; i++) {
+                    const letter = String.fromCharCode(i);
+                    const azBtn = document.createElement('a');
+                    azBtn.className = 'az-jump-btn';
+                    azBtn.textContent = letter;
+                    
+                    if (availableLetters.has(letter)) {
+                        azBtn.href = `#section-${letter}`;
+                    } else {
+                        azBtn.style.opacity = '0.3';
+                        azBtn.style.pointerEvents = 'none';
+                    }
+                    azJumpBar.appendChild(azBtn);
+                }
+
+                // Step 2: Render structure skeleton immediately so users see cards/sections right away
                 const breedCardElements = {};
                 for (const breed of dogBreeds) {
                     const firstLetter = breed.charAt(0).toUpperCase();
@@ -740,6 +891,7 @@
                         
                         const letterHeading = document.createElement('div');
                         letterHeading.className = 'alphabet-section-header';
+                        letterHeading.id = `section-${currentLetter}`;
                         letterHeading.textContent = currentLetter;
                         grid.appendChild(letterHeading);
                     }
@@ -767,14 +919,12 @@
                     breedCardElements[breed] = card;
                 }
 
-                // Ensure loading overlay is dismissed if list is short
                 dismissLoadingOverlay(loadingOverlay);
 
-                // Step 2: Batch fetch images and correct links from Wikipedia to prevent rate-limit blocks
+                // Step 3: Batch fetch images and correct links from Wikipedia in the background
                 const batchSize = 30;
                 const standardBreeds = dogBreeds.filter(b => b !== "Unknown" && b !== "Mixed Breed" && !wikiOverrides[b]);
 
-                // Handle manual override first
                 for (const overrideBreed of Object.keys(wikiOverrides)) {
                     if (dogBreeds.includes(overrideBreed)) {
                         try {
@@ -808,12 +958,10 @@
                     }
                 }
 
-                // Process standard breeds in batches of 30 with a 350ms delay between batches
                 for (let i = 0; i < standardBreeds.length; i += batchSize) {
                     const batch = standardBreeds.slice(i, i + batchSize);
                     
                     try {
-                        // Query up to 30 titles simultaneously via Wikipedia batch parameter (|)
                         const titlesQuery = batch.join('|');
                         const apiEndpoint = `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages|info|imageinfo&pithumbsize=300&inprop=url&iiprop=extmetadata|url&redirects=1&titles=${encodeURIComponent(titlesQuery)}&format=json&origin=*`;
                         
@@ -822,7 +970,6 @@
                         const pages = wikiData.query && wikiData.query.pages;
 
                         if (pages) {
-                            // Map incoming redirect targets or page titles back to our original breed names
                             const normalizedMap = {};
                             if (wikiData.query.normalized) {
                                 wikiData.query.normalized.forEach(item => { normalizedMap[item.to] = item.from; });
@@ -839,7 +986,6 @@
                                     } else if (normalizedMap[pageData.title] && batch.includes(normalizedMap[pageData.title])) {
                                         matchedBreed = normalizedMap[pageData.title];
                                     } else {
-                                        // Fuzzy fallback check
                                         matchedBreed = batch.find(b => pageData.title.toLowerCase().includes(b.toLowerCase()));
                                     }
 
@@ -871,7 +1017,6 @@
                         console.warn('Batch fetch error:', err);
                     }
 
-                    // Extra delay between batches to respect Wikipedia API limits
                     await sleep(350);
                 }
 
