@@ -591,7 +591,7 @@
             });
         }
 
-        // Fetch Breeds from JSON and build cards asynchronously with smart wiki search
+        // Fetch Breeds from JSON and build cards asynchronously with multi-tier wiki search & redirects
         async function loadBreedDirectory() {
             const grid = document.getElementById('breedsGrid');
             grid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: var(--text-muted);">Loading breed directory from JSON...</p>';
@@ -609,42 +609,48 @@
 
                     if (breed !== "Unknown" && breed !== "Mixed Breed") {
                         try {
-                            // 1. Try querying Wikipedia with the exact breed name first
-                            let apiEndpoint = `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages|info|imageinfo&pithumbsize=300&inprop=url&iiprop=extmetadata|url&titles=${encodeURIComponent(breed)}&format=json&origin=*`;
-                            let response = await fetch(apiEndpoint);
-                            let wikiData = await response.json();
-                            
-                            let pages = wikiData.query && wikiData.query.pages;
-                            let pageId = pages ? Object.keys(pages)[0] : "-1";
+                            // Define list of query variations to try in order (including parentheses tags & redirects=1)
+                            const queriesToTry = [
+                                breed,
+                                breed + " dog",
+                                breed + " (dog)",
+                                breed + " (dog breed)"
+                            ];
 
-                            // 2. If the exact page doesn't exist (-1), try appending " dog" as a fallback
-                            if (pageId === "-1") {
-                                apiEndpoint = `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages|info|imageinfo&pithumbsize=300&inprop=url&iiprop=extmetadata|url&titles=${encodeURIComponent(breed + " dog")}&format=json&origin=*`;
-                                response = await fetch(apiEndpoint);
-                                wikiData = await response.json();
-                                pages = wikiData.query && wikiData.query.pages;
-                                pageId = pages ? Object.keys(pages)[0] : "-1";
-                            }
+                            let foundValidPage = false;
 
-                            if (pageId !== "-1") {
-                                const pageData = pages[pageId];
+                            for (const q of queriesToTry) {
+                                const apiEndpoint = `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages|info|imageinfo&pithumbsize=300&inprop=url&iiprop=extmetadata|url&redirects=1&titles=${encodeURIComponent(q)}&format=json&origin=*`;
+                                const response = await fetch(apiEndpoint);
+                                const wikiData = await response.json();
                                 
-                                if (pageData.fullurl) {
-                                    wikiUrl = pageData.fullurl;
-                                }
-
-                                if (pageData.thumbnail && pageData.thumbnail.source) {
-                                    const thumbSource = pageData.thumbnail.source;
-                                    let isSafeImage = true;
-                                    if (pageData.imageinfo && pageData.imageinfo.length > 0) {
-                                        const metadata = pageData.imageinfo[0].extmetadata;
-                                        if (metadata && metadata.UsageTerms) {
-                                            isSafeImage = isLicenseAllowed(metadata.UsageTerms.value);
+                                const pages = wikiData.query && wikiData.query.pages;
+                                if (pages) {
+                                    const pageId = Object.keys(pages)[0];
+                                    if (pageId !== "-1") {
+                                        const pageData = pages[pageId];
+                                        
+                                        if (pageData.fullurl) {
+                                            wikiUrl = pageData.fullurl;
                                         }
-                                    }
 
-                                    if (isSafeImage) {
-                                        imageUrl = thumbSource;
+                                        if (pageData.thumbnail && pageData.thumbnail.source) {
+                                            const thumbSource = pageData.thumbnail.source;
+                                            let isSafeImage = true;
+                                            if (pageData.imageinfo && pageData.imageinfo.length > 0) {
+                                                const metadata = pageData.imageinfo[0].extmetadata;
+                                                if (metadata && metadata.UsageTerms) {
+                                                    isSafeImage = isLicenseAllowed(metadata.UsageTerms.value);
+                                                }
+                                            }
+
+                                            if (isSafeImage) {
+                                                imageUrl = thumbSource;
+                                            }
+                                        }
+
+                                        foundValidPage = true;
+                                        break; // Successfully found page and checked images, break out of search variation loop
                                     }
                                 }
                             }
