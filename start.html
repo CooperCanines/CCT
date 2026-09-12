@@ -809,31 +809,20 @@
                     document.getElementById('waiverContent').innerHTML = '<p style="color:red;">Unable to load waiver content dynamically. Please ensure waiver.html is placed in the same folder.</p>';
                 });
 
-            // Fetch breeds dynamically from Dog API
-            fetch('https://dog.ceo/api/breeds/list/all')
+            // Fetch breeds dynamically from local components/breeds.json file
+            fetch('components/breeds.json')
                 .then(response => response.json())
                 .then(data => {
                     const breedList = document.getElementById('breedList');
-                    const breeds = data.message;
+                    const breeds = data.breeds;
 
-                    Object.keys(breeds).forEach(breed => {
-                        const mainBreed = breed.charAt(0).toUpperCase() + breed.slice(1);
-
-                        if (breeds[breed].length === 0) {
-                            const option = document.createElement('option');
-                            option.value = mainBreed;
-                            breedList.appendChild(option);
-                        } else {
-                            breeds[breed].forEach(sub => {
-                                const subBreed = sub.charAt(0).toUpperCase() + sub.slice(1);
-                                const option = document.createElement('option');
-                                option.value = `${subBreed} ${mainBreed}`;
-                                breedList.appendChild(option);
-                            });
-                        }
+                    breeds.forEach(breed => {
+                        const option = document.createElement('option');
+                        option.value = breed;
+                        breedList.appendChild(option);
                     });
                 })
-                .catch(err => console.error('Error loading dog breeds:', err));
+                .catch(err => console.error('Error loading dog breeds from JSON:', err));
         });
 
         // Real-Time Phone Validation
