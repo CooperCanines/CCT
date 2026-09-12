@@ -339,7 +339,7 @@
            ========================================================== */
         .search-container {
             max-width: 500px;
-            margin: 0 auto 30px auto;
+            margin: 0 auto 10px auto;
         }
 
         .breed-search-input {
@@ -355,6 +355,15 @@
         .breed-search-input:focus {
             border-color: var(--header-bg-color);
             box-shadow: 0 0 5px rgba(0, 145, 0, 0.3);
+        }
+
+        .beta-notice {
+            max-width: 500px;
+            margin: 0 auto 30px auto;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-style: italic;
         }
 
         .alphabet-section-header {
@@ -573,6 +582,7 @@
         <div class="search-container">
             <input type="text" id="breedSearchInput" class="breed-search-input" placeholder="Search breeds directory..." oninput="filterBreeds()">
         </div>
+        <div class="beta-notice">Note: This directory is currently in beta and will later contain more detailed information.</div>
 
         <div class="breeds-grid" id="breedsGrid">
             <!-- Dynamically populated breed cards -->
@@ -650,7 +660,7 @@
             return lower.includes('cc') || lower.includes('pd') || lower.includes('public domain') || lower.includes('gnu') || lower.includes('free');
         }
 
-        // Live Filter Function for Search Input (handles hiding/showing cards and empty section headers)
+        // Live Filter Function for Search Input
         function filterBreeds() {
             const query = document.getElementById('breedSearchInput').value.toLowerCase();
             const cards = document.querySelectorAll('.breed-card');
@@ -665,7 +675,6 @@
                 }
             });
 
-            // Hide alphabet headers if all cards under them are filtered out
             headers.forEach(header => {
                 let nextElem = header.nextElementSibling;
                 let hasVisibleCard = false;
@@ -680,12 +689,10 @@
             });
         }
 
-        // Helper function to add a tiny pacing delay between requests
         function sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
 
-        // Helper to remove loading overlay safely once triggered
         function dismissLoadingOverlay(loadingOverlay) {
             if (loadingOverlay && !loadingOverlay.classList.contains('fade-out')) {
                 loadingOverlay.classList.add('fade-out');
@@ -701,10 +708,9 @@
                 url: "https://en.wikipedia.org/wiki/Newfoundland_dog",
                 query: "Newfoundland dog"
             }
-            // Add other overrides here if needed in the future
         };
 
-        // Fetch Breeds from JSON and build cards grouped alphabetically with multi-tier wiki search & redirects
+        // Fetch Breeds from JSON and build cards with batch-fetching to prevent rate limits
         async function loadBreedDirectory() {
             const grid = document.getElementById('breedsGrid');
             const loadingOverlay = document.getElementById('loadingOverlay');
@@ -718,15 +724,16 @@
 
                 grid.innerHTML = '';
                 let currentLetter = '';
-                let sectionCount = 0; // Tracks how many alphabetical sections have appeared
+                let sectionCount = 0;
 
+                // Step 1: Render structure skeleton immediately so users see cards/sections right away
+                const breedCardElements = {};
                 for (const breed of dogBreeds) {
                     const firstLetter = breed.charAt(0).toUpperCase();
                     if (firstLetter !== currentLetter) {
                         currentLetter = firstLetter;
                         sectionCount++;
 
-                        // Dismiss loading overlay as soon as the 3rd section header is rendered
                         if (sectionCount === 3) {
                             dismissLoadingOverlay(loadingOverlay);
                         }
@@ -737,107 +744,141 @@
                         grid.appendChild(letterHeading);
                     }
 
+                    const card = document.createElement('a');
                     let wikiUrl = `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(breed)}`;
-                    let imageUrl = 'images/l-paw.png';
-
-                    if (breed !== "Unknown" && breed !== "Mixed Breed") {
-                        if (wikiOverrides[breed]) {
-                            wikiUrl = wikiOverrides[breed].url;
-                            try {
-                                const apiEndpoint = `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages|info|imageinfo&pithumbsize=300&inprop=url&iiprop=extmetadata|url&titles=${encodeURIComponent(wikiOverrides[breed].query)}&format=json&origin=*`;
-                                const response = await fetch(apiEndpoint);
-                                const wikiData = await response.json();
-                                const pages = wikiData.query && wikiData.query.pages;
-                                if (pages) {
-                                    const pageId = Object.keys(pages)[0];
-                                    if (pageId !== "-1" && pages[pageId].thumbnail && pages[pageId].thumbnail.source) {
-                                        const thumbSource = pages[pageId].thumbnail.source;
-                                        let isSafeImage = true;
-                                        if (pages[pageId].imageinfo && pages[pageId].imageinfo.length > 0) {
-                                            const metadata = pages[pageId].imageinfo[0].extmetadata;
-                                            if (metadata && metadata.UsageTerms) {
-                                                isSafeImage = isLicenseAllowed(metadata.UsageTerms.value);
-                                            }
-                                        }
-                                        if (isSafeImage) {
-                                            imageUrl = thumbSource;
-                                        }
-                                    }
-                                }
-                            } catch (err) {
-                                console.warn(`Could not fetch wiki data for override ${breed}:`, err);
-                            }
-                        } else {
-                            try {
-                                const queriesToTry = [
-                                    breed,
-                                    breed + " dog",
-                                    breed + " (dog)",
-                                    breed + " (dog breed)"
-                                ];
-
-                                for (const q of queriesToTry) {
-                                    const apiEndpoint = `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages|info|imageinfo&pithumbsize=300&inprop=url&iiprop=extmetadata|url&redirects=1&titles=${encodeURIComponent(q)}&format=json&origin=*`;
-                                    const response = await fetch(apiEndpoint);
-                                    const wikiData = await response.json();
-                                    
-                                    const pages = wikiData.query && wikiData.query.pages;
-                                    if (pages) {
-                                        const pageId = Object.keys(pages)[0];
-                                        if (pageId !== "-1") {
-                                            const pageData = pages[pageId];
-                                            
-                                            if (pageData.fullurl) {
-                                                wikiUrl = pageData.fullurl;
-                                            }
-
-                                            if (pageData.thumbnail && pageData.thumbnail.source) {
-                                                const thumbSource = pageData.thumbnail.source;
-                                                let isSafeImage = true;
-                                                if (pageData.imageinfo && pageData.imageinfo.length > 0) {
-                                                    const metadata = pageData.imageinfo[0].extmetadata;
-                                                    if (metadata && metadata.UsageTerms) {
-                                                        isSafeImage = isLicenseAllowed(metadata.UsageTerms.value);
-                                                    }
-                                                }
-
-                                                if (isSafeImage) {
-                                                    imageUrl = thumbSource;
-                                                }
-                                            }
-                                            break; 
-                                        }
-                                    }
-                                }
-                            } catch (err) {
-                                console.warn(`Could not fetch wiki data for ${breed}:`, err);
-                            }
-                        }
-
-                        // Pacing delay to prevent Wikipedia API rate-limiting / blocking
-                        await sleep(100);
+                    if (wikiOverrides[breed]) {
+                        wikiUrl = wikiOverrides[breed].url;
                     }
 
-                    const card = document.createElement('a');
                     card.href = wikiUrl;
                     card.target = '_blank';
                     card.rel = 'noopener noreferrer';
                     card.className = 'breed-card';
+                    card.dataset.breed = breed;
 
                     card.innerHTML = `
                         <div class="breed-img-container">
-                            <img src="${imageUrl}" alt="${breed}" onerror="this.src='images/l-paw.png';">
+                            <img src="images/l-paw.png" alt="${breed}" id="img-${CSS.escape(breed)}" onerror="this.src='images/l-paw.png';">
                         </div>
                         <div class="breed-name">${breed}</div>
                     `;
 
                     grid.appendChild(card);
+                    breedCardElements[breed] = card;
                 }
+
+                // Ensure loading overlay is dismissed if list is short
+                dismissLoadingOverlay(loadingOverlay);
+
+                // Step 2: Batch fetch images and correct links from Wikipedia to prevent rate-limit blocks
+                const batchSize = 30;
+                const standardBreeds = dogBreeds.filter(b => b !== "Unknown" && b !== "Mixed Breed" && !wikiOverrides[b]);
+
+                // Handle manual override first
+                for (const overrideBreed of Object.keys(wikiOverrides)) {
+                    if (dogBreeds.includes(overrideBreed)) {
+                        try {
+                            const q = wikiOverrides[overrideBreed].query;
+                            const apiEndpoint = `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages|info|imageinfo&pithumbsize=300&inprop=url&iiprop=extmetadata|url&titles=${encodeURIComponent(q)}&format=json&origin=*`;
+                            const response = await fetch(apiEndpoint);
+                            const wikiData = await response.json();
+                            const pages = wikiData.query && wikiData.query.pages;
+                            if (pages) {
+                                const pageId = Object.keys(pages)[0];
+                                if (pageId !== "-1") {
+                                    const pageData = pages[pageId];
+                                    if (pageData.thumbnail && pageData.thumbnail.source) {
+                                        let isSafeImage = true;
+                                        if (pageData.imageinfo && pageData.imageinfo.length > 0) {
+                                            const metadata = pageData.imageinfo[0].extmetadata;
+                                            if (metadata && metadata.UsageTerms) {
+                                                isSafeImage = isLicenseAllowed(metadata.UsageTerms.value);
+                                            }
+                                        }
+                                        if (isSafeImage) {
+                                            const imgElem = document.getElementById(`img-${CSS.escape(overrideBreed)}`);
+                                            if (imgElem) imgElem.src = pageData.thumbnail.source;
+                                        }
+                                    }
+                                }
+                            }
+                        } catch (err) {
+                            console.warn(`Could not fetch override data for ${overrideBreed}:`, err);
+                        }
+                    }
+                }
+
+                // Process standard breeds in batches of 30 with a 350ms delay between batches
+                for (let i = 0; i < standardBreeds.length; i += batchSize) {
+                    const batch = standardBreeds.slice(i, i + batchSize);
+                    
+                    try {
+                        // Query up to 30 titles simultaneously via Wikipedia batch parameter (|)
+                        const titlesQuery = batch.join('|');
+                        const apiEndpoint = `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages|info|imageinfo&pithumbsize=300&inprop=url&iiprop=extmetadata|url&redirects=1&titles=${encodeURIComponent(titlesQuery)}&format=json&origin=*`;
+                        
+                        const response = await fetch(apiEndpoint);
+                        const wikiData = await response.json();
+                        const pages = wikiData.query && wikiData.query.pages;
+
+                        if (pages) {
+                            // Map incoming redirect targets or page titles back to our original breed names
+                            const normalizedMap = {};
+                            if (wikiData.query.normalized) {
+                                wikiData.query.normalized.forEach(item => { normalizedMap[item.to] = item.from; });
+                            }
+                            if (wikiData.query.redirects) {
+                                wikiData.query.redirects.forEach(item => { normalizedMap[item.to] = normalizedMap[item.from] || item.from; });
+                            }
+
+                            Object.values(pages).forEach(pageData => {
+                                if (pageData.pageid !== -1 && pageData.title) {
+                                    let matchedBreed = null;
+                                    if (batch.includes(pageData.title)) {
+                                        matchedBreed = pageData.title;
+                                    } else if (normalizedMap[pageData.title] && batch.includes(normalizedMap[pageData.title])) {
+                                        matchedBreed = normalizedMap[pageData.title];
+                                    } else {
+                                        // Fuzzy fallback check
+                                        matchedBreed = batch.find(b => pageData.title.toLowerCase().includes(b.toLowerCase()));
+                                    }
+
+                                    if (matchedBreed && breedCardElements[matchedBreed]) {
+                                        const card = breedCardElements[matchedBreed];
+                                        if (pageData.fullurl) {
+                                            card.href = pageData.fullurl;
+                                        }
+
+                                        if (pageData.thumbnail && pageData.thumbnail.source) {
+                                            let isSafeImage = true;
+                                            if (pageData.imageinfo && pageData.imageinfo.length > 0) {
+                                                const metadata = pageData.imageinfo[0].extmetadata;
+                                                if (metadata && metadata.UsageTerms) {
+                                                    isSafeImage = isLicenseAllowed(metadata.UsageTerms.value);
+                                                }
+                                            }
+
+                                            if (isSafeImage) {
+                                                const imgElem = document.getElementById(`img-${CSS.escape(matchedBreed)}`);
+                                                if (imgElem) imgElem.src = pageData.thumbnail.source;
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    } catch (err) {
+                        console.warn('Batch fetch error:', err);
+                    }
+
+                    // Extra delay between batches to respect Wikipedia API limits
+                    await sleep(350);
+                }
+
             } catch (err) {
                 console.error('Error loading breeds.json:', err);
                 grid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: red;">Failed to load breed list from JSON.</p>';
             } finally {
-                // Ensure the loading screen always disappears if the loop finishes or errors out before reaching 3 sections
                 dismissLoadingOverlay(loadingOverlay);
             }
         }
