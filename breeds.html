@@ -54,6 +54,58 @@
         }
 
         /* ==========================================================
+           LOADING OVERLAY STYLES
+           ========================================================== */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            transition: opacity 0.8s ease;
+        }
+
+        body.dark-mode .loading-overlay {
+            background: rgba(18, 24, 27, 0.95);
+        }
+
+        .loading-logo {
+            width: 180px;
+            height: auto;
+            object-fit: contain;
+            margin-bottom: 20px;
+            animation: pulseFade 1.8s ease-in-out infinite;
+        }
+
+        .loading-text {
+            font-weight: bold;
+            color: var(--header-bg-color);
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+
+        body.dark-mode .loading-text {
+            color: var(--primary);
+        }
+
+        @keyframes pulseFade {
+            0% { opacity: 0.3; transform: scale(0.96); }
+            50% { opacity: 1; transform: scale(1.02); }
+            100% { opacity: 0.3; transform: scale(0.96); }
+        }
+
+        .fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* ==========================================================
            HEADER STYLES
            ========================================================== */
         .site-header {
@@ -426,6 +478,12 @@
 </head>
 <body>
 
+    <!-- Loading Overlay Screen -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <img src="images/cct-stacked.png" alt="Cooper Canines Logo" class="loading-logo">
+        <div class="loading-text">Loading Breed Directory...</div>
+    </div>
+
     <!-- Header Section -->
     <header class="site-header">
         <div class="header-container">
@@ -591,9 +649,17 @@
             });
         }
 
+        // Helper function to add a tiny pacing delay between requests
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
         // Fetch Breeds from JSON and build cards asynchronously with multi-tier wiki search & redirects
         async function loadBreedDirectory() {
             const grid = document.getElementById('breedsGrid');
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            
+            const startTime = Date.now();
             grid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: var(--text-muted);">Loading breed directory from JSON...</p>';
 
             try {
@@ -609,15 +675,12 @@
 
                     if (breed !== "Unknown" && breed !== "Mixed Breed") {
                         try {
-                            // Define list of query variations to try in order (including parentheses tags & redirects=1)
                             const queriesToTry = [
                                 breed,
                                 breed + " dog",
                                 breed + " (dog)",
                                 breed + " (dog breed)"
                             ];
-
-                            let foundValidPage = false;
 
                             for (const q of queriesToTry) {
                                 const apiEndpoint = `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages|info|imageinfo&pithumbsize=300&inprop=url&iiprop=extmetadata|url&redirects=1&titles=${encodeURIComponent(q)}&format=json&origin=*`;
@@ -648,15 +711,16 @@
                                                 imageUrl = thumbSource;
                                             }
                                         }
-
-                                        foundValidPage = true;
-                                        break; // Successfully found page and checked images, break out of search variation loop
+                                        break; 
                                     }
                                 }
                             }
                         } catch (err) {
                             console.warn(`Could not fetch wiki data for ${breed}:`, err);
                         }
+
+                        // Pacing delay to prevent Wikipedia API rate-limiting / blocking
+                        await sleep(100);
                     }
 
                     const card = document.createElement('a');
@@ -677,6 +741,19 @@
             } catch (err) {
                 console.error('Error loading breeds.json:', err);
                 grid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: red;">Failed to load breed list from JSON.</p>';
+            } finally {
+                // Ensure the loading overlay stays visible for at least ~5 seconds total to provide a smooth transition
+                const elapsedTime = Date.now() - startTime;
+                const remainingTime = Math.max(0, 5000 - elapsedTime);
+
+                setTimeout(() => {
+                    if (loadingOverlay) {
+                        loadingOverlay.classList.add('fade-out');
+                        setTimeout(() => {
+                            loadingOverlay.remove();
+                        }, 800); // matches CSS fade transition time
+                    }
+                }, remainingTime);
             }
         }
 
