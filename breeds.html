@@ -357,6 +357,22 @@
             box-shadow: 0 0 5px rgba(0, 145, 0, 0.3);
         }
 
+        .alphabet-section-header {
+            grid-column: 1 / -1;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--header-bg-color);
+            margin-top: 25px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid var(--header-bg-color);
+            padding-bottom: 5px;
+        }
+
+        body.dark-mode .alphabet-section-header {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
         .breeds-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -634,10 +650,11 @@
             return lower.includes('cc') || lower.includes('pd') || lower.includes('public domain') || lower.includes('gnu') || lower.includes('free');
         }
 
-        // Live Filter Function for Search Input
+        // Live Filter Function for Search Input (handles hiding/showing cards and empty section headers)
         function filterBreeds() {
             const query = document.getElementById('breedSearchInput').value.toLowerCase();
             const cards = document.querySelectorAll('.breed-card');
+            const headers = document.querySelectorAll('.alphabet-section-header');
             
             cards.forEach(card => {
                 const breedName = card.querySelector('.breed-name').textContent.toLowerCase();
@@ -647,6 +664,20 @@
                     card.style.display = 'none';
                 }
             });
+
+            // Hide alphabet headers if all cards under them are filtered out
+            headers.forEach(header => {
+                let nextElem = header.nextElementSibling;
+                let hasVisibleCard = false;
+                while (nextElem && !nextElem.classList.contains('alphabet-section-header')) {
+                    if (nextElem.classList.contains('breed-card') && nextElem.style.display !== 'none') {
+                        hasVisibleCard = true;
+                        break;
+                    }
+                    nextElem = nextElem.nextElementSibling;
+                }
+                header.style.display = hasVisibleCard ? 'block' : 'none';
+            });
         }
 
         // Helper function to add a tiny pacing delay between requests
@@ -654,12 +685,21 @@
             return new Promise(resolve => setTimeout(resolve, ms));
         }
 
-        // Fetch Breeds from JSON and build cards asynchronously with multi-tier wiki search & redirects
+        // Helper to remove loading overlay safely once triggered
+        function dismissLoadingOverlay(loadingOverlay) {
+            if (loadingOverlay && !loadingOverlay.classList.contains('fade-out')) {
+                loadingOverlay.classList.add('fade-out');
+                setTimeout(() => {
+                    loadingOverlay.remove();
+                }, 800);
+            }
+        }
+
+        // Fetch Breeds from JSON and build cards grouped alphabetically with multi-tier wiki search & redirects
         async function loadBreedDirectory() {
             const grid = document.getElementById('breedsGrid');
             const loadingOverlay = document.getElementById('loadingOverlay');
             
-            const startTime = Date.now();
             grid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: var(--text-muted);">Loading breed directory from JSON...</p>';
 
             try {
@@ -668,8 +708,26 @@
                 const dogBreeds = data.breeds;
 
                 grid.innerHTML = '';
+                let currentLetter = '';
+                let sectionCount = 0; // Tracks how many alphabetical sections have appeared
 
                 for (const breed of dogBreeds) {
+                    const firstLetter = breed.charAt(0).toUpperCase();
+                    if (firstLetter !== currentLetter) {
+                        currentLetter = firstLetter;
+                        sectionCount++;
+
+                        // Dismiss loading overlay as soon as the 3rd section header is rendered
+                        if (sectionCount === 3) {
+                            dismissLoadingOverlay(loadingOverlay);
+                        }
+                        
+                        const letterHeading = document.createElement('div');
+                        letterHeading.className = 'alphabet-section-header';
+                        letterHeading.textContent = currentLetter;
+                        grid.appendChild(letterHeading);
+                    }
+
                     let wikiUrl = `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(breed)}`;
                     let imageUrl = 'images/l-paw.png';
 
@@ -742,18 +800,8 @@
                 console.error('Error loading breeds.json:', err);
                 grid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: red;">Failed to load breed list from JSON.</p>';
             } finally {
-                // Ensure the loading overlay stays visible for at least ~5 seconds total to provide a smooth transition
-                const elapsedTime = Date.now() - startTime;
-                const remainingTime = Math.max(0, 5000 - elapsedTime);
-
-                setTimeout(() => {
-                    if (loadingOverlay) {
-                        loadingOverlay.classList.add('fade-out');
-                        setTimeout(() => {
-                            loadingOverlay.remove();
-                        }, 800); // matches CSS fade transition time
-                    }
-                }, remainingTime);
+                // Ensure the loading screen always disappears if the loop finishes or errors out before reaching 3 sections
+                dismissLoadingOverlay(loadingOverlay);
             }
         }
 
