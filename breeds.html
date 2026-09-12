@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Breed Reference - Cooper Canines</title>
+    <!-- Custom Google Search Script -->
+    <script async src="https://cse.google.com/cse.js?cx=e4f71822d5b0943bb"></script>
+    <style>
+        :root {
+            --header-bg-color: #009100;    
+            --header-text-color: #ffffff;   
+            --active-tab-color: #e67e22;    
+            --active-tab-text: #ffffff;     
+            --hover-tab-color: rgba(255, 255, 255, 0.15); 
+            --primary: #2ecc71;
+
+            --bg-dark: #12181b;
+            --card-bg: #1e262c;
+            --card-inner: #2a343d;
+            --text-light: #e0e6ed;
+            --text-muted: #9ba8b5;
+            --border-color: #3a4754;
+            --input-bg: #171d22;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body { 
+            font-family: Arial, sans-serif; 
+            color: #2c3e50; 
+            background-color: #ffffff;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+
+        .main-content-wrapper {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            color: #009100;
+        }
+
+        p.intro-text {
+            margin-bottom: 25px;
+            color: #555;
+        }
+
+        /* Search Filter Input */
+        .search-filter-box {
+            margin-bottom: 25px;
+        }
+
+        .search-filter-box input {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .search-filter-box input:focus {
+            border-color: #009100;
+            box-shadow: 0 0 5px rgba(0, 145, 0, 0.2);
+        }
+
+        /* Alphabetical Sections Grid */
+        .breed-section {
+            margin-bottom: 25px;
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px 20px;
+        }
+
+        .breed-section h2 {
+            font-size: 1.2rem;
+            color: #009100;
+            border-bottom: 2px solid #009100;
+            padding-bottom: 5px;
+            margin-bottom: 12px;
+        }
+
+        .breed-list {
+            list-style-type: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 8px 15px;
+        }
+
+        .breed-list li {
+            padding: 6px 10px;
+            background: #ffffff;
+            border: 1px solid #eaeaea;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+
+        .breed-list li:hover {
+            background-color: #009100;
+            color: white;
+            border-color: #009100;
+        }
+
+        /* Header Styles */
+        .site-header {
+            background-color: var(--header-bg-color);
+            color: var(--header-text-color);
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 1.5rem;
+            position: relative;
+        }
+
+        .header-logo-container img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .center-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            gap: 2px;
+            margin: 0 1rem;
+        }
+
+        .nav-btn {
+            color: var(--header-text-color);
+            text-decoration: none;
+            padding: 0.5rem 0.8rem;
+            font-weight: bold;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: background-color 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover { background-color: var(--hover-tab-color); }
+        .nav-btn.active { background-color: var(--active-tab-color) !important; color: var(--active-tab-text) !important; }
+
+        .theme-toggle-btn, .search-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            padding: 0.4rem 0.5rem;
+            color: var(--header-text-color);
+            border-radius: 6px;
+            margin-left: 0.3rem;
+        }
+
+        .theme-toggle-btn svg, .search-btn svg {
+            width: 16px; height: 16px; fill: currentColor; display: block;
+        }
+
+        .right-menu-container { position: relative; }
+        .menu-toggle {
+            background: transparent; color: var(--header-text-color);
+            border: 2px solid var(--header-text-color); padding: 0.5rem 0.8rem;
+            border-radius: 6px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;
+        }
+        .hamburger-icon { display: flex; flex-direction: column; gap: 3px; }
+        .hamburger-icon span { display: block; width: 16px; height: 2px; background-color: currentColor; }
+
+        .dropdown-menu {
+            display: none; position: absolute; right: 0; top: calc(100% + 0.5rem);
+            background-color: #ffffff; min-width: 230px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border-radius: 8px; overflow: hidden; z-index: 1001;
+        }
+        .dropdown-menu.show { display: block; }
+        .dropdown-menu a { display: block; padding: 0.75rem 1rem; color: #333333; text-decoration: none; border-bottom: 1px solid #f0f0f0; }
+        .dropdown-menu a:hover { background-color: #f8f9fa; color: var(--active-tab-color); }
+        .dropdown-divider { height: 1px; background-color: #e0e0e0; margin: 0.5rem 0; }
+
+        /* Dark Mode */
+        body.dark-mode { background-color: var(--bg-dark) !important; color: var(--text-light) !important; }
+        body.dark-mode .breed-section { background-color: var(--card-bg) !important; border-color: var(--border-color) !important; }
+        body.dark-mode .breed-section h2 { color: var(--primary) !important; border-bottom-color: var(--border-color) !important; }
+        body.dark-mode .breed-list li { background-color: var(--card-inner) !important; color: var(--text-light) !important; border-color: var(--border-color) !important; }
+        body.dark-mode .breed-list li:hover { background-color: var(--primary) !important; color: #12181b !important; }
+        body.dark-mode .search-filter-box input { background-color: var(--input-bg) !important; color: var(--text-light) !important; border-color: var(--border-color) !important; }
+        body.dark-mode p.intro-text { color: var(--text-muted) !important; }
+        body.dark-mode .dropdown-menu { background-color: var(--card-bg); border: 1px solid var(--border-color); }
+        body.dark-mode .dropdown-menu a { color: var(--text-light); border-bottom-color: var(--border-color); }
+
+        /* Back Button */
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #009100;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover { text-decoration: underline; }
+        body.dark-mode .back-link { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="site-header">
+        <div class="header-container">
+            <div class="header-logo-container">
+                <a href="../index.html"><img src="../images/cctwordingnophrase.png" alt="Cooper Canines Logo"></a>
+            </div>
+            <nav class="center-nav">
+                <a href="../index.html" class="nav-btn">Home</a>
+                <a href="../guides.html" class="nav-btn">Resources</a>
+                <a href="../index.html#contact" class="nav-btn">Contact Us</a>
+                
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Mode">
+                    <svg id="sunIcon" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/></svg>
+                    <svg id="moonIcon" viewBox="0 0 24 24" style="display: none;"><path d="M12.3 2c.43 0 .77.35.72.78-.34 2.87.68 5.8 2.83 7.95 2.15 2.15 5.08 3.17 7.95 2.83.43-.05.78.29.78.72-.02 4.97-4.03 9-9 9B6.48 23.3 2 18.82 2 13.3c0-4.97 4.03-9 9-9z"/></svg>
+                </button>
+            </nav>
+
+            <div class="right-menu-container">
+                <button class="menu-toggle" id="menuBtn">
+                    <span class="menu-text">Menu</span>
+                    <div class="hamburger-icon"><span></span><span></span><span></span></div>
+                </button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="start.html">Get Started</a>
+                    <a href="../portal.html">Returning Client</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="../guides.html">Guides</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content-wrapper">
+        <a href="start.html" class="back-link">&larr; Back to Intake Form</a>
+        <h1>Comprehensive Dog Breed Reference</h1>
+        <p class="intro-text">Browse or search through our master list of dog breeds. Click any breed name to copy or reference it for your training intake.</p>
+
+        <!-- Search Bar Filter -->
+        <div class="search-filter-box">
+            <input type="text" id="breedSearchInput" placeholder="Type to filter breeds (e.g., Catahoula, Poodle, Mixed)..." onkeyup="filterBreeds()">
+        </div>
+
+        <div id="breedContainer">
+            <!-- A -->
+            <div class="breed-section" data-letter="A">
+                <h2>A</h2>
+                <ul class="breed-list">
+                    <li>Affenpinscher</li>
+                    <li>Afghan Hound</li>
+                    <li>Airedale Terrier</li>
+                    <li>Akita</li>
+                    <li>Alaskan Malamute</li>
+                    <li>American Bulldog</li>
+                    <li>American English Coonhound</li>
+                    <li>American Eskimo Dog</li>
+                    <li>American Foxhound</li>
+                    <li>American Hairless Terrier</li>
+                    <li>American Pit Bull Terrier</li>
+                    <li>American Staffordshire Terrier</li>
+                    <li>American Water Spaniel</li>
+                    <li>Anatolian Shepherd Dog</li>
+                    <li>Appenzeller Sennenhund</li>
+                    <li>Australian Cattle Dog</li>
+                    <li>Australian Kelpie</li>
+                    <li>Australian Shepherd</li>
+                    <li>Australian Terrier</li>
+                    <li>Azawakh</li>
+                </ul>
+            </div>
+
+            <!-- B -->
+            <div class="breed-section" data-letter="B">
+                <h2>B</h2>
+                <ul class="breed-list">
+                    <li>Barbet</li>
+                    <li>Basenji</li>
+                    <li>Basset Fauve de Bretagne</li>
+                    <li>Basset Hound</li>
+                    <li>Beagle</li>
+                    <li>Bearded Collie</li>
+                    <li>Beauceron</li>
+                    <li>Bedlington Terrier</li>
+                    <li>Belgian Laekenois</li>
+                    <li>Belgian Malinois</li>
+                    <li>Belgian Sheepdog</li>
+                    <li>Belgian Tervuren</li>
+                    <li>Bergamasco Sheepdog</li>
+                    <li>Berger Picard</li>
+                    <li>Bernese Mountain Dog</li>
+                    <li>Bichon Frise</li>
+                    <li>Biewer Terrier</li>
+                    <li>Black and Tan Coonhound</li>
+                    <li>Black Russian Terrier</li>
+                    <li>Bloodhound</li>
+                    <li>Bluetick Coonhound</li>
+                    <li>Boerboel</li>
+                    <li>Bolognese</li>
+                    <li>Border Collie</li>
+                    <li>Border Terrier</li>
+                    <li>Borzoi</li>
+                    <li>Boston Terrier</li>
+                    <li>Bouvier des Flandres</li>
+                    <li>Boxer</li>
+                    <li>Boykin Spaniel</li>
+                    <li>Bracco Italiano</li>
+                    <li>Briard</li>
+                    <li>Brittany</li>
+                    <li>Brussels Griffon</li>
+                    <li>Bull Terrier</li>
+                    <li>Bulldog</li>
+                    <li>Bullmastiff</li>
+                </ul>
+            </div>
+
+            <!-- C -->
+            <div class="breed-section" data-letter="C">
+                <h2>C</h2>
+                <ul class="breed-list">
+                    <li>Cairn Terrier</li>
+                    <li>Canaan Dog</li>
+                    <li>Cane Corso</li>
+                    <li>Cardigan Welsh Corgi</li>
+                    <li>Catahoula Leopard Dog</li>
+                    <li>Caucasian Shepherd Dog</li>
+                    <li>Cavalier King Charles Spaniel</li>
+                    <li>Central Asian Shepherd Dog</li>
+                    <li>Cesky Terrier</li>
+                    <li>Chesapeake Bay Retriever</li>
+                    <li>Chihuahua</li>
+                    <li>Chinese Crested</li>
+                    <li>Chinese Shar-Pei</li>
+                    <li>Chinook</li>
+                    <li>Chow Chow</li>
+                    <li>Cirneco dell'Etna</li>
+                    <li>Clumber Spaniel</li>
+                    <li>Cocker Spaniel</li>
+                    <li>Collie</li>
+                    <li>Coton de Tulear</li>
+                    <li>Curly-Coated Retriever</li>
+                </ul>
+            </div>
+
+            <!-- D -->
+            <div class="breed-section" data-letter="D">
+                <h2>D</h2>
+                <ul class="breed-list">
+                    <li>Dachshund</li>
+                    <li>Dalmatian</li>
+                    <li>Dandie Dinmont Terrier</li>
+                    <li>Danish-Swedish Farmdog</li>
+                    <li>Doberman Pinscher</li>
+                    <li>Dogo Argentino</li>
+                    <li>Dogue de Bordeaux</li>
+                    <li>Drentse Patrijshond</li>
+                    <li>Drever</li>
+                    <li>Dutch Shepherd</li>
+                </ul>
+            </div>
+
+            <!-- E -->
+            <div class="breed-section" data-letter="E">
+                <h2>E</h2>
+                <ul class="breed-list">
+                    <li>English Bulldog</li>
+                    <li>English Cocker Spaniel</li>
+                    <li>English Foxhound</li>
+                    <li>English Setter</li>
+                    <li>English Springer Spaniel</li>
+                    <li>English Toy Spaniel</li>
+                    <li>Entlebucher Mountain Dog</li>
+                    <li>Estrela Mountain Dog</li>
+                    <li>Eurasier</li>
+                </ul>
+            </div>
+
+            <!-- F -->
+            <div class="breed-section" data-letter="F">
+                <h2>F</h2>
+                <ul class="breed-list">
+                    <li>Field Spaniel</li>
+                    <li>Fila Brasileiro</li>
+                    <li>Finnish Lapphund</li>
+                    <li>Finnish Spitz</li>
+                    <li>Flat-Coated Retriever</li>
+                    <li>French Bulldog</li>
+                </ul>
+            </div>
+
+            <!-- G -->
+            <div class="breed-section" data-letter="G">
+                <h2>G</h2>
+                <ul class="breed-list">
+                    <li>German Pinscher</li>
+                    <li>German Shepherd Dog</li>
+                    <li>German Shorthaired Pointer</li>
+                    <li>German Wirehaired Pointer</li>
+                    <li>Giant Schnauzer</li>
+                    <li>Glen of Imaal Terrier</li>
+                    <li>Golden Retriever</li>
+                    <li>Gordon Setter</li>
+                    <li>Grand Basset Griffon Vendeen</li>
+                    <li>Great Dane</li>
+                    <li>Great Pyrenees</li>
+                    <li>Greater Swiss Mountain Dog</li>
+                    <li>Greyhound</li>
+                </ul>
+            </div>
+
+            <!-- H -->
+            <div class="breed-section" data-letter="H">
+                <h2>H</h2>
+                <ul class="breed-list">
+                    <li>Hamiltonstovare</li>
+                    <li>Hanoverian Scenthound</li>
+                    <li>Harrier</li>
+                    <li>Havanese</li>
+                    <li>Hovawart</li>
+                    <li>Husky (Siberian)</li>
+                </ul>
+            </div>
+
+            <!-- I -->
+            <div class="breed-section" data-letter="I">
+                <h2>I</h2>
+                <ul class="breed-list">
+                    <li>Ibizan Hound</li>
+                    <li>Icelandic Sheepdog</li>
+                    <li>Irish Red and White Setter</li>
+                    <li>Irish Setter</li>
+                    <li>Irish Terrier</li>
+                    <li>Irish Water Spaniel</li>
+                    <li>Irish Wolfhound</li>
+                    <li>Italian Greyhound</li>
+                </ul>
+            </div>
+
+            <!-- J -->
+            <div class="breed-section" data-letter="J">
+                <h2>J</h2>
+                <ul class="breed-list">
+                    <li>Jack Russell Terrier</li>
+                    <li>Japanese Chin</li>
+                    <li>Japanese Spitz</li>
+                    <li>Jindo</li>
+                </ul>
+            </div>
+
+            <!-- K -->
+            <div class="breed-section" data-letter="K">
+                <h2>K</h2>
+                <ul class="breed-list">
+                    <li>Kai Ken</li>
+                    <li>Karelian Bear Dog</li>
+                    <li>Keeshond</li>
+                    <li>Kerry Blue Terrier</li>
+                    <li>King Charles Spaniel</li>
+                    <li>Kishu Ken</li>
+                    <li>Komondor</li>
+                    <li>Kooikerhondje</li>
+                    <li>Koolie</li>
+                    <li>Kuvasz</li>
+                </ul>
+            </div>
+
+            <!-- L -->
+            <div class="breed-section" data-letter="L">
+                <h2>L</h2>
+                <ul class="breed-list">
+                    <li>Labrador Retriever</li>
+                    <li>Lagotto Romagnolo</li>
+                    <li>Lancashire Heeler</li>
+                    <li>Landseer</li>
+                    <li>Large Munsterlander</li>
+                    <li>Leonberger</li>
+                    <li>Lhasa Apso</li>
+                    <li>Löwchen</li>
+                </ul>
+            </div>
+
+            <!-- M -->
+            <div class="breed-section" data-letter="M">
+                <h2>M</h2>
+                <ul class="breed-list">
+                    <li>Magyar Agár</li>
+                    <li>Maltese</li>
+                    <li>Manchester Terrier</li>
+                    <li>Maremma Sheepdog</li>
+                    <li>Mastiff (English)</li>
+                    <li>Miniature American Shepherd</li>
+                    <li>Miniature Bull Terrier</li>
+                    <li>Miniature Pinscher</li>
+                    <li>Miniature Schnauzer</li>
+                    <li>Mixed Breed / Mutt</li>
+                    <li>Mountain Cur</li>
+                    <li>Mudi</li>
+                </ul>
+            </div>
+
+            <!-- N -->
+            <div class="breed-section" data-letter="N">
+                <h2>N</h2>
+                <ul class="breed-list">
+                    <li>Neapolitan Mastiff</li>
+                    <li>New Guinea Singing Dog</li>
+                    <li>Newfoundland</li>
+                    <li>Norfolk Terrier</li>
+                    <li>Norrbottenspets</li>
+                    <li>Norwegian Buhund</li>
+                    <li>Norwegian Elkhound</li>
+                    <li>Norwegian Lundehund</li>
+                    <li>Norwich Terrier</li>
+                    <li>Nova Scotia Duck Tolling Retriever</li>
+                </ul>
+            </div>
+
+            <!-- O -->
+            <div class="breed-section" data-letter="O">
+                <h2>O</h2>
+                <ul class="breed-list">
+                    <li>Old English Sheepdog</li>
+                    <li>Otterhound</li>
+                </ul>
+            </div>
+
+            <!-- P -->
+            <div class="breed-section" data-letter="P">
+                <h2>P</h2>
+                <ul class="breed-list">
+                    <li>Papillon</li>
+                    <li>Parson Russell Terrier</li>
+                    <li>Pekingese</li>
+                    <li>Pembroke Welsh Corgi</li>
+                    <li>Petit Basset Griffon Vendeen</li>
+                    <li>Pharaoh Hound</li>
+                    <li>Plott Hound</li>
+                    <li>Pointer</li>
+                    <li>Polish Lowland Sheepdog</li>
+                    <li>Pomeranian</li>
+                    <li>Poodle (Miniature, Standard, Toy)</li>
+                    <li>Portuguese Podengo</li>
+                    <li>Portuguese Water Dog</li>
+                    <li>Pug</li>
+                    <li>Puli</li>
+                    <li>Pumi</li>
+                </ul>
+            </div>
+
+            <!-- Q -->
+            <div class="breed-section" data-letter="Q">
+                <h2>Q</h2>
+                <ul class="breed-list">
+                    <li>Queensland Heeler (Australian Cattle Dog)</li>
+                    <li>Rafeiro do Alentejo</li>
+                </ul>
+            </div>
+
+            <!-- R -->
+            <div class="breed-section" data-letter="R">
+                <h2>R</h2>
+                <ul class="breed-list">
+                    <li>Rat Terrier</li>
+                    <li>Redbone Coonhound</li>
+                    <li>Rhodesian Ridgeback</li>
+                    <li>Rottweiler</li>
+                    <li>Russell Terrier</li>
+                </ul>
+            </div>
+
+            <!-- S -->
+            <div class="breed-section" data-letter="S">
+                <h2>S</h2>
+                <ul class="breed-list">
+                    <li>Saluki</li>
+                    <li>Samoyed</li>
+                    <li>Schipperke</li>
+                    <li>Scottish Deerhound</li>
+                    <li>Scottish Terrier</li>
+                    <li>Sealyham Terrier</li>
+                    <li>Segugio Italiano</li>
+                    <li>Shar-Pei</li>
+                    <li>Shetland Sheepdog</li>
+                    <li>Shiba Inu</li>
+                    <li>Shih Tzu</li>
+                    <li>Siberian Husky</li>
+                    <li>Silky Terrier</li>
+                    <li>Skye Terrier</li>
+                    <li>Sloughi</li>
+                    <li>Small Munsterlander</li>
+                    <li>Smooth Fox Terrier</li>
+                    <li>Soft Coated Wheaten Terrier</li>
+                    <li>Spanish Water Dog</li>
+                    <li>Spinone Italiano</li>
+                    <li>St. Bernard</li>
+                    <li>Staffordshire Bull Terrier</li>
+                    <li>Standard Schnauzer</li>
+                    <li>Sussex Spaniel</li>
+                    <li>Swedish Lapphund</li>
+                    <li>Swedish Vallhund</li>
+                </ul>
+            </div>
+
+            <!-- T -->
+            <div class="breed-section" data-letter="T">
+                <h2>T</h2>
+                <ul class="breed-list">
+                    <li>Taiwan Dog</li>
+                    <li>Teddy Roosevelt Terrier</li>
+                    <li>Tenterfield Terrier</li>
+                    <li>Thai Ridgeback</li>
+                    <li>Tibetan Mastiff</li>
+                    <li>Tibetan Spaniel</li>
+                    <li>Tibetan Terrier</li>
+                    <li>Tornjak</li>
+                    <li>Tosa Inu</li>
+                    <li>Toy Fox Terrier</li>
+                    <li>Treeing Cur</li>
+                    <li>Treeing Tennessee Brindle</li>
+                    <li>Treeing Walker Coonhound</li>
+                </ul>
+            </div>
+
+            <!-- U -->
+            <div class="breed-section" data-letter="U">
+                <h2>U</h2>
+                <ul class="breed-list">
+                    <li>Utonagan</li>
+                    <li>Unknown / Rescue</li>
+                </ul>
+            </div>
+
+            <!-- V -->
+            <div class="breed-section" data-letter="V">
+                <h2>V</h2>
+                <ul class="breed-list">
+                    <li>Vizsla</li>
+                </ul>
+            </div>
+
+            <!-- W -->
+            <div class="breed-section" data-letter="W">
+                <h2>W</h2>
+                <ul class="breed-list">
+                    <li>Weimaraner</li>
+                    <li>Welsh Springer Spaniel</li>
+                    <li>Welsh Terrier</li>
+                    <li>West Highland White Terrier</li>
+                    <li>Whippet</li>
+                    <li>White Swiss Shepherd</li>
+                    <li>Wire Fox Terrier</li>
+                    <li>Wirehaired Pointing Griffon</li>
+                    <li>Wirehaired Vizsla</li>
+                </ul>
+            </div>
+
+            <!-- X -->
+            <div class="breed-section" data-letter="X">
+                <h2>X</h2>
+                <ul class="breed-list">
+                    <li>Xoloitzcuintli (Mexican Hairless)</li>
+                    <li>X-Large / Giant Mixed Breed</li>
+                </ul>
+            </div>
+
+            <!-- Y -->
+            <div class="breed-section" data-letter="Y">
+                <h2>Y</h2>
+                <ul class="breed-list">
+                    <li>Yorkshire Terrier</li>
+                </ul>
+            </div>
+
+            <!-- Z -->
+            <div class="breed-section" data-letter="Z">
+                <h2>Z</h2>
+                <ul class="breed-list">
+                    <li>Zuchon</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dropdown menu toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+        document.addEventListener('click', () => dropdownMenu.classList.remove('show'));
+
+        // Theme toggle logic
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+
+        function applyTheme(isDark) {
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.classList.remove('dark-mode');
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            applyTheme(!document.body.classList.contains('dark-mode'));
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('theme') === 'dark') {
+                applyTheme(true);
+            }
+        });
+
+        // Real-time filter script
+        function filterBreeds() {
+            const query = document.getElementById('breedSearchInput').value.toLowerCase();
+            const sections = document.querySelectorAll('.breed-section');
+
+            sections.forEach(section => {
+                const items = section.querySelectorAll('.breed-list li');
+                let matchesInsection = 0;
+
+                items.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    if (text.includes(query)) {
+                        item.style.display = 'block';
+                        matchesInsection++;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                if (matchesInsection === 0 && query !== '') {
+                    section.style.display = 'none';
+                } else {
+                    section.style.display = 'block';
+                }
+            });
+        }
+
+        // Optional interactivity: Click breed to copy to clipboard or alert
+        document.querySelectorAll('.breed-list li').forEach(li => {
+            li.addEventListener('click', () => {
+                const breedName = li.textContent;
+                navigator.clipboard.writeText(breedName).then(() => {
+                    alert(`"${breedName}" copied to clipboard! You can now paste it into your intake form.`);
+                }).catch(() => {
+                    alert(`Selected Breed: ${breedName}`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
