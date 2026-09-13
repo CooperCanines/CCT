@@ -3,82 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- SEO Meta Tags -->
-    <title>CCT Guides & Resources | Cooper Canines</title>
-    <meta name="description" content="Free expert dog training resources, puppy care tips, and obedience advice from Cooper Canines. Help your dog succeed with positive reinforcement tips.">
-    <meta name="robots" content="index, follow">
-    <link rel="icon" type="image/png" href="../Cooper Canines5 Logo 03-18-26.png">
-    
+    <title>Client Intake Questions - Cooper Canines LLC</title>
     <!-- Custom Google Search Script -->
     <script async src="https://cse.google.com/cse.js?cx=e4f71822d5b0943bb"></script>
-
     <style>
         /* ==========================================================
            HEADER COLOR & THEMING 
            ========================================================== */
+        /* Default Light Mode Theme Variables */
         :root {
             --header-bg-color: #009100;    
             --header-text-color: #ffffff;   
             --active-tab-color: #e67e22;    
             --active-tab-text: #ffffff;     
             --hover-tab-color: rgba(255, 255, 255, 0.15); 
-            
-            --primary: #009191;
-            --accent: #27ae60;
-            --light: #f8f9fa;
-            --dark: #333;
-            --border: #e2e8f0;
-            --logo-orange: #e67e22;
 
-            /* Dark Mode Theme Variables (Easy on the eyes for long reading) */
-            --bg-dark: #12181b;
-            --card-bg-dark: #1e262c;
-            --text-light-dark: #e0e6ed;
-            --text-muted-dark: #9ba8b5;
-            --border-dark: #3a4754;
+            --primary: #008000;
+            --primary-hover: #006600;
+            --bg-body: #f4f6f8;
+            --card-bg: #ffffff;
+            --card-inner: #f8f9fa;
+            --text-main: #212529;
+            --text-muted: #6c757d;
+            --border-color: #dee2e6;
+            --input-bg: #ffffff;
         }
 
-        /* Dark Mode Overrides */
+        /* Dark Mode Theme Overrides */
         body.dark-mode {
-            background-color: var(--bg-dark) !important;
-            color: var(--text-light-dark) !important;
+            --primary: #00b300;
+            --primary-hover: #00d900;
+            --bg-body: #12181b;
+            --card-bg: #1e262c;
+            --card-inner: #2a343d;
+            --text-main: #e0e6ed;
+            --text-muted: #9ba8b5;
+            --border-color: #3a4754;
+            --input-bg: #171d22;
         }
 
-        body.dark-mode .sidebar,
-        body.dark-mode .content-area,
-        body.dark-mode .topic-card,
-        body.dark-mode .discounts-box {
-            background-color: var(--card-bg-dark) !important;
-            border-color: var(--border-dark) !important;
-            color: var(--text-light-dark) !important;
-        }
-
-        body.dark-mode .topic-card h4,
-        body.dark-mode .content-area h2 {
-            color: var(--text-light-dark) !important;
-        }
-
-        body.dark-mode .topic-card p,
-        body.dark-mode .discounts-box p,
-        body.dark-mode .content-area p {
-            color: var(--text-muted-dark) !important;
-        }
-
-        body.dark-mode .resource-list li button,
-        body.dark-mode .sidebar-dropdown-content button {
-            color: var(--text-light-dark);
-            border-bottom-color: var(--border-dark);
-        }
-
-        body.dark-mode .resource-list li button:hover,
-        body.dark-mode .resource-list li button.active,
-        body.dark-mode .sidebar-dropdown-content button:hover,
-        body.dark-mode .sidebar-dropdown-content button.active {
-            color: var(--accent);
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        /* Enable smooth scrolling across the page */
         html {
             scroll-behavior: smooth;
         }
@@ -86,38 +49,19 @@
         html, body {
             margin: 0;
             padding: 0;
-            height: 100%;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            color: var(--dark);
-            display: flex;
-            flex-direction: column;
             min-height: 100vh;
-            position: relative;
-            background-image: url('Jotform Background.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-body);
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Top Brand Image Header */
-        .top-image-header {
-            background-color: var(--primary);
-            text-align: center;
-            padding: 1rem;
+        body {
+            display: flex;
+            flex-direction: column;
         }
 
-        .top-image-header img {
-            max-width: 100%;
-            height: auto;
-            max-height: 240px;
-        }
-
-        /* Site Header Navigation Bar */
+        /* Header Styles */
         .site-header {
             background-color: var(--header-bg-color);
             color: var(--header-text-color);
@@ -145,7 +89,7 @@
         }
 
         .header-logo-container img {
-            height: 40px;
+            height: 50px;
             width: auto;
             object-fit: contain;
             display: block;
@@ -177,8 +121,7 @@
             background-color: var(--hover-tab-color);
         }
 
-        /* Orange Box Active State for Resources Tab */
-        .nav-btn.active, .nav-btn.active-tab {
+        .nav-btn.active {
             background-color: var(--active-tab-color) !important;
             color: var(--active-tab-text) !important;
         }
@@ -189,7 +132,7 @@
             background: transparent;
             border: 1px solid rgba(255, 255, 255, 0.4);
             cursor: pointer;
-            padding: 0.4rem 0.6rem;
+            padding: 0.4rem 0.5rem;
             color: var(--header-text-color);
             display: inline-flex;
             align-items: center;
@@ -197,7 +140,6 @@
             border-radius: 6px;
             flex: 0 0 auto;
             margin-left: 0.3rem;
-            font-size: 1rem;
             transition: all 0.2s ease;
         }
 
@@ -207,6 +149,13 @@
             border-color: rgba(255, 255, 255, 0.8);
         }
 
+        .theme-toggle-btn .moon-emoji {
+            font-size: 1rem;
+            line-height: 1;
+            display: inline-block;
+            transition: transform 0.2s ease;
+        }
+
         .search-btn svg {
             width: 16px;
             height: 16px;
@@ -214,7 +163,6 @@
             display: block;
         }
 
-        /* Dropdown Menu Container */
         .right-menu-container {
             flex: 0 0 auto;
             position: relative;
@@ -294,270 +242,7 @@
             margin: 0.5rem 0;
         }
 
-        /* Layout Container */
-        .layout-container {
-            max-width: 1400px;
-            width: 92%;
-            margin: 2rem auto 4rem auto;
-            padding: 0 1rem;
-            display: flex;
-            gap: 2rem;
-            flex: 1;
-            box-sizing: border-box;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            flex: 0 0 280px;
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            height: fit-content;
-        }
-
-        .sidebar-home-btn {
-            width: 100%;
-            text-align: left;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 0.6rem 0.8rem;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            margin-bottom: 0.6rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: background 0.2s ease;
-        }
-
-        .sidebar-home-btn:hover {
-            background: var(--accent);
-        }
-
-        /* Sidebar Dropdown Accordion Styling */
-        .sidebar-dropdown-container {
-            margin-bottom: 0.6rem;
-        }
-
-        .sidebar-dropdown-btn {
-            width: 100%;
-            text-align: left;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 0.6rem 0.8rem;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: background 0.2s ease;
-        }
-
-        .sidebar-dropdown-btn:hover {
-            background: var(--accent);
-        }
-
-        .dropdown-arrow {
-            font-size: 0.8rem;
-            transition: transform 0.2s ease;
-        }
-
-        .sidebar-dropdown-container.open .dropdown-arrow {
-            transform: rotate(180deg);
-        }
-
-        .sidebar-dropdown-content {
-            display: none;
-            padding-left: 0.5rem;
-            margin-top: 0.4rem;
-            list-style: none;
-            padding: 0;
-        }
-
-        .sidebar-dropdown-container.open .sidebar-dropdown-content {
-            display: block;
-        }
-
-        .sidebar-dropdown-content li button,
-        .sidebar-dropdown-content li a {
-            width: 100%;
-            text-align: left;
-            background: none;
-            border: none;
-            padding: 0.6rem 0.8rem;
-            font-size: 0.95rem;
-            color: var(--dark);
-            cursor: pointer;
-            border-bottom: 1px solid var(--border);
-            text-decoration: none;
-            display: block;
-            box-sizing: border-box;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-        }
-
-        .sidebar-dropdown-content li button:hover,
-        .sidebar-dropdown-content li button.active,
-        .sidebar-dropdown-content li a:hover {
-            color: var(--accent);
-            font-weight: bold;
-            background-color: #f8f9fa;
-            padding-left: 1.1rem;
-        }
-
-        .resource-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .resource-list li button {
-            width: 100%;
-            text-align: left;
-            background: none;
-            border: none;
-            padding: 0.8rem 0.5rem;
-            font-size: 0.95rem;
-            color: var(--dark);
-            cursor: pointer;
-            border-bottom: 1px solid var(--border);
-            transition: all 0.2s ease;
-        }
-
-        .resource-list li button:hover,
-        .resource-list li button.active {
-            color: var(--accent);
-            font-weight: bold;
-            padding-left: 0.8rem;
-        }
-
-        /* Content Area */
-        .content-area {
-            flex: 1;
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            min-width: 0;
-        }
-
-        /* Topics Grid Styling */
-        .topics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 2.5rem 1.5rem;
-            margin-top: 1rem;
-        }
-
-        .topic-card {
-            background: white;
-            border-radius: 10px;
-            padding: 2.2rem 1rem 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            position: relative;
-            margin-top: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-top: 5px solid #ccc;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            cursor: pointer;
-            text-decoration: none;
-            box-sizing: border-box;
-        }
-
-        .topic-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.12);
-        }
-
-        .topic-img-container {
-            position: absolute;
-            top: -38px;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            overflow: hidden;
-            background: white;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.16);
-            border: 3px solid white;
-        }
-
-        .topic-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .topic-card h4 {
-            margin: 1.2rem 0 0.4rem 0;
-            font-size: 1.1rem;
-            color: var(--dark);
-        }
-
-        .topic-card p {
-            font-size: 0.9rem;
-            color: #555;
-            margin: 0;
-            line-height: 1.4;
-        }
-
-        /* Color classes */
-        .topic-orange { border-top-color: #e67e22; }
-        .topic-red { border-top-color: #e74c3c; }
-        .topic-tan { border-top-color: #d2b48c; }
-        .topic-cyan { border-top-color: #00bcd4; }
-        .topic-purple { border-top-color: #8e44ad; }
-        .topic-green { border-top-color: #2ecc71; }
-        .topic-pink { border-top-color: #ff69b4; }
-        .topic-forest { border-top-color: #1e8449; }
-        .topic-grey { border-top-color: #95a5a6; }
-        .topic-black { border-top-color: #2c3e50; }
-        .topic-yellow { border-top-color: #f1c40f; }
-        .topic-brown { border-top-color: #8b4513; }
-
-        .discounts-box {
-            margin-top: 2rem;
-            padding: 1rem;
-            background-color: var(--light);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            text-align: center;
-        }
-
-        .discounts-box p {
-            font-size: 0.85rem;
-            color: #666;
-            margin-bottom: 0.8rem;
-            line-height: 1.4;
-        }
-
-        .discount-link-btn {
-            display: block;
-            background-color: var(--primary);
-            color: white;
-            padding: 0.6rem 0.8rem;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            transition: background 0.2s ease;
-        }
-
-        .discount-link-btn:hover {
-            background-color: var(--accent);
-            color: white;
-        }
-
-        /* Search Modal Overlay */
+        /* Search Modal Styles */
         .search-modal-overlay {
             display: none;
             position: fixed;
@@ -609,46 +294,267 @@
             width: 100%;
         }
 
-        /* Floating Scroll to Top Button */
+        .gsc-control-cse {
+            padding: 0 !important;
+            border: none !important;
+            background: transparent !important;
+        }
+
+        .gsc-results-wrapper-overlay {
+            position: static !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+        }
+
+        /* Page Layout Styles */
+        .container {
+            flex: 1 0 auto;
+            max-width: 850px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            box-sizing: border-box;
+        }
+
+        /* Header Card Styling */
+        .header-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin: 0 0 0.5rem 0;
+            font-size: 2rem;
+        }
+
+        .header-card p {
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Form Card Layout */
+        .form-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Section Dividers Styling */
+        .section-header {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.3rem;
+            border-bottom: 2px solid var(--primary);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .question-block {
+            background-color: var(--card-inner);
+            border: 2px solid var(--primary); /* Default unanswered green border */
+            border-radius: 6px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .question-block.answered {
+            border: 1px solid var(--border-color); /* Reverts to default once answered */
+        }
+
+        .conditional-block {
+            display: none;
+        }
+
+        .question-title {
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: var(--text-main);
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .required {
+            color: #ff5555;
+            margin-left: 0.2rem;
+        }
+
+        .optional {
+            font-weight: normal;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Dual Input Field Grid */
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        .input-field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .input-field-group label {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        /* Inputs & Options */
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0.5rem;
+        }
+
+        /* Specific 2-column layout for Question 5 */
+        .two-column-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+        }
+
+        @media (max-width: 500px) {
+            .two-column-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        label.option-label {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background-color: var(--input-bg);
+            padding: 0.6rem 0.8rem;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        label.option-label:hover {
+            border-color: var(--primary);
+        }
+
+        input[type="radio"], input[type="checkbox"] {
+            accent-color: var(--primary);
+            width: 1.1rem;
+            height: 1.1rem;
+            cursor: pointer;
+        }
+
+        /* Text Inputs & Textareas */
+        input[type="text"], input[type="email"], textarea {
+            width: 100%;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-main);
+            padding: 0.75rem;
+            font-size: 0.95rem;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease, background-color 0.3s ease;
+        }
+
+        input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .other-input {
+            margin-top: 0.5rem;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            display: block;
+            width: 100%;
+            background-color: var(--primary);
+            color: #ffffff;
+            border: none;
+            padding: 1rem;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.99);
+        }
+
+        /* Floating Scroll Top Button */
         .scroll-top-btn {
             position: fixed;
             bottom: 25px;
             right: 25px;
-            background-color: var(--logo-orange);
+            background-color: var(--primary);
             color: white;
             border: none;
-            border-radius: 24px;
-            padding: 0.6rem 1rem;
-            font-size: 0.9rem;
-            font-weight: bold;
-            font-family: Arial, sans-serif;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 1.2rem;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             display: none;
             align-items: center;
-            gap: 0.4rem;
+            justify-content: center;
             z-index: 1000;
-            transition: opacity 0.3s ease, transform 0.2s ease, background-color 0.2s ease;
+            text-decoration: none;
         }
 
-        .scroll-top-btn:hover {
-            background-color: #d35400;
-            transform: translateY(-3px);
+        footer {
+            min-height: 3rem;
+            margin-top: auto;
         }
 
-        @media (max-width: 900px) {
-            .layout-container {
-                flex-direction: column;
-                width: 95%;
-                margin-bottom: 2rem;
-            }
-            .sidebar {
-                flex: 100%;
-            }
+        /* Header Responsive Styles */
+        @media (max-width: 850px) {
             .header-container {
                 flex-wrap: wrap;
                 padding: 0.5rem 1rem;
             }
+
+            .header-logo-container {
+                order: 1;
+            }
+
             .center-nav {
                 order: 3;
                 width: 100%;
@@ -659,6 +565,7 @@
                 flex-wrap: wrap;
                 gap: 2px;
             }
+
             .right-menu-container {
                 order: 4;
                 width: 100%;
@@ -666,10 +573,12 @@
                 justify-content: center;
                 margin-top: 0.5rem;
             }
+
             .menu-toggle {
                 width: 100%;
                 justify-content: center;
             }
+
             .dropdown-menu {
                 width: 100%;
                 right: 0;
@@ -678,402 +587,563 @@
         }
     </style>
 </head>
-<body>
+<body id="top" class="dark-mode">
 
-<!-- Top Image Header -->
-<header class="top-image-header" id="top">
-    <img src="images/cctwordingwithphrase.png" alt="Cooper Canines Logo with Phrase">
-</header>
-
-<!-- Site Header Navigation Bar -->
-<header class="site-header">
-    <div class="header-container">
-        
-        <!-- Logo -->
-        <div class="header-logo-container">
-            <a href="index.html">
-                <img src="images/cctwordingnophrase.png" alt="Cooper Canines Logo">
-            </a>
-        </div>
-
-        <!-- Navigation Links -->
-        <nav class="center-nav">
-            <a href="index.html" class="nav-btn">Home</a>
-            <a href="guides.html" class="nav-btn active-tab">Resources</a>
-            <a href="index.html#contact" class="nav-btn">Contact Us</a>
+    <!-- Integrated Header -->
+    <header class="site-header">
+        <div class="header-container">
             
-            <!-- Theme Toggle Button -->
-            <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Mode">
-                <span id="themeIcon">☀️</span>
-            </button>
-
-            <!-- Search Button -->
-            <button class="search-btn" id="openSearchBtn" aria-label="Open Search">
-                <svg viewBox="0 0 24 24">
-                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                </svg>
-            </button>
-        </nav>
-
-        <!-- Dropdown Menu -->
-        <div class="right-menu-container">
-            <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation menu">
-                <span class="menu-text">Menu</span>
-                <div class="hamburger-icon">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </button>
-            <div class="dropdown-menu" id="dropdownMenu">
-                <a href="/start">Get Started</a>
-                <a href="/portal">Returning Client</a>
-                <div class="dropdown-divider"></div>
-                <a href="index.html#about">About Us</a>
-                <a href="breeds">Breeds</a>
-                <a href="guides">Guides</a>
-                <a href="index.html#contact">Contact Us</a>
-                <div class="dropdown-divider"></div>
-                <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener">Our Facebook</a>
-                <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Google Reviews</a>
-                <a href="/waiver">Liability Waiver</a>
-                <a href="/perks">Referrals & Perks</a>
-                <a href="/rates">Estimated Rates</a>
+            <!-- Logo -->
+            <div class="header-logo-container">
+                <a href="index.html">
+                    <img src="images/cctwordingnophrase.png" alt="Cooper Canines Logo">
+                </a>
             </div>
-        </div>
 
-    </div>
-</header>
+            <!-- Navigation Links -->
+            <nav class="center-nav">
+                <a href="index.html" class="nav-btn">Home</a>
+                <a href="guides.html" class="nav-btn">Resources</a>
+                <a href="index.html#contact" class="nav-btn">Contact Us</a>
+                
+                <!-- Theme Toggle Button -->
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Mode">
+                    <span class="moon-emoji" id="themeIcon">🌙</span>
+                </button>
 
-<div class="layout-container">
-    <!-- Left Sidebar Navigation -->
-    <aside class="sidebar">
-        <button class="sidebar-home-btn" onclick="showGuidesPage()">
-            <span>Directory</span>
-        </button>
+                <!-- Search Button -->
+                <button class="search-btn" id="openSearchBtn" aria-label="Open Search">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                </button>
+            </nav>
 
-        <!-- Training Dropdown Menu -->
-        <div class="sidebar-dropdown-container" id="trainingDropdownContainer">
-            <button class="sidebar-dropdown-btn" onclick="toggleTrainingDropdown()">
-                <span>Training</span>
-                <span class="dropdown-arrow">▼</span>
-            </button>
-            <ul class="sidebar-dropdown-content">
-                <li><button class="tab-btn" onclick="loadTrainingArticle('Basic Skills')">Basic Skills</button></li>
-                <li><button class="tab-btn" onclick="loadTrainingArticle('Behavior')">Behavior</button></li>
-                <li><button class="tab-btn" onclick="loadTrainingArticle('Crate Training')">Crate Training</button></li>
-                <li><button class="tab-btn" onclick="loadTrainingArticle('Desensitization')">Desensitization</button></li>
-                <li><button class="tab-btn" onclick="loadTrainingArticle('Impulse Control')">Impulse Control</button></li>
-                <li><button class="tab-btn" onclick="loadTrainingArticle('Obedience')">Obedience</button></li>
-                <li><button class="tab-btn" onclick="loadTrainingArticle('Puppy Training')">Puppy Training</button></li>
-                <li><button class="tab-btn" onclick="loadTrainingArticle('Recall')">Recall</button></li>
-                <li><button class="tab-btn" onclick="loadTrainingArticle('Resource Guarding')">Resource Guarding</button></li>
-                <li><button class="tab-btn" onclick="loadTrainingArticle('Separation')">Separation</button></li>
-                <li><button class="tab-btn" onclick="loadTrainingArticle('Socialization')">Socialization</button></li>
-                <li><button class="tab-btn" onclick="loadTrainingArticle('Walking')">Walking</button></li>
-                <li><a href="/breeds">Breeds</a></li>
-            </ul>
-        </div>
-
-        <div class="discounts-box">
-            <p>Check out discounts for services.</p>
-            <a href="discounts/index.html" class="discount-link-btn">
-                🏷️ View External Discounts
-            </a>
-        </div>
-    </aside>
-
-    <!-- Main Content Display Container -->
-    <main class="content-area" id="mainContent">
-        <!-- Default Guides Page: Under Construction Notice -->
-        <div id="guidesPageContainer" style="text-align: center; padding: 2rem 1rem;">
-            <h2 style="color: var(--primary); font-size: 2rem; margin-bottom: 1rem;">Pardon Our Paws, Page Is Under Construction</h2>
-            <p style="font-size: 1.1rem; color: #e74c3c; font-weight: bold; margin-bottom: 1rem;">CAUTION: Content is not complete, this is a work in progress.</p>
-            <p style="color: #666; max-width: 600px; margin: 0 auto 2rem auto; line-height: 1.5;">We sincerely apologize for any inconvenience. Our team is working hard to build out comprehensive care-taking guides and general information resources for you and your dog.</p>
-            <button onclick="showTrainingGrid()" style="background: var(--primary); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: bold; cursor: pointer;">Explore Training Articles Instead →</button>
-        </div>
-
-        <!-- Training Topics Grid View (Initially Hidden) -->
-        <div id="gridContainer" style="display: none;">
-            <h2 style="margin-top:0; color: var(--primary); text-align: center;">Training Directory</h2>
-            <p style="text-align: center; color: #666; margin-bottom: 2rem;">Select a topic below to explore tricks, step-by-step how-tos, and obedience instructions.</p>
-            
-            <div class="topics-grid">
-                <div class="topic-card topic-orange" onclick="loadTrainingArticle('Basic Skills')">
-                    <div class="topic-img-container">
-                        <img src="images/Behavior.png" alt="Basic Skills">
+            <!-- Dropdown Menu Toggle -->
+            <div class="right-menu-container">
+                <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation menu">
+                    <span class="menu-text">Menu</span>
+                    <div class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </div>
-                    <h4>Basic Skills</h4>
-                    <p>Teaching essential day-to-day manners and focus.</p>
-                </div>
-
-                <div class="topic-card topic-red" onclick="loadTrainingArticle('Behavior')">
-                    <div class="topic-img-container">
-                        <img src="images/Behavior.png" alt="Behavior">
-                    </div>
-                    <h4>Behavior</h4>
-                    <p>Addressing reactivity, fear, barking, and unwanted habits.</p>
-                </div>
-
-                <div class="topic-card topic-tan" onclick="loadTrainingArticle('Crate Training')">
-                    <div class="topic-img-container">
-                        <img src="images/Behavior.png" alt="Crate Training">
-                    </div>
-                    <h4>Crate Training</h4>
-                    <p>Creating a cozy, stress-free safe space for relaxed resting.</p>
-                </div>
-
-                <div class="topic-card topic-cyan" onclick="loadTrainingArticle('Desensitization')">
-                    <div class="topic-img-container">
-                        <img src="images/Behavior.png" alt="Desensitization">
-                    </div>
-                    <h4>Desensitization</h4>
-                    <p>Gradual exposure techniques to build confidence.</p>
-                </div>
-
-                <div class="topic-card topic-purple" onclick="loadTrainingArticle('Impulse Control')">
-                    <div class="topic-img-container">
-                        <img src="images/Behavior.png" alt="Impulse Control">
-                    </div>
-                    <h4>Impulse Control</h4>
-                    <p>Emotional regulation, stays, and the "Place" command.</p>
-                </div>
-
-                <div class="topic-card topic-green" onclick="loadTrainingArticle('Obedience')">
-                    <div class="topic-img-container">
-                        <img src="images/Behavior.png" alt="Obedience">
-                    </div>
-                    <h4>Obedience</h4>
-                    <p>Establishing solid foundation cues like sit, stay, and down.</p>
-                </div>
-
-                <div class="topic-card topic-pink" onclick="loadTrainingArticle('Puppy Training')">
-                    <div class="topic-img-container">
-                        <img src="images/Behavior.png" alt="Puppy Training">
-                    </div>
-                    <h4>Puppy Training</h4>
-                    <p>Potty training, bite inhibition, and settling techniques.</p>
-                </div>
-
-                <div class="topic-card topic-forest" onclick="loadTrainingArticle('Recall')">
-                    <div class="topic-img-container">
-                        <img src="images/Behavior.png" alt="Recall">
-                    </div>
-                    <h4>Recall</h4>
-                    <p>Building a reliable emergency come cue.</p>
-                </div>
-
-                <div class="topic-card topic-grey" onclick="loadTrainingArticle('Resource Guarding')">
-                    <div class="topic-img-container">
-                        <img src="images/Behavior.png" alt="Resource Guarding">
-                    </div>
-                    <h4>Resource Guarding</h4>
-                    <p>Building trust around food, toys, and resting spots.</p>
-                </div>
-
-                <div class="topic-card topic-black" onclick="loadTrainingArticle('Separation')">
-                    <div class="topic-img-container">
-                        <img src="images/Behavior.png" alt="Separation">
-                    </div>
-                    <h4>Separation</h4>
-                    <p>Routines to reduce distress when left home alone.</p>
-                </div>
-
-                <div class="topic-card topic-yellow" onclick="loadTrainingArticle('Socialization')">
-                    <div class="topic-img-container">
-                        <img src="images/Behavior.png" alt="Socialization">
-                    </div>
-                    <h4>Socialization</h4>
-                    <p>Controlled exposure to novel environments and sounds.</p>
-                </div>
-
-                <div class="topic-card topic-brown" onclick="loadTrainingArticle('Walking')">
-                    <div class="topic-img-container">
-                        <img src="images/Behavior.png" alt="Walking">
-                    </div>
-                    <h4>Walking</h4>
-                    <p>Mastering loose-leash walking without pulling.</p>
+                </button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="/start.html">Get Started</a>
+                    <a href="/portal.html">Returning Client</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="index.html#top">About Us</a>
+                    <a href="guides.html">Guides</a>
+                    <a href="index.html#contact">Contact Us</a>
+                    <a href="arcade.html#contact">Games</a>
+                    <a href="store.html">Store</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener">Our Facebook</a>
+                    <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Google Reviews</a>
+                    <a href="/waiver.html">Liability Waiver</a>
+                    <a href="/waiver.html#Referral Program">Referral & Perks</a>
+                    <a href="/rates.html">Estimated Rates</a>
                 </div>
             </div>
+
         </div>
+    </header>
 
-        <!-- Article Container Placeholder -->
-        <div id="articleView" style="display: none;"></div>
-    </main>
-</div>
-
-<!-- Search Modal Overlay -->
-<div class="search-modal-overlay" id="searchModal">
-    <div class="search-modal-container">
-        <button class="close-search-modal" id="closeSearchBtn">&times;</button>
-        <div class="gcse-search"></div>
-    </div>
-</div>
-
-<!-- Floating Scroll to Top Button -->
-<button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top" title="Scroll to top">
-    <span>▲</span>
-    <span>To Top</span>
-</button>
-
-<footer style="background-color: var(--primary); color: white; padding: 2rem 1rem; width: 100%; box-sizing: border-box; margin-top: auto;">
-    <div style="max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2rem; text-align: center;">
-        <div>
-            <a href="/rates" style="color: white; text-decoration: none; margin: 0 1rem; font-size: 0.95rem;">
-                View Estimated Rates
-            </a>
-            <span style="color: #4a6572;">|</span>
-            <a href="/waiver" style="color: white; text-decoration: none; margin: 0 1rem; font-size: 0.95rem;">
-                Liability Waiver
-            </a>
-            <span style="color: #4a6572;">|</span>
-            <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener" style="color: white; text-decoration: none; margin: 0 1rem; font-size: 0.95rem;">
-                Follow on Facebook
-            </a>
+    <!-- Search Modal Overlay -->
+    <div class="search-modal-overlay" id="searchModal">
+        <div class="search-modal-container">
+            <button class="close-search-modal" id="closeSearchBtn">&times;</button>
+            <div class="gcse-search"></div>
         </div>
     </div>
 
-    <div style="text-align: center; border-top: 1px solid #4a6572; margin-top: 1.5rem; padding-top: 1rem; font-size: 0.85rem; color: #bdc3c7;">
-        <p style="margin: 0;">&copy; 2026 Cooper Canines LLC. All rights reserved.</p>
+    <div class="container">
+        <!-- Header -->
+        <div class="header-card">
+            <h1>Client Intake Questionnaire</h1>
+            <p>Please complete the details below to help us tailor our training programs for your dog.</p>
+        </div>
+
+        <!-- Main Questionnaire Form configured with Web3Forms -->
+        <form class="form-card" action="https://api.web3forms.com/submit" method="POST">
+
+            <!-- Web3Forms Access Key Hidden Input -->
+            <input type="hidden" name="access_key" value="5085b913-0cdc-49ef-9cff-79030702f254">
+            
+            <!-- Optional Web3Forms configuration: Redirect or Subject can go here if desired -->
+            <input type="hidden" name="subject" value="New Client Intake Questionnaire Submission">
+
+            <!-- General Information (Name, Email & Dog Name Box) -->
+            <div class="question-block">
+                <div class="input-grid">
+                    <div class="input-field-group">
+                        <label for="owner_name"><strong>Your Name</strong> <span class="required">*</span></label>
+                        <input type="text" id="owner_name" name="owner_name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="input-field-group">
+                        <label for="email"><strong>Email Address</strong> <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                    </div>
+                    <div class="input-field-group">
+                        <label for="dog_name"><strong>Dog Name</strong> <span class="required">*</span></label>
+                        <input type="text" id="dog_name" name="dog_name" placeholder="Enter your dog's name" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 1 -->
+            <div class="section-header">Background</div>
+
+            <!-- Q1 -->
+            <div class="question-block">
+                <div class="question-title">1. Are you a first time dog owner? <span class="required">*</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q1_first_owner" value="First Dog / New Owner" required> First Dog / New Owner</label>
+                    <label class="option-label"><input type="radio" name="q1_first_owner" value="I have previously owned a dog"> I have previously owned a dog</label>
+                </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="question-block">
+                <div class="question-title">2. Have you worked with a dog trainer or class before? <span class="required">*</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q2_trainer_before" value="Yes - current dog(s)" required> Yes - current dog(s)</label>
+                    <label class="option-label"><input type="radio" name="q2_trainer_before" value="Yes - different dog"> Yes - different dog</label>
+                    <label class="option-label"><input type="radio" name="q2_trainer_before" value="No"> No</label>
+                </div>
+            </div>
+
+            <!-- Q2A (Conditional) -->
+            <div class="question-block conditional-block" id="q2a_container">
+                <div class="question-title">2A. How effective was your previous training experience? <span class="optional">(Optional)</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q2a_effectiveness" value="Very effective"> Very effective</label>
+                    <label class="option-label"><input type="radio" name="q2a_effectiveness" value="Somewhat effective"> Somewhat effective</label>
+                    <label class="option-label"><input type="radio" name="q2a_effectiveness" value="Not effective and/or had concerns about the experience"> Not effective and/or had concerns about the experience</label>
+                </div>
+            </div>
+
+            <!-- SECTION 2 -->
+            <div class="section-header">Behavior</div>
+
+            <!-- Q3 -->
+            <div class="question-block">
+                <div class="question-title">3. Has your dog ever shown possessive, protective, or guarding behavior over any of the following? <span class="required">*</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q3_guarding[]" value="People"> People</label>
+                    <label class="option-label"><input type="checkbox" name="q3_guarding[]" value="Food or treats"> Food or treats</label>
+                    <label class="option-label"><input type="checkbox" name="q3_guarding[]" value="Toys or objects"> Toys or objects</label>
+                    <label class="option-label"><input type="checkbox" name="q3_guarding[]" value="Other dogs or animals"> Other dogs or animals</label>
+                    <label class="option-label"><input type="checkbox" name="q3_guarding[]" value="None or unsure"> None or unsure</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q3_guarding_other" placeholder="Other (please specify)">
+                </div>
+            </div>
+
+            <!-- Q4 -->
+            <div class="question-block">
+                <div class="question-title">4. Has your dog ever shown aggressive or threatening behavior toward a person or animal? <span class="optional">(Select all that apply)</span> <span class="required">*</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="None"> None</label>
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="Person in same household"> Person in same household</label>
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="Known person (non-household)"> Known person (non-household)</label>
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="Unfamiliar person"> Unfamiliar person</label>
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="Other dog in household"> Other dog in household</label>
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="Known dog (non-household)"> Known dog (non-household)</label>
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="Unfamiliar dog"> Unfamiliar dog</label>
+                    <label class="option-label"><input type="checkbox" name="q4_aggression[]" value="Other animal"> Other animal</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q4_aggression_other" placeholder="Other (please specify)">
+                </div>
+            </div>
+
+            <!-- Q4A (Conditional) -->
+            <div class="question-block conditional-block" id="q4a_container">
+                <div class="question-title">4A. Did any incident result in known injury or property damage? <span class="required">*</span></div>
+                <textarea id="q4a_input" name="q4a_injury_details" placeholder="Please describe any injuries or property damage caused by an incident..."></textarea>
+            </div>
+
+            <!-- SECTION 3 -->
+            <div class="section-header">Environment</div>
+
+            <!-- Q5 -->
+            <div class="question-block">
+                <div class="question-title">5. Does your dog have any health conditions, allergies, medication, or physical limitations? <span class="required">*</span></div>
+                <div class="options-grid two-column-grid">
+                    <label class="option-label"><input type="radio" name="q5_health" value="Yes" required> Yes</label>
+                    <label class="option-label"><input type="radio" name="q5_health" value="No"> No</label>
+                </div>
+            </div>
+
+            <!-- Q5 Details (Conditional Fill-in) -->
+            <div class="question-block conditional-block" id="q5_details_container">
+                <div class="question-title">Please list your dog's health conditions, allergies, medication, or physical limitations: <span class="required">*</span></div>
+                <textarea id="q5_details_input" name="q5_health_details" placeholder="List details here..."></textarea>
+            </div>
+
+            <!-- Q6 -->
+            <div class="question-block">
+                <div class="question-title">6. Must any of the below be avoided during training due to allergies, sensitivities, or restrictions for any person or other animal present? <span class="optional">(Select all that apply)</span> <span class="required">*</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q6_avoid[]" value="None of the below"> None of the below</label>
+                    <label class="option-label"><input type="checkbox" name="q6_avoid[]" value="Beef / Pork"> Beef / Pork</label>
+                    <label class="option-label"><input type="checkbox" name="q6_avoid[]" value="Chicken"> Chicken</label>
+                    <label class="option-label"><input type="checkbox" name="q6_avoid[]" value="Peanut Butter"> Peanut Butter</label>
+                    <label class="option-label"><input type="checkbox" name="q6_avoid[]" value="Wheat / Grains"> Wheat / Grains</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q6_avoid_other" placeholder="Other (please specify)">
+                </div>
+            </div>
+
+            <!-- Q7 -->
+            <div class="question-block">
+                <div class="question-title">7. Are there children or other regular household members who interact with your dog? <span class="optional">(Select all that apply)</span> <span class="required">*</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="checkbox" name="q7_household[]" value="Children"> Children</label>
+                    <label class="option-label"><input type="checkbox" name="q7_household[]" value="Adults"> Adults</label>
+                    <label class="option-label"><input type="checkbox" name="q7_household[]" value="None"> None</label>
+                </div>
+            </div>
+
+            <!-- Q8 -->
+            <div class="question-block">
+                <div class="question-title">8. Are there other dogs in the same household? <span class="required">*</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q8_other_dogs" value="Yes" required> Yes</label>
+                    <label class="option-label"><input type="radio" name="q8_other_dogs" value="No"> No</label>
+                </div>
+            </div>
+
+            <!-- Q9 -->
+            <div class="question-block">
+                <div class="question-title">9. Is the dog crate trained? <span class="required">*</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q9_crate" value="Yes" required> Yes</label>
+                    <label class="option-label"><input type="radio" name="q9_crate" value="No"> No</label>
+                    <label class="option-label"><input type="radio" name="q9_crate" value="Unsure"> Unsure</label>
+                </div>
+            </div>
+
+            <!-- Q10 -->
+            <div class="question-block">
+                <div class="question-title">10. Is there a secure, fenced area at your residence? <span class="required">*</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q10_fence" value="Yes" required> Yes</label>
+                    <label class="option-label"><input type="radio" name="q10_fence" value="No"> No</label>
+                </div>
+            </div>
+
+            <!-- Q11 -->
+            <div class="question-block">
+                <div class="question-title">11. Daily physical and mental exercise for your dog is important for training success. Are you able to incorporate this into your routine? <span class="required">*</span></div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q11_exercise" value="Yes" required> Yes</label>
+                    <label class="option-label"><input type="radio" name="q11_exercise" value="Sometimes"> Sometimes</label>
+                    <label class="option-label"><input type="radio" name="q11_exercise" value="Unsure"> Unsure</label>
+                    <label class="option-label"><input type="radio" name="q11_exercise" value="Need Assistance"> Need Assistance</label>
+                    <label class="option-label"><input type="radio" name="q11_exercise" value="No"> No</label>
+                </div>
+            </div>
+
+            <!-- SECTION 4 -->
+            <div class="section-header">Goals</div>
+
+            <!-- Q12 -->
+            <div class="question-block">
+                <div class="question-title">12. What motivates your dog? <span class="optional">(Optional: Select all that apply)</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q12_motivates[]" value="Food / Treats"> Food / Treats</label>
+                    <label class="option-label"><input type="checkbox" name="q12_motivates[]" value="Toys"> Toys</label>
+                    <label class="option-label"><input type="checkbox" name="q12_motivates[]" value="Praise / Affection"> Praise / Affection</label>
+                    <label class="option-label"><input type="checkbox" name="q12_motivates[]" value="Play"> Play</label>
+                    <label class="option-label"><input type="checkbox" name="q12_motivates[]" value="Not Sure"> Not Sure</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q12_motivates_other" placeholder="Other (please specify)">
+                </div>
+            </div>
+
+            <!-- Q13 -->
+            <div class="question-block">
+                <div class="question-title">13. Does your dog have any known triggers or situations that may cause fear, stress, reactivity, or aggression? <span class="optional">(Optional: Select all that apply)</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q13_triggers[]" value="None or Unsure"> None or Unsure</label>
+                    <label class="option-label"><input type="checkbox" name="q13_triggers[]" value="People"> People</label>
+                    <label class="option-label"><input type="checkbox" name="q13_triggers[]" value="Children"> Children</label>
+                    <label class="option-label"><input type="checkbox" name="q13_triggers[]" value="Other dogs"> Other dogs</label>
+                    <label class="option-label"><input type="checkbox" name="q13_triggers[]" value="Other animals"> Other animals</label>
+                    <label class="option-label"><input type="checkbox" name="q13_triggers[]" value="Loud noises"> Loud noises</label>
+                    <label class="option-label"><input type="checkbox" name="q13_triggers[]" value="Handling (ears, paws, collar, etc.)"> Handling (ears, paws, collar, etc.)</label>
+                    <label class="option-label"><input type="checkbox" name="q13_triggers[]" value="Food or toy guarding"> Food or toy guarding</label>
+                    <label class="option-label"><input type="checkbox" name="q13_triggers[]" value="Door knocking"> Door knocking</label>
+                    <label class="option-label"><input type="checkbox" name="q13_triggers[]" value="Moving objects (bikes, cars, etc.)"> Moving objects (bikes, cars, etc.)</label>
+                    <label class="option-label"><input type="checkbox" name="q13_triggers[]" value="Strangers approaching or entering the home"> Strangers approaching/entering home</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q13_triggers_other" placeholder="Other (please specify)">
+                </div>
+            </div>
+
+            <!-- Q14 -->
+            <div class="question-block">
+                <div class="question-title">14. Training Requested <span class="optional">(Select all that apply)</span> <span class="required">*</span></div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="checkbox" name="q14_training[]" value="Aggression / Anxiety / Reactivity"> Aggression / Anxiety / Reactivity</label>
+                    <label class="option-label"><input type="checkbox" name="q14_training[]" value="Clicker Training"> Clicker Training</label>
+                    <label class="option-label"><input type="checkbox" name="q14_training[]" value="Destructive Behavior"> Destructive Behavior</label>
+                    <label class="option-label"><input type="checkbox" name="q14_training[]" value="First-Time Owner / New Dog Support"> First-Time Owner / New Dog Support</label>
+                    <label class="option-label"><input type="checkbox" name="q14_training[]" value="Leash Walking Skills"> Leash Walking Skills</label>
+                    <label class="option-label"><input type="checkbox" name="q14_training[]" value="Obedience and Basic Skills"> Obedience and Basic Skills</label>
+                    <label class="option-label"><input type="checkbox" name="q14_training[]" value="Puppy Training"> Puppy Training</label>
+                    <label class="option-label"><input type="checkbox" name="q14_training[]" value="Recall and Off-Leash"> Recall and Off-Leash</label>
+                    <label class="option-label"><input type="checkbox" name="q14_training[]" value="Socialization"> Socialization</label>
+                </div>
+                <div class="other-input">
+                    <input type="text" name="q14_training_other" placeholder="Other (please specify)">
+                </div>
+            </div>
+
+            <!-- Goals -->
+            <div class="question-block">
+                <div class="question-title">What are your primary training goals? <span class="optional">(Optional)</span></div>
+                <textarea name="primary_goals" placeholder="Tell us about what you want to achieve with training..."></textarea>
+            </div>
+
+            <!-- Additional Notes -->
+            <div class="question-block">
+                <div class="question-title">Additional Requests, Questions, or Concerns? <span class="optional">(Optional)</span></div>
+                <textarea name="additional_concerns" placeholder="Any additional notes for the trainer..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Questionnaire</button>
+        </form>
     </div>
-</footer>
 
-<script>
-    // Hamburger menu toggle
-    const menuBtn = document.getElementById('menuBtn');
-    const dropdownMenu = document.getElementById('dropdownMenu');
+    <!-- Scroll To Top Button -->
+    <a href="#top" id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top" title="Scroll to top">
+        ▲
+    </a>
 
-    menuBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dropdownMenu.classList.toggle('show');
-    });
+    <footer></footer>
 
-    document.addEventListener('click', () => {
-        dropdownMenu.classList.remove('show');
-    });
+    <script>
+        // Scroll to Top Button
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
 
-    // Theme Mode Toggle Handler with Sun/Moon emojis
-    const themeToggleBtn = document.getElementById('themeToggleBtn');
-    const themeIcon = document.getElementById('themeIcon');
-
-    themeToggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        const isDark = document.body.classList.contains('dark-mode');
-        themeIcon.textContent = isDark ? '🌙' : '☀️';
-    });
-
-    // Search Modal Handlers
-    const openSearchBtn = document.getElementById('openSearchBtn');
-    const closeSearchBtn = document.getElementById('closeSearchBtn');
-    const searchModal = document.getElementById('searchModal');
-
-    openSearchBtn.addEventListener('click', () => {
-        searchModal.classList.add('active');
-        setTimeout(() => {
-            const searchInput = document.querySelector('.gsc-input input');
-            if (searchInput) searchInput.focus();
-        }, 200);
-    });
-
-    closeSearchBtn.addEventListener('click', () => {
-        searchModal.classList.remove('active');
-    });
-
-    searchModal.addEventListener('click', (e) => {
-        if (e.target === searchModal) {
-            searchModal.classList.remove('active');
-        }
-    });
-
-    // Sidebar Training Dropdown Toggle
-    function toggleTrainingDropdown() {
-        const container = document.getElementById('trainingDropdownContainer');
-        container.classList.toggle('open');
-    }
-
-    // Dynamic Article Loader loading training/template.html
-    function loadTrainingArticle(topicName) {
-        const guidesPageContainer = document.getElementById('guidesPageContainer');
-        const gridContainer = document.getElementById('gridContainer');
-        const articleView = document.getElementById('articleView');
-        const fileName = 'training/template.html';
-
-        // Highlight active sidebar button
-        const buttons = document.querySelectorAll('.tab-btn');
-        buttons.forEach(btn => {
-            if (btn.textContent.trim() === topicName) {
-                btn.classList.add('active');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.style.display = 'flex';
             } else {
-                btn.classList.remove('active');
+                scrollTopBtn.style.display = 'none';
             }
         });
 
-        // Fetch template.html from training folder
-        fetch(fileName)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Template not found');
-                }
-                return response.text();
-            })
-            .then(htmlContent => {
-                guidesPageContainer.style.display = 'none';
-                gridContainer.style.display = 'none';
-                articleView.style.display = 'block';
-                articleView.innerHTML = htmlContent;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            })
-            .catch(error => {
-                guidesPageContainer.style.display = 'none';
-                gridContainer.style.display = 'none';
-                articleView.style.display = 'block';
-                articleView.innerHTML = `
-                    <div style="text-align: center; padding: 2rem;">
-                        <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Article Template Loading</h3>
-                        <p style="color: #666; margin-bottom: 1.5rem;">Displaying content for: <strong>${topicName}</strong> (Ensure training/template.html exists)</p>
-                        <button onclick="showTrainingGrid()" style="background: var(--primary); color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">← Back to Training Directory</button>
-                    </div>
-                `;
-            });
-    }
+        // Dropdown Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const dropdownMenu = document.getElementById('dropdownMenu');
 
-    // View Navigation Switchers
-    function showGuidesPage() {
-        document.getElementById('guidesPageContainer').style.display = 'block';
-        document.getElementById('gridContainer').style.display = 'none';
-        document.getElementById('articleView').style.display = 'none';
-        
-        const buttons = document.querySelectorAll('.tab-btn');
-        buttons.forEach(btn => btn.classList.remove('active'));
-    }
-
-    function showTrainingGrid() {
-        document.getElementById('guidesPageContainer').style.display = 'none';
-        document.getElementById('gridContainer').style.display = 'block';
-        document.getElementById('articleView').style.display = 'none';
-        
-        const buttons = document.querySelectorAll('.tab-btn');
-        buttons.forEach(btn => btn.classList.remove('active'));
-    }
-
-    // Scroll to Top Button Logic
-    const scrollTopBtn = document.getElementById('scrollTopBtn');
-
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            scrollTopBtn.style.display = 'flex';
-        } else {
-            scrollTopBtn.style.display = 'none';
-        }
-    });
-
-    scrollTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
         });
-    });
-</script>
+
+        document.addEventListener('click', () => {
+            dropdownMenu.classList.remove('show');
+        });
+
+        // Theme Mode Toggle Handler with Dynamic Sun/Moon Emoji Toggle
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
+
+        const setTheme = (isDark) => {
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+                themeIcon.textContent = '🌙';
+            } else {
+                document.body.classList.remove('dark-mode');
+                themeIcon.textContent = '☀️';
+            }
+        };
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            setTheme(false);
+        } else {
+            setTheme(true);
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const isDark = !document.body.classList.contains('dark-mode');
+            setTheme(isDark);
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+
+        // Interactive Logic Helpers (Borders, Auto-Scroll, Conditionals)
+        document.addEventListener('DOMContentLoaded', () => {
+            const questionBlocks = document.querySelectorAll('.question-block');
+
+            // Helper to check if a block is answered
+            const checkBlockAnswered = (block) => {
+                const inputs = block.querySelectorAll('input[type="text"], input[type="email"], textarea');
+                for (let input of inputs) {
+                    if (input.value.trim() !== '') return true;
+                }
+                const radiosOrCheckboxes = block.querySelectorAll('input[type="radio"], input[type="checkbox"]');
+                for (let rc of radiosOrCheckboxes) {
+                    if (rc.checked) return true;
+                }
+                return false;
+            };
+
+            // Update border states for all blocks
+            const updateBorders = () => {
+                questionBlocks.forEach(block => {
+                    if (block.style.display !== 'none') {
+                        if (checkBlockAnswered(block)) {
+                            block.classList.add('answered');
+                        } else {
+                            block.classList.remove('answered');
+                        }
+                    }
+                });
+            };
+
+            // Auto scroll to next unanswered question block
+            const scrollToNextUnanswered = (currentBlock) => {
+                const visibleBlocks = Array.from(questionBlocks).filter(b => b.style.display !== 'none');
+                const currentIndex = visibleBlocks.indexOf(currentBlock);
+                for (let i = currentIndex + 1; i < visibleBlocks.length; i++) {
+                    const block = visibleBlocks[i];
+                    if (!checkBlockAnswered(block)) {
+                        block.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        break;
+                    }
+                }
+            };
+
+            // Q2 -> Q2A Dynamic Visibility
+            const q2Radios = document.querySelectorAll('input[name="q2_trainer_before"]');
+            const q2aContainer = document.getElementById('q2a_container');
+
+            q2Radios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    if (e.target.value.startsWith('Yes')) {
+                        q2aContainer.style.display = 'block';
+                    } else {
+                        q2aContainer.style.display = 'none';
+                        const checkedQ2a = q2aContainer.querySelector('input[type="radio"]:checked');
+                        if (checkedQ2a) checkedQ2a.checked = false;
+                    }
+                    updateBorders();
+                    scrollToNextUnanswered(radio.closest('.question-block'));
+                });
+            });
+
+            // Q4 -> Q4A Dynamic Visibility & "None" exclusivity logic
+            const q4Checkboxes = document.querySelectorAll('input[name="q4_aggression[]"]');
+            const q4aContainer = document.getElementById('q4a_container');
+            const q4aInput = document.getElementById('q4a_input');
+            const noneCheckbox = Array.from(q4Checkboxes).find(cb => cb.value === 'None');
+
+            q4Checkboxes.forEach(cb => {
+                cb.addEventListener('change', (e) => {
+                    if (e.target === noneCheckbox && e.target.checked) {
+                        q4Checkboxes.forEach(other => {
+                            if (other !== noneCheckbox) other.checked = false;
+                        });
+                    } else if (e.target.checked && noneCheckbox) {
+                        noneCheckbox.checked = false;
+                    }
+
+                    const anyNonNoneChecked = Array.from(q4Checkboxes).some(c => c !== noneCheckbox && c.checked);
+                    if (anyNonNoneChecked) {
+                        q4aContainer.style.display = 'block';
+                        q4aInput.setAttribute('required', 'required');
+                    } else {
+                        q4aContainer.style.display = 'none';
+                        q4aInput.removeAttribute('required');
+                        q4aInput.value = '';
+                    }
+                    updateBorders();
+                    scrollToNextUnanswered(cb.closest('.question-block'));
+                });
+            });
+
+            // Q5 -> Q5 Details Dynamic Visibility
+            const q5Radios = document.querySelectorAll('input[name="q5_health"]');
+            const q5DetailsContainer = document.getElementById('q5_details_container');
+            const q5DetailsInput = document.getElementById('q5_details_input');
+
+            q5Radios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    if (e.target.value === 'Yes') {
+                        q5DetailsContainer.style.display = 'block';
+                        q5DetailsInput.setAttribute('required', 'required');
+                    } else {
+                        q5DetailsContainer.style.display = 'none';
+                        q5DetailsInput.removeAttribute('required');
+                        q5DetailsInput.value = '';
+                    }
+                    updateBorders();
+                    scrollToNextUnanswered(radio.closest('.question-block'));
+                });
+            });
+
+            // Global listener for automatic border updates and auto-scroll on inputs/changes
+            questionBlocks.forEach(block => {
+                block.addEventListener('change', (e) => {
+                    updateBorders();
+                    scrollToNextUnanswered(block);
+                });
+                block.addEventListener('input', (e) => {
+                    updateBorders();
+                });
+            });
+
+            // Initial border state setup
+            updateBorders();
+        });
+
+        // Search Modal Handlers
+        const openSearchBtn = document.getElementById('openSearchBtn');
+        const closeSearchBtn = document.getElementById('closeSearchBtn');
+        const searchModal = document.getElementById('searchModal');
+
+        openSearchBtn.addEventListener('click', () => {
+            searchModal.classList.add('active');
+            setTimeout(() => {
+                const searchInput = document.querySelector('.gsc-input input');
+                if (searchInput) searchInput.focus();
+            }, 200);
+        });
+
+        closeSearchBtn.addEventListener('click', () => {
+            searchModal.classList.remove('active');
+        });
+
+        searchModal.addEventListener('click', (e) => {
+            if (e.target === searchModal) {
+                searchModal.classList.remove('active');
+            }
+        });
+
+        // Active Link Highlighting
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = document.querySelectorAll('.nav-btn');
+
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPath || (currentPath === '' && href === 'index.html')) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
