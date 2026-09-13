@@ -33,28 +33,34 @@
             --border-dark: #3a4754;
         }
 
-        /* Prevent scrollbar layout shifting across all load states */
+        /* Lock scrollbar layout shifting across all load states */
         html {
             scroll-behavior: smooth;
             overflow-y: scroll;
+            scrollbar-gutter: stable;
+            box-sizing: border-box;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
         }
 
         html, body {
             margin: 0;
             padding: 0;
-            min-height: 100%;
+            width: 100%;
+            min-height: 100vh;
         }
 
-        /* Pawprint background completely removed */
         body {
             font-family: Arial, sans-serif;
             color: var(--dark);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            position: relative;
             background-color: var(--light);
             transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
         }
 
         body.dark-mode {
@@ -112,6 +118,7 @@
 
         .header-container {
             max-width: 1400px;
+            width: 100%;
             margin: 0 auto;
             display: flex;
             align-items: center;
@@ -181,7 +188,6 @@
             transition: all 0.2s ease;
             width: 38px;
             height: 32px;
-            box-sizing: border-box;
         }
 
         .theme-toggle-btn:hover,
@@ -285,13 +291,12 @@
         /* Layout Container Structure Locks */
         .layout-container {
             max-width: 1400px;
-            width: 92%;
-            margin: 2rem auto 4rem auto;
-            padding: 0 1rem;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
             display: flex;
             gap: 2rem;
-            flex: 1;
-            box-sizing: border-box;
+            flex: 1 0 auto;
         }
 
         .layout-container.layout-top-bar {
@@ -299,8 +304,8 @@
         }
 
         .sidebar {
-            flex: 0 0 220px;
-            width: 220px;
+            flex: 0 0 240px;
+            width: 240px;
             background: white;
             padding: 1.2rem;
             border-radius: 8px;
@@ -308,7 +313,6 @@
             height: fit-content;
             max-height: 80vh;
             overflow-y: auto;
-            box-sizing: border-box;
             z-index: 10;
         }
 
@@ -396,7 +400,6 @@
             justify-content: space-between;
             transition: background 0.2s ease;
             white-space: nowrap;
-            box-sizing: border-box;
             line-height: 1.2;
         }
 
@@ -429,7 +432,6 @@
             display: block;
             border-bottom: 1px solid var(--border);
             transition: all 0.2s ease;
-            box-sizing: border-box;
             white-space: nowrap;
         }
 
@@ -444,19 +446,22 @@
 
         /* Content Area Locks */
         .content-area {
-            flex: 1;
+            flex: 1 1 auto;
             background: white;
             padding: 2rem;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             min-width: 0;
-            box-sizing: border-box;
             z-index: 10;
         }
 
         #articleView {
             width: 100%;
-            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        #articleView * {
+            max-width: 100%;
         }
 
         .discounts-box {
@@ -570,10 +575,22 @@
             transform: translateY(-3px);
         }
 
+        /* Clean fixed footer that doesn't cause page jumps */
+        footer {
+            background-color: #006060;
+            color: white;
+            padding: 1.25rem 1rem;
+            margin-top: auto;
+            width: 100%;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
         @media (max-width: 900px) {
             .layout-container {
                 flex-direction: column;
-                width: 95%;
+                width: 100%;
+                padding: 0 1rem;
                 margin-bottom: 2rem;
             }
             .sidebar {
@@ -799,7 +816,7 @@
     <span>To Top</span>
 </button>
 
-<footer style="background-color: #006060; color: white; padding: 1.25rem 1rem; margin-top: 3rem; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; box-sizing: border-box; text-align: center;">
+<footer>
     <div style="font-size: 0.9rem; color: #ffffff;">
         <p style="margin: 0;">&copy; 2026 Cooper Canines LLC. | All rights reserved. | Website in Construction.</p>
     </div>
