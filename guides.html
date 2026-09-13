@@ -10,6 +10,8 @@
     
     <!-- Custom Google Search Script -->
     <script async src="https://cse.google.com/cse.js?cx=e4f71822d5b0943bb"></script>
+    <!-- hCaptcha API -->
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 
     <style>
         :root {
@@ -71,20 +73,23 @@
         body.dark-mode .sidebar,
         body.dark-mode .content-area,
         body.dark-mode .topic-card,
-        body.dark-mode .discounts-box {
+        body.dark-mode .discounts-box,
+        body.dark-mode .modal-card {
             background-color: var(--card-bg-dark) !important;
             border-color: var(--border-dark) !important;
             color: var(--text-light-dark) !important;
         }
 
         body.dark-mode .topic-card h4,
-        body.dark-mode .content-area h2 {
+        body.dark-mode .content-area h2,
+        body.dark-mode .modal-card h3 {
             color: var(--text-light-dark) !important;
         }
 
         body.dark-mode .topic-card p,
         body.dark-mode .discounts-box p,
-        body.dark-mode .content-area p {
+        body.dark-mode .content-area p,
+        body.dark-mode .modal-card p {
             color: var(--text-muted-dark) !important;
         }
 
@@ -334,6 +339,7 @@
         }
 
         .layout-top-bar .sidebar-section-container,
+        .layout-top-bar .sidebar-search-wrapper,
         .layout-top-bar .discounts-box {
             display: none !important;
         }
@@ -378,6 +384,73 @@
             font-size: 1.1rem;
             line-height: 1;
             display: inline-block;
+        }
+
+        /* Sidebar Dynamic Instant Search Field */
+        .sidebar-search-wrapper {
+            position: relative;
+            margin-bottom: 0.8rem;
+        }
+
+        .sidebar-search-input {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.85rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease;
+        }
+
+        .sidebar-search-input:focus {
+            border-color: var(--primary);
+        }
+
+        .search-results-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            max-height: 250px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            margin-top: 2px;
+        }
+
+        body.dark-mode .search-results-dropdown {
+            background: var(--card-bg-dark);
+            border-color: var(--border-dark);
+        }
+
+        .search-results-dropdown a {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.85rem;
+            color: var(--dark);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+
+        }
+
+        body.dark-mode .search-results-dropdown a {
+            color: var(--text-light-dark);
+            border-bottom-color: var(--border-dark);
+        }
+
+        .search-results-dropdown a:hover {
+            background-color: var(--light);
+            color: var(--primary);
+        }
+
+        body.dark-mode .search-results-dropdown a:hover {
+            background-color: rgba(255,255,255,0.05);
+            color: var(--active-tab-color);
         }
 
         .sidebar-section-container {
@@ -487,6 +560,9 @@
             font-weight: bold;
             transition: background 0.2s ease;
             white-space: nowrap;
+            border: none;
+            cursor: pointer;
+            text-align: center;
         }
 
         .discount-link-btn:hover {
@@ -506,7 +582,8 @@
             line-height: 1.45;
         }
 
-        .search-modal-overlay {
+        .search-modal-overlay,
+        .modal-overlay {
             display: none;
             position: fixed;
             top: 0;
@@ -517,26 +594,29 @@
             z-index: 9999;
             justify-content: center;
             align-items: flex-start;
-            padding-top: 80px;
+            padding-top: 50px;
         }
 
-        .search-modal-overlay.active {
+        .search-modal-overlay.active,
+        .modal-overlay.active {
             display: flex;
         }
 
-        .search-modal-container {
+        .search-modal-container,
+        .modal-card {
             background: #ffffff;
             width: 90%;
-            max-width: 800px;
+            max-width: 600px;
             border-radius: 12px;
             padding: 24px;
             position: relative;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            max-height: 80vh;
+            max-height: 85vh;
             overflow-y: auto;
         }
 
-        .close-search-modal {
+        .close-search-modal,
+        .close-modal-btn {
             position: absolute;
             top: 12px;
             right: 16px;
@@ -547,6 +627,51 @@
             cursor: pointer;
             line-height: 1;
             z-index: 10000;
+        }
+
+        /* Suggestion Form Styling */
+        .form-group {
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            font-size: 0.95rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        body.dark-mode .form-control {
+            background-color: var(--bg-dark);
+            border-color: var(--border-dark);
+            color: var(--text-light-dark);
+        }
+
+        .btn-submit {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s ease;
+        }
+
+        .btn-submit:hover {
+            background: var(--accent);
         }
 
         .scroll-top-btn {
@@ -575,7 +700,6 @@
             transform: translateY(-3px);
         }
 
-        /* Clean fixed footer that doesn't cause page jumps */
         footer {
             background-color: #006060;
             color: white;
@@ -709,7 +833,13 @@
             </button>
         </div>
 
-        <!-- 1. Basics Section Dropdown (Alphabetical Order: B) -->
+        <!-- Sidebar Instant Search Bar -->
+        <div class="sidebar-search-wrapper">
+            <input type="text" id="sidebarSearchInput" class="sidebar-search-input" placeholder="🔍 Search guides & breeds..." autocomplete="off">
+            <div class="search-results-dropdown" id="searchResultsDropdown"></div>
+        </div>
+
+        <!-- 1. Basics Section Dropdown -->
         <div class="sidebar-section-container">
             <button class="sidebar-dropdown-btn" onclick="toggleSidebarMenu('basicsList', event)">
                 <span>Basics</span>
@@ -739,7 +869,7 @@
             </ul>
         </div>
 
-        <!-- 2. Breeds Button (Alphabetical Order: B) -->
+        <!-- 2. Breeds Button -->
         <div class="sidebar-section-container">
             <a href="/breeds" class="sidebar-dropdown-btn" style="text-decoration: none;">
                 <span>Breeds</span>
@@ -747,7 +877,7 @@
             </a>
         </div>
 
-        <!-- 3. Commands Section Dropdown (Alphabetical Order: C) -->
+        <!-- 3. Commands Section Dropdown -->
         <div class="sidebar-section-container">
             <button class="sidebar-dropdown-btn" onclick="toggleSidebarMenu('commandsList', event)">
                 <span>Commands</span>
@@ -777,7 +907,7 @@
             </ul>
         </div>
 
-        <!-- 4. Training Section Dropdown (Alphabetical Order: T) -->
+        <!-- 4. Training Section Dropdown -->
         <div class="sidebar-section-container">
             <button class="sidebar-dropdown-btn" onclick="toggleSidebarMenu('trainingList', event)">
                 <span>Training</span>
@@ -814,6 +944,9 @@
             <a href="guides/template.html" target="_blank" rel="noopener" class="discount-link-btn">
                 External Links
             </a>
+            <button type="button" class="discount-link-btn" id="openSuggestionBtn">
+                Suggestion Box
+            </button>
         </div>
     </aside>
 
@@ -833,11 +966,56 @@
     </main>
 </div>
 
-<!-- Search Modal -->
+<!-- Header Google Search Modal Overlay -->
 <div class="search-modal-overlay" id="searchModal">
     <div class="search-modal-container">
         <button class="close-search-modal" id="closeSearchBtn">&times;</button>
         <div class="gcse-search"></div>
+    </div>
+</div>
+
+<!-- Suggestion Box Form Modal -->
+<div class="modal-overlay" id="suggestionModal">
+    <div class="modal-card">
+        <button class="close-modal-btn" id="closeSuggestionModalBtn">&times;</button>
+        <h3 style="margin-top: 0; color: var(--primary);">Do you have a topic suggestion or a question?</h3>
+        
+        <!-- Form handled via AJAX to avoid AV heuristic flags -->
+        <form id="suggestionForm">
+            <input type="hidden" name="access_key" value="1841d9c3-fb4f-4579-b569-57650f5ccfda">
+            <input type="hidden" name="subject" id="suggestionSubject" value="Resources - Suggestion Box /">
+            
+            <div class="form-group">
+                <label for="suggName">Name</label>
+                <input type="text" id="suggName" name="name" class="form-control" placeholder="Your Name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="suggEmail">Email Address</label>
+                <input type="email" id="suggEmail" name="email" class="form-control" placeholder="name@example.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="suggMessage">Suggestion or Question (500 char max)</label>
+                <textarea id="suggMessage" name="message" class="form-control" rows="4" maxlength="500" placeholder="Enter your suggestion or question here..." required></textarea>
+            </div>
+
+            <div class="form-group" style="display: flex; justify-content: center;">
+                <div class="h-captcha" data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"></div>
+            </div>
+
+            <button type="submit" class="btn-submit" id="submitSuggBtn">Submit</button>
+        </form>
+    </div>
+</div>
+
+<!-- Submission Thank You Modal -->
+<div class="modal-overlay" id="thankYouModal">
+    <div class="modal-card" style="text-align: center; padding: 2rem;">
+        <button class="close-modal-btn" id="closeThankYouCross">&times;</button>
+        <h3 style="color: var(--primary); margin-top: 0;">Thank You!</h3>
+        <p>Thank you for your entry. We appreciate your feedback and suggestions.</p>
+        <button type="button" class="btn-submit" id="closeThankYouBtn" style="margin-top: 1rem;">Continue</button>
     </div>
 </div>
 
@@ -887,6 +1065,7 @@
         window.postMessage({ type: 'THEME_CHANGE', theme: newTheme }, '*');
     });
 
+    /* Header Modal Search */
     const openSearchBtn = document.getElementById('openSearchBtn');
     const closeSearchBtn = document.getElementById('closeSearchBtn');
     const searchModal = document.getElementById('searchModal');
@@ -906,6 +1085,60 @@
     searchModal.addEventListener('click', (e) => {
         if (e.target === searchModal) {
             searchModal.classList.remove('active');
+        }
+    });
+
+    /* Sidebar Dynamic Search Logic */
+    const sidebarSearchInput = document.getElementById('sidebarSearchInput');
+    const searchResultsDropdown = document.getElementById('searchResultsDropdown');
+
+    const internalLinks = [
+        { title: "Breeds Page", url: "/breeds" },
+        { title: "Basics - Article 1", folder: "guides", topic: "Article 1" },
+        { title: "Basics - Article 2", folder: "guides", topic: "Article 2" },
+        { title: "Commands - Article 1", folder: "tricks", topic: "Article 1" },
+        { title: "Commands - Article 2", folder: "tricks", topic: "Article 2" },
+        { title: "Training - Article 1", folder: "training", topic: "Article 1" },
+        { title: "Training - Article 2", folder: "training", topic: "Article 2" }
+    ];
+
+    sidebarSearchInput.addEventListener('input', () => {
+        const query = sidebarSearchInput.value.toLowerCase().trim();
+        searchResultsDropdown.innerHTML = '';
+
+        if (!query) {
+            searchResultsDropdown.style.display = 'none';
+            return;
+        }
+
+        const matches = internalLinks.filter(item => item.title.toLowerCase().includes(query));
+
+        if (matches.length > 0) {
+            matches.forEach(item => {
+                const a = document.createElement('a');
+                a.textContent = item.title;
+                a.href = "#";
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (item.url) {
+                        window.location.href = item.url;
+                    } else {
+                        loadArticle(item.folder, item.topic);
+                    }
+                    searchResultsDropdown.style.display = 'none';
+                    sidebarSearchInput.value = '';
+                });
+                searchResultsDropdown.appendChild(a);
+            });
+            searchResultsDropdown.style.display = 'block';
+        } else {
+            searchResultsDropdown.style.display = 'none';
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!sidebarSearchInput.contains(e.target) && !searchResultsDropdown.contains(e.target)) {
+            searchResultsDropdown.style.display = 'none';
         }
     });
 
@@ -995,6 +1228,76 @@
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
         document.getElementById('sidebar').classList.remove('expanded');
     }
+
+    /* Suggestion Modal & AJAX Submission Logic */
+    const openSuggestionBtn = document.getElementById('openSuggestionBtn');
+    const suggestionModal = document.getElementById('suggestionModal');
+    const closeSuggestionModalBtn = document.getElementById('closeSuggestionModalBtn');
+    const suggestionForm = document.getElementById('suggestionForm');
+    const suggName = document.getElementById('suggName');
+    const suggEmail = document.getElementById('suggEmail');
+    const suggestionSubject = document.getElementById('suggestionSubject');
+    const thankYouModal = document.getElementById('thankYouModal');
+    const closeThankYouBtn = document.getElementById('closeThankYouBtn');
+    const closeThankYouCross = document.getElementById('closeThankYouCross');
+
+    openSuggestionBtn.addEventListener('click', () => {
+        suggestionModal.classList.add('active');
+    });
+
+    closeSuggestionModalBtn.addEventListener('click', () => {
+        suggestionModal.classList.remove('active');
+    });
+
+    function updateSubjectLine() {
+        const nameVal = suggName.value.trim();
+        const emailVal = suggEmail.value.trim();
+        suggestionSubject.value = `Resources - Suggestion Box ${nameVal} / ${emailVal}`;
+    }
+
+    suggName.addEventListener('input', updateSubjectLine);
+    suggEmail.addEventListener('input', updateSubjectLine);
+
+    suggestionForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const submitBtn = document.getElementById('submitSuggBtn');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+
+        const formData = new FormData(suggestionForm);
+
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+        })
+        .then(async (response) => {
+            if (response.status === 200) {
+                suggestionModal.classList.remove('active');
+                suggestionForm.reset();
+                thankYouModal.classList.add('active');
+            } else {
+                alert('Something went wrong. Please complete the captcha and try again.');
+            }
+        })
+        .catch(() => {
+            alert('Submission failed. Please try again.');
+        })
+        .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit';
+            if (typeof hcaptcha !== 'undefined') {
+                hcaptcha.reset();
+            }
+        });
+    });
+
+    function closeThankYou() {
+        thankYouModal.classList.remove('active');
+        showDirectoryHome();
+    }
+
+    closeThankYouBtn.addEventListener('click', closeThankYou);
+    closeThankYouCross.addEventListener('click', closeThankYou);
 
     document.addEventListener("DOMContentLoaded", () => {
         const urlParams = new URLSearchParams(window.location.search);
