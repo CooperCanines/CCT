@@ -198,7 +198,8 @@
 
         .theme-toggle-btn span,
         .search-btn svg {
-            font-size: 1rem;
+            font-size: 0.85rem;
+            font-weight: bold;
             line-height: 1;
             display: block;
         }
@@ -372,12 +373,6 @@
             background: var(--primary);
             color: white;
             border-color: var(--primary);
-        }
-
-        .dock-toggle-btn .arrow-icon {
-            font-size: 1.1rem;
-            line-height: 1;
-            display: inline-block;
         }
 
         .sidebar-section-container {
@@ -655,8 +650,8 @@
             <a href="index.html#contact" class="nav-btn">Contact Us</a>
             
             <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Mode">
-                <span id="sunIcon">☀️</span>
-                <span id="moonIcon" style="display:none;">🌙</span>
+                <span id="sunIcon">Theme</span>
+                <span id="moonIcon" style="display:none;">Theme</span>
             </button>
 
             <button class="search-btn" id="openSearchBtn" aria-label="Open Search">
@@ -701,21 +696,21 @@
         
         <div class="sidebar-header-controls">
             <button class="sidebar-dropdown-btn" onclick="showDirectoryHome()" style="background-color: var(--logo-orange); flex: 1;">
-                <span>Directory 🏠</span>
+                <span>Main</span>
             </button>
             <button class="dock-toggle-btn" id="dockToggleBtn" onclick="toggleLayoutMode()" title="Toggle Side Bar View Mode">
-                <span class="arrow-icon" id="dockArrowIcon">↺</span>
+                <span id="dockArrowIcon">&lt;&gt;</span>
                 <span id="dockBtnLabel" style="display:none;">Expand Side Bar</span>
             </button>
         </div>
 
-        <!-- Guides Section Dropdown -->
+        <!-- Basics Section Dropdown (Formerly Guides) -->
         <div class="sidebar-section-container">
-            <button class="sidebar-dropdown-btn" onclick="toggleSidebarMenu('guidesList', event)">
-                <span>Guides</span>
-                <span id="guidesArrow">▼</span>
+            <button class="sidebar-dropdown-btn" onclick="toggleSidebarMenu('basicsList', event)">
+                <span>Basics</span>
+                <span id="basicsArrow">v</span>
             </button>
-            <ul class="sidebar-dropdown-list" id="guidesList">
+            <ul class="sidebar-dropdown-list" id="basicsList">
                 <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 1')">Article 1</button></li>
                 <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 2')">Article 2</button></li>
                 <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 3')">Article 3</button></li>
@@ -739,11 +734,49 @@
             </ul>
         </div>
 
+        <!-- Breeds Link -->
+        <div class="sidebar-section-container">
+            <a href="/breeds" class="sidebar-dropdown-btn" style="text-decoration: none;">
+                <span>Breeds</span>
+                <span>&gt;</span>
+            </a>
+        </div>
+
+        <!-- Commands Section Dropdown -->
+        <div class="sidebar-section-container">
+            <button class="sidebar-dropdown-btn" onclick="toggleSidebarMenu('commandsList', event)">
+                <span>Commands</span>
+                <span id="commandsArrow">v</span>
+            </button>
+            <ul class="sidebar-dropdown-list" id="commandsList">
+                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 1')">Article 1</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 2')">Article 2</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 3')">Article 3</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 4')">Article 4</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 5')">Article 5</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 6')">Article 6</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 7')">Article 7</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 8')">Article 8</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 9')">Article 9</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 10')">Article 10</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 11')">Article 11</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 12')">Article 12</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 13')">Article 13</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 14')">Article 14</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 15')">Article 15</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 16')">Article 16</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 17')">Article 17</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 18')">Article 18</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 19')">Article 19</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 20')">Article 20</button></li>
+            </ul>
+        </div>
+
         <!-- Training Section Dropdown -->
         <div class="sidebar-section-container">
             <button class="sidebar-dropdown-btn" onclick="toggleSidebarMenu('trainingList', event)">
                 <span>Training</span>
-                <span id="trainingArrow">▼</span>
+                <span id="trainingArrow">v</span>
             </button>
             <ul class="sidebar-dropdown-list" id="trainingList">
                 <li><button class="tab-btn" onclick="loadArticle('training', 'Article 1')">Article 1</button></li>
@@ -767,13 +800,6 @@
                 <li><button class="tab-btn" onclick="loadArticle('training', 'Article 19')">Article 19</button></li>
                 <li><button class="tab-btn" onclick="loadArticle('training', 'Article 20')">Article 20</button></li>
             </ul>
-        </div>
-
-        <div class="sidebar-section-container">
-            <a href="/breeds" class="sidebar-dropdown-btn" style="text-decoration: none;">
-                <span>Breeds</span>
-                <span>→</span>
-            </a>
         </div>
 
         <div class="discounts-box">
@@ -812,7 +838,7 @@
 
 <!-- Floating Top Button -->
 <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top" title="Scroll to top">
-    <span>▲</span>
+    <span>^</span>
     <span>To Top</span>
 </button>
 
@@ -902,11 +928,11 @@
         layoutContainer.classList.toggle('layout-top-bar');
         
         if (layoutContainer.classList.contains('layout-top-bar')) {
-            dockArrowIcon.textContent = '↻';
+            dockArrowIcon.textContent = '<>';
             dockBtnLabel.style.display = 'inline';
             document.querySelectorAll('.sidebar-dropdown-list').forEach(l => l.classList.remove('open'));
         } else {
-            dockArrowIcon.textContent = '↺';
+            dockArrowIcon.textContent = '<>';
             dockBtnLabel.style.display = 'none';
         }
     }
@@ -951,7 +977,7 @@
                         <h2 style="color: var(--primary); margin: 0.5rem 0;">${topicName}</h2>
                         <p style="color: #e74c3c; font-weight: bold; margin-bottom: 1rem;">Template file not found at <code>${fileName}</code>.</p>
                         <p style="color: #666; margin-bottom: 1.5rem;">Please ensure a <strong>template.html</strong> file exists directly inside your <code>/${folderName}/</code> directory.</p>
-                        <button onclick="showDirectoryHome()" style="background: var(--primary); color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">← Back to Directory Home</button>
+                        <button onclick="showDirectoryHome()" style="background: var(--primary); color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">&lt;- Back to Main Home</button>
                     </div>
                 `;
             });
