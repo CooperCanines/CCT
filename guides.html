@@ -33,6 +33,30 @@
             --border-dark: #3a4754;
         }
 
+        /* Prevent scrollbar layout shifting across all load states */
+        html {
+            scroll-behavior: smooth;
+            overflow-y: scroll;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+        }
+
+        /* Pawprint background completely removed */
+        body {
+            font-family: Arial, sans-serif;
+            color: var(--dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+            background-color: var(--light);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
         body.dark-mode {
             background-color: var(--bg-dark) !important;
             color: var(--text-light-dark) !important;
@@ -74,57 +98,6 @@
             background-color: rgba(255, 255, 255, 0.03) !important;
             border-color: var(--border-dark) !important;
             color: var(--text-muted-dark) !important;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-        }
-
-        /* Walking Paw Print Trail Background Behind Left Sidebar */
-        body {
-            font-family: Arial, sans-serif;
-            color: var(--dark);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            position: relative;
-            background-color: #f4f6f8;
-            background-image: 
-                url('./images/l-paw.png'), url('./images/r-paw.png'),
-                url('./images/l-paw.png'), url('./images/r-paw.png'),
-                url('./images/l-paw.png'), url('./images/r-paw.png'),
-                url('./images/l-paw.png'), url('./images/r-paw.png'),
-                url('./images/l-paw.png'), url('./images/r-paw.png'),
-                url('Jotform Background.png');
-            background-position: 
-                60px bottom 20px,   105px bottom 90px,
-                60px bottom 160px,  105px bottom 230px,
-                60px bottom 300px,  105px bottom 370px,
-                60px bottom 440px,  105px bottom 510px,
-                60px bottom 580px,  105px bottom 650px,
-                center center;
-            background-repeat: 
-                no-repeat, no-repeat,
-                no-repeat, no-repeat,
-                no-repeat, no-repeat,
-                no-repeat, no-repeat,
-                no-repeat, no-repeat,
-                no-repeat;
-            background-size: 
-                32px auto, 32px auto,
-                32px auto, 32px auto,
-                32px auto, 32px auto,
-                32px auto, 32px auto,
-                32px auto, 32px auto,
-                cover;
-            background-attachment: fixed;
-            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .site-header {
@@ -309,7 +282,7 @@
             margin: 0.5rem 0;
         }
 
-        /* Layout Container */
+        /* Layout Container Structure Locks */
         .layout-container {
             max-width: 1400px;
             width: 92%;
@@ -319,20 +292,15 @@
             gap: 2rem;
             flex: 1;
             box-sizing: border-box;
-            transition: all 0.3s ease;
         }
 
-        /* Responsive Layout Switch for Top-Bar Mode */
         .layout-container.layout-top-bar {
             flex-direction: column;
         }
 
-        /* Dynamic Narrow Sidebar with Expand Capabilities */
         .sidebar {
-            flex: 0 0 auto;
-            width: fit-content;
-            min-width: 190px;
-            max-width: 300px;
+            flex: 0 0 220px;
+            width: 220px;
             background: white;
             padding: 1.2rem;
             border-radius: 8px;
@@ -340,17 +308,17 @@
             height: fit-content;
             max-height: 80vh;
             overflow-y: auto;
-            transition: width 0.3s ease, min-width 0.3s ease, max-width 0.3s ease;
             box-sizing: border-box;
             z-index: 10;
         }
 
         .sidebar.expanded {
+            flex-basis: 280px;
             width: 280px;
         }
 
-        /* Subtracted Top Mode Styles */
         .layout-top-bar .sidebar {
+            flex: 0 0 auto;
             width: 100% !important;
             max-width: 100% !important;
             display: flex;
@@ -379,7 +347,6 @@
             width: auto;
         }
 
-        /* Circular Arrow Toggle Button Styling */
         .dock-toggle-btn {
             background: #f0f4f8;
             border: 1px solid var(--border);
@@ -413,7 +380,6 @@
             margin-bottom: 0.6rem;
         }
 
-        /* Uniformized Sidebar Buttons */
         .sidebar-dropdown-btn {
             width: 100%;
             text-align: left;
@@ -476,7 +442,7 @@
             background-color: rgba(0,0,0,0.02);
         }
 
-        /* Content Area */
+        /* Content Area Locks */
         .content-area {
             flex: 1;
             background: white;
@@ -484,7 +450,13 @@
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             min-width: 0;
+            box-sizing: border-box;
             z-index: 10;
+        }
+
+        #articleView {
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .discounts-box {
@@ -606,6 +578,7 @@
             }
             .sidebar {
                 width: 100% !important;
+                flex-basis: auto !important;
                 max-width: none !important;
                 max-height: none;
             }
@@ -713,7 +686,6 @@
             <button class="sidebar-dropdown-btn" onclick="showDirectoryHome()" style="background-color: var(--logo-orange); flex: 1;">
                 <span>Directory 🏠</span>
             </button>
-            <!-- Minimalist Circular Arrow Mode Toggle -->
             <button class="dock-toggle-btn" id="dockToggleBtn" onclick="toggleLayoutMode()" title="Toggle Side Bar View Mode">
                 <span class="arrow-icon" id="dockArrowIcon">↺</span>
                 <span id="dockBtnLabel" style="display:none;">Expand Side Bar</span>
@@ -889,7 +861,6 @@
         }
     });
 
-    // Expand sidebar dynamically when a list is opened, shrink back when closed
     function toggleSidebarMenu(listId, event) {
         if (event) event.stopPropagation();
         const list = document.getElementById(listId);
@@ -906,7 +877,6 @@
         }
     }
 
-    // Toggle minimalist mode (dock top vs left sidebar)
     function toggleLayoutMode() {
         const layoutContainer = document.getElementById('layoutContainer');
         const dockArrowIcon = document.getElementById('dockArrowIcon');
@@ -954,7 +924,6 @@
                     </div>
                     ${htmlContent}
                 `;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
             })
             .catch(error => {
                 directoryHomeView.style.display = 'none';
