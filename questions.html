@@ -13,6 +13,9 @@
     <script async src="https://cse.google.com/cse.js?cx=e4f71822d5b0943bb"></script>
 
     <style>
+        /* ==========================================================
+           HEADER COLOR & THEMING 
+           ========================================================== */
         :root {
             --header-bg-color: #009100;    
             --header-text-color: #ffffff;   
@@ -27,6 +30,7 @@
             --border: #e2e8f0;
             --logo-orange: #e67e22;
 
+            /* Dark Mode Theme Variables (Easy on the eyes for long reading) */
             --bg-dark: #12181b;
             --card-bg-dark: #1e262c;
             --text-light-dark: #e0e6ed;
@@ -34,6 +38,7 @@
             --border-dark: #3a4754;
         }
 
+        /* Dark Mode Overrides */
         body.dark-mode {
             background-color: var(--bg-dark) !important;
             color: var(--text-light-dark) !important;
@@ -59,6 +64,21 @@
             color: var(--text-muted-dark) !important;
         }
 
+        body.dark-mode .resource-list li button,
+        body.dark-mode .sidebar-dropdown-content button {
+            color: var(--text-light-dark);
+            border-bottom-color: var(--border-dark);
+        }
+
+        body.dark-mode .resource-list li button:hover,
+        body.dark-mode .resource-list li button.active,
+        body.dark-mode .sidebar-dropdown-content button:hover,
+        body.dark-mode .sidebar-dropdown-content button.active {
+            color: var(--accent);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Enable smooth scrolling across the page */
         html {
             scroll-behavior: smooth;
         }
@@ -84,6 +104,7 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
+        /* Top Brand Image Header */
         .top-image-header {
             background-color: var(--primary);
             text-align: center;
@@ -96,6 +117,7 @@
             max-height: 240px;
         }
 
+        /* Site Header Navigation Bar */
         .site-header {
             background-color: var(--header-bg-color);
             color: var(--header-text-color);
@@ -155,11 +177,13 @@
             background-color: var(--hover-tab-color);
         }
 
+        /* Orange Box Active State for Resources Tab */
         .nav-btn.active, .nav-btn.active-tab {
             background-color: var(--active-tab-color) !important;
             color: var(--active-tab-text) !important;
         }
 
+        /* Theme Toggle & Search Trigger Buttons */
         .theme-toggle-btn,
         .search-btn {
             background: transparent;
@@ -190,6 +214,7 @@
             display: block;
         }
 
+        /* Dropdown Menu Container */
         .right-menu-container {
             flex: 0 0 auto;
             position: relative;
@@ -281,19 +306,40 @@
             box-sizing: border-box;
         }
 
-        /* Sidebar Dropdown Accordions */
+        /* Sidebar */
         .sidebar {
-            flex: 0 0 300px;
+            flex: 0 0 280px;
             background: white;
             padding: 1.5rem;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             height: fit-content;
-            max-height: 80vh;
-            overflow-y: auto;
         }
 
-        .sidebar-section-container {
+        .sidebar-home-btn {
+            width: 100%;
+            text-align: left;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 0.6rem 0.8rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.2s ease;
+        }
+
+        .sidebar-home-btn:hover {
+            background: var(--accent);
+        }
+
+        /* Sidebar Dropdown Accordion Styling */
+        .sidebar-dropdown-container {
             margin-bottom: 0.6rem;
         }
 
@@ -305,7 +351,7 @@
             border: none;
             border-radius: 6px;
             padding: 0.6rem 0.8rem;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
             display: flex;
@@ -318,41 +364,78 @@
             background: var(--accent);
         }
 
-        .sidebar-dropdown-list {
-            list-style: none;
-            padding: 0;
-            margin: 0.3rem 0 0.6rem 0;
-            display: none; 
+        .dropdown-arrow {
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
         }
 
-        .sidebar-dropdown-list.open {
+        .sidebar-dropdown-container.open .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .sidebar-dropdown-content {
+            display: none;
+            padding-left: 0.5rem;
+            margin-top: 0.4rem;
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar-dropdown-container.open .sidebar-dropdown-content {
             display: block;
         }
 
-        .sidebar-dropdown-list li button,
-        .sidebar-dropdown-list li a {
+        .sidebar-dropdown-content li button,
+        .sidebar-dropdown-content li a {
             width: 100%;
             text-align: left;
             background: none;
             border: none;
-            padding: 0.5rem 0.5rem;
-            font-size: 0.85rem;
+            padding: 0.6rem 0.8rem;
+            font-size: 0.95rem;
             color: var(--dark);
             cursor: pointer;
+            border-bottom: 1px solid var(--border);
             text-decoration: none;
             display: block;
-            border-bottom: 1px solid var(--border);
-            transition: all 0.2s ease;
             box-sizing: border-box;
+            border-radius: 4px;
+            transition: all 0.2s ease;
         }
 
-        .sidebar-dropdown-list li button:hover,
-        .sidebar-dropdown-list li button.active,
-        .sidebar-dropdown-list li a:hover {
+        .sidebar-dropdown-content li button:hover,
+        .sidebar-dropdown-content li button.active,
+        .sidebar-dropdown-content li a:hover {
+            color: var(--accent);
+            font-weight: bold;
+            background-color: #f8f9fa;
+            padding-left: 1.1rem;
+        }
+
+        .resource-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .resource-list li button {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            padding: 0.8rem 0.5rem;
+            font-size: 0.95rem;
+            color: var(--dark);
+            cursor: pointer;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .resource-list li button:hover,
+        .resource-list li button.active {
             color: var(--accent);
             font-weight: bold;
             padding-left: 0.8rem;
-            background-color: rgba(0,0,0,0.02);
         }
 
         /* Content Area */
@@ -364,6 +447,82 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             min-width: 0;
         }
+
+        /* Topics Grid Styling */
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2.5rem 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .topic-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2.2rem 1rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            position: relative;
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-top: 5px solid #ccc;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+        }
+
+        .topic-img-container {
+            position: absolute;
+            top: -38px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+            border: 3px solid white;
+        }
+
+        .topic-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .topic-card h4 {
+            margin: 1.2rem 0 0.4rem 0;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+
+        .topic-card p {
+            font-size: 0.9rem;
+            color: #555;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* Color classes */
+        .topic-orange { border-top-color: #e67e22; }
+        .topic-red { border-top-color: #e74c3c; }
+        .topic-tan { border-top-color: #d2b48c; }
+        .topic-cyan { border-top-color: #00bcd4; }
+        .topic-purple { border-top-color: #8e44ad; }
+        .topic-green { border-top-color: #2ecc71; }
+        .topic-pink { border-top-color: #ff69b4; }
+        .topic-forest { border-top-color: #1e8449; }
+        .topic-grey { border-top-color: #95a5a6; }
+        .topic-black { border-top-color: #2c3e50; }
+        .topic-yellow { border-top-color: #f1c40f; }
+        .topic-brown { border-top-color: #8b4513; }
 
         .discounts-box {
             margin-top: 2rem;
@@ -398,6 +557,7 @@
             color: white;
         }
 
+        /* Search Modal Overlay */
         .search-modal-overlay {
             display: none;
             position: fixed;
@@ -441,6 +601,15 @@
             z-index: 10000;
         }
 
+        .close-search-modal:hover {
+            color: #000;
+        }
+
+        .gcse-search {
+            width: 100%;
+        }
+
+        /* Floating Scroll to Top Button */
         .scroll-top-btn {
             position: fixed;
             bottom: 25px;
@@ -475,7 +644,6 @@
             }
             .sidebar {
                 flex: 100%;
-                max-height: none;
             }
             .header-container {
                 flex-wrap: wrap;
@@ -521,21 +689,25 @@
 <header class="site-header">
     <div class="header-container">
         
+        <!-- Logo -->
         <div class="header-logo-container">
             <a href="index.html">
                 <img src="images/cctwordingnophrase.png" alt="Cooper Canines Logo">
             </a>
         </div>
 
+        <!-- Navigation Links -->
         <nav class="center-nav">
             <a href="index.html" class="nav-btn">Home</a>
             <a href="guides.html" class="nav-btn active-tab">Resources</a>
             <a href="index.html#contact" class="nav-btn">Contact Us</a>
             
+            <!-- Theme Toggle Button -->
             <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Mode">
                 <span id="themeIcon">☀️</span>
             </button>
 
+            <!-- Search Button -->
             <button class="search-btn" id="openSearchBtn" aria-label="Open Search">
                 <svg viewBox="0 0 24 24">
                     <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
@@ -543,6 +715,7 @@
             </button>
         </nav>
 
+        <!-- Dropdown Menu -->
         <div class="right-menu-container">
             <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation menu">
                 <span class="menu-text">Menu</span>
@@ -557,8 +730,8 @@
                 <a href="/portal">Returning Client</a>
                 <div class="dropdown-divider"></div>
                 <a href="index.html#about">About Us</a>
-                <a href="/breeds">Breeds</a>
-                <a href="guides.html">Guides</a>
+                <a href="breeds">Breeds</a>
+                <a href="guides">Guides</a>
                 <a href="index.html#contact">Contact Us</a>
                 <div class="dropdown-divider"></div>
                 <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener">Our Facebook</a>
@@ -573,70 +746,31 @@
 </header>
 
 <div class="layout-container">
-    <!-- Left Sidebar Navigation with 20 items each pointing to respective template.html -->
+    <!-- Left Sidebar Navigation -->
     <aside class="sidebar">
-        <button class="sidebar-dropdown-btn" onclick="showDirectoryHome()" style="margin-bottom: 1rem; background-color: var(--logo-orange);">
+        <button class="sidebar-home-btn" onclick="showGuidesPage()">
             <span>Directory</span>
-            <span>🏠</span>
         </button>
 
-        <!-- Guides Section Dropdown (20 Items pointing to guides/template.html) -->
-        <div class="sidebar-section-container">
-            <button class="sidebar-dropdown-btn" onclick="toggleSidebarMenu('guidesList', event)">
-                <span>Guides</span>
-                <span id="guidesArrow">▼</span>
-            </button>
-            <ul class="sidebar-dropdown-list" id="guidesList">
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Puppy Potty Training')">Puppy Potty Training</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Leash Pulling')">Leash Pulling</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Crate Training Guide')">Crate Training Guide</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Socialization Checklist')">Socialization Checklist</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Bite Inhibition')">Bite Inhibition</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Basic House Rules')">Basic House Rules</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Understanding Body Language')">Understanding Body Language</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Proper Nutrition Basics')">Proper Nutrition Basics</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Safe Chew Toys')">Safe Chew Toys</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Preparing for a New Puppy')">Preparing for a New Puppy</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Senior Dog Care')">Senior Dog Care</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Grooming Desensitization')">Grooming Desensitization</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Car Ride Safety')">Car Ride Safety</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Multi-Dog Households')">Multi-Dog Households</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Introducing Dogs and Cats')">Introducing Dogs and Cats</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Summer Heat Safety')">Summer Heat Safety</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Winter Paw Protection')">Winter Paw Protection</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'First Aid Essentials')">First Aid Essentials</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Mental Stimulation Ideas')">Mental Stimulation Ideas</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Choosing the Right Vet')">Choosing the Right Vet</button></li>
-            </ul>
-        </div>
-
-        <!-- Training Section Dropdown (20 Items pointing to training/template.html) -->
-        <div class="sidebar-section-container">
-            <button class="sidebar-dropdown-btn" onclick="toggleSidebarMenu('trainingList', event)">
+        <!-- Training Dropdown Menu -->
+        <div class="sidebar-dropdown-container" id="trainingDropdownContainer">
+            <button class="sidebar-dropdown-btn" onclick="toggleTrainingDropdown()">
                 <span>Training</span>
-                <span id="trainingArrow">▼</span>
+                <span class="dropdown-arrow">▼</span>
             </button>
-            <ul class="sidebar-dropdown-list" id="trainingList">
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Basic Skills')">Basic Skills</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Behavior Modification')">Behavior Modification</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Crate Training')">Crate Training</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Desensitization')">Desensitization</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Impulse Control')">Impulse Control</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Obedience Foundations')">Obedience Foundations</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Puppy Training')">Puppy Training</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Reliable Recall')">Reliable Recall</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Resource Guarding Prevention')">Resource Guarding Prevention</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Separation Anxiety Protocols')">Separation Anxiety Protocols</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Advanced Socialization')">Advanced Socialization</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Loose Leash Walking')">Loose Leash Walking</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Targeting and Focus')">Targeting and Focus</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Place Command Mastery')">Place Command Mastery</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Marker Word Conditioning')">Marker Word Conditioning</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Handling Distractions')">Handling Distractions</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Threshold Manners')">Threshold Manners</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Leave It and Drop It')">Leave It and Drop It</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Targeted Calmness Exercises')">Targeted Calmness Exercises</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Off-Leash Reliability')">Off-Leash Reliability</button></li>
+            <ul class="sidebar-dropdown-content">
+                <li><button class="tab-btn" onclick="loadTrainingArticle('Basic Skills')">Basic Skills</button></li>
+                <li><button class="tab-btn" onclick="loadTrainingArticle('Behavior')">Behavior</button></li>
+                <li><button class="tab-btn" onclick="loadTrainingArticle('Crate Training')">Crate Training</button></li>
+                <li><button class="tab-btn" onclick="loadTrainingArticle('Desensitization')">Desensitization</button></li>
+                <li><button class="tab-btn" onclick="loadTrainingArticle('Impulse Control')">Impulse Control</button></li>
+                <li><button class="tab-btn" onclick="loadTrainingArticle('Obedience')">Obedience</button></li>
+                <li><button class="tab-btn" onclick="loadTrainingArticle('Puppy Training')">Puppy Training</button></li>
+                <li><button class="tab-btn" onclick="loadTrainingArticle('Recall')">Recall</button></li>
+                <li><button class="tab-btn" onclick="loadTrainingArticle('Resource Guarding')">Resource Guarding</button></li>
+                <li><button class="tab-btn" onclick="loadTrainingArticle('Separation')">Separation</button></li>
+                <li><button class="tab-btn" onclick="loadTrainingArticle('Socialization')">Socialization</button></li>
+                <li><button class="tab-btn" onclick="loadTrainingArticle('Walking')">Walking</button></li>
                 <li><a href="/breeds">Breeds</a></li>
             </ul>
         </div>
@@ -651,16 +785,119 @@
 
     <!-- Main Content Display Container -->
     <main class="content-area" id="mainContent">
-        
-        <!-- Default Directory / Guides Home View with Under Construction Warning -->
-        <div id="directoryHomeView" style="text-align: center; padding: 2rem 1rem;">
+        <!-- Default Guides Page: Under Construction Notice -->
+        <div id="guidesPageContainer" style="text-align: center; padding: 2rem 1rem;">
             <h2 style="color: var(--primary); font-size: 2rem; margin-bottom: 1rem;">Pardon Our Paws, Page Is Under Construction</h2>
             <p style="font-size: 1.1rem; color: #e74c3c; font-weight: bold; margin-bottom: 1rem;">CAUTION: Content is not complete, this is a work in progress.</p>
             <p style="color: #666; max-width: 600px; margin: 0 auto 2rem auto; line-height: 1.5;">We sincerely apologize for any inconvenience. Our team is working hard to build out comprehensive care-taking guides and general information resources for you and your dog.</p>
-            <button onclick="toggleSidebarMenu('trainingList', event)" style="background: var(--primary); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: bold; cursor: pointer;">Explore Training Articles Instead →</button>
+            <button onclick="showTrainingGrid()" style="background: var(--primary); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: bold; cursor: pointer;">Explore Training Articles Instead →</button>
         </div>
 
-        <!-- Dynamic Article Container Placeholder -->
+        <!-- Training Topics Grid View (Initially Hidden) -->
+        <div id="gridContainer" style="display: none;">
+            <h2 style="margin-top:0; color: var(--primary); text-align: center;">Training Directory</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 2rem;">Select a topic below to explore tricks, step-by-step how-tos, and obedience instructions.</p>
+            
+            <div class="topics-grid">
+                <div class="topic-card topic-orange" onclick="loadTrainingArticle('Basic Skills')">
+                    <div class="topic-img-container">
+                        <img src="images/Behavior.png" alt="Basic Skills">
+                    </div>
+                    <h4>Basic Skills</h4>
+                    <p>Teaching essential day-to-day manners and focus.</p>
+                </div>
+
+                <div class="topic-card topic-red" onclick="loadTrainingArticle('Behavior')">
+                    <div class="topic-img-container">
+                        <img src="images/Behavior.png" alt="Behavior">
+                    </div>
+                    <h4>Behavior</h4>
+                    <p>Addressing reactivity, fear, barking, and unwanted habits.</p>
+                </div>
+
+                <div class="topic-card topic-tan" onclick="loadTrainingArticle('Crate Training')">
+                    <div class="topic-img-container">
+                        <img src="images/Behavior.png" alt="Crate Training">
+                    </div>
+                    <h4>Crate Training</h4>
+                    <p>Creating a cozy, stress-free safe space for relaxed resting.</p>
+                </div>
+
+                <div class="topic-card topic-cyan" onclick="loadTrainingArticle('Desensitization')">
+                    <div class="topic-img-container">
+                        <img src="images/Behavior.png" alt="Desensitization">
+                    </div>
+                    <h4>Desensitization</h4>
+                    <p>Gradual exposure techniques to build confidence.</p>
+                </div>
+
+                <div class="topic-card topic-purple" onclick="loadTrainingArticle('Impulse Control')">
+                    <div class="topic-img-container">
+                        <img src="images/Behavior.png" alt="Impulse Control">
+                    </div>
+                    <h4>Impulse Control</h4>
+                    <p>Emotional regulation, stays, and the "Place" command.</p>
+                </div>
+
+                <div class="topic-card topic-green" onclick="loadTrainingArticle('Obedience')">
+                    <div class="topic-img-container">
+                        <img src="images/Behavior.png" alt="Obedience">
+                    </div>
+                    <h4>Obedience</h4>
+                    <p>Establishing solid foundation cues like sit, stay, and down.</p>
+                </div>
+
+                <div class="topic-card topic-pink" onclick="loadTrainingArticle('Puppy Training')">
+                    <div class="topic-img-container">
+                        <img src="images/Behavior.png" alt="Puppy Training">
+                    </div>
+                    <h4>Puppy Training</h4>
+                    <p>Potty training, bite inhibition, and settling techniques.</p>
+                </div>
+
+                <div class="topic-card topic-forest" onclick="loadTrainingArticle('Recall')">
+                    <div class="topic-img-container">
+                        <img src="images/Behavior.png" alt="Recall">
+                    </div>
+                    <h4>Recall</h4>
+                    <p>Building a reliable emergency come cue.</p>
+                </div>
+
+                <div class="topic-card topic-grey" onclick="loadTrainingArticle('Resource Guarding')">
+                    <div class="topic-img-container">
+                        <img src="images/Behavior.png" alt="Resource Guarding">
+                    </div>
+                    <h4>Resource Guarding</h4>
+                    <p>Building trust around food, toys, and resting spots.</p>
+                </div>
+
+                <div class="topic-card topic-black" onclick="loadTrainingArticle('Separation')">
+                    <div class="topic-img-container">
+                        <img src="images/Behavior.png" alt="Separation">
+                    </div>
+                    <h4>Separation</h4>
+                    <p>Routines to reduce distress when left home alone.</p>
+                </div>
+
+                <div class="topic-card topic-yellow" onclick="loadTrainingArticle('Socialization')">
+                    <div class="topic-img-container">
+                        <img src="images/Behavior.png" alt="Socialization">
+                    </div>
+                    <h4>Socialization</h4>
+                    <p>Controlled exposure to novel environments and sounds.</p>
+                </div>
+
+                <div class="topic-card topic-brown" onclick="loadTrainingArticle('Walking')">
+                    <div class="topic-img-container">
+                        <img src="images/Behavior.png" alt="Walking">
+                    </div>
+                    <h4>Walking</h4>
+                    <p>Mastering loose-leash walking without pulling.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article Container Placeholder -->
         <div id="articleView" style="display: none;"></div>
     </main>
 </div>
@@ -682,19 +919,27 @@
 <footer style="background-color: var(--primary); color: white; padding: 2rem 1rem; width: 100%; box-sizing: border-box; margin-top: auto;">
     <div style="max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2rem; text-align: center;">
         <div>
-            <a href="/rates" style="color: white; text-decoration: none; margin: 0 1rem; font-size: 0.95rem;">View Estimated Rates</a>
+            <a href="/rates" style="color: white; text-decoration: none; margin: 0 1rem; font-size: 0.95rem;">
+                View Estimated Rates
+            </a>
             <span style="color: #4a6572;">|</span>
-            <a href="/waiver" style="color: white; text-decoration: none; margin: 0 1rem; font-size: 0.95rem;">Liability Waiver</a>
+            <a href="/waiver" style="color: white; text-decoration: none; margin: 0 1rem; font-size: 0.95rem;">
+                Liability Waiver
+            </a>
             <span style="color: #4a6572;">|</span>
-            <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener" style="color: white; text-decoration: none; margin: 0 1rem; font-size: 0.95rem;">Follow on Facebook</a>
+            <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener" style="color: white; text-decoration: none; margin: 0 1rem; font-size: 0.95rem;">
+                Follow on Facebook
+            </a>
         </div>
     </div>
+
     <div style="text-align: center; border-top: 1px solid #4a6572; margin-top: 1.5rem; padding-top: 1rem; font-size: 0.85rem; color: #bdc3c7;">
         <p style="margin: 0;">&copy; 2026 Cooper Canines LLC. All rights reserved.</p>
     </div>
 </footer>
 
 <script>
+    // Hamburger menu toggle
     const menuBtn = document.getElementById('menuBtn');
     const dropdownMenu = document.getElementById('dropdownMenu');
 
@@ -707,6 +952,7 @@
         dropdownMenu.classList.remove('show');
     });
 
+    // Theme Mode Toggle Handler with Sun/Moon emojis
     const themeToggleBtn = document.getElementById('themeToggleBtn');
     const themeIcon = document.getElementById('themeIcon');
 
@@ -716,6 +962,7 @@
         themeIcon.textContent = isDark ? '🌙' : '☀️';
     });
 
+    // Search Modal Handlers
     const openSearchBtn = document.getElementById('openSearchBtn');
     const closeSearchBtn = document.getElementById('closeSearchBtn');
     const searchModal = document.getElementById('searchModal');
@@ -738,25 +985,22 @@
         }
     });
 
-    function toggleSidebarMenu(listId, event) {
-        if (event) event.stopPropagation();
-        const list = document.getElementById(listId);
-        const isOpen = list.classList.contains('open');
-        
-        document.querySelectorAll('.sidebar-dropdown-list').forEach(l => l.classList.remove('open'));
-        
-        if (!isOpen) {
-            list.classList.add('open');
-        }
+    // Sidebar Training Dropdown Toggle
+    function toggleTrainingDropdown() {
+        const container = document.getElementById('trainingDropdownContainer');
+        container.classList.toggle('open');
     }
 
-    function loadArticle(folderName, topicName) {
-        const directoryHomeView = document.getElementById('directoryHomeView');
+    // Dynamic Article Loader loading training/template.html
+    function loadTrainingArticle(topicName) {
+        const guidesPageContainer = document.getElementById('guidesPageContainer');
+        const gridContainer = document.getElementById('gridContainer');
         const articleView = document.getElementById('articleView');
-        
-        const fileName = `${folderName}/template.html`;
+        const fileName = 'training/template.html';
 
-        document.querySelectorAll('.tab-btn').forEach(btn => {
+        // Highlight active sidebar button
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(btn => {
             if (btn.textContent.trim() === topicName) {
                 btn.classList.add('active');
             } else {
@@ -764,46 +1008,57 @@
             }
         });
 
+        // Fetch template.html from training folder
         fetch(fileName)
             .then(response => {
-                if (!response.ok) throw new Error('Template not found');
+                if (!response.ok) {
+                    throw new Error('Template not found');
+                }
                 return response.text();
             })
             .then(htmlContent => {
-                directoryHomeView.style.display = 'none';
+                guidesPageContainer.style.display = 'none';
+                gridContainer.style.display = 'none';
                 articleView.style.display = 'block';
-                articleView.innerHTML = `
-                    <div style="margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);">
-                        <span style="font-size: 0.85rem; text-transform: uppercase; color: var(--accent); font-weight: bold;">Folder: ${folderName}</span>
-                        <h2 style="margin: 0.2rem 0 0 0; color: var(--primary);">${topicName}</h2>
-                    </div>
-                    ${htmlContent}
-                `;
+                articleView.innerHTML = htmlContent;
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             })
             .catch(error => {
-                directoryHomeView.style.display = 'none';
+                guidesPageContainer.style.display = 'none';
+                gridContainer.style.display = 'none';
                 articleView.style.display = 'block';
                 articleView.innerHTML = `
                     <div style="text-align: center; padding: 2rem;">
-                        <span style="font-size: 0.85rem; text-transform: uppercase; color: var(--logo-orange); font-weight: bold;">Folder: ${folderName}</span>
-                        <h2 style="color: var(--primary); margin: 0.5rem 0;">${topicName}</h2>
-                        <p style="color: #e74c3c; font-weight: bold; margin-bottom: 1rem;">Template file not found at <code>${fileName}</code>.</p>
-                        <p style="color: #666; margin-bottom: 1.5rem;">Please ensure a <strong>template.html</strong> file exists directly inside your <code>/${folderName}/</code> directory.</p>
-                        <button onclick="showDirectoryHome()" style="background: var(--primary); color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">← Back to Directory Home</button>
+                        <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Article Template Loading</h3>
+                        <p style="color: #666; margin-bottom: 1.5rem;">Displaying content for: <strong>${topicName}</strong> (Ensure training/template.html exists)</p>
+                        <button onclick="showTrainingGrid()" style="background: var(--primary); color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">← Back to Training Directory</button>
                     </div>
                 `;
             });
     }
 
-    function showDirectoryHome() {
-        document.getElementById('directoryHomeView').style.display = 'block';
+    // View Navigation Switchers
+    function showGuidesPage() {
+        document.getElementById('guidesPageContainer').style.display = 'block';
+        document.getElementById('gridContainer').style.display = 'none';
         document.getElementById('articleView').style.display = 'none';
-        document.querySelectorAll('.sidebar-dropdown-list').forEach(l => l.classList.remove('open'));
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
     }
 
+    function showTrainingGrid() {
+        document.getElementById('guidesPageContainer').style.display = 'none';
+        document.getElementById('gridContainer').style.display = 'block';
+        document.getElementById('articleView').style.display = 'none';
+        
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+    }
+
+    // Scroll to Top Button Logic
     const scrollTopBtn = document.getElementById('scrollTopBtn');
+
     window.addEventListener('scroll', () => {
         if (window.scrollY > 300) {
             scrollTopBtn.style.display = 'flex';
@@ -813,7 +1068,10 @@
     });
 
     scrollTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     });
 </script>
 
