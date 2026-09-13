@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conditional Addendum - Cooper Canines</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; color: #2c3e50; }
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px 20px 0 20px; color: #2c3e50; }
         .form-group { margin-bottom: 20px; }
         label { display: block; font-weight: bold; margin-bottom: 5px; }
         input[type="text"], input[type="email"], input[type="tel"], textarea {
@@ -46,7 +46,7 @@
 
         /* Print Specific Styles */
         @media print {
-            .modal-overlay, button, .clear-btn { display: none !important; }
+            .modal-overlay, button, .clear-btn, #footer-placeholder { display: none !important; }
             .signature-pad { display: none !important; }
             .signature-img { display: block !important; }
         }
@@ -132,6 +132,9 @@
         </div>
     </div>
 
+    <!-- Dynamic Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
     <script>
         // Fetch and load Conditional Addendum content dynamically from waiver.html
         window.addEventListener('DOMContentLoaded', () => {
@@ -154,6 +157,17 @@
                     console.error('Error fetching addendum content:', error);
                     document.getElementById('addendumContent').innerHTML = '<p style="color:red;">Unable to load addendum content dynamically. Please ensure waiver.html is placed in the same folder.</p>';
                 });
+
+            // Fetch external footer component
+            fetch('components/footer.html')
+                .then(response => {
+                    if (!response.ok) throw new Error("Footer fetch failed");
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                })
+                .catch(error => console.error("Error loading footer component:", error));
         });
 
         // Real-Time Phone Validation
