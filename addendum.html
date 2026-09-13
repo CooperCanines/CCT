@@ -8,6 +8,8 @@
         body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px 20px 0 20px; color: #2c3e50; }
         .form-group { margin-bottom: 20px; }
         label { display: block; font-weight: bold; margin-bottom: 5px; }
+        .required { color: red; margin-left: 2px; }
+        .required-note { font-size: 0.85rem; color: #555; margin-bottom: 10px; }
         .addendum-link { font-weight: normal; font-size: 0.9rem; color: #555; margin-left: 5px; }
         .addendum-link a { color: #0056b3; text-decoration: underline; }
         input[type="text"], input[type="email"], input[type="tel"], textarea {
@@ -76,18 +78,18 @@
         <hr>
         <h3>Emergency Contacts</h3>
 
-        <!-- Emergency Contact 1 -->
+        <!-- Emergency Contact 1 (Required) -->
         <div class="form-group">
-            <label>Emergency Contact 1:</label>
+            <label>Emergency Contact 1:<span class="required">*</span></label>
             <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-                <input type="text" name="emergency_name_1" placeholder="Name">
-                <input type="tel" id="emergency_phone_1" name="emergency_phone_1" placeholder="Phone Number (e.g., 555-555-5555)" oninput="validatePhone(this, 'emergencyPhone1Err')">
-                <input type="text" name="emergency_relation_1" placeholder="Relation">
+                <input type="text" name="emergency_name_1" placeholder="Name" required>
+                <input type="tel" id="emergency_phone_1" name="emergency_phone_1" placeholder="Phone Number (e.g., 555-555-5555)" oninput="validatePhone(this, 'emergencyPhone1Err')" required>
+                <input type="text" name="emergency_relation_1" placeholder="Relation" required>
             </div>
             <span id="emergencyPhone1Err" class="error">Please enter a valid 10-digit phone number formatted as 123-456-7890.</span>
         </div>
 
-        <!-- Emergency Contact 2 -->
+        <!-- Emergency Contact 2 (Optional) -->
         <div class="form-group">
             <label>Emergency Contact 2:</label>
             <div style="display: flex; gap: 10px; margin-bottom: 10px;">
@@ -102,24 +104,26 @@
 
         <!-- Client's Printed Name & Email -->
         <div class="form-group">
-            <label>Client’s Printed Name: *</label>
+            <label>Client’s Printed Name:<span class="required">*</span></label>
             <div style="display: flex; gap: 10px; margin-bottom: 10px;">
                 <input type="text" name="client_first_name" placeholder="First Name" required>
                 <input type="text" name="client_last_name" placeholder="Last Name" required>
             </div>
-            <label>Client’s Email: *</label>
+            <label>Client’s Email:<span class="required">*</span></label>
             <input type="email" name="email" placeholder="Email Address" required>
         </div>
 
         <!-- Client's Signature -->
         <div class="form-group">
-            <label>Client’s Signature: *</label>
+            <label>Client’s Signature:<span class="required">*</span></label>
             <canvas id="clientSigCanvas" class="signature-pad" width="400" height="120"></canvas>
             <img id="clientSigImg" class="signature-img" alt="Client Signature">
             <button type="button" class="clear-btn" onclick="clearCanvas('clientSigCanvas')">Clear Signature</button>
             <input type="hidden" name="client_signature_data" id="clientSigData">
         </div>
 
+        <!-- Required Field Note & Submit Button -->
+        <p class="required-note"><span class="required">*</span> indicates required field</p>
         <button type="submit" id="submitBtn">Submit Addendum</button>
     </form>
 
@@ -255,7 +259,7 @@
             }
         }
 
-        // Form Submission Handler (Using Web3Forms via Fetch AJAX to bypass AV heuristic flags)
+        // Form Submission Handler (Using Web3Forms via Fetch AJAX)
         document.getElementById('addendumForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -313,30 +317,24 @@
             });
         });
 
-        // Modal Action Handlers
+        // Modal Action Handlers & Redirect
         function handlePrint() {
             window.print();
-            finishAndReset();
+            redirectToThanks();
         }
 
         function handleSavePDF() {
             alert("To save as PDF, select 'Save as PDF' from the Destination drop-down in the print dialog.");
             window.print();
-            finishAndReset();
+            redirectToThanks();
         }
 
         function handleContinue() {
-            finishAndReset();
+            redirectToThanks();
         }
 
-        function finishAndReset() {
-            const modal = document.getElementById('successModal');
-            modal.classList.add('hidden');
-            modal.classList.remove('active');
-            
-            const form = document.getElementById('addendumForm');
-            form.reset();
-            clearCanvas('clientSigCanvas');
+        function redirectToThanks() {
+            window.location.href = 'components/thanks';
         }
     </script>
 </body>
