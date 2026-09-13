@@ -557,7 +557,7 @@
                 <a href="/portal">Returning Client</a>
                 <div class="dropdown-divider"></div>
                 <a href="index.html#about">About Us</a>
-                <a href="breeds">Breeds</a>
+                <a href="/breeds">Breeds</a>
                 <a href="guides.html">Guides</a>
                 <a href="index.html#contact">Contact Us</a>
                 <div class="dropdown-divider"></div>
@@ -637,7 +637,6 @@
                 <li><button class="tab-btn" onclick="loadArticle('training', 'Leave It and Drop It')">Leave It and Drop It</button></li>
                 <li><button class="tab-btn" onclick="loadArticle('training', 'Targeted Calmness Exercises')">Targeted Calmness Exercises</button></li>
                 <li><button class="tab-btn" onclick="loadArticle('training', 'Off-Leash Reliability')">Off-Leash Reliability</button></li>
-                <!-- Breeds link -->
                 <li><a href="/breeds">Breeds</a></li>
             </ul>
         </div>
@@ -739,7 +738,6 @@
         }
     });
 
-    // Toggle sidebar dropdown accordions
     function toggleSidebarMenu(listId, event) {
         if (event) event.stopPropagation();
         const list = document.getElementById(listId);
@@ -752,12 +750,10 @@
         }
     }
 
-    // Dynamic Article Fetcher pointing specifically to template.html inside the folder
     function loadArticle(folderName, topicName) {
         const directoryHomeView = document.getElementById('directoryHomeView');
         const articleView = document.getElementById('articleView');
         
-        // Maps every single topic to foldername/template.html as requested
         const fileName = `${folderName}/template.html`;
 
         document.querySelectorAll('.tab-btn').forEach(btn => {
