@@ -96,11 +96,11 @@
             position: relative;
             background-color: #f4f6f8;
             background-image: 
-                url('images/l-paw.png'), url('images/r-paw.png'),
-                url('images/l-paw.png'), url('images/r-paw.png'),
-                url('images/l-paw.png'), url('images/r-paw.png'),
-                url('images/l-paw.png'), url('images/r-paw.png'),
-                url('images/l-paw.png'), url('images/r-paw.png'),
+                url('./images/l-paw.png'), url('./images/r-paw.png'),
+                url('./images/l-paw.png'), url('./images/r-paw.png'),
+                url('./images/l-paw.png'), url('./images/r-paw.png'),
+                url('./images/l-paw.png'), url('./images/r-paw.png'),
+                url('./images/l-paw.png'), url('./images/r-paw.png'),
                 url('Jotform Background.png');
             background-position: 
                 60px bottom 20px,   105px bottom 90px,
@@ -331,7 +331,7 @@
         .sidebar {
             flex: 0 0 auto;
             width: fit-content;
-            min-width: 180px;
+            min-width: 190px;
             max-width: 300px;
             background: white;
             padding: 1.2rem;
@@ -342,6 +342,7 @@
             overflow-y: auto;
             transition: width 0.3s ease, min-width 0.3s ease, max-width 0.3s ease;
             box-sizing: border-box;
+            z-index: 10;
         }
 
         .sidebar.expanded {
@@ -369,7 +370,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
+            gap: 0.5rem;
         }
 
         .layout-top-bar .sidebar-header-controls {
@@ -377,27 +379,41 @@
             width: auto;
         }
 
+        /* Circular Arrow Toggle Button Styling */
         .dock-toggle-btn {
-            background: rgba(0,0,0,0.05);
+            background: #f0f4f8;
             border: 1px solid var(--border);
-            border-radius: 4px;
-            padding: 0.3rem 0.5rem;
-            font-size: 0.75rem;
+            border-radius: 20px;
+            padding: 0.45rem 0.85rem;
+            font-size: 0.85rem;
             font-weight: bold;
             cursor: pointer;
             color: var(--dark);
             transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            white-space: nowrap;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
         .dock-toggle-btn:hover {
             background: var(--primary);
             color: white;
+            border-color: var(--primary);
+        }
+
+        .dock-toggle-btn .arrow-icon {
+            font-size: 1.1rem;
+            line-height: 1;
+            display: inline-block;
         }
 
         .sidebar-section-container {
             margin-bottom: 0.6rem;
         }
 
+        /* Uniformized Sidebar Buttons */
         .sidebar-dropdown-btn {
             width: 100%;
             text-align: left;
@@ -405,7 +421,7 @@
             color: white;
             border: none;
             border-radius: 6px;
-            padding: 0.6rem 0.8rem;
+            padding: 0.65rem 0.9rem;
             font-size: 0.95rem;
             font-weight: bold;
             cursor: pointer;
@@ -414,6 +430,8 @@
             justify-content: space-between;
             transition: background 0.2s ease;
             white-space: nowrap;
+            box-sizing: border-box;
+            line-height: 1.2;
         }
 
         .sidebar-dropdown-btn:hover {
@@ -466,6 +484,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             min-width: 0;
+            z-index: 10;
         }
 
         .discounts-box {
@@ -691,12 +710,13 @@
     <aside class="sidebar" id="sidebar">
         
         <div class="sidebar-header-controls">
-            <button class="sidebar-dropdown-btn" onclick="showDirectoryHome()" style="background-color: var(--logo-orange); padding: 0.4rem 0.6rem; font-size: 0.85rem;">
+            <button class="sidebar-dropdown-btn" onclick="showDirectoryHome()" style="background-color: var(--logo-orange); flex: 1;">
                 <span>Directory 🏠</span>
             </button>
-            <!-- Minimalist Dock Layout Toggle Switch -->
-            <button class="dock-toggle-btn" id="dockToggleBtn" onclick="toggleLayoutMode()" title="Toggle Top-Bar Minimalist Mode">
-                ⬆ Dock Top
+            <!-- Minimalist Circular Arrow Mode Toggle -->
+            <button class="dock-toggle-btn" id="dockToggleBtn" onclick="toggleLayoutMode()" title="Toggle Side Bar View Mode">
+                <span class="arrow-icon" id="dockArrowIcon">↺</span>
+                <span id="dockBtnLabel" style="display:none;">Expand Side Bar</span>
             </button>
         </div>
 
@@ -761,7 +781,7 @@
         </div>
 
         <div class="sidebar-section-container">
-            <a href="/breeds" class="sidebar-dropdown-btn" style="text-decoration: none; box-sizing: border-box; justify-content: space-between;">
+            <a href="/breeds" class="sidebar-dropdown-btn" style="text-decoration: none;">
                 <span>Breeds</span>
                 <span>→</span>
             </a>
@@ -889,15 +909,18 @@
     // Toggle minimalist mode (dock top vs left sidebar)
     function toggleLayoutMode() {
         const layoutContainer = document.getElementById('layoutContainer');
-        const dockBtn = document.getElementById('dockToggleBtn');
+        const dockArrowIcon = document.getElementById('dockArrowIcon');
+        const dockBtnLabel = document.getElementById('dockBtnLabel');
         
         layoutContainer.classList.toggle('layout-top-bar');
         
         if (layoutContainer.classList.contains('layout-top-bar')) {
-            dockBtn.textContent = '⬅ Side Bar';
+            dockArrowIcon.textContent = '↻';
+            dockBtnLabel.style.display = 'inline';
             document.querySelectorAll('.sidebar-dropdown-list').forEach(l => l.classList.remove('open'));
         } else {
-            dockBtn.textContent = '⬆ Dock Top';
+            dockArrowIcon.textContent = '↺';
+            dockBtnLabel.style.display = 'none';
         }
     }
 
