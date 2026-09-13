@@ -593,7 +593,7 @@
 
         <form id="onboardingForm">
             <!-- Web3Forms Config -->
-            <input type="hidden" name="access_key" value="83f5c5a0-07f1-49ce-8764-c0bc59576016">
+            <input type="hidden" name="access_key" value="864b7eea-4b66-4d43-a7e7-fe78f1b92d9b">
             <input type="hidden" name="subject" value="Refresher Waiver Renewal - {field:dog_name}">
             <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
@@ -915,7 +915,7 @@
             }
         }
 
-        // Form Submission with Web3Forms AJAX
+        // Form Submission with Web3Forms AJAX (Prevents AV Phishing Flags)
         document.getElementById('onboardingForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
