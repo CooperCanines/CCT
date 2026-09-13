@@ -1,0 +1,161 @@
+<script>
+    // Redirect if opened directly in a browser tab outside of guides.html
+    if (window.self === window.top) {
+        const currentPath = window.location.pathname.substring(1); 
+        window.location.href = '../guides.html?page=' + encodeURIComponent(currentPath);
+    }
+</script>
+
+<article class="guide-article">
+    <header class="article-header">
+        <h1 class="article-title">Insert Guide Main Title Here</h1>
+        <div class="article-meta">
+            <span>Published by Cooper Canines</span>
+            <span>•</span>
+            <time datetime="2026-09-12">September 12, 2026</time>
+        </div>
+    </header>
+
+    <section class="article-body">
+        <!-- Professional placeholder / under construction state -->
+        <div class="placeholder-box">
+            <h3>Guide Under Development</h3>
+            <p>This comprehensive guide is currently being written and formatted. Please check back shortly.</p>
+        </div>
+    </section>
+
+    <!-- Centered Sources Box -->
+    <section class="sources-box">
+        <h4>Sources</h4>
+        
+        <div class="sources-category">
+            <strong>Videos</strong>
+            <div><a href="https://coopercanines.com/guides.html" target="_blank" rel="noopener">-a blank link</a></div>
+        </div>
+
+        <div class="sources-category">
+            <strong>Websites</strong>
+            <div><a href="https://coopercanines.com/guides.html" target="_blank" rel="noopener">-a blank link</a></div>
+        </div>
+
+        <div class="sources-category">
+            <strong>Wiki</strong>
+            <div><a href="https://coopercanines.com/guides.html" target="_blank" rel="noopener">-a blank link</a></div>
+        </div>
+    </section>
+</article>
+
+<style>
+    /* Article-scoped styles (Inherits layout cleanly from guides.html) */
+    .guide-article {
+        width: 100%;
+        line-height: 1.6;
+    }
+
+    .article-header {
+        margin-bottom: 1.5rem;
+    }
+
+    .article-title {
+        margin: 0 0 0.4rem 0;
+        font-size: 1.8rem;
+        color: var(--primary, #009191);
+    }
+
+    .article-meta {
+        font-size: 0.85rem;
+        color: #64748b;
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .placeholder-box {
+        padding: 2.5rem 1.5rem;
+        text-align: center;
+        border: 1px dashed #cbd5e1;
+        border-radius: 8px;
+        background-color: #f8fafc;
+        margin: 1.5rem 0;
+    }
+
+    .placeholder-box h3 {
+        color: var(--primary, #009191);
+        margin: 0 0 0.5rem 0;
+    }
+
+    .placeholder-box p {
+        color: #64748b;
+        margin: 0;
+        font-size: 0.95rem;
+    }
+
+    /* Sources Box Styles */
+    .sources-box {
+        max-width: 500px;
+        margin: 2.5rem auto 1rem auto;
+        padding: 1.5rem;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        background-color: #f8fafc;
+        text-align: center;
+    }
+
+    .sources-box h4 {
+        margin: 0 0 1rem 0;
+        font-size: 1.1rem;
+        color: var(--primary, #009191);
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 0.5rem;
+    }
+
+    .sources-category {
+        margin-bottom: 0.8rem;
+    }
+
+    .sources-category strong {
+        display: block;
+        margin-bottom: 0.2rem;
+        font-size: 0.95rem;
+    }
+
+    .sources-category a {
+        color: var(--primary, #009191);
+        text-decoration: underline;
+        font-size: 0.9rem;
+    }
+
+    .sources-category a:hover {
+        color: var(--accent, #27ae60);
+    }
+
+    /* Dark Mode Adaptations */
+    body.dark-mode .article-title,
+    .dark-mode .article-title {
+        color: var(--text-light-dark, #e0e6ed);
+    }
+
+    body.dark-mode .article-meta,
+    .dark-mode .article-meta {
+        color: var(--text-muted-dark, #9ba8b5);
+    }
+
+    body.dark-mode .placeholder-box,
+    .dark-mode .placeholder-box,
+    body.dark-mode .sources-box,
+    .dark-mode .sources-box {
+        background-color: var(--card-bg-dark, #1e262c) !important;
+        border-color: var(--border-dark, #3a4754) !important;
+        color: var(--text-light-dark, #e0e6ed) !important;
+    }
+
+    body.dark-mode .placeholder-box p,
+    .dark-mode .placeholder-box p {
+        color: var(--text-muted-dark, #9ba8b5);
+    }
+
+    body.dark-mode .sources-box a,
+    .dark-mode .sources-box a {
+        color: #38bdf8 !important;
+    }
+</style>
