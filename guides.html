@@ -59,6 +59,19 @@
             color: var(--text-muted-dark) !important;
         }
 
+        /* Brighten non-selected article links in dark mode */
+        body.dark-mode .sidebar-dropdown-list li button,
+        body.dark-mode .sidebar-dropdown-list li a {
+            color: #d1dbe5 !important;
+        }
+
+        body.dark-mode .sidebar-dropdown-list li button:hover,
+        body.dark-mode .sidebar-dropdown-list li button.active,
+        body.dark-mode .sidebar-dropdown-list li a:hover {
+            color: var(--active-tab-color) !important;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
         html {
             scroll-behavior: smooth;
         }
@@ -82,18 +95,6 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
             transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .top-image-header {
-            background-color: var(--primary);
-            text-align: center;
-            padding: 1rem;
-        }
-
-        .top-image-header img {
-            max-width: 100%;
-            height: auto;
-            max-height: 240px;
         }
 
         .site-header {
@@ -372,13 +373,9 @@
             border: 1px solid var(--border);
             border-radius: 6px;
             text-align: center;
-        }
-
-        .discounts-box p {
-            font-size: 0.85rem;
-            color: #666;
-            margin-bottom: 0.8rem;
-            line-height: 1.4;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
         }
 
         .discount-link-btn {
@@ -512,11 +509,6 @@
 </head>
 <body>
 
-<!-- Top Image Header -->
-<header class="top-image-header" id="top">
-    <img src="images/cctwordingwithphrase.png" alt="Cooper Canines Logo with Phrase">
-</header>
-
 <!-- Site Header Navigation Bar -->
 <header class="site-header">
     <div class="header-container">
@@ -530,6 +522,7 @@
         <nav class="center-nav">
             <a href="index.html" class="nav-btn">Home</a>
             <a href="guides.html" class="nav-btn active-tab">Resources</a>
+            <a href="/breeds" class="nav-btn">Breeds</a>
             <a href="index.html#contact" class="nav-btn">Contact Us</a>
             
             <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Mode">
@@ -557,7 +550,7 @@
                 <a href="/portal">Returning Client</a>
                 <div class="dropdown-divider"></div>
                 <a href="index.html#about">About Us</a>
-                <a href="breeds">Breeds</a>
+                <a href="/breeds">Breeds</a>
                 <a href="guides.html">Guides</a>
                 <a href="index.html#contact">Contact Us</a>
                 <div class="dropdown-divider"></div>
@@ -573,79 +566,87 @@
 </header>
 
 <div class="layout-container">
-    <!-- Left Sidebar Navigation with 20 items each pointing to respective template.html -->
+    <!-- Left Sidebar Navigation -->
     <aside class="sidebar">
         <button class="sidebar-dropdown-btn" onclick="showDirectoryHome()" style="margin-bottom: 1rem; background-color: var(--logo-orange);">
             <span>Directory</span>
             <span>🏠</span>
         </button>
 
-        <!-- Guides Section Dropdown (20 Items pointing to guides/template.html) -->
+        <!-- Guides Section Dropdown -->
         <div class="sidebar-section-container">
             <button class="sidebar-dropdown-btn" onclick="toggleSidebarMenu('guidesList', event)">
                 <span>Guides</span>
                 <span id="guidesArrow">▼</span>
             </button>
             <ul class="sidebar-dropdown-list" id="guidesList">
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Puppy Potty Training')">Puppy Potty Training</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Leash Pulling')">Leash Pulling</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Crate Training Guide')">Crate Training Guide</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Socialization Checklist')">Socialization Checklist</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Bite Inhibition')">Bite Inhibition</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Basic House Rules')">Basic House Rules</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Understanding Body Language')">Understanding Body Language</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Proper Nutrition Basics')">Proper Nutrition Basics</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Safe Chew Toys')">Safe Chew Toys</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Preparing for a New Puppy')">Preparing for a New Puppy</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Senior Dog Care')">Senior Dog Care</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Grooming Desensitization')">Grooming Desensitization</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Car Ride Safety')">Car Ride Safety</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Multi-Dog Households')">Multi-Dog Households</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Introducing Dogs and Cats')">Introducing Dogs and Cats</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Summer Heat Safety')">Summer Heat Safety</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Winter Paw Protection')">Winter Paw Protection</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'First Aid Essentials')">First Aid Essentials</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Mental Stimulation Ideas')">Mental Stimulation Ideas</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Choosing the Right Vet')">Choosing the Right Vet</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 1')">Article 1</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 2')">Article 2</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 3')">Article 3</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 4')">Article 4</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 5')">Article 5</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 6')">Article 6</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 7')">Article 7</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 8')">Article 8</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 9')">Article 9</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 10')">Article 10</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 11')">Article 11</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 12')">Article 12</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 13')">Article 13</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 14')">Article 14</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 15')">Article 15</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 16')">Article 16</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 17')">Article 17</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 18')">Article 18</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 19')">Article 19</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 20')">Article 20</button></li>
             </ul>
         </div>
 
-        <!-- Training Section Dropdown (20 Items pointing to training/template.html) -->
+        <!-- Training Section Dropdown -->
         <div class="sidebar-section-container">
             <button class="sidebar-dropdown-btn" onclick="toggleSidebarMenu('trainingList', event)">
                 <span>Training</span>
                 <span id="trainingArrow">▼</span>
             </button>
             <ul class="sidebar-dropdown-list" id="trainingList">
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Basic Skills')">Basic Skills</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Behavior Modification')">Behavior Modification</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Crate Training')">Crate Training</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Desensitization')">Desensitization</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Impulse Control')">Impulse Control</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Obedience Foundations')">Obedience Foundations</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Puppy Training')">Puppy Training</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Reliable Recall')">Reliable Recall</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Resource Guarding Prevention')">Resource Guarding Prevention</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Separation Anxiety Protocols')">Separation Anxiety Protocols</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Advanced Socialization')">Advanced Socialization</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Loose Leash Walking')">Loose Leash Walking</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Targeting and Focus')">Targeting and Focus</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Place Command Mastery')">Place Command Mastery</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Marker Word Conditioning')">Marker Word Conditioning</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Handling Distractions')">Handling Distractions</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Threshold Manners')">Threshold Manners</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Leave It and Drop It')">Leave It and Drop It</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Targeted Calmness Exercises')">Targeted Calmness Exercises</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Off-Leash Reliability')">Off-Leash Reliability</button></li>
-                <!-- Breeds link -->
-                <li><a href="/breeds">Breeds</a></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 1')">Article 1</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 2')">Article 2</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 3')">Article 3</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 4')">Article 4</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 5')">Article 5</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 6')">Article 6</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 7')">Article 7</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 8')">Article 8</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 9')">Article 9</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 10')">Article 10</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 11')">Article 11</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 12')">Article 12</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 13')">Article 13</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 14')">Article 14</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 15')">Article 15</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 16')">Article 16</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 17')">Article 17</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 18')">Article 18</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 19')">Article 19</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 20')">Article 20</button></li>
             </ul>
         </div>
 
+        <!-- Breeds Button Under Training List -->
+        <div class="sidebar-section-container">
+            <a href="/breeds" class="sidebar-dropdown-btn" style="text-decoration: none; box-sizing: border-box; justify-content: space-between;">
+                <span>Breeds</span>
+                <span>→</span>
+            </a>
+        </div>
+
         <div class="discounts-box">
-            <p>Check out discounts for services.</p>
-            <a href="discounts/index.html" class="discount-link-btn">
-                🏷️ View External Discounts
+            <a href="guides/template.html" target="_blank" rel="noopener" class="discount-link-btn">
+                External Links
+            </a>
+            <a href="guides/template.html" target="_blank" rel="noopener" class="discount-link-btn">
+                External Links
             </a>
         </div>
     </aside>
@@ -757,7 +758,6 @@
         const directoryHomeView = document.getElementById('directoryHomeView');
         const articleView = document.getElementById('articleView');
         
-        // Maps every single topic to foldername/template.html as requested
         const fileName = `${folderName}/template.html`;
 
         document.querySelectorAll('.tab-btn').forEach(btn => {
