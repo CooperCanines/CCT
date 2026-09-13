@@ -921,6 +921,17 @@
 
                 dismissLoadingOverlay(loadingOverlay);
 
+                // Auto-filter based on URL query parameter if present
+                const params = new URLSearchParams(window.location.search);
+                const breedQuery = params.get('search');
+                if (breedQuery) {
+                    const breedSearchInput = document.getElementById('breedSearchInput');
+                    if (breedSearchInput) {
+                        breedSearchInput.value = breedQuery;
+                        filterBreeds();
+                    }
+                }
+
                 // Step 3: Batch fetch images and correct links from Wikipedia in the background
                 const batchSize = 30;
                 const standardBreeds = dogBreeds.filter(b => b !== "Unknown" && b !== "Mixed Breed" && !wikiOverrides[b]);
