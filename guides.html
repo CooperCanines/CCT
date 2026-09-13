@@ -471,6 +471,8 @@
         }
 
         .sidebar-dropdown-btn {
+            position: relative;
+            overflow: hidden;
             width: 100%;
             text-align: left;
             background: var(--primary);
@@ -487,6 +489,28 @@
             transition: background 0.2s ease;
             white-space: nowrap;
             line-height: 1.2;
+        }
+
+        .sidebar-dropdown-btn span {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Hover Paw Watermark (r-paw.png) for Main Sidebar Category Header Buttons */
+        .sidebar-dropdown-btn:hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('images/r-paw.png');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: contain;
+            opacity: 0.5;
+            z-index: 1;
+            pointer-events: none;
         }
 
         .sidebar-dropdown-btn:hover {
@@ -506,6 +530,8 @@
 
         .sidebar-dropdown-list li button,
         .sidebar-dropdown-list li a {
+            position: relative;
+            overflow: hidden;
             width: 100%;
             text-align: left;
             background: none;
@@ -521,6 +547,24 @@
             white-space: nowrap;
         }
 
+        /* Hover Paw Watermark (r-paw.png) for Dropdown List Items */
+        .sidebar-dropdown-list li button:hover::before,
+        .sidebar-dropdown-list li a:hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('images/r-paw.png');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: contain;
+            opacity: 0.5;
+            z-index: 1;
+            pointer-events: none;
+        }
+
         .sidebar-dropdown-list li button:hover,
         .sidebar-dropdown-list li button.active,
         .sidebar-dropdown-list li a:hover {
@@ -528,6 +572,23 @@
             font-weight: bold;
             padding-left: 0.8rem;
             background-color: rgba(0,0,0,0.02);
+        }
+
+        /* Selected Active Category Box Watermark (l-paw.png at 50% transparency) */
+        .sidebar-dropdown-list li button.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('images/l-paw.png') !important;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: contain;
+            opacity: 0.5;
+            z-index: 1;
+            pointer-events: none;
         }
 
         /* Content Area Locks */
