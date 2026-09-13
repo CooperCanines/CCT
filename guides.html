@@ -508,7 +508,12 @@
     </style>
 </head>
 <body>
-
+<!-- Immediately apply saved dark mode preference across pages -->
+<script>
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+</script>
 <!-- Site Header Navigation Bar -->
 <header class="site-header">
     <div class="header-container">
@@ -522,7 +527,6 @@
         <nav class="center-nav">
             <a href="index.html" class="nav-btn">Home</a>
             <a href="guides.html" class="nav-btn active-tab">Resources</a>
-            <a href="/breeds" class="nav-btn">Breeds</a>
             <a href="index.html#contact" class="nav-btn">Contact Us</a>
             
             <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Mode">
