@@ -8,7 +8,7 @@
         body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; color: #2c3e50; }
         .form-group { margin-bottom: 20px; }
         label { display: block; font-weight: bold; margin-bottom: 5px; }
-        input[type="text"], input[type="tel"] {
+        input[type="text"], input[type="email"], input[type="tel"], textarea {
             width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
         }
         input.invalid { border-color: red; background-color: #fff0f0; }
@@ -57,6 +57,10 @@
     <h1>Cooper Canines Conditional Addendum</h1>
 
     <form id="addendumForm">
+        <!-- Web3Forms Hidden Key & Configuration -->
+        <input type="hidden" name="access_key" value="f3ae6572-abad-4047-871d-f137e44fc725">
+        <input type="hidden" name="subject" value="New Conditional Addendum Submission">
+
         <!-- Dynamic Conditional Addendum Box -->
         <div class="form-group">
             <label>Conditional Addendum Terms</label>
@@ -73,7 +77,7 @@
             <label>Emergency Contact 1:</label>
             <div style="display: flex; gap: 10px; margin-bottom: 10px;">
                 <input type="text" name="emergency_name_1" placeholder="Name">
-                <input type="tel" name="emergency_phone_1" placeholder="Phone Number (e.g., 555-555-5555)" oninput="validatePhone(this, 'emergencyPhone1Err')">
+                <input type="tel" id="emergency_phone_1" name="emergency_phone_1" placeholder="Phone Number (e.g., 555-555-5555)" oninput="validatePhone(this, 'emergencyPhone1Err')">
                 <input type="text" name="emergency_relation_1" placeholder="Relation">
             </div>
             <span id="emergencyPhone1Err" class="error">Please enter a valid 10-digit phone number formatted as 123-456-7890.</span>
@@ -84,7 +88,7 @@
             <label>Emergency Contact 2:</label>
             <div style="display: flex; gap: 10px; margin-bottom: 10px;">
                 <input type="text" name="emergency_name_2" placeholder="Name">
-                <input type="tel" name="emergency_phone_2" placeholder="Phone Number (e.g., 555-555-5555)" oninput="validatePhone(this, 'emergencyPhone2Err')">
+                <input type="tel" id="emergency_phone_2" name="emergency_phone_2" placeholder="Phone Number (e.g., 555-555-5555)" oninput="validatePhone(this, 'emergencyPhone2Err')">
                 <input type="text" name="emergency_relation_2" placeholder="Relation">
             </div>
             <span id="emergencyPhone2Err" class="error">Please enter a valid 10-digit phone number formatted as 123-456-7890.</span>
@@ -92,13 +96,15 @@
 
         <hr>
 
-        <!-- Client's Printed Name -->
+        <!-- Client's Printed Name & Email -->
         <div class="form-group">
             <label>Client’s Printed Name: *</label>
-            <div style="display: flex; gap: 10px;">
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
                 <input type="text" name="client_first_name" placeholder="First Name" required>
                 <input type="text" name="client_last_name" placeholder="Last Name" required>
             </div>
+            <label>Client’s Email: *</label>
+            <input type="email" name="email" placeholder="Email Address" required>
         </div>
 
         <!-- Client's Signature -->
@@ -137,7 +143,6 @@
                 .then(htmlText => {
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(htmlText, 'text/html');
-                    // Finds the second card-box in waiver.html which corresponds to the Conditional Addendum section
                     const cardBoxes = doc.querySelectorAll('.card-box');
                     if (cardBoxes.length >= 2) {
                         document.getElementById('addendumContent').innerHTML = cardBoxes[1].innerHTML;
@@ -151,7 +156,7 @@
                 });
         });
 
-        // Real-Time Phone Validation (Optional fields)
+        // Real-Time Phone Validation
         function validatePhone(input, errorSpanId) {
             const phoneRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
             const errorElement = document.getElementById(errorSpanId);
@@ -232,7 +237,7 @@
             }
         }
 
-        // Form Submission Handler
+        // Form Submission Handler (Using Web3Forms via Fetch AJAX to bypass AV heuristic flags)
         document.getElementById('addendumForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -260,10 +265,34 @@
             prepareSignaturesForPrint();
             document.getElementById('clientSigData').value = document.getElementById('clientSigCanvas').toDataURL();
 
-            // Simulating successful submission since backend/web3forms isn't wired up yet
-            const modal = document.getElementById('successModal');
-            modal.classList.remove('hidden');
-            modal.classList.add('active');
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            const formData = new FormData(this);
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(async (response) => {
+                let json = await response.json();
+                if (response.status == 200) {
+                    const modal = document.getElementById('successModal');
+                    modal.classList.remove('hidden');
+                    modal.classList.add('active');
+                } else {
+                    alert("Error submitting form: " + json.message);
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                alert("Something went wrong. Please check your internet connection and try again.");
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Addendum';
+            });
         });
 
         // Modal Action Handlers
