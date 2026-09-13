@@ -283,12 +283,14 @@
 
         /* Sidebar Dropdown Accordions */
         .sidebar {
-            flex: 0 0 280px;
+            flex: 0 0 300px;
             background: white;
             padding: 1.5rem;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             height: fit-content;
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
         .sidebar-section-container {
@@ -320,7 +322,7 @@
             list-style: none;
             padding: 0;
             margin: 0.3rem 0 0.6rem 0;
-            display: none; /* Accordion closed by default */
+            display: none; 
         }
 
         .sidebar-dropdown-list.open {
@@ -333,8 +335,8 @@
             text-align: left;
             background: none;
             border: none;
-            padding: 0.6rem 0.5rem;
-            font-size: 0.9rem;
+            padding: 0.5rem 0.5rem;
+            font-size: 0.85rem;
             color: var(--dark);
             cursor: pointer;
             text-decoration: none;
@@ -362,80 +364,6 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             min-width: 0;
         }
-
-        .topics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 2.5rem 1.5rem;
-            margin-top: 1rem;
-        }
-
-        .topic-card {
-            background: white;
-            border-radius: 10px;
-            padding: 2.2rem 1rem 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            position: relative;
-            margin-top: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-top: 5px solid #ccc;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            cursor: pointer;
-            text-decoration: none;
-            box-sizing: border-box;
-        }
-
-        .topic-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.12);
-        }
-
-        .topic-img-container {
-            position: absolute;
-            top: -38px;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            overflow: hidden;
-            background: white;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.16);
-            border: 3px solid white;
-        }
-
-        .topic-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .topic-card h4 {
-            margin: 1.2rem 0 0.4rem 0;
-            font-size: 1.1rem;
-            color: var(--dark);
-        }
-
-        .topic-card p {
-            font-size: 0.9rem;
-            color: #555;
-            margin: 0;
-            line-height: 1.4;
-        }
-
-        .topic-orange { border-top-color: #e67e22; }
-        .topic-red { border-top-color: #e74c3c; }
-        .topic-tan { border-top-color: #d2b48c; }
-        .topic-cyan { border-top-color: #00bcd4; }
-        .topic-purple { border-top-color: #8e44ad; }
-        .topic-green { border-top-color: #2ecc71; }
-        .topic-pink { border-top-color: #ff69b4; }
-        .topic-forest { border-top-color: #1e8449; }
-        .topic-grey { border-top-color: #95a5a6; }
-        .topic-black { border-top-color: #2c3e50; }
-        .topic-yellow { border-top-color: #f1c40f; }
-        .topic-brown { border-top-color: #8b4513; }
 
         .discounts-box {
             margin-top: 2rem;
@@ -513,10 +441,6 @@
             z-index: 10000;
         }
 
-        .close-search-modal:hover {
-            color: #000;
-        }
-
         .scroll-top-btn {
             position: fixed;
             bottom: 25px;
@@ -551,6 +475,7 @@
             }
             .sidebar {
                 flex: 100%;
+                max-height: none;
             }
             .header-container {
                 flex-wrap: wrap;
@@ -648,48 +573,71 @@
 </header>
 
 <div class="layout-container">
-    <!-- Left Sidebar Navigation with Dropdown Lists and Directory Button -->
+    <!-- Left Sidebar Navigation with 20 items each pointing to respective template.html -->
     <aside class="sidebar">
-        <!-- Renamed top button to Directory -->
         <button class="sidebar-dropdown-btn" onclick="showDirectoryHome()" style="margin-bottom: 1rem; background-color: var(--logo-orange);">
             <span>Directory</span>
             <span>🏠</span>
         </button>
 
-        <!-- Guides Section Dropdown -->
+        <!-- Guides Section Dropdown (20 Items pointing to guides/template.html) -->
         <div class="sidebar-section-container">
             <button class="sidebar-dropdown-btn" onclick="toggleSidebarMenu('guidesList', event)">
                 <span>Guides</span>
                 <span id="guidesArrow">▼</span>
             </button>
-            <!-- Loads list of items in /guides/ folder -->
             <ul class="sidebar-dropdown-list" id="guidesList">
                 <li><button class="tab-btn" onclick="loadArticle('guides', 'Puppy Potty Training')">Puppy Potty Training</button></li>
                 <li><button class="tab-btn" onclick="loadArticle('guides', 'Leash Pulling')">Leash Pulling</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Crate Training Guide')">Crate Training Guide</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Socialization Checklist')">Socialization Checklist</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Bite Inhibition')">Bite Inhibition</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Basic House Rules')">Basic House Rules</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Understanding Body Language')">Understanding Body Language</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Proper Nutrition Basics')">Proper Nutrition Basics</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Safe Chew Toys')">Safe Chew Toys</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Preparing for a New Puppy')">Preparing for a New Puppy</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Senior Dog Care')">Senior Dog Care</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Grooming Desensitization')">Grooming Desensitization</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Car Ride Safety')">Car Ride Safety</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Multi-Dog Households')">Multi-Dog Households</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Introducing Dogs and Cats')">Introducing Dogs and Cats</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Summer Heat Safety')">Summer Heat Safety</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Winter Paw Protection')">Winter Paw Protection</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'First Aid Essentials')">First Aid Essentials</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Mental Stimulation Ideas')">Mental Stimulation Ideas</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('guides', 'Choosing the Right Vet')">Choosing the Right Vet</button></li>
             </ul>
         </div>
 
-        <!-- Training Section Dropdown -->
+        <!-- Training Section Dropdown (20 Items pointing to training/template.html) -->
         <div class="sidebar-section-container">
             <button class="sidebar-dropdown-btn" onclick="toggleSidebarMenu('trainingList', event)">
                 <span>Training</span>
                 <span id="trainingArrow">▼</span>
             </button>
-            <!-- Loads list of items in /training/ folder + Breeds link -->
             <ul class="sidebar-dropdown-list" id="trainingList">
                 <li><button class="tab-btn" onclick="loadArticle('training', 'Basic Skills')">Basic Skills</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Behavior')">Behavior</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Behavior Modification')">Behavior Modification</button></li>
                 <li><button class="tab-btn" onclick="loadArticle('training', 'Crate Training')">Crate Training</button></li>
                 <li><button class="tab-btn" onclick="loadArticle('training', 'Desensitization')">Desensitization</button></li>
                 <li><button class="tab-btn" onclick="loadArticle('training', 'Impulse Control')">Impulse Control</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Obedience')">Obedience</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Obedience Foundations')">Obedience Foundations</button></li>
                 <li><button class="tab-btn" onclick="loadArticle('training', 'Puppy Training')">Puppy Training</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Recall')">Recall</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Resource Guarding')">Resource Guarding</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Separation')">Separation</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Socialization')">Socialization</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Walking')">Walking</button></li>
-                <!-- Breeds button under Training linking to /breeds without new tab -->
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Reliable Recall')">Reliable Recall</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Resource Guarding Prevention')">Resource Guarding Prevention</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Separation Anxiety Protocols')">Separation Anxiety Protocols</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Advanced Socialization')">Advanced Socialization</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Loose Leash Walking')">Loose Leash Walking</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Targeting and Focus')">Targeting and Focus</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Place Command Mastery')">Place Command Mastery</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Marker Word Conditioning')">Marker Word Conditioning</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Handling Distractions')">Handling Distractions</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Threshold Manners')">Threshold Manners</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Leave It and Drop It')">Leave It and Drop It</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Targeted Calmness Exercises')">Targeted Calmness Exercises</button></li>
+                <li><button class="tab-btn" onclick="loadArticle('training', 'Off-Leash Reliability')">Off-Leash Reliability</button></li>
+                <!-- Breeds link -->
                 <li><a href="/breeds">Breeds</a></li>
             </ul>
         </div>
@@ -710,103 +658,7 @@
             <h2 style="color: var(--primary); font-size: 2rem; margin-bottom: 1rem;">Pardon Our Paws, Page Is Under Construction</h2>
             <p style="font-size: 1.1rem; color: #e74c3c; font-weight: bold; margin-bottom: 1rem;">CAUTION: Content is not complete, this is a work in progress.</p>
             <p style="color: #666; max-width: 600px; margin: 0 auto 2rem auto; line-height: 1.5;">We sincerely apologize for any inconvenience. Our team is working hard to build out comprehensive care-taking guides and general information resources for you and your dog.</p>
-            <button onclick="showTrainingOverview()" style="background: var(--primary); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: bold; cursor: pointer;">Explore Training Articles Instead →</button>
-        </div>
-
-        <!-- Training Overview / Category Grid View (Triggered by clicking the Training button itself) -->
-        <div id="trainingOverviewView" style="display: none;">
-            <div style="background-color: var(--light); border: 1px solid var(--border); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; text-align: center;">
-                <h3 style="color: var(--logo-orange); margin-top: 0; margin-bottom: 0.5rem;">Training Folder Overview</h3>
-                <p style="color: #555; margin: 0; font-size: 0.95rem;">Note: This section is currently under construction while we finish updating our complete sequence of training procedures.</p>
-            </div>
-            <h2 style="margin-top:0; color: var(--primary); text-align: center;">Training Directory</h2>
-            <p style="text-align: center; color: #666; margin-bottom: 2rem;">Select a topic below to explore tricks, step-by-step how-tos, and obedience instructions.</p>
-            
-            <div class="topics-grid">
-                <div class="topic-card topic-orange" onclick="loadArticle('training', 'Basic Skills')">
-                    <div class="topic-img-container"><img src="images/Behavior.png" alt="Basic Skills"></div>
-                    <h4>Basic Skills</h4>
-                    <p>Teaching essential day-to-day manners and focus.</p>
-                </div>
-                <div class="topic-card topic-red" onclick="loadArticle('training', 'Behavior')">
-                    <div class="topic-img-container"><img src="images/Behavior.png" alt="Behavior"></div>
-                    <h4>Behavior</h4>
-                    <p>Addressing reactivity, fear, barking, and unwanted habits.</p>
-                </div>
-                <div class="topic-card topic-tan" onclick="loadArticle('training', 'Crate Training')">
-                    <div class="topic-img-container"><img src="images/Behavior.png" alt="Crate Training"></div>
-                    <h4>Crate Training</h4>
-                    <p>Creating a cozy, stress-free safe space for relaxed resting.</p>
-                </div>
-                <div class="topic-card topic-cyan" onclick="loadArticle('training', 'Desensitization')">
-                    <div class="topic-img-container"><img src="images/Behavior.png" alt="Desensitization"></div>
-                    <h4>Desensitization</h4>
-                    <p>Gradual exposure techniques to build confidence.</p>
-                </div>
-                <div class="topic-card topic-purple" onclick="loadArticle('training', 'Impulse Control')">
-                    <div class="topic-img-container"><img src="images/Behavior.png" alt="Impulse Control"></div>
-                    <h4>Impulse Control</h4>
-                    <p>Emotional regulation, stays, and the "Place" command.</p>
-                </div>
-                <div class="topic-card topic-green" onclick="loadArticle('training', 'Obedience')">
-                    <div class="topic-img-container"><img src="images/Behavior.png" alt="Obedience"></div>
-                    <h4>Obedience</h4>
-                    <p>Establishing solid foundation cues like sit, stay, and down.</p>
-                </div>
-                <div class="topic-card topic-pink" onclick="loadArticle('training', 'Puppy Training')">
-                    <div class="topic-img-container"><img src="images/Behavior.png" alt="Puppy Training"></div>
-                    <h4>Puppy Training</h4>
-                    <p>Potty training, bite inhibition, and settling techniques.</p>
-                </div>
-                <div class="topic-card topic-forest" onclick="loadArticle('training', 'Recall')">
-                    <div class="topic-img-container"><img src="images/Behavior.png" alt="Recall"></div>
-                    <h4>Recall</h4>
-                    <p>Building a reliable emergency come cue.</p>
-                </div>
-                <div class="topic-card topic-grey" onclick="loadArticle('training', 'Resource Guarding')">
-                    <div class="topic-img-container"><img src="images/Behavior.png" alt="Resource Guarding"></div>
-                    <h4>Resource Guarding</h4>
-                    <p>Building trust around food, toys, and resting spots.</p>
-                </div>
-                <div class="topic-card topic-black" onclick="loadArticle('training', 'Separation')">
-                    <div class="topic-img-container"><img src="images/Behavior.png" alt="Separation"></div>
-                    <h4>Separation</h4>
-                    <p>Routines to reduce distress when left home alone.</p>
-                </div>
-                <div class="topic-card topic-yellow" onclick="loadArticle('training', 'Socialization')">
-                    <div class="topic-img-container"><img src="images/Behavior.png" alt="Socialization"></div>
-                    <h4>Socialization</h4>
-                    <p>Controlled exposure to novel environments and sounds.</p>
-                </div>
-                <div class="topic-card topic-brown" onclick="loadArticle('training', 'Walking')">
-                    <div class="topic-img-container"><img src="images/Behavior.png" alt="Walking"></div>
-                    <h4>Walking</h4>
-                    <p>Mastering loose-leash walking without pulling.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Guides Overview / Category Grid View (Triggered by clicking the Guides button itself) -->
-        <div id="guidesOverviewView" style="display: none;">
-            <div style="background-color: var(--light); border: 1px solid var(--border); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; text-align: center;">
-                <h3 style="color: var(--logo-orange); margin-top: 0; margin-bottom: 0.5rem;">Guides Folder Overview</h3>
-                <p style="color: #555; margin: 0; font-size: 0.95rem;">Note: This section is currently under construction while we build out full reference handbooks.</p>
-            </div>
-            <h2 style="margin-top:0; color: var(--primary); text-align: center;">Guides Directory</h2>
-            <p style="text-align: center; color: #666; margin-bottom: 2rem;">Select a guide below to read comprehensive handbooks.</p>
-            
-            <div class="topics-grid">
-                <div class="topic-card topic-orange" onclick="loadArticle('guides', 'Puppy Potty Training')">
-                    <div class="topic-img-container"><img src="images/Behavior.png" alt="Puppy Potty Training"></div>
-                    <h4>Puppy Potty Training</h4>
-                    <p>Schedules, crate setups, and house-training milestones.</p>
-                </div>
-                <div class="topic-card topic-cyan" onclick="loadArticle('guides', 'Leash Pulling')">
-                    <div class="topic-img-container"><img src="images/Behavior.png" alt="Leash Pulling"></div>
-                    <h4>Leash Pulling</h4>
-                    <p>Mechanics of loose leash walking strategies.</p>
-                </div>
-            </div>
+            <button onclick="toggleSidebarMenu('trainingList', event)" style="background: var(--primary); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: bold; cursor: pointer;">Explore Training Articles Instead →</button>
         </div>
 
         <!-- Dynamic Article Container Placeholder -->
@@ -887,37 +739,27 @@
         }
     });
 
-    // Toggle sidebar dropdown accordions and load category overview when clicking folder button
+    // Toggle sidebar dropdown accordions
     function toggleSidebarMenu(listId, event) {
-        event.stopPropagation();
+        if (event) event.stopPropagation();
         const list = document.getElementById(listId);
         const isOpen = list.classList.contains('open');
         
-        // Close all dropdown lists first
         document.querySelectorAll('.sidebar-dropdown-list').forEach(l => l.classList.remove('open'));
         
         if (!isOpen) {
             list.classList.add('open');
         }
-
-        // Trigger the corresponding overview page view based on which button was clicked
-        if (listId === 'trainingList') {
-            showTrainingOverview();
-        } else if (listId === 'guidesList') {
-            showGuidesOverview();
-        }
     }
 
-    // Dynamic Article Fetcher from specified folder (/guides/ or /training/)
+    // Dynamic Article Fetcher pointing specifically to template.html inside the folder
     function loadArticle(folderName, topicName) {
         const directoryHomeView = document.getElementById('directoryHomeView');
-        const trainingOverviewView = document.getElementById('trainingOverviewView');
-        const guidesOverviewView = document.getElementById('guidesOverviewView');
         const articleView = document.getElementById('articleView');
         
-        const fileName = `${folderName}/${topicName}.html`;
+        // Maps every single topic to foldername/template.html as requested
+        const fileName = `${folderName}/template.html`;
 
-        // Highlight active button
         document.querySelectorAll('.tab-btn').forEach(btn => {
             if (btn.textContent.trim() === topicName) {
                 btn.classList.add('active');
@@ -928,26 +770,30 @@
 
         fetch(fileName)
             .then(response => {
-                if (!response.ok) throw new Error('File not ready');
+                if (!response.ok) throw new Error('Template not found');
                 return response.text();
             })
             .then(htmlContent => {
                 directoryHomeView.style.display = 'none';
-                trainingOverviewView.style.display = 'none';
-                guidesOverviewView.style.display = 'none';
                 articleView.style.display = 'block';
-                articleView.innerHTML = htmlContent;
+                articleView.innerHTML = `
+                    <div style="margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);">
+                        <span style="font-size: 0.85rem; text-transform: uppercase; color: var(--accent); font-weight: bold;">Folder: ${folderName}</span>
+                        <h2 style="margin: 0.2rem 0 0 0; color: var(--primary);">${topicName}</h2>
+                    </div>
+                    ${htmlContent}
+                `;
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             })
             .catch(error => {
                 directoryHomeView.style.display = 'none';
-                trainingOverviewView.style.display = 'none';
-                guidesOverviewView.style.display = 'none';
                 articleView.style.display = 'block';
                 articleView.innerHTML = `
                     <div style="text-align: center; padding: 2rem;">
-                        <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Page Not Ready Yet</h3>
-                        <p style="color: #666; margin-bottom: 1.5rem;">We're still crafting this guide. Please check back soon!</p>
+                        <span style="font-size: 0.85rem; text-transform: uppercase; color: var(--logo-orange); font-weight: bold;">Folder: ${folderName}</span>
+                        <h2 style="color: var(--primary); margin: 0.5rem 0;">${topicName}</h2>
+                        <p style="color: #e74c3c; font-weight: bold; margin-bottom: 1rem;">Template file not found at <code>${fileName}</code>.</p>
+                        <p style="color: #666; margin-bottom: 1.5rem;">Please ensure a <strong>template.html</strong> file exists directly inside your <code>/${folderName}/</code> directory.</p>
                         <button onclick="showDirectoryHome()" style="background: var(--primary); color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">← Back to Directory Home</button>
                     </div>
                 `;
@@ -956,25 +802,8 @@
 
     function showDirectoryHome() {
         document.getElementById('directoryHomeView').style.display = 'block';
-        document.getElementById('trainingOverviewView').style.display = 'none';
-        document.getElementById('guidesOverviewView').style.display = 'none';
         document.getElementById('articleView').style.display = 'none';
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    }
-
-    function showTrainingOverview() {
-        document.getElementById('directoryHomeView').style.display = 'none';
-        document.getElementById('trainingOverviewView').style.display = 'block';
-        document.getElementById('guidesOverviewView').style.display = 'none';
-        document.getElementById('articleView').style.display = 'none';
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    }
-
-    function showGuidesOverview() {
-        document.getElementById('directoryHomeView').style.display = 'none';
-        document.getElementById('trainingOverviewView').style.display = 'none';
-        document.getElementById('guidesOverviewView').style.display = 'block';
-        document.getElementById('articleView').style.display = 'none';
+        document.querySelectorAll('.sidebar-dropdown-list').forEach(l => l.classList.remove('open'));
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     }
 
