@@ -5,6 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guide Title Here | Cooper Canines</title>
     <meta name="description" content="Dog training guide and advice from Cooper Canines.">
+
+    <script>
+        // 1. Redirect if opened directly outside of guides.html
+        if (window.self === window.top) {
+            const currentPath = window.location.pathname.substring(1); 
+            window.location.href = '../guides.html?page=' + encodeURIComponent(currentPath);
+        }
+
+        // 2. Light/Dark Mode handling inside iframe
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        }
+
+        // Apply theme immediately on load from localStorage
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            applyTheme(savedTheme);
+        });
+
+        // Listen for live theme updates sent from guides.html
+        window.addEventListener('message', (event) => {
+            if (event.data && event.data.type === 'THEME_CHANGE') {
+                applyTheme(event.data.theme);
+            }
+        });
+    </script>
+
+    <style>
+        /* Base styles */
+        body {
+            font-family: inherit;
+            color: #333333;
+            background-color: transparent;
+            margin: 0;
+            padding: 1rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            color: #f1f5f9;
+        }
+
+        body.dark-mode .placeholder-box {
+            background-color: #1e293b !important;
+            border-color: #334155 !important;
+        }
+
+        body.dark-mode .sources-box {
+            background-color: #1e293b !important;
+            border-color: #334155 !important;
+        }
+
+        body.dark-mode .sources-box a {
+            color: #38bdf8 !important;
+        }
+
+        /* Sources Box Styles */
+        .sources-box {
+            max-width: 500px;
+            margin: 2.5rem auto 1rem auto;
+            padding: 1.5rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background-color: #f8fafc;
+            text-align: center;
+        }
+
+        .sources-box h4 {
+            margin: 0 0 1rem 0;
+            font-size: 1.1rem;
+            color: #009191;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+
+        .sources-category {
+            margin-bottom: 0.8rem;
+        }
+
+        .sources-category strong {
+            display: block;
+            margin-bottom: 0.2rem;
+            font-size: 0.95rem;
+        }
+
+        .sources-category a {
+            color: #009191;
+            text-decoration: underline;
+            font-size: 0.9rem;
+        }
+
+        .sources-category a:hover {
+            color: #006666;
+        }
+    </style>
 </head>
 <body>
 
@@ -20,11 +120,31 @@
 
         <section class="article-body">
             <!-- Professional placeholder / under construction state -->
-            <div style="padding: 2.5rem 1.5rem; text-align: center; border: 1px dashed #cbd5e1; border-radius: 8px; background-color: #f8fafc; margin: 1.5rem 0;">
+            <div class="placeholder-box" style="padding: 2.5rem 1.5rem; text-align: center; border: 1px dashed #cbd5e1; border-radius: 8px; background-color: #f8fafc; margin: 1.5rem 0;">
                 <h3 style="color: #009191; margin-top: 0; margin-bottom: 0.5rem;">Guide Under Development</h3>
                 <p style="color: #64748b; margin: 0; font-size: 0.95rem;">This comprehensive guide is currently being written and formatted. Please check back shortly.</p>
             </div>
         </section>
+
+        <!-- Centered Sources Box -->
+        <footer class="sources-box">
+            <h4>Sources</h4>
+            
+            <div class="sources-category">
+                <strong>Videos</strong>
+                <div><a href="https://coopercanines.com/guides.html" target="_blank" rel="noopener">-a blank link</a></div>
+            </div>
+
+            <div class="sources-category">
+                <strong>Websites</strong>
+                <div><a href="https://coopercanines.com/guides.html" target="_blank" rel="noopener">-a blank link</a></div>
+            </div>
+
+            <div class="sources-category">
+                <strong>Wiki</strong>
+                <div><a href="https://coopercanines.com/guides.html" target="_blank" rel="noopener">-a blank link</a></div>
+            </div>
+        </footer>
     </main>
 
 </body>
