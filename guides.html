@@ -3,1325 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CCT Guides & Resources | Cooper Canines</title>
-    <meta name="description" content="Free expert dog training resources, puppy care tips, and obedience advice from Cooper Canines. Help your dog succeed with positive reinforcement tips.">
-    <meta name="robots" content="index, follow">
-    <link rel="icon" type="image/png" href="../Cooper Canines5 Logo 03-18-26.png">
-    
-    <!-- Custom Google Search Script -->
-    <script async src="https://cse.google.com/cse.js?cx=e4f71822d5b0943bb"></script>
-    <!-- hCaptcha API -->
-    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
-
+    <title>Resources & Guides - Cooper Canines</title>
     <style>
         :root {
             --header-bg-color: #009100;    
             --header-text-color: #ffffff;   
             --active-tab-color: #e67e22;    
-            --active-tab-text: #ffffff;     
-            --hover-tab-color: rgba(255, 255, 255, 0.15); 
-            
-            --primary: #009191;
-            --accent: #27ae60;
-            --light: #f8f9fa;
-            --dark: #333;
-            --border: #e2e8f0;
-            --logo-orange: #e67e22;
-
             --bg-dark: #12181b;
-            --card-bg-dark: #1e262c;
-            --text-light-dark: #e0e6ed;
-            --text-muted-dark: #9ba8b5;
-            --border-dark: #3a4754;
-        }
-
-        /* Lock scrollbar layout shifting across all load states */
-        html {
-            scroll-behavior: smooth;
-            overflow-y: scroll;
-            scrollbar-gutter: stable;
-            box-sizing: border-box;
-        }
-
-        *, *:before, *:after {
-            box-sizing: inherit;
-        }
-
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            min-height: 100vh;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            color: var(--dark);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            background-color: var(--light);
-            transition: background-color 0.3s ease, color 0.3s ease;
-            overflow-x: hidden;
-        }
-
-        body.dark-mode {
-            background-color: var(--bg-dark) !important;
-            color: var(--text-light-dark) !important;
-        }
-
-        body.dark-mode .sidebar,
-        body.dark-mode .content-area,
-        body.dark-mode .topic-card,
-        body.dark-mode .discounts-box,
-        body.dark-mode .modal-card {
-            background-color: var(--card-bg-dark) !important;
-            border-color: var(--border-dark) !important;
-            color: var(--text-light-dark) !important;
-        }
-
-        body.dark-mode .topic-card h4,
-        body.dark-mode .content-area h2,
-        body.dark-mode .modal-card h3 {
-            color: var(--text-light-dark) !important;
-        }
-
-        body.dark-mode .topic-card p,
-        body.dark-mode .discounts-box p,
-        body.dark-mode .content-area p,
-        body.dark-mode .modal-card p {
-            color: var(--text-muted-dark) !important;
-        }
-
-        body.dark-mode .sidebar-dropdown-list li button,
-        body.dark-mode .sidebar-dropdown-list li a {
-            color: #d1dbe5 !important;
-        }
-
-        body.dark-mode .sidebar-dropdown-list li button:hover,
-        body.dark-mode .sidebar-dropdown-list li button.active,
-        body.dark-mode .sidebar-dropdown-list li a:hover {
-            color: var(--active-tab-color) !important;
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        body.dark-mode .article-disclaimer {
-            background-color: rgba(255, 255, 255, 0.03) !important;
-            border-color: var(--border-dark) !important;
-            color: var(--text-muted-dark) !important;
-        }
-
-        .site-header {
-            background-color: var(--header-bg-color);
-            color: var(--header-text-color);
-            width: 100%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-        }
-
-        .header-container {
-            max-width: 1400px;
-            width: 100%;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.5rem 1.5rem;
-            position: relative;
-        }
-
-        .header-logo-container {
-            flex: 0 0 auto;
-            display: flex;
-            align-items: center;
-        }
-
-        .header-logo-container img {
-            height: 40px;
-            width: auto;
-            object-fit: contain;
-            display: block;
-        }
-
-        .center-nav {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-            gap: 2px;
-            margin: 0 1rem;
-        }
-
-        .nav-btn {
-            color: var(--header-text-color);
-            text-decoration: none;
-            padding: 0.5rem 0.8rem;
-            font-weight: bold;
-            border-radius: 6px;
-            font-size: 0.95rem;
-            transition: background-color 0.2s ease, color 0.2s ease;
-            white-space: nowrap;
-            display: inline-flex;
-            align-items: center;
-        }
-
-        .nav-btn:hover {
-            background-color: var(--hover-tab-color);
-        }
-
-        .nav-btn.active, .nav-btn.active-tab {
-            background-color: var(--active-tab-color) !important;
-            color: var(--active-tab-text) !important;
-        }
-
-        .theme-toggle-btn,
-        .search-btn {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            cursor: pointer;
-            padding: 0.4rem 0.6rem;
-            color: var(--header-text-color);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 6px;
-            flex: 0 0 auto;
-            margin-left: 0.3rem;
-            font-size: 1rem;
-            transition: all 0.2s ease;
-            width: 38px;
-            height: 32px;
-        }
-
-        .theme-toggle-btn:hover,
-        .search-btn:hover {
-            background-color: var(--hover-tab-color);
-            border-color: rgba(255, 255, 255, 0.8);
-        }
-
-        .theme-toggle-btn span,
-        .search-btn svg {
-            font-size: 1rem;
-            line-height: 1;
-            display: block;
-        }
-
-        .search-btn svg {
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
-        }
-
-        .right-menu-container {
-            flex: 0 0 auto;
-            position: relative;
-        }
-
-        .menu-toggle {
-            background-color: transparent;
-            color: var(--header-text-color);
-            border: 2px solid var(--header-text-color);
-            padding: 0.5rem 0.8rem;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        }
-
-        .menu-toggle:hover {
-            background-color: var(--hover-tab-color);
-        }
-
-        .hamburger-icon {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-        }
-
-        .hamburger-icon span {
-            display: block;
-            width: 16px;
-            height: 2px;
-            background-color: currentColor;
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: calc(100% + 0.5rem);
-            background-color: #ffffff;
-            min-width: 230px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            border-radius: 8px;
-            overflow: hidden;
-            z-index: 1001;
-        }
-
-        .dropdown-menu.show {
-            display: block;
-        }
-
-        .dropdown-menu a {
-            display: block;
-            padding: 0.75rem 1rem;
-            color: #333333;
-            text-decoration: none;
-            font-size: 0.9rem;
-            border-bottom: 1px solid #f0f0f0;
-            transition: background-color 0.2s ease;
-        }
-
-        .dropdown-menu a:last-child {
-            border-bottom: none;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: #f8f9fa;
-            color: var(--active-tab-color);
-        }
-
-        .dropdown-divider {
-            height: 1px;
-            background-color: #e0e0e0;
-            margin: 0.5rem 0;
-        }
-
-        /* Layout Container Structure Locks */
-        .layout-container {
-            max-width: 1400px;
-            width: 100%;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
-            display: flex;
-            gap: 2rem;
-            flex: 1 0 auto;
-        }
-
-        .layout-container.layout-top-bar {
-            flex-direction: column;
-        }
-
-        .sidebar {
-            flex: 0 0 240px;
-            width: 240px;
-            background: white;
-            padding: 1.2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            height: fit-content;
-            max-height: 80vh;
-            overflow-y: auto;
-            z-index: 10;
-        }
-
-        .sidebar.expanded {
-            flex-basis: 280px;
-            width: 280px;
-        }
-
-        .layout-top-bar .sidebar {
-            flex: 0 0 auto;
-            width: 100% !important;
-            max-width: 100% !important;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            padding: 0.6rem 1rem;
-            gap: 0.5rem;
-        }
-
-        .layout-top-bar .sidebar-section-container,
-        .layout-top-bar .sidebar-search-wrapper,
-        .layout-top-bar .discounts-box {
-            display: none !important;
-        }
-
-        .sidebar-header-controls {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 0.8rem;
-            gap: 0.5rem;
-        }
-
-        .layout-top-bar .sidebar-header-controls {
-            margin-bottom: 0;
-            width: auto;
-        }
-
-        .dock-toggle-btn {
-            background: #f0f4f8;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 0.45rem 0.85rem;
-            font-size: 0.85rem;
-            font-weight: bold;
-            cursor: pointer;
-            color: var(--dark);
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            white-space: nowrap;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
-        .dock-toggle-btn:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .dock-toggle-btn .arrow-icon {
-            font-size: 1.1rem;
-            line-height: 1;
-            display: inline-block;
-        }
-
-        /* Sidebar Dynamic Instant Search Field */
-        .sidebar-search-wrapper {
-            position: relative;
-            margin-bottom: 0.8rem;
-        }
-
-        .sidebar-search-input {
-            width: 100%;
-            padding: 0.5rem 0.75rem;
-            font-size: 0.85rem;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            outline: none;
-            box-sizing: border-box;
-            transition: border-color 0.2s ease;
-        }
-
-        .sidebar-search-input:focus {
-            border-color: var(--primary);
-        }
-
-        .search-results-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            max-height: 250px;
-            overflow-y: auto;
-            z-index: 1000;
-            display: none;
-            margin-top: 2px;
-        }
-
-        body.dark-mode .search-results-dropdown {
-            background: var(--card-bg-dark);
-            border-color: var(--border-dark);
-        }
-
-        .search-results-dropdown a {
-            display: block;
-            padding: 0.5rem 0.75rem;
-            font-size: 0.85rem;
-            color: var(--dark);
-            text-decoration: none;
-            border-bottom: 1px solid var(--border);
-
-        }
-
-        body.dark-mode .search-results-dropdown a {
-            color: var(--text-light-dark);
-            border-bottom-color: var(--border-dark);
-        }
-
-        .search-results-dropdown a:hover {
-            background-color: var(--light);
-            color: var(--primary);
-        }
-
-        body.dark-mode .search-results-dropdown a:hover {
-            background-color: rgba(255,255,255,0.05);
-            color: var(--active-tab-color);
-        }
-
-        .sidebar-section-container {
-            margin-bottom: 0.6rem;
-        }
-
-        .sidebar-dropdown-btn {
-            width: 100%;
-            text-align: left;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 0.65rem 0.9rem;
-            font-size: 0.95rem;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: background 0.2s ease;
-            white-space: nowrap;
-            line-height: 1.2;
-        }
-
-        .sidebar-dropdown-btn:hover {
-            background: var(--accent);
-        }
-
-        .sidebar-dropdown-list {
-            list-style: none;
-            padding: 0;
-            margin: 0.3rem 0 0.6rem 0;
-            display: none; 
-        }
-
-        .sidebar-dropdown-list.open {
-            display: block;
-        }
-
-        .sidebar-dropdown-list li button,
-        .sidebar-dropdown-list li a {
-            width: 100%;
-            text-align: left;
-            background: none;
-            border: none;
-            padding: 0.5rem 0.5rem;
-            font-size: 0.85rem;
-            color: var(--dark);
-            cursor: pointer;
-            text-decoration: none;
-            display: block;
-            border-bottom: 1px solid var(--border);
-            transition: all 0.2s ease;
-            white-space: nowrap;
-        }
-
-        .sidebar-dropdown-list li button:hover,
-        .sidebar-dropdown-list li button.active,
-        .sidebar-dropdown-list li a:hover {
-            color: var(--accent);
-            font-weight: bold;
-            padding-left: 0.8rem;
-            background-color: rgba(0,0,0,0.02);
-        }
-
-        /* Content Area Locks */
-        .content-area {
-            flex: 1 1 auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            min-width: 0;
-            z-index: 10;
-        }
-
-        #articleView {
-            width: 100%;
-            overflow-x: hidden;
-        }
-
-        #articleView * {
-            max-width: 100%;
-        }
-
-        .discounts-box {
-            margin-top: 1.5rem;
-            padding: 0.8rem;
-            background-color: var(--light);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-        }
-
-        .discount-link-btn {
-            display: block;
-            background-color: var(--primary);
-            color: white;
-            padding: 0.5rem 0.6rem;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            transition: background 0.2s ease;
-            white-space: nowrap;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .discount-link-btn:hover {
-            background-color: var(--accent);
-            color: white;
-        }
-
-        .article-disclaimer {
-            margin-top: 2.5rem;
-            padding: 0.85rem 1.25rem;
-            background-color: #f8fafc;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            text-align: center;
-            font-size: 0.82rem;
-            color: #64748b;
-            line-height: 1.45;
-        }
-
-        .search-modal-overlay,
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.75);
-            z-index: 9999;
-            justify-content: center;
-            align-items: flex-start;
-            padding-top: 50px;
-        }
-
-        .search-modal-overlay.active,
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .search-modal-container,
-        .modal-card {
-            background: #ffffff;
-            width: 90%;
-            max-width: 600px;
-            border-radius: 12px;
-            padding: 24px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            max-height: 85vh;
-            overflow-y: auto;
-        }
-
-        .close-search-modal,
-        .close-modal-btn {
-            position: absolute;
-            top: 12px;
-            right: 16px;
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            color: #666;
-            cursor: pointer;
-            line-height: 1;
-            z-index: 10000;
-        }
-
-        /* Suggestion Form Styling */
-        .form-group {
-            margin-bottom: 1.2rem;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.4rem;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 0.6rem 0.8rem;
-            font-size: 0.95rem;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            box-sizing: border-box;
-        }
-
-        body.dark-mode .form-control {
-            background-color: var(--bg-dark);
-            border-color: var(--border-dark);
-            color: var(--text-light-dark);
-        }
-
-        .btn-submit {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.7rem 1.5rem;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            width: 100%;
-            transition: background 0.2s ease;
-        }
-
-        .btn-submit:hover {
-            background: var(--accent);
-        }
-
-        .scroll-top-btn {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background-color: var(--logo-orange);
-            color: white;
-            border: none;
-            border-radius: 24px;
-            padding: 0.6rem 1rem;
-            font-size: 0.9rem;
-            font-weight: bold;
-            font-family: Arial, sans-serif;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-            display: none;
-            align-items: center;
-            gap: 0.4rem;
-            z-index: 1000;
-            transition: opacity 0.3s ease, transform 0.2s ease, background-color 0.2s ease;
-        }
-
-        .scroll-top-btn:hover {
-            background-color: #d35400;
-            transform: translateY(-3px);
-        }
-
-        footer {
-            background-color: #006060;
-            color: white;
-            padding: 1.25rem 1rem;
-            margin-top: auto;
-            width: 100%;
-            text-align: center;
-            flex-shrink: 0;
-        }
-
-        @media (max-width: 900px) {
-            .layout-container {
-                flex-direction: column;
-                width: 100%;
-                padding: 0 1rem;
-                margin-bottom: 2rem;
-            }
-            .sidebar {
-                width: 100% !important;
-                flex-basis: auto !important;
-                max-width: none !important;
-                max-height: none;
-            }
-            .header-container {
-                flex-wrap: wrap;
-                padding: 0.5rem 1rem;
-            }
-            .center-nav {
-                order: 3;
-                width: 100%;
-                justify-content: center;
-                margin: 0.5rem 0 0 0;
-                padding-top: 0.5rem;
-                border-top: 1px solid rgba(255, 255, 255, 0.15);
-                flex-wrap: wrap;
-                gap: 2px;
-            }
-            .right-menu-container {
-                order: 4;
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                margin-top: 0.5rem;
-            }
-            .menu-toggle {
-                width: 100%;
-                justify-content: center;
-            }
-            .dropdown-menu {
-                width: 100%;
-                right: 0;
-                left: 0;
-            }
-        }
+            --card-bg: #1e262c;
+            --text-light: #e0e6ed;
+            --text-dark: #333333;
+            --primary: #009100;
+        }
+
+        body { font-family: Arial, sans-serif; background-color: #f4f7f6; color: var(--text-dark); margin: 0; padding: 0; }
+        
+        /* Nav & Search Bar */
+        .search-container { max-width: 800px; margin: 20px auto; padding: 0 15px; position: relative; }
+        .search-box { width: 100%; padding: 12px; font-size: 1rem; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+        .search-results { 
+            position: absolute; top: 100%; left: 15px; right: 15px; background: #fff; 
+            border: 1px solid #ccc; border-top: none; max-height: 250px; overflow-y: auto; z-index: 1000; display: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 0 0 6px 6px;
+        }
+        .search-item { padding: 10px 15px; cursor: pointer; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .search-item:hover { background-color: #f0f0f0; }
+        .search-item .type-badge { font-size: 0.75rem; padding: 3px 6px; border-radius: 4px; background: #e0e0e0; color: #555; }
+        .search-item .type-badge.breed { background: #e8f5e9; color: #2e7d32; font-weight: bold; }
+
+        /* Main Content Grid */
+        .main-container { max-width: 1000px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: 280px 1fr; gap: 20px; }
+        .sidebar { background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #ddd; }
+        .nav-btn { display: block; width: 100%; padding: 10px; margin-bottom: 10px; background: var(--primary); color: white; border: none; border-radius: 5px; text-decoration: none; text-align: center; font-weight: bold; box-sizing: border-box; cursor: pointer; }
+        .nav-btn:hover { background: #007a00; }
+        
+        .content-area { background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #ddd; }
+        
+        /* Suggestion Form Container */
+        .suggestion-box { margin-top: 30px; padding: 20px; background: #f9f9f9; border-radius: 8px; border: 1px solid #e0e0e0; }
+        .suggestion-box h3 { margin-top: 0; color: var(--primary); }
+        .suggestion-box input, .suggestion-box textarea { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .suggestion-box button { background: var(--primary); color: #fff; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
-<script>
-    if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark-mode');
-    }
-</script>
 
-<!-- Header Navigation Bar -->
-<header class="site-header">
-    <div class="header-container">
-        
-        <div class="header-logo-container">
-            <a href="index.html">
-                <img src="images/cctwordingnophrase.png" alt="Cooper Canines Logo">
-            </a>
+    <!-- Unified Search Engine -->
+    <div class="search-container">
+        <input type="text" id="siteSearch" class="search-box" placeholder="Search articles, guides, or dog breeds..." onkeyup="handleSearch()">
+        <div id="searchResults" class="search-results"></div>
+    </div>
+
+    <div class="main-container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <a href="guides/template.html" class="nav-btn">Guides</a>
+            <a href="training/template.html" class="nav-btn">Training</a>
+            <a href="breeds.html" class="nav-btn">Breeds</a>
+            <a href="guides/template.html" target="_blank" rel="noopener" class="nav-btn">External Links</a>
+            <a href="guides/template.html" target="_blank" rel="noopener" class="nav-btn">External Links</a>
         </div>
 
-        <nav class="center-nav">
-            <a href="index.html" class="nav-btn">Home</a>
-            <a href="guides.html" class="nav-btn active-tab">Resources</a>
-            <a href="index.html#contact" class="nav-btn">Contact Us</a>
-            
-            <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Mode">
-                <span id="sunIcon">☀️</span>
-                <span id="moonIcon" style="display:none;">🌙</span>
-            </button>
+        <!-- Main Content & Clean Suggestion Box -->
+        <div class="content-area">
+            <h2>Resources & Information Hub</h2>
+            <p>Select a guide above or search for specific breeds and articles.</p>
 
-            <button class="search-btn" id="openSearchBtn" aria-label="Open Search">
-                <svg viewBox="0 0 24 24">
-                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                </svg>
-            </button>
-        </nav>
+            <!-- Suggestion Form (No Captcha + Native Web3Forms Botcheck) -->
+            <div class="suggestion-box">
+                <h3>Don't see what you're looking for?</h3>
+                <p>Suggest a topic or ask a quick question, and we might feature it in our next guide!</p>
+                
+                <form action="https://api.web3forms.com/submit" method="POST">
+                    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+                    
+                    <!-- Web3Forms Native Honeypot Field (Invisible Bot Protection) -->
+                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
-        <div class="right-menu-container">
-            <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation menu">
-                <span class="menu-text">Menu</span>
-                <div class="hamburger-icon">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </button>
-            <div class="dropdown-menu" id="dropdownMenu">
-                <a href="/start">Get Started</a>
-                <a href="/portal">Returning Client</a>
-                <div class="dropdown-divider"></div>
-                <a href="index.html#about">About Us</a>
-                <a href="/breeds">Breeds</a>
-                <a href="guides.html">Guides</a>
-                <a href="index.html#contact">Contact Us</a>
-                <div class="dropdown-divider"></div>
-                <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener">Our Facebook</a>
-                <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Google Reviews</a>
-                <a href="/waiver">Liability Waiver</a>
-                <a href="/perks">Referrals & Perks</a>
-                <a href="/rates">Estimated Rates</a>
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email Address" required>
+                    <textarea name="suggestion" rows="4" placeholder="What topic or breed guide would you like to see?" required></textarea>
+                    
+                    <button type="submit">Submit Suggestion</button>
+                </form>
             </div>
         </div>
-
     </div>
-</header>
 
-<div class="layout-container" id="layoutContainer">
-    <!-- Left Adaptive Sidebar Navigation -->
-    <aside class="sidebar" id="sidebar">
-        
-        <div class="sidebar-header-controls">
-            <button class="sidebar-dropdown-btn" onclick="showDirectoryHome()" style="background-color: var(--logo-orange); flex: 1;">
-                <span>Main</span>
-            </button>
-            <button class="dock-toggle-btn" id="dockToggleBtn" onclick="toggleLayoutMode()" title="Toggle Side Bar View Mode">
-                <span class="arrow-icon" id="dockArrowIcon">↺</span>
-                <span id="dockBtnLabel" style="display:none;">Expand Side Bar</span>
-            </button>
-        </div>
+    <script>
+        let searchIndex = [
+            { title: "Article 1", url: "guides/template.html", type: "Guide" },
+            { title: "Article 2", url: "guides/template.html", type: "Guide" },
+            { title: "Article 3", url: "guides/template.html", type: "Guide" }
+        ];
 
-        <!-- Sidebar Instant Search Bar -->
-        <div class="sidebar-search-wrapper">
-            <input type="text" id="sidebarSearchInput" class="sidebar-search-input" placeholder="🔍 Search guides & breeds..." autocomplete="off">
-            <div class="search-results-dropdown" id="searchResultsDropdown"></div>
-        </div>
+        // Fetch breed list dynamically from components/breeds.json and index them
+        window.addEventListener('DOMContentLoaded', () => {
+            fetch('components/breeds.json')
+                .then(response => response.json())
+                .then(data => {
+                    const breeds = data.breeds || data;
+                    breeds.forEach(breed => {
+                        searchIndex.push({
+                            title: breed,
+                            url: `breeds.html?search=${encodeURIComponent(breed)}`,
+                            type: "Breed"
+                        });
+                    });
+                })
+                .catch(err => console.error('Error loading breeds for search:', err));
+        });
 
-        <!-- 1. Basics Section Dropdown -->
-        <div class="sidebar-section-container">
-            <button class="sidebar-dropdown-btn" onclick="toggleSidebarMenu('basicsList', event)">
-                <span>Basics</span>
-                <span id="basicsArrow">▼</span>
-            </button>
-            <ul class="sidebar-dropdown-list" id="basicsList">
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 1')">Article 1</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 2')">Article 2</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 3')">Article 3</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 4')">Article 4</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 5')">Article 5</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 6')">Article 6</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 7')">Article 7</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 8')">Article 8</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 9')">Article 9</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 10')">Article 10</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 11')">Article 11</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 12')">Article 12</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 13')">Article 13</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 14')">Article 14</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 15')">Article 15</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 16')">Article 16</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 17')">Article 17</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 18')">Article 18</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 19')">Article 19</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('guides', 'Article 20')">Article 20</button></li>
-            </ul>
-        </div>
+        function handleSearch() {
+            const query = document.getElementById('siteSearch').value.toLowerCase().trim();
+            const resultsContainer = document.getElementById('searchResults');
+            resultsContainer.innerHTML = '';
 
-        <!-- 2. Breeds Button -->
-        <div class="sidebar-section-container">
-            <a href="/breeds" class="sidebar-dropdown-btn" style="text-decoration: none;">
-                <span>Breeds</span>
-                <span>→</span>
-            </a>
-        </div>
+            if (query.length < 2) {
+                resultsContainer.style.display = 'none';
+                return;
+            }
 
-        <!-- 3. Commands Section Dropdown -->
-        <div class="sidebar-section-container">
-            <button class="sidebar-dropdown-btn" onclick="toggleSidebarMenu('commandsList', event)">
-                <span>Commands</span>
-                <span id="commandsArrow">▼</span>
-            </button>
-            <ul class="sidebar-dropdown-list" id="commandsList">
-                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 1')">Article 1</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 2')">Article 2</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 3')">Article 3</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 4')">Article 4</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 5')">Article 5</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 6')">Article 6</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 7')">Article 7</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 8')">Article 8</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 9')">Article 9</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 10')">Article 10</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 11')">Article 11</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 12')">Article 12</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 13')">Article 13</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 14')">Article 14</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 15')">Article 15</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 16')">Article 16</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 17')">Article 17</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 18')">Article 18</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 19')">Article 19</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('tricks', 'Article 20')">Article 20</button></li>
-            </ul>
-        </div>
+            const matches = searchIndex.filter(item => item.title.toLowerCase().includes(query));
 
-        <!-- 4. Training Section Dropdown -->
-        <div class="sidebar-section-container">
-            <button class="sidebar-dropdown-btn" onclick="toggleSidebarMenu('trainingList', event)">
-                <span>Training</span>
-                <span id="trainingArrow">▼</span>
-            </button>
-            <ul class="sidebar-dropdown-list" id="trainingList">
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 1')">Article 1</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 2')">Article 2</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 3')">Article 3</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 4')">Article 4</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 5')">Article 5</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 6')">Article 6</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 7')">Article 7</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 8')">Article 8</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 9')">Article 9</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 10')">Article 10</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 11')">Article 11</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 12')">Article 12</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 13')">Article 13</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 14')">Article 14</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 15')">Article 15</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 16')">Article 16</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 17')">Article 17</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 18')">Article 18</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 19')">Article 19</button></li>
-                <li><button class="tab-btn" onclick="loadArticle('training', 'Article 20')">Article 20</button></li>
-            </ul>
-        </div>
-
-        <div class="discounts-box">
-            <a href="guides/template.html" target="_blank" rel="noopener" class="discount-link-btn">
-                Client Resources
-            </a>
-            <a href="guides/template.html" target="_blank" rel="noopener" class="discount-link-btn">
-                External Links
-            </a>
-            <button type="button" class="discount-link-btn" id="openSuggestionBtn">
-                Suggestion Box
-            </button>
-        </div>
-    </aside>
-
-    <!-- Content Area -->
-    <main class="content-area" id="mainContent">
-        <div id="directoryHomeView" style="text-align: center; padding: 2rem 1rem;">
-            <h2 style="color: var(--primary); font-size: 2rem; margin-bottom: 1rem;">Pardon Our Paws, Page Is Under Construction</h2>
-            <p style="font-size: 1.1rem; color: #e74c3c; font-weight: bold; margin-bottom: 1rem;">CAUTION: Content is not complete, this is a work in progress.</p>
-            <p style="color: #666; max-width: 600px; margin: 0 auto 0 auto; line-height: 1.5;">We sincerely apologize for any inconvenience. Our team is working hard to build out comprehensive care-taking guides and general information resources for you and your dog.</p>
-        </div>
-
-        <div id="articleView" style="display: none;"></div>
-
-        <aside class="article-disclaimer" aria-label="Disclaimer">
-            <strong>Disclaimer:</strong> Every dog is unique. This page is for informational purposes only. For legal or medical advice please consult a professional. Some dogs may require a different approach than any outlined above.
-        </aside>
-    </main>
-</div>
-
-<!-- Header Google Search Modal Overlay -->
-<div class="search-modal-overlay" id="searchModal">
-    <div class="search-modal-container">
-        <button class="close-search-modal" id="closeSearchBtn">&times;</button>
-        <div class="gcse-search"></div>
-    </div>
-</div>
-
-<!-- Suggestion Box Form Modal -->
-<div class="modal-overlay" id="suggestionModal">
-    <div class="modal-card">
-        <button class="close-modal-btn" id="closeSuggestionModalBtn">&times;</button>
-        <h3 style="margin-top: 0; color: var(--primary);">Do you have a topic suggestion or a question?</h3>
-        
-        <!-- Form handled via AJAX to avoid AV heuristic flags -->
-        <form id="suggestionForm">
-            <input type="hidden" name="access_key" value="1841d9c3-fb4f-4579-b569-57650f5ccfda">
-            <input type="hidden" name="subject" id="suggestionSubject" value="Resources - Suggestion Box /">
-            
-            <div class="form-group">
-                <label for="suggName">Name</label>
-                <input type="text" id="suggName" name="name" class="form-control" placeholder="Your Name" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="suggEmail">Email Address</label>
-                <input type="email" id="suggEmail" name="email" class="form-control" placeholder="name@example.com" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="suggMessage">Suggestion or Question (500 char max)</label>
-                <textarea id="suggMessage" name="message" class="form-control" rows="4" maxlength="500" placeholder="Enter your suggestion or question here..." required></textarea>
-            </div>
-
-            <div class="form-group" style="display: flex; justify-content: center;">
-                <div class="h-captcha" data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"></div>
-            </div>
-
-            <button type="submit" class="btn-submit" id="submitSuggBtn">Submit</button>
-        </form>
-    </div>
-</div>
-
-<!-- Submission Thank You Modal -->
-<div class="modal-overlay" id="thankYouModal">
-    <div class="modal-card" style="text-align: center; padding: 2rem;">
-        <button class="close-modal-btn" id="closeThankYouCross">&times;</button>
-        <h3 style="color: var(--primary); margin-top: 0;">Thank You!</h3>
-        <p>Thank you for your entry. We appreciate your feedback and suggestions.</p>
-        <button type="button" class="btn-submit" id="closeThankYouBtn" style="margin-top: 1rem;">Continue</button>
-    </div>
-</div>
-
-<!-- Floating Top Button -->
-<button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top" title="Scroll to top">
-    <span>▲</span>
-    <span>To Top</span>
-</button>
-
-<footer>
-    <div style="font-size: 0.9rem; color: #ffffff;">
-        <p style="margin: 0;">&copy; 2026 Cooper Canines LLC. | All rights reserved. | Website in Construction.</p>
-    </div>
-</footer>
-
-<script>
-    const menuBtn = document.getElementById('menuBtn');
-    const dropdownMenu = document.getElementById('dropdownMenu');
-
-    menuBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dropdownMenu.classList.toggle('show');
-    });
-
-    document.addEventListener('click', () => {
-        dropdownMenu.classList.remove('show');
-    });
-
-    const themeToggleBtn = document.getElementById('themeToggleBtn');
-    const sunIcon = document.getElementById('sunIcon');
-    const moonIcon = document.getElementById('moonIcon');
-
-    function updateIcons(isDark) {
-        sunIcon.style.display = isDark ? 'none' : 'block';
-        moonIcon.style.display = isDark ? 'block' : 'none';
-    }
-
-    updateIcons(document.body.classList.contains('dark-mode'));
-
-    themeToggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        const isDark = document.body.classList.contains('dark-mode');
-        const newTheme = isDark ? 'dark' : 'light';
-        
-        localStorage.setItem('theme', newTheme);
-        updateIcons(isDark);
-        window.postMessage({ type: 'THEME_CHANGE', theme: newTheme }, '*');
-    });
-
-    /* Header Modal Search */
-    const openSearchBtn = document.getElementById('openSearchBtn');
-    const closeSearchBtn = document.getElementById('closeSearchBtn');
-    const searchModal = document.getElementById('searchModal');
-
-    openSearchBtn.addEventListener('click', () => {
-        searchModal.classList.add('active');
-        setTimeout(() => {
-            const searchInput = document.querySelector('.gsc-input input');
-            if (searchInput) searchInput.focus();
-        }, 200);
-    });
-
-    closeSearchBtn.addEventListener('click', () => {
-        searchModal.classList.remove('active');
-    });
-
-    searchModal.addEventListener('click', (e) => {
-        if (e.target === searchModal) {
-            searchModal.classList.remove('active');
-        }
-    });
-
-    /* Sidebar Dynamic Search Logic */
-    const sidebarSearchInput = document.getElementById('sidebarSearchInput');
-    const searchResultsDropdown = document.getElementById('searchResultsDropdown');
-
-    const internalLinks = [
-        { title: "Breeds Page", url: "/breeds" },
-        { title: "Basics - Article 1", folder: "guides", topic: "Article 1" },
-        { title: "Basics - Article 2", folder: "guides", topic: "Article 2" },
-        { title: "Commands - Article 1", folder: "tricks", topic: "Article 1" },
-        { title: "Commands - Article 2", folder: "tricks", topic: "Article 2" },
-        { title: "Training - Article 1", folder: "training", topic: "Article 1" },
-        { title: "Training - Article 2", folder: "training", topic: "Article 2" }
-    ];
-
-    sidebarSearchInput.addEventListener('input', () => {
-        const query = sidebarSearchInput.value.toLowerCase().trim();
-        searchResultsDropdown.innerHTML = '';
-
-        if (!query) {
-            searchResultsDropdown.style.display = 'none';
-            return;
-        }
-
-        const matches = internalLinks.filter(item => item.title.toLowerCase().includes(query));
-
-        if (matches.length > 0) {
-            matches.forEach(item => {
-                const a = document.createElement('a');
-                a.textContent = item.title;
-                a.href = "#";
-                a.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    if (item.url) {
+            if (matches.length > 0) {
+                matches.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'search-item';
+                    
+                    const badgeClass = item.type === "Breed" ? "type-badge breed" : "type-badge";
+                    div.innerHTML = `<span>${item.title}</span> <span class="${badgeClass}">${item.type}</span>`;
+                    
+                    div.onclick = () => {
                         window.location.href = item.url;
-                    } else {
-                        loadArticle(item.folder, item.topic);
-                    }
-                    searchResultsDropdown.style.display = 'none';
-                    sidebarSearchInput.value = '';
+                    };
+                    resultsContainer.appendChild(div);
                 });
-                searchResultsDropdown.appendChild(a);
-            });
-            searchResultsDropdown.style.display = 'block';
-        } else {
-            searchResultsDropdown.style.display = 'none';
-        }
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!sidebarSearchInput.contains(e.target) && !searchResultsDropdown.contains(e.target)) {
-            searchResultsDropdown.style.display = 'none';
-        }
-    });
-
-    function toggleSidebarMenu(listId, event) {
-        if (event) event.stopPropagation();
-        const list = document.getElementById(listId);
-        const sidebar = document.getElementById('sidebar');
-        const isOpen = list.classList.contains('open');
-        
-        document.querySelectorAll('.sidebar-dropdown-list').forEach(l => l.classList.remove('open'));
-        
-        if (!isOpen) {
-            list.classList.add('open');
-            sidebar.classList.add('expanded');
-        } else {
-            sidebar.classList.remove('expanded');
-        }
-    }
-
-    function toggleLayoutMode() {
-        const layoutContainer = document.getElementById('layoutContainer');
-        const dockArrowIcon = document.getElementById('dockArrowIcon');
-        const dockBtnLabel = document.getElementById('dockBtnLabel');
-        
-        layoutContainer.classList.toggle('layout-top-bar');
-        
-        if (layoutContainer.classList.contains('layout-top-bar')) {
-            dockArrowIcon.textContent = '↻';
-            dockBtnLabel.style.display = 'inline';
-            document.querySelectorAll('.sidebar-dropdown-list').forEach(l => l.classList.remove('open'));
-        } else {
-            dockArrowIcon.textContent = '↺';
-            dockBtnLabel.style.display = 'none';
-        }
-    }
-
-    // Dynamic Article Loader
-    function loadArticle(folderName, topicName, customPath) {
-        const directoryHomeView = document.getElementById('directoryHomeView');
-        const articleView = document.getElementById('articleView');
-        
-        const fileName = customPath ? customPath : `${folderName}/template.html`;
-
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            if (btn.textContent.trim() === topicName) {
-                btn.classList.add('active');
+                resultsContainer.style.display = 'block';
             } else {
-                btn.classList.remove('active');
+                resultsContainer.style.display = 'none';
+            }
+        }
+
+        // Close search results when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-container')) {
+                document.getElementById('searchResults').style.display = 'none';
             }
         });
-
-        fetch(fileName)
-            .then(response => {
-                if (!response.ok) throw new Error('Template not found');
-                return response.text();
-            })
-            .then(htmlContent => {
-                directoryHomeView.style.display = 'none';
-                articleView.style.display = 'block';
-                articleView.innerHTML = `
-                    <div style="margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);">
-                        <span style="font-size: 0.85rem; text-transform: uppercase; color: var(--accent); font-weight: bold;">Folder: ${folderName}</span>
-                        <h2 style="margin: 0.2rem 0 0 0; color: var(--primary);">${topicName}</h2>
-                    </div>
-                    ${htmlContent}
-                `;
-            })
-            .catch(error => {
-                directoryHomeView.style.display = 'none';
-                articleView.style.display = 'block';
-                articleView.innerHTML = `
-                    <div style="text-align: center; padding: 2rem;">
-                        <span style="font-size: 0.85rem; text-transform: uppercase; color: var(--logo-orange); font-weight: bold;">Folder: ${folderName}</span>
-                        <h2 style="color: var(--primary); margin: 0.5rem 0;">${topicName}</h2>
-                        <p style="color: #e74c3c; font-weight: bold; margin-bottom: 1rem;">Template file not found at <code>${fileName}</code>.</p>
-                        <p style="color: #666; margin-bottom: 1.5rem;">Please ensure a <strong>template.html</strong> file exists directly inside your <code>/${folderName}/</code> directory.</p>
-                        <button onclick="showDirectoryHome()" style="background: var(--primary); color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">← Back to Main</button>
-                    </div>
-                `;
-            });
-    }
-
-    function showDirectoryHome() {
-        document.getElementById('directoryHomeView').style.display = 'block';
-        document.getElementById('articleView').style.display = 'none';
-        document.querySelectorAll('.sidebar-dropdown-list').forEach(l => l.classList.remove('open'));
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-        document.getElementById('sidebar').classList.remove('expanded');
-    }
-
-    /* Suggestion Modal & AJAX Submission Logic */
-    const openSuggestionBtn = document.getElementById('openSuggestionBtn');
-    const suggestionModal = document.getElementById('suggestionModal');
-    const closeSuggestionModalBtn = document.getElementById('closeSuggestionModalBtn');
-    const suggestionForm = document.getElementById('suggestionForm');
-    const suggName = document.getElementById('suggName');
-    const suggEmail = document.getElementById('suggEmail');
-    const suggestionSubject = document.getElementById('suggestionSubject');
-    const thankYouModal = document.getElementById('thankYouModal');
-    const closeThankYouBtn = document.getElementById('closeThankYouBtn');
-    const closeThankYouCross = document.getElementById('closeThankYouCross');
-
-    openSuggestionBtn.addEventListener('click', () => {
-        suggestionModal.classList.add('active');
-    });
-
-    closeSuggestionModalBtn.addEventListener('click', () => {
-        suggestionModal.classList.remove('active');
-    });
-
-    function updateSubjectLine() {
-        const nameVal = suggName.value.trim();
-        const emailVal = suggEmail.value.trim();
-        suggestionSubject.value = `Resources - Suggestion Box ${nameVal} / ${emailVal}`;
-    }
-
-    suggName.addEventListener('input', updateSubjectLine);
-    suggEmail.addEventListener('input', updateSubjectLine);
-
-    suggestionForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const submitBtn = document.getElementById('submitSuggBtn');
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending...';
-
-        const formData = new FormData(suggestionForm);
-
-        fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            body: formData
-        })
-        .then(async (response) => {
-            if (response.status === 200) {
-                suggestionModal.classList.remove('active');
-                suggestionForm.reset();
-                thankYouModal.classList.add('active');
-            } else {
-                alert('Something went wrong. Please complete the captcha and try again.');
-            }
-        })
-        .catch(() => {
-            alert('Submission failed. Please try again.');
-        })
-        .finally(() => {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Submit';
-            if (typeof hcaptcha !== 'undefined') {
-                hcaptcha.reset();
-            }
-        });
-    });
-
-    function closeThankYou() {
-        thankYouModal.classList.remove('active');
-        showDirectoryHome();
-    }
-
-    closeThankYouBtn.addEventListener('click', closeThankYou);
-    closeThankYouCross.addEventListener('click', closeThankYou);
-
-    document.addEventListener("DOMContentLoaded", () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const requestedPage = urlParams.get('page');
-
-        if (requestedPage) {
-            const pathParts = requestedPage.split('/');
-            const folder = pathParts.length > 1 ? pathParts[0] : 'guides';
-            loadArticle(folder, 'Loaded Article', requestedPage);
-        }
-    });
-
-    const scrollTopBtn = document.getElementById('scrollTopBtn');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            scrollTopBtn.style.display = 'flex';
-        } else {
-            scrollTopBtn.style.display = 'none';
-        }
-    });
-
-    scrollTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-</script>
+    </script>
 </body>
 </html>
