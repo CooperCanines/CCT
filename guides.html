@@ -1104,15 +1104,28 @@
     const sidebarSearchInput = document.getElementById('sidebarSearchInput');
     const searchResultsDropdown = document.getElementById('searchResultsDropdown');
 
+    // Base Search Items
     const internalLinks = [
-        { title: "Breeds Directory", url: "/breeds", type: "Directory" },
-        { title: "Basics - Article 1", folder: "guides", topic: "Article 1", type: "Guide" },
-        { title: "Basics - Article 2", folder: "guides", topic: "Article 2", type: "Guide" },
-        { title: "Commands - Article 1", folder: "tricks", topic: "Article 1", type: "Guide" },
-        { title: "Commands - Article 2", folder: "tricks", topic: "Article 2", type: "Guide" },
-        { title: "Training - Article 1", folder: "training", topic: "Article 1", type: "Guide" },
-        { title: "Training - Article 2", folder: "training", topic: "Article 2", type: "Guide" }
+        { title: "Breeds Directory", url: "/breeds", type: "Directory" }
     ];
+
+    // Automatically generate indices for Articles 1-20 across all 3 categories
+    const categories = [
+        { name: "Basics", folder: "guides" },
+        { name: "Commands", folder: "tricks" },
+        { name: "Training", folder: "training" }
+    ];
+
+    categories.forEach(cat => {
+        for (let i = 1; i <= 20; i++) {
+            internalLinks.push({
+                title: `${cat.name} - Article ${i}`,
+                folder: cat.folder,
+                topic: `Article ${i}`,
+                type: "Guide"
+            });
+        }
+    });
 
     // Fetch breeds dynamically from components/breeds.json and inject into searchIndex
     window.addEventListener('DOMContentLoaded', () => {
