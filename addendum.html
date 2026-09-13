@@ -8,6 +8,8 @@
         body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px 20px 0 20px; color: #2c3e50; }
         .form-group { margin-bottom: 20px; }
         label { display: block; font-weight: bold; margin-bottom: 5px; }
+        .addendum-link { font-weight: normal; font-size: 0.9rem; color: #555; margin-left: 5px; }
+        .addendum-link a { color: #0056b3; text-decoration: underline; }
         input[type="text"], input[type="email"], input[type="tel"], textarea {
             width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
         }
@@ -63,7 +65,10 @@
 
         <!-- Dynamic Conditional Addendum Box -->
         <div class="form-group">
-            <label>Conditional Addendum Terms</label>
+            <label>
+                Conditional Addendum
+                <span class="addendum-link">(This addendum is an extension to the <a href="waiver.html" target="_blank" rel="noopener">Liability Waiver & Terms of Service</a>)</span>
+            </label>
             <div id="addendumContent" class="scroll-box">
                 <p><em>Loading addendum text...</em></p>
             </div>
