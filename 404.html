@@ -42,6 +42,13 @@
             z-index: 20; /* Keeps header interactive above background elements */
         }
 
+        /* Container where footer component renders */
+        #footer-placeholder {
+            width: 100%;
+            margin-top: auto; /* Keeps footer pinned to the bottom */
+            z-index: 10;
+        }
+
         /* Background Canvas Layer for Falling Treats */
         #treat-canvas {
             position: fixed;
@@ -275,8 +282,26 @@
         </div>
     </div>
 
+    <!-- Container for Injected Footer -->
+    <div id="footer-placeholder"></div>
+
     <!-- Script to Load Header -->
     <script src="components/header.js"></script>
+
+    <!-- Script to Load Footer Component -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            fetch('components/footer.html')
+                .then(response => {
+                    if (!response.ok) throw new Error("Footer fetch failed");
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                })
+                .catch(error => console.error("Error loading footer component:", error));
+        });
+    </script>
 
     <!-- Interactive Game Script -->
     <script>
@@ -457,10 +482,5 @@
             }, 800);
         }
     </script>
-<footer style="background-color: #006060; color: white; padding: 1.25rem 1rem; margin-top: 3rem; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; box-sizing: border-box; text-align: center;">
-    <div style="font-size: 0.9rem; color: #ffffff;">
-        <p style="margin: 0;">&copy; 2026 Cooper Canines LLC. | All rights reserved. | Website in Construction.</p>
-    </div>
-</footer>
 </body>
 </html>
