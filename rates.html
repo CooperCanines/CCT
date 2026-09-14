@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estimated Rates & Investment | Cooper Canines</title>
+    <!-- Custom Google Search Script -->
+    <script async src="https://cse.google.com/cse.js?cx=e4f71822d5b0943bb"></script>
+    <style>
+        /* ==========================================================
+           HEADER COLOR & THEMING 
+           ========================================================== */
+        :root {
+            --header-bg-color: #009100;    
+            --header-text-color: #ffffff;   
+            --active-tab-color: #e67e22;    
+            --active-tab-text: #ffffff;     
+            --hover-tab-color: rgba(255, 255, 255, 0.15); 
+            --primary: #009100;
+            --accent: #e67e22;
+
+            /* Page Theme Variables */
+            --bg-light: #2d4a3e; /* Easy-on-the-eyes Forest Green */
+            --bg-dark: #12181b;
+            --card-bg-light: #ffffff;
+            --card-bg-dark: #1e262c;
+            --card-inner-light: #f1f3f5;
+            --card-inner-dark: #2a343d;
+            --text-dark: #ffffff; /* White text over dark forest green background */
+            --text-light: #e0e6ed;
+            --text-muted-light: #e0e0e0;
+            --text-muted-dark: #9ba8b5;
+            --border-light: #e0e0e0;
+            --border-dark: #3a4754;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+
+            /* Alternating Paw Print Walking Trail Background (50% Opacity) */
+            background-image: 
+                linear-gradient(rgba(45, 74, 62, 0.5), rgba(45, 74, 62, 0.5)), url('../images/l-paw.png'),
+                linear-gradient(rgba(45, 74, 62, 0.5), rgba(45, 74, 62, 0.5)), url('../images/r-paw.png'),
+                linear-gradient(rgba(45, 74, 62, 0.5), rgba(45, 74, 62, 0.5)), url('../images/l-paw.png'),
+                linear-gradient(rgba(45, 74, 62, 0.5), rgba(45, 74, 62, 0.5)), url('../images/r-paw.png'),
+                linear-gradient(rgba(45, 74, 62, 0.5), rgba(45, 74, 62, 0.5)), url('../images/l-paw.png'),
+                linear-gradient(rgba(45, 74, 62, 0.5), rgba(45, 74, 62, 0.5)), url('../images/r-paw.png');
+            
+            background-position: 
+                5% 10%,   /* Left Paw 1 */
+                12% 22%,  /* Right Paw 1 */
+                85% 38%,  /* Left Paw 2 */
+                92% 50%,  /* Right Paw 2 */
+                8% 68%,   /* Left Paw 3 */
+                15% 82%;  /* Right Paw 3 */
+
+            background-repeat: no-repeat;
+            background-size: 50px auto;
+            background-attachment: absolute;
+        }
+
+        /* Dark Mode Overrides */
+        body.dark-mode {
+            background-color: var(--bg-dark) !important;
+            color: var(--text-light) !important;
+            /* Dim paw prints further in dark mode */
+            background-image: 
+                linear-gradient(rgba(18, 24, 27, 0.85), rgba(18, 24, 27, 0.85)), url('../images/l-paw.png'),
+                linear-gradient(rgba(18, 24, 27, 0.85), rgba(18, 24, 27, 0.85)), url('../images/r-paw.png'),
+                linear-gradient(rgba(18, 24, 27, 0.85), rgba(18, 24, 27, 0.85)), url('../images/l-paw.png'),
+                linear-gradient(rgba(18, 24, 27, 0.85), rgba(18, 24, 27, 0.85)), url('../images/r-paw.png'),
+                linear-gradient(rgba(18, 24, 27, 0.85), rgba(18, 24, 27, 0.85)), url('../images/l-paw.png'),
+                linear-gradient(rgba(18, 24, 27, 0.85), rgba(18, 24, 27, 0.85)), url('../images/r-paw.png');
+        }
+
+        body.dark-mode .card-box,
+        body.dark-mode .rate-card,
+        body.dark-mode .info-box {
+            background-color: var(--card-bg-dark) !important;
+            border-color: var(--border-dark) !important;
+            color: var(--text-light) !important;
+        }
+
+        body.dark-mode .rate-card-header,
+        body.dark-mode .highlight-badge {
+            background-color: var(--card-inner-dark) !important;
+            border-color: var(--border-dark) !important;
+        }
+
+        body.dark-mode p,
+        body.dark-mode li {
+            color: var(--text-muted-dark);
+        }
+
+        body.dark-mode h1, 
+        body.dark-mode h2, 
+        body.dark-mode h3,
+        body.dark-mode .price-display {
+            color: var(--text-light) !important;
+        }
+
+        /* Site Header Styles */
+        .site-header {
+            background-color: var(--header-bg-color);
+            color: var(--header-text-color);
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 1.5rem;
+            position: relative;
+        }
+
+        .header-logo-container {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-logo-container img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .center-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            gap: 2px;
+            margin: 0 1rem;
+        }
+
+        .nav-btn {
+            color: var(--header-text-color);
+            text-decoration: none;
+            padding: 0.5rem 0.8rem;
+            font-weight: bold;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .nav-btn:hover {
+            background-color: var(--hover-tab-color);
+        }
+
+        .nav-btn.active {
+            background-color: var(--active-tab-color) !important;
+            color: var(--active-tab-text) !important;
+        }
+
+        .theme-toggle-btn,
+        .search-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            padding: 0.4rem 0.5rem;
+            color: var(--header-text-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            flex: 0 0 auto;
+            margin-left: 0.3rem;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle-btn:hover,
+        .search-btn:hover {
+            background-color: var(--hover-tab-color);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .theme-toggle-btn svg,
+        .search-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            display: block;
+        }
+
+        .right-menu-container {
+            flex: 0 0 auto;
+            position: relative;
+        }
+
+        .menu-toggle {
+            background-color: transparent;
+            color: var(--header-text-color);
+            border: 2px solid var(--header-text-color);
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .menu-toggle:hover {
+            background-color: var(--hover-tab-color);
+        }
+
+        .hamburger-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .hamburger-icon span {
+            display: block;
+            width: 16px;
+            height: 2px;
+            background-color: currentColor;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: calc(100% + 0.5rem);
+            background-color: #ffffff;
+            min-width: 230px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 1001;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #333333;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.2s ease;
+        }
+
+        .dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f8f9fa;
+            color: var(--active-tab-color);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background-color: #e0e0e0;
+            margin: 0.5rem 0;
+        }
+
+        /* Search Modal Overlay */
+        .search-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 9999;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 80px;
+        }
+
+        .search-modal-overlay.active {
+            display: flex;
+        }
+
+        .search-modal-container {
+            background: #ffffff;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close-search-modal {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #666;
+            cursor: pointer;
+            line-height: 1;
+            z-index: 10000;
+        }
+
+        /* Page Layout Styles */
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.2rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header-cta-button {
+            display: inline-block;
+            max-width: 250px;
+            margin: 1rem auto 0 auto;
+            text-align: center;
+            background-color: #e67e22;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .header-cta-button:hover {
+            background-color: #d35400;
+        }
+
+        /* Banner Container */
+        .promo-banner {
+            background-color: rgba(255, 255, 255, 0.95);
+            border: 2px dashed var(--primary);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            color: #333333;
+        }
+
+        body.dark-mode .promo-banner {
+            background-color: #1b2e23;
+            border-color: #2ecc71;
+            color: var(--text-light);
+        }
+
+        .promo-banner h2 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        body.dark-mode .promo-banner h2 {
+            color: #2ecc71;
+        }
+
+        .promo-banner p {
+            font-size: 0.95rem;
+        }
+
+        /* Packages Grid Layout */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .rate-card {
+            background-color: var(--card-bg-light);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            color: #333333;
+        }
+
+        .rate-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .rate-card-header {
+            background-color: var(--card-inner-light);
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .rate-card-title {
+            font-size: 1.25rem;
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .rate-card-sessions {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--accent);
+        }
+
+        .rate-card-body {
+            padding: 1.25rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Price & Disclaimer Inline Alignment */
+        .price-display {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333333;
+            margin-bottom: 1rem;
+        }
+
+        .price-display .price-disclaimer {
+            font-size: 0.85rem;
+            font-weight: normal;
+            color: #666666;
+        }
+
+        body.dark-mode .price-display {
+            color: var(--text-light);
+        }
+
+        body.dark-mode .price-display .price-disclaimer {
+            color: var(--text-muted-dark);
+        }
+
+        /* Auxiliary Rates Section */
+        .auxiliary-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .info-box {
+            background-color: var(--card-bg-light);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            color: #333333;
+        }
+
+        .info-box h3 {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.4rem;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-box li {
+            margin-bottom: 0.75rem;
+            position: relative;
+            padding-left: 1.25rem;
+            font-size: 0.95rem;
+        }
+
+        .info-box li::before {
+            content: "•";
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        .disclaimer-text {
+            font-size: 0.85rem;
+            color: #666666;
+            line-height: 1.4;
+            margin-top: 1rem;
+        }
+
+        body.dark-mode .disclaimer-text {
+            color: var(--text-muted-dark);
+        }
+
+        @media (max-width: 850px) {
+            .header-container {
+                flex-wrap: wrap;
+                padding: 0.5rem 1rem;
+            }
+
+            .header-logo-container { order: 1; }
+            .center-nav {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                margin: 0.5rem 0 0 0;
+                padding-top: 0.5rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.15);
+                flex-wrap: wrap;
+                gap: 2px;
+            }
+
+            .right-menu-container {
+                order: 4;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                margin-top: 0.5rem;
+            }
+
+            .menu-toggle { width: 100%; justify-content: center; }
+            .dropdown-menu { width: 100%; right: 0; left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Block -->
+    <header class="site-header">
+        <div class="header-container">
+            <div class="header-logo-container">
+                <a href="../index.html">
+                    <img src="../images/cctwordingnophrase.png" alt="Cooper Canines Logo">
+                </a>
+            </div>
+
+            <nav class="center-nav">
+                <a href="../index.html" class="nav-btn">Home</a>
+                <a href="../guides.html" class="nav-btn">Resources</a>
+                <a href="../index.html#contact" class="nav-btn">Contact Us</a>
+                
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Mode">
+                    <span id="sunIcon" style="font-size: 1rem; line-height: 1;">☀️</span>
+                    <span id="moonIcon" style="display: none; font-size: 1rem; line-height: 1;">🌙</span>
+                </button>
+
+                <button class="search-btn" id="openSearchBtn" aria-label="Open Search">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                </button>
+            </nav>
+
+            <div class="right-menu-container">
+                <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation menu">
+                    <span class="menu-text">Menu</span>
+                    <div class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="../start.html">Get Started</a>
+                    <a href="../portal.html">Returning Client</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="../index.html#top">About Us</a>
+                    <a href="../breeds">Breeds</a>
+                    <a href="../guides">Guides</a>
+                    <a href="../index.html#contact">Contact Us</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener">Our Facebook</a>
+                    <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Google Reviews</a>
+                    <a href="../waiver.html">Liability Waiver</a>
+                    <a href="../perks.html">Referral & Perks</a>
+                    <a href="../rates.html">Estimated Rates</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="search-modal-overlay" id="searchModal">
+        <div class="search-modal-container">
+            <button class="close-search-modal" id="closeSearchBtn">&times;</button>
+            <div class="gcse-search"></div>
+        </div>
+    </div>
+
+    <!-- Main Page Content -->
+    <main class="main-container">
+        
+        <div class="page-header">
+            <h1>Estimated Training Rates</h1>
+            <a href="../start.html" class="header-cta-button">Get Started</a>
+        </div>
+
+        <!-- Promo Consultation Banner -->
+        <div class="promo-banner">
+            <h2>Special Initial Consultation Offer</h2>
+            <p>Initial Evaluations are currently <strong>FREE</strong> (Normally $150). Consultation rates are credited directly toward any package selection.</p>
+        </div>
+
+        <!-- Packages Grid -->
+        <section class="packages-grid">
+            
+            <div class="rate-card">
+                <div class="rate-card-header">
+                    <div class="rate-card-title">Crate & Housebreaking</div>
+                    <div class="rate-card-sessions">2–3 Estimated Sessions</div>
+                </div>
+                <div class="rate-card-body">
+                    <div class="price-display">
+                        <span>$150</span>
+                        <span class="price-disclaimer">(Subject to change)</span>
+                    </div>
+                    <p>Establish structured, stress-free routines for house training and crate confidence.</p>
+                </div>
+            </div>
+
+            <div class="rate-card">
+                <div class="rate-card-header">
+                    <div class="rate-card-title">New Dog / New Owner</div>
+                    <div class="rate-card-sessions">2–3 Estimated Sessions</div>
+                </div>
+                <div class="rate-card-body">
+                    <div class="price-display">
+                        <span>$150</span>
+                        <span class="price-disclaimer">(Subject to change)</span>
+                    </div>
+                    <p>Essential guidance for a smooth transition, bonding, home setup, and basic manners.</p>
+                </div>
+            </div>
+
+            <div class="rate-card">
+                <div class="rate-card-header">
+                    <div class="rate-card-title">Polite Greetings</div>
+                    <div class="rate-card-sessions">4–6 Estimated Sessions</div>
+                </div>
+                <div class="rate-card-body">
+                    <div class="price-display">
+                        <span>$300</span>
+                        <span class="price-disclaimer">(Subject to change)</span>
+                    </div>
+                    <p>Eliminate jumping and excessive excitement when greeting household guests and strangers.</p>
+                </div>
+            </div>
+
+            <div class="rate-card">
+                <div class="rate-card-header">
+                    <div class="rate-card-title">Puppy Package</div>
+                    <div class="rate-card-sessions">3–5 Estimated Sessions</div>
+                </div>
+                <div class="rate-card-body">
+                    <div class="price-display">
+                        <span>$300</span>
+                        <span class="price-disclaimer">(Subject to change)</span>
+                    </div>
+                    <p>Early foundation skills, socialization guidance, bite inhibition, and preventive behaviors.</p>
+                </div>
+            </div>
+
+            <div class="rate-card">
+                <div class="rate-card-header">
+                    <div class="rate-card-title">Recall</div>
+                    <div class="rate-card-sessions">4–6 Estimated Sessions</div>
+                </div>
+                <div class="rate-card-body">
+                    <div class="price-display">
+                        <span>$375</span>
+                        <span class="price-disclaimer">(Subject to change)</span>
+                    </div>
+                    <p>Build a reliable, fast off-leash or long-line recall response under realistic distractions.</p>
+                </div>
+            </div>
+
+            <div class="rate-card">
+                <div class="rate-card-header">
+                    <div class="rate-card-title">Obedience / Basic Skills</div>
+                    <div class="rate-card-sessions">5–7 Estimated Sessions</div>
+                </div>
+                <div class="rate-card-body">
+                    <div class="price-display">
+                        <span>$450</span>
+                        <span class="price-disclaimer">(Subject to change)</span>
+                    </div>
+                    <p>Core obedience commands including sit, down, stay, place, and reliable focus.</p>
+                </div>
+            </div>
+
+            <div class="rate-card">
+                <div class="rate-card-header">
+                    <div class="rate-card-title">Socialization</div>
+                    <div class="rate-card-sessions">6 Estimated Sessions</div>
+                </div>
+                <div class="rate-card-body">
+                    <div class="price-display">
+                        <span>$450</span>
+                        <span class="price-disclaimer">(Subject to change)</span>
+                    </div>
+                    <p>Controlled exposure techniques to foster neutral, confident responses to dogs and environments.</p>
+                </div>
+            </div>
+
+            <div class="rate-card">
+                <div class="rate-card-header">
+                    <div class="rate-card-title">Behavioral</div>
+                    <div class="rate-card-sessions">6 Estimated Sessions</div>
+                </div>
+                <div class="rate-card-body">
+                    <div class="price-display">
+                        <span>$500</span>
+                        <span class="price-disclaimer">(Subject to change)</span>
+                    </div>
+                    <p>Targeted modification protocols for reactivity, resource guarding, fear, or anxiety.</p>
+                </div>
+            </div>
+
+            <div class="rate-card">
+                <div class="rate-card-header">
+                    <div class="rate-card-title">Walking & Leash Skills</div>
+                    <div class="rate-card-sessions">6–8 Estimated Sessions</div>
+                </div>
+                <div class="rate-card-body">
+                    <div class="price-display">
+                        <span>$600</span>
+                        <span class="price-disclaimer">(Subject to change)</span>
+                    </div>
+                    <p>Master loose-leash walking, heel fundamentals, and calm movement past triggers.</p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Auxiliary Services & Policy Details -->
+        <section class="auxiliary-section">
+            
+            <div class="info-box">
+                <h3>Additional Session Options</h3>
+                <ul>
+                    <li><strong>Follow-Up Sessions:</strong> $60 / hour (Exclusive to active clients who have completed a base package)[cite: 3].</li>
+                    <li><strong>Individual Sessions:</strong> $75 / session (Standalone booking without package enrollment)[cite: 3].</li>
+                    <li><strong>Complimentary Check-In:</strong> Package clients receive 1 free follow-up check-in session 3–4 weeks after package completion to review progress[cite: 3].</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h3>Service Area & Travel Logistics</h3>
+                <ul>
+                    <li><strong>Core Service Area:</strong> Primary rates apply within Camden, Burlington, and Gloucester Counties[cite: 3].</li>
+                    <li><strong>Extended County Travel:</strong> An additional $25 travel surcharge applies to sessions conducted outside Camden, Burlington, or Gloucester Counties (in South Jersey)[cite: 3].</li>
+                    <li><strong>Out-of-Region Travel:</strong> A $100 regional travel fee applies to locations outside South Jersey (separate from standard out-of-county travel rates)[cite: 3].</li>
+                    <li><strong>Service Boundaries:</strong> In-person training is exclusively limited to South Jersey, Eastern Pennsylvania, and Delaware[cite: 3].</li>
+                </ul>
+            </div>
+
+        </section>
+
+        <!-- Disclaimers & Notes -->
+        <div class="info-box">
+            <h3>Package & Service Notes</h3>
+            <p class="disclaimer-text">
+                * <strong>Customized Plans:</strong> Depending on initial assessment, behavioral complexity, or multi-dog homes, certain training goals may require additional or bundled packages to achieve optimal results.<br>
+                * <strong>Rate Adjustments:</strong> All rate estimates are subject to travel distance, location requirements, and individual dog assessment. Final adjustments are confirmed prior to agreement.<br>
+                * <strong>Ongoing Communication:</strong> Enrolled package clients are encouraged to reach out with brief training updates and questions between sessions.
+            </p>
+        </div>
+
+    </main>
+
+    <!-- Footer Block -->
+    <footer style="background-color: #006060; color: white; padding: 1.25rem 1rem; margin-top: 3rem; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; box-sizing: border-box; text-align: center;">
+        <div style="font-size: 0.9rem; color: #ffffff;">
+            <p style="margin: 0;">&copy; 2026 Cooper Canines LLC. | All rights reserved. | Website in Construction.</p>
+        </div>
+    </footer>
+
+    <!-- Header & Theme Scripts -->
+    <script>
+        // Dropdown Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+
+        document.addEventListener('click', () => {
+            dropdownMenu.classList.remove('show');
+        });
+
+        // Theme Switcher Logic
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+
+        function updateIcons(isDark) {
+            sunIcon.style.display = isDark ? 'none' : 'inline-block';
+            moonIcon.style.display = isDark ? 'inline-block' : 'none';
+        }
+
+        // Load saved theme or match system theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            updateIcons(true);
+        } else {
+            updateIcons(false);
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateIcons(isDark);
+        });
+
+        // Search Modal Handlers
+        const openSearchBtn = document.getElementById('openSearchBtn');
+        const closeSearchBtn = document.getElementById('closeSearchBtn');
+        const searchModal = document.getElementById('searchModal');
+
+        openSearchBtn.addEventListener('click', () => {
+            searchModal.classList.add('active');
+            setTimeout(() => {
+                const searchInput = document.querySelector('.gsc-input input');
+                if (searchInput) searchInput.focus();
+            }, 200);
+        });
+
+        closeSearchBtn.addEventListener('click', () => {
+            searchModal.classList.remove('active');
+        });
+
+        searchModal.addEventListener('click', (e) => {
+            if (e.target === searchModal) {
+                searchModal.classList.remove('active');
+            }
+        });
+
+        // Active Nav Button Highlight
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-btn');
+            navLinks.forEach(link => {
+                if (link.getAttribute('href').includes('rates.html')) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
