@@ -396,12 +396,31 @@
             font-size: 0.95rem;
         }
 
+        /* Coming Soon Banner */
+        .coming-soon-banner {
+            background: linear-gradient(135deg, rgba(230, 126, 34, 0.15), rgba(0, 145, 0, 0.15));
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            font-weight: bold;
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        body.dark-mode .coming-soon-banner {
+            background: linear-gradient(135deg, rgba(230, 126, 34, 0.25), rgba(46, 204, 113, 0.2));
+            color: var(--text-light);
+            border-color: var(--accent);
+        }
+
         /* Packages Grid Layout */
         .packages-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
         }
 
         .rate-card {
@@ -450,16 +469,16 @@
             flex-direction: column;
         }
 
-        /* Price & Disclaimer Inline Alignment */
+        /* Price & Disclaimer Left-Aligned Layout */
         .price-display {
             display: flex;
             align-items: baseline;
-            justify-content: center;
+            justify-content: flex-start;
             gap: 0.5rem;
             font-size: 2rem;
             font-weight: bold;
             color: #333333;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
         }
 
         .price-display .price-disclaimer {
@@ -534,6 +553,55 @@
             color: var(--text-muted-dark);
         }
 
+        /* Floating Glowing Disclaimer Box */
+        .floating-disclaimer {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            max-width: 320px;
+            background: #ffffff;
+            color: #333333;
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            padding: 0.9rem 2.2rem 0.9rem 1rem;
+            box-shadow: 0 4px 20px rgba(230, 126, 34, 0.35);
+            z-index: 2000;
+            font-size: 0.85rem;
+            line-height: 1.35;
+            animation: pulseGlow 3s infinite ease-in-out;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        body.dark-mode .floating-disclaimer {
+            background: #1e262c;
+            color: #e0e6ed;
+            border-color: #e67e22;
+            box-shadow: 0 4px 20px rgba(230, 126, 34, 0.45);
+        }
+
+        .floating-disclaimer .dismiss-btn {
+            position: absolute;
+            top: 6px;
+            right: 8px;
+            background: none;
+            border: none;
+            color: #888888;
+            font-size: 1.2rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 2px 4px;
+        }
+
+        .floating-disclaimer .dismiss-btn:hover {
+            color: var(--accent);
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3); }
+            50% { box-shadow: 0 4px 25px rgba(230, 126, 34, 0.65); }
+            100% { box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3); }
+        }
+
         @media (max-width: 850px) {
             .header-container {
                 flex-wrap: wrap;
@@ -562,6 +630,13 @@
 
             .menu-toggle { width: 100%; justify-content: center; }
             .dropdown-menu { width: 100%; right: 0; left: 0; }
+
+            .floating-disclaimer {
+                left: 15px;
+                right: 15px;
+                max-width: none;
+                bottom: 15px;
+            }
         }
     </style>
 </head>
@@ -812,6 +887,11 @@
 
         </section>
 
+        <!-- Temporary Coming Soon Filler Space -->
+        <div class="coming-soon-banner">
+            🚀 Coming Soon: Combined package discounts and estimate calculator.
+        </div>
+
         <!-- Auxiliary Services & Policy Details -->
         <section class="auxiliary-section">
             
@@ -848,6 +928,12 @@
         </div>
 
     </main>
+
+    <!-- Floating Glowing Sticky Box -->
+    <div class="floating-disclaimer" id="floatingDisclaimer">
+        <button class="dismiss-btn" id="dismissDisclaimerBtn" aria-label="Dismiss disclaimer">&times;</button>
+        Rates shown are estimated baselines and will vary depending on needs. Final pricing will be determined during consultation.
+    </div>
 
     <!-- Footer Block -->
     <footer style="background-color: #006060; color: white; padding: 1.25rem 1rem; margin-top: 3rem; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; box-sizing: border-box; text-align: center;">
@@ -918,6 +1004,14 @@
             if (e.target === searchModal) {
                 searchModal.classList.remove('active');
             }
+        });
+
+        // Floating Disclaimer Dismiss Logic
+        const floatingDisclaimer = document.getElementById('floatingDisclaimer');
+        const dismissDisclaimerBtn = document.getElementById('dismissDisclaimerBtn');
+
+        dismissDisclaimerBtn.addEventListener('click', () => {
+            floatingDisclaimer.style.display = 'none';
         });
 
         // Active Nav Button Highlight
