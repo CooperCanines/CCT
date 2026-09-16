@@ -47,7 +47,7 @@
 
         body {
             font-family: Arial, sans-serif;
-            background-color: var(--bg-light);
+            background: url('images/fall-special.png') center center / cover no-repeat fixed var(--bg-light);
             color: var(--text-dark);
             line-height: 1.6;
             transition: background-color 0.3s ease, color 0.3s ease;
@@ -55,14 +55,14 @@
 
         /* Dark Mode Overrides */
         body.dark-mode {
-            background-color: var(--bg-dark) !important;
+            background: url('images/fall-special.png') center center / cover no-repeat fixed var(--bg-dark) !important;
             color: var(--text-light) !important;
         }
 
         body.dark-mode .card-box,
         body.dark-mode .rate-card,
         body.dark-mode .info-box {
-            background-color: var(--card-bg-dark) !important;
+            background-color: rgba(30, 38, 44, 0.95) !important;
             border-color: var(--border-dark) !important;
             color: var(--text-light) !important;
         }
@@ -314,7 +314,7 @@
 
         .get-started-button {
             text-align: center;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
         }
 
         .get-started-button h1 {
@@ -322,27 +322,6 @@
             color: #ffffff;
             margin-bottom: 0.5rem;
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-
-        /* Flash Sale Image Container - Static with border/shadow removed */
-        .flash-sale-container {
-            margin: 0 auto 1.5rem auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            max-width: 1100px;
-            width: 100%;
-        }
-
-        .flash-sale-container img {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            display: block;
-            border: none;
-            box-shadow: none;
-            outline: none;
-            border-radius: 0;
         }
 
         .header-cta-button {
@@ -365,6 +344,98 @@
             background-color: #d35400;
         }
 
+        /* Professional Flash Promo Box */
+        .flash-promo-card {
+            background-color: rgba(255, 255, 255, 0.96);
+            border: 2px solid var(--accent);
+            border-radius: 10px;
+            padding: 1.75rem 1.5rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            color: #2c3e50;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        body.dark-mode .flash-promo-card {
+            background-color: rgba(30, 38, 44, 0.95);
+            border-color: var(--accent);
+            color: var(--text-light);
+        }
+
+        .flash-promo-header {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #d35400;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.3px;
+        }
+
+        body.dark-mode .flash-promo-header {
+            color: #e67e22;
+        }
+
+        .flash-promo-badge {
+            display: inline-block;
+            background-color: var(--accent);
+            color: #ffffff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .flash-promo-options {
+            margin: 1.25rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .flash-option-item {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #1a252f;
+        }
+
+        body.dark-mode .flash-option-item {
+            color: #ffffff;
+        }
+
+        .flash-option-divider {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #7f8c8d;
+            font-weight: 600;
+        }
+
+        .flash-promo-schedule {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px dashed #cbd5e1;
+        }
+
+        body.dark-mode .flash-promo-schedule {
+            color: #2ecc71;
+            border-top-color: #3a4754;
+        }
+
+        .flash-promo-footer {
+            font-size: 0.85rem;
+            color: #666666;
+            margin-top: 0.5rem;
+        }
+
+        body.dark-mode .flash-promo-footer {
+            color: var(--text-muted-dark);
+        }
+
         /* Banner Container */
         .promo-banner {
             background-color: rgba(255, 255, 255, 0.95);
@@ -377,7 +448,7 @@
         }
 
         body.dark-mode .promo-banner {
-            background-color: #1b2e23;
+            background-color: rgba(27, 46, 35, 0.95);
             border-color: #2ecc71;
             color: var(--text-light);
         }
@@ -398,7 +469,7 @@
 
         /* Coming Soon Banner */
         .coming-soon-banner {
-            background: linear-gradient(135deg, rgba(230, 126, 34, 0.15), rgba(0, 145, 0, 0.15));
+            background: linear-gradient(135deg, rgba(230, 126, 34, 0.25), rgba(0, 145, 0, 0.25));
             border: 1px solid var(--accent);
             border-radius: 8px;
             padding: 1rem;
@@ -407,10 +478,11 @@
             font-weight: bold;
             color: #ffffff;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            backdrop-filter: blur(4px);
         }
 
         body.dark-mode .coming-soon-banner {
-            background: linear-gradient(135deg, rgba(230, 126, 34, 0.25), rgba(46, 204, 113, 0.2));
+            background: linear-gradient(135deg, rgba(230, 126, 34, 0.3), rgba(46, 204, 113, 0.25));
             color: var(--text-light);
             border-color: var(--accent);
         }
@@ -429,7 +501,7 @@
         }
 
         .rate-card {
-            background-color: var(--card-bg-light);
+            background-color: rgba(255, 255, 255, 0.95);
             border: 1px solid var(--border-light);
             border-radius: 10px;
             overflow: hidden;
@@ -509,7 +581,7 @@
         }
 
         .info-box {
-            background-color: var(--card-bg-light);
+            background-color: rgba(255, 255, 255, 0.95);
             border: 1px solid var(--border-light);
             border-radius: 10px;
             padding: 1.5rem;
@@ -723,11 +795,25 @@
     <!-- Main Page Content -->
     <main class="main-container">
 
-        <div class="get-started-button">
-            <!-- Static Flash Sale Image Container -->
-            <div class="flash-sale-container">
-                <img src="images/fall-flash-sale.png" alt="Fall Flash Sale">
+        <!-- Professional Fall Flash Promo Box -->
+        <div class="flash-promo-card">
+            <div class="flash-promo-header">
+                Fall Flash Promo <span class="flash-promo-badge">Only 3 Slots Available!</span>
             </div>
+            <div class="flash-promo-options">
+                <div class="flash-option-item">2 Sessions for $75</div>
+                <div class="flash-option-divider">— OR —</div>
+                <div class="flash-option-item">50% Off Any Package Below Valued Under $600</div>
+            </div>
+            <div class="flash-promo-schedule">
+                Consultation must be scheduled before October 1st.
+            </div>
+            <div class="flash-promo-footer">
+                Sale Ends October 1st. Travel Surcharges Apply.
+            </div>
+        </div>
+
+        <div class="get-started-button">
             <div>
                 <a href="../start.html" class="header-cta-button">Next: Request a Consultation</a>
             </div>
@@ -736,7 +822,7 @@
         <!-- Promo Consultation Banner -->
         <div class="promo-banner">
             <h2>Free Consultations for a Limited Time within Burlington, Camden, & Gloucester County</h2>
-            <p>Consultation rate is waived. You pay only the Service Area Travel Surcharge if outside the above counties. Consultation rates (excluding travel surcharge) are credited directly toward any package selection.</p>
+            <p>You pay only the Service Area Travel Surcharge if outside the above counties. Consultation rates (excluding travel surcharge) are credited directly toward any package selection.</p>
         </div>
 
         <!-- Packages Grid -->
