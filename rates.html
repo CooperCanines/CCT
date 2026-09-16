@@ -26,7 +26,7 @@
             --card-bg-dark: #1e262c;
             --card-inner-light: #f1f3f5;
             --card-inner-dark: #2a343d;
-            --text-dark: #ffffff; /* White text over dark forest green background */
+            --text-dark: #ffffff;
             --text-light: #e0e6ed;
             --text-muted-light: #e0e0e0;
             --text-muted-dark: #9ba8b5;
@@ -35,7 +35,7 @@
         }
 
         html, body {
-            overflow-x: hidden; /* Prevents mobile right-side horizontal extension */
+            overflow-x: hidden;
             width: 100%;
         }
 
@@ -51,41 +51,12 @@
             color: var(--text-dark);
             line-height: 1.6;
             transition: background-color 0.3s ease, color 0.3s ease;
-
-            /* Alternating Paw Print Walking Trail Background (50% Opacity) */
-            background-image: 
-                linear-gradient(rgba(45, 74, 62, 0.5), rgba(45, 74, 62, 0.5)), url('../images/l-paw.png'),
-                linear-gradient(rgba(45, 74, 62, 0.5), rgba(45, 74, 62, 0.5)), url('../images/r-paw.png'),
-                linear-gradient(rgba(45, 74, 62, 0.5), rgba(45, 74, 62, 0.5)), url('../images/l-paw.png'),
-                linear-gradient(rgba(45, 74, 62, 0.5), rgba(45, 74, 62, 0.5)), url('../images/r-paw.png'),
-                linear-gradient(rgba(45, 74, 62, 0.5), rgba(45, 74, 62, 0.5)), url('../images/l-paw.png'),
-                linear-gradient(rgba(45, 74, 62, 0.5), rgba(45, 74, 62, 0.5)), url('../images/r-paw.png');
-            
-            background-position: 
-                5% 10%,   /* Left Paw 1 */
-                12% 22%,  /* Right Paw 1 */
-                85% 38%,  /* Left Paw 2 */
-                92% 50%,  /* Right Paw 2 */
-                8% 68%,   /* Left Paw 3 */
-                15% 82%;  /* Right Paw 3 */
-
-            background-repeat: no-repeat;
-            background-size: 50px auto;
-            background-attachment: absolute;
         }
 
         /* Dark Mode Overrides */
         body.dark-mode {
             background-color: var(--bg-dark) !important;
             color: var(--text-light) !important;
-            /* Dim paw prints further in dark mode */
-            background-image: 
-                linear-gradient(rgba(18, 24, 27, 0.85), rgba(18, 24, 27, 0.85)), url('../images/l-paw.png'),
-                linear-gradient(rgba(18, 24, 27, 0.85), rgba(18, 24, 27, 0.85)), url('../images/r-paw.png'),
-                linear-gradient(rgba(18, 24, 27, 0.85), rgba(18, 24, 27, 0.85)), url('../images/l-paw.png'),
-                linear-gradient(rgba(18, 24, 27, 0.85), rgba(18, 24, 27, 0.85)), url('../images/r-paw.png'),
-                linear-gradient(rgba(18, 24, 27, 0.85), rgba(18, 24, 27, 0.85)), url('../images/l-paw.png'),
-                linear-gradient(rgba(18, 24, 27, 0.85), rgba(18, 24, 27, 0.85)), url('../images/r-paw.png');
         }
 
         body.dark-mode .card-box,
@@ -353,10 +324,41 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
+        /* Pulsing Glowing Orange Flash Sale Image Banner */
+        .flash-sale-container {
+            margin: 0 auto 1rem auto;
+            display: inline-block;
+            border-radius: 12px;
+            animation: pulseOrangeGlow 2s infinite ease-in-out;
+        }
+
+        .flash-sale-container img {
+            max-width: 320px;
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+        }
+
+        @keyframes pulseOrangeGlow {
+            0% {
+                box-shadow: 0 0 10px rgba(230, 126, 34, 0.4);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 25px rgba(230, 126, 34, 0.9);
+                transform: scale(1.02);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(230, 126, 34, 0.4);
+                transform: scale(1);
+            }
+        }
+
         .header-cta-button {
             display: inline-block;
             max-width: 300px;
-            margin: 1rem auto 0 auto;
+            margin: 0 auto;
             text-align: center;
             background-color: #e67e22;
             color: #ffffff;
@@ -409,7 +411,7 @@
             border: 1px solid var(--accent);
             border-radius: 8px;
             padding: 1rem;
-            margin-bottom: 3rem;
+            margin-bottom: 1.5rem;
             text-align: center;
             font-weight: bold;
             color: #ffffff;
@@ -420,6 +422,11 @@
             background: linear-gradient(135deg, rgba(230, 126, 34, 0.25), rgba(46, 204, 113, 0.2));
             color: var(--text-light);
             border-color: var(--accent);
+        }
+
+        .secondary-cta-container {
+            text-align: center;
+            margin-bottom: 3rem;
         }
 
         /* Packages Grid Layout */
@@ -560,7 +567,7 @@
             color: var(--text-muted-dark);
         }
 
-        /* Floating Glowing Disclaimer Box (Centered on PC, Sticky Bottom) */
+        /* Floating Glowing Disclaimer Box */
         .floating-disclaimer {
             position: fixed;
             bottom: 20px;
@@ -575,7 +582,7 @@
             padding: 0.9rem 2.2rem 0.9rem 1.2rem;
             box-shadow: 0 4px 20px rgba(230, 126, 34, 0.35);
             z-index: 2000;
-            font-size: 0.95rem; /* Slightly larger readable text */
+            font-size: 0.95rem;
             line-height: 1.4;
             text-align: center;
             animation: pulseGlow 3s infinite ease-in-out;
@@ -623,7 +630,7 @@
             }
 
             .header-logo-container img {
-                height: 38px; /* Downscaled logo on mobile to prevent navbar overflow */
+                height: 38px;
                 max-width: 60vw;
             }
 
@@ -726,13 +733,21 @@
     <main class="main-container">
 
         <div class="get-started-button">
-            <a href="../start.html" class="header-cta-button">Next: Request a Consultation</a>
+            <!-- Pulsing Glowing Orange Flash Sale Image -->
+            <div class="flash-sale-container">
+                <img src="images/fall-flash-sale.png" alt="Fall Flash Sale">
+            </div>
+            <div>
+                <a href="../start.html" class="header-cta-button">Next: Request a Consultation</a>
+            </div>
         </div>
+
         <!-- Promo Consultation Banner -->
         <div class="promo-banner">
             <h2>Free Consultations for a Limited Time within Burlington, Camden, & Gloucester County</h2>
             <p>Consultation rate is waived. You pay only the Service Area Travel Surcharge if outside the above counties. Consultation rates (excluding travel surcharge) are credited directly toward any package selection.</p>
         </div>
+
         <!-- Packages Grid -->
         <section class="packages-grid">
             
@@ -911,6 +926,11 @@
             Coming Soon: Combined package discounts and estimate calculator.
         </div>
 
+        <!-- Duplicated High-Intent CTA Button -->
+        <div class="secondary-cta-container">
+            <a href="../start.html" class="header-cta-button">Next: Request a Consultation</a>
+        </div>
+
         <!-- Auxiliary Services & Policy Details -->
         <section class="auxiliary-section">
             
@@ -949,7 +969,7 @@
 
     </main>
 
-    <!-- Floating Glowing Sticky Box (Centered PC & Mobile View) -->
+    <!-- Floating Glowing Sticky Box -->
     <div class="floating-disclaimer" id="floatingDisclaimer">
         <button class="dismiss-btn" id="dismissDisclaimerBtn" aria-label="Dismiss disclaimer">&times;</button>
         Rates shown are estimated baselines and may vary depending on needs. Final pricing will be determined during consultation or planning.
@@ -987,7 +1007,6 @@
             moonIcon.style.display = isDark ? 'inline-block' : 'none';
         }
 
-        // Load saved theme or match system theme
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') {
             document.body.classList.add('dark-mode');
