@@ -34,6 +34,11 @@
             --border-dark: #3a4754;
         }
 
+        html, body {
+            overflow-x: hidden; /* Prevents mobile right-side horizontal extension */
+            width: 100%;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -139,6 +144,7 @@
         .header-logo-container img {
             height: 50px;
             width: auto;
+            max-width: 100%;
             object-fit: contain;
             display: block;
         }
@@ -332,6 +338,7 @@
             max-width: 1200px;
             margin: 2rem auto;
             padding: 0 1.5rem;
+            width: 100%;
         }
 
         .get-started-button {
@@ -348,7 +355,7 @@
 
         .header-cta-button {
             display: inline-block;
-            max-width: 250px;
+            max-width: 300px;
             margin: 1rem auto 0 auto;
             text-align: center;
             background-color: #e67e22;
@@ -418,7 +425,7 @@
         /* Packages Grid Layout */
         .packages-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             margin-bottom: 2.5rem;
         }
@@ -498,7 +505,7 @@
         /* Auxiliary Rates Section */
         .auxiliary-section {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             margin-bottom: 3rem;
         }
@@ -553,21 +560,24 @@
             color: var(--text-muted-dark);
         }
 
-        /* Floating Glowing Disclaimer Box */
+        /* Floating Glowing Disclaimer Box (Centered on PC, Sticky Bottom) */
         .floating-disclaimer {
             position: fixed;
             bottom: 20px;
-            right: 20px;
-            max-width: 320px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 500px;
             background: #ffffff;
             color: #333333;
-            border: 1px solid var(--accent);
+            border: 1.5px solid var(--accent);
             border-radius: 10px;
-            padding: 0.9rem 2.2rem 0.9rem 1rem;
+            padding: 0.9rem 2.2rem 0.9rem 1.2rem;
             box-shadow: 0 4px 20px rgba(230, 126, 34, 0.35);
             z-index: 2000;
-            font-size: 0.85rem;
-            line-height: 1.35;
+            font-size: 0.95rem; /* Slightly larger readable text */
+            line-height: 1.4;
+            text-align: center;
             animation: pulseGlow 3s infinite ease-in-out;
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
@@ -608,7 +618,15 @@
                 padding: 0.5rem 1rem;
             }
 
-            .header-logo-container { order: 1; }
+            .header-logo-container { 
+                order: 1; 
+            }
+
+            .header-logo-container img {
+                height: 38px; /* Downscaled logo on mobile to prevent navbar overflow */
+                max-width: 60vw;
+            }
+
             .center-nav {
                 order: 3;
                 width: 100%;
@@ -632,9 +650,10 @@
             .dropdown-menu { width: 100%; right: 0; left: 0; }
 
             .floating-disclaimer {
-                left: 15px;
-                right: 15px;
-                max-width: none;
+                left: 5%;
+                right: 5%;
+                transform: none;
+                width: 90%;
                 bottom: 15px;
             }
         }
@@ -678,7 +697,7 @@
                     </div>
                 </button>
                 <div class="dropdown-menu" id="dropdownMenu">
-                    <a href="../start.html">Get Started</a>
+                    <a href="../start.html">Next: Request a Consultation</a>
                     <a href="../portal.html">Returning Client</a>
                     <div class="dropdown-divider"></div>
                     <a href="../index.html#top">About Us</a>
@@ -707,7 +726,7 @@
     <main class="main-container">
 
         <div class="get-started-button">
-            <a href="../start.html" class="header-cta-button">Get Started</a>
+            <a href="../start.html" class="header-cta-button">Next: Request a Consultation</a>
         </div>
         <!-- Promo Consultation Banner -->
         <div class="promo-banner">
@@ -930,7 +949,7 @@
 
     </main>
 
-    <!-- Floating Glowing Sticky Box -->
+    <!-- Floating Glowing Sticky Box (Centered PC & Mobile View) -->
     <div class="floating-disclaimer" id="floatingDisclaimer">
         <button class="dismiss-btn" id="dismissDisclaimerBtn" aria-label="Dismiss disclaimer">&times;</button>
         Rates shown are estimated baselines and may vary depending on needs. Final pricing will be determined during consultation or planning.
