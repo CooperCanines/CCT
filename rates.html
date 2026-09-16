@@ -346,6 +346,7 @@
 
         /* Professional Flash Promo Box */
         .flash-promo-card {
+            position: relative;
             background-color: rgba(255, 255, 255, 0.96);
             border: 2px solid var(--accent);
             border-radius: 10px;
@@ -354,6 +355,7 @@
             text-align: center;
             color: #2c3e50;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
         body.dark-mode .flash-promo-card {
@@ -362,12 +364,49 @@
             color: var(--text-light);
         }
 
+        /* Noticeable Dismissal Button */
+        .flash-promo-close {
+            position: absolute;
+            top: 10px;
+            right: 14px;
+            background: rgba(0, 0, 0, 0.05);
+            border: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #7f8c8d;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            transition: all 0.2s ease;
+        }
+
+        .flash-promo-close:hover {
+            background: #e74c3c;
+            color: #ffffff;
+        }
+
+        body.dark-mode .flash-promo-close {
+            background: rgba(255, 255, 255, 0.1);
+            color: #bdc3c7;
+        }
+
+        body.dark-mode .flash-promo-close:hover {
+            background: #e74c3c;
+            color: #ffffff;
+        }
+
         .flash-promo-header {
             font-size: 1.5rem;
             font-weight: 700;
             color: #d35400;
             margin-bottom: 0.75rem;
             letter-spacing: 0.3px;
+            padding-right: 20px; /* Offset for X button on small screens */
         }
 
         body.dark-mode .flash-promo-header {
@@ -796,7 +835,8 @@
     <main class="main-container">
 
         <!-- Professional Fall Flash Promo Box -->
-        <div class="flash-promo-card">
+        <div class="flash-promo-card" id="flashPromoCard">
+            <button class="flash-promo-close" id="dismissPromoBtn" aria-label="Dismiss Promo Box">&times;</button>
             <div class="flash-promo-header">
                 Fall Flash Promo <span class="flash-promo-badge">Only 3 Slots Available!</span>
             </div>
@@ -1055,7 +1095,7 @@
     <!-- Footer Block -->
     <footer style="background-color: #006060; color: white; padding: 1.25rem 1rem; margin-top: 3rem; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; box-sizing: border-box; text-align: center;">
         <div style="font-size: 0.9rem; color: #ffffff;">
-            <p style="margin: 0;">&copy; 2026 Cooper Canines LLC. | All rights reserved. | Website in Construction.</p>
+            <p style="margin: 0;">&copy; 2026 Cooper Canines LLC. | Website Under Development.</p>
         </div>
     </footer>
 
@@ -1120,6 +1160,14 @@
             if (e.target === searchModal) {
                 searchModal.classList.remove('active');
             }
+        });
+
+        // Fall Flash Promo Dismiss Logic
+        const flashPromoCard = document.getElementById('flashPromoCard');
+        const dismissPromoBtn = document.getElementById('dismissPromoBtn');
+
+        dismissPromoBtn.addEventListener('click', () => {
+            flashPromoCard.style.display = 'none';
         });
 
         // Floating Disclaimer Dismiss Logic
