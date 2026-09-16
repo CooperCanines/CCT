@@ -324,13 +324,16 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
-        /* Scaled-Up Pulsing Flash Sale Image Container */
+        /* Fixed Flash Sale Container & Non-Shrinking Image Fade */
         .flash-sale-container {
             margin: 0 auto 1.5rem auto;
-            display: inline-block;
-            max-width: 800px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 100%;
-            animation: pulseOnly 2.5s infinite ease-in-out;
+            box-shadow: none;
+            border: none;
+            animation: pulseFade 2.5s infinite ease-in-out;
         }
 
         .flash-sale-container img {
@@ -338,18 +341,20 @@
             height: auto;
             display: block;
             border-radius: 12px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+            border: none;
+            box-shadow: none;
         }
 
-        @keyframes pulseOnly {
+        /* Opacity pulse only (no scaling/shrinking) */
+        @keyframes pulseFade {
             0% {
-                transform: scale(1);
+                opacity: 1;
             }
             50% {
-                transform: scale(1.03);
+                opacity: 0.88;
             }
             100% {
-                transform: scale(1);
+                opacity: 1;
             }
         }
 
@@ -566,7 +571,7 @@
             color: var(--text-muted-dark);
         }
 
-        /* Floating Glowing Disclaimer Box */
+        /* Floating Disclaimer Box */
         .floating-disclaimer {
             position: fixed;
             bottom: 20px;
@@ -579,12 +584,11 @@
             border: 1.5px solid var(--accent);
             border-radius: 10px;
             padding: 0.9rem 2.2rem 0.9rem 1.2rem;
-            box-shadow: 0 4px 20px rgba(230, 126, 34, 0.35);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             z-index: 2000;
             font-size: 0.95rem;
             line-height: 1.4;
             text-align: center;
-            animation: pulseGlow 3s infinite ease-in-out;
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
@@ -592,7 +596,7 @@
             background: #1e262c;
             color: #e0e6ed;
             border-color: #e67e22;
-            box-shadow: 0 4px 20px rgba(230, 126, 34, 0.45);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
         }
 
         .floating-disclaimer .dismiss-btn {
@@ -610,12 +614,6 @@
 
         .floating-disclaimer .dismiss-btn:hover {
             color: var(--accent);
-        }
-
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3); }
-            50% { box-shadow: 0 4px 25px rgba(230, 126, 34, 0.65); }
-            100% { box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3); }
         }
 
         @media (max-width: 850px) {
@@ -732,7 +730,7 @@
     <main class="main-container">
 
         <div class="get-started-button">
-            <!-- Pulsing Flash Sale Image (Scaled Up for Legibility, No Orange Glow) -->
+            <!-- Fixed Flash Sale Image -->
             <div class="flash-sale-container">
                 <img src="images/fall-flash-sale.png" alt="Fall Flash Sale">
             </div>
@@ -968,7 +966,7 @@
 
     </main>
 
-    <!-- Floating Glowing Disclaimer Box -->
+    <!-- Floating Disclaimer Box -->
     <div class="floating-disclaimer" id="floatingDisclaimer">
         <button class="dismiss-btn" id="dismissDisclaimerBtn" aria-label="Dismiss disclaimer">&times;</button>
         Rates shown are estimated baselines and may vary depending on needs. Final pricing will be determined during consultation or planning.
