@@ -324,48 +324,47 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
-        /* Pulsing Glowing Orange Flash Sale Image Banner */
+        /* Scaled-Up Pulsing Flash Sale Image Container */
         .flash-sale-container {
-            margin: 0 auto 1rem auto;
+            margin: 0 auto 1.5rem auto;
             display: inline-block;
-            border-radius: 12px;
-            animation: pulseOrangeGlow 2s infinite ease-in-out;
+            max-width: 800px;
+            width: 100%;
+            animation: pulseOnly 2.5s infinite ease-in-out;
         }
 
         .flash-sale-container img {
-            max-width: 320px;
             width: 100%;
             height: auto;
             display: block;
             border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
         }
 
-        @keyframes pulseOrangeGlow {
+        @keyframes pulseOnly {
             0% {
-                box-shadow: 0 0 10px rgba(230, 126, 34, 0.4);
                 transform: scale(1);
             }
             50% {
-                box-shadow: 0 0 25px rgba(230, 126, 34, 0.9);
-                transform: scale(1.02);
+                transform: scale(1.03);
             }
             100% {
-                box-shadow: 0 0 10px rgba(230, 126, 34, 0.4);
                 transform: scale(1);
             }
         }
 
         .header-cta-button {
             display: inline-block;
-            max-width: 300px;
+            max-width: 320px;
             margin: 0 auto;
             text-align: center;
             background-color: #e67e22;
             color: #ffffff;
             text-decoration: none;
-            padding: 0.75rem 1.5rem;
+            padding: 0.85rem 1.75rem;
             border-radius: 6px;
             font-weight: bold;
+            font-size: 1.05rem;
             transition: background-color 0.2s ease;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
@@ -733,7 +732,7 @@
     <main class="main-container">
 
         <div class="get-started-button">
-            <!-- Pulsing Glowing Orange Flash Sale Image -->
+            <!-- Pulsing Flash Sale Image (Scaled Up for Legibility, No Orange Glow) -->
             <div class="flash-sale-container">
                 <img src="images/fall-flash-sale.png" alt="Fall Flash Sale">
             </div>
@@ -926,7 +925,7 @@
             Coming Soon: Combined package discounts and estimate calculator.
         </div>
 
-        <!-- Duplicated High-Intent CTA Button -->
+        <!-- Secondary Consultation Button -->
         <div class="secondary-cta-container">
             <a href="../start.html" class="header-cta-button">Next: Request a Consultation</a>
         </div>
@@ -969,7 +968,7 @@
 
     </main>
 
-    <!-- Floating Glowing Sticky Box -->
+    <!-- Floating Glowing Disclaimer Box -->
     <div class="floating-disclaimer" id="floatingDisclaimer">
         <button class="dismiss-btn" id="dismissDisclaimerBtn" aria-label="Dismiss disclaimer">&times;</button>
         Rates shown are estimated baselines and may vary depending on needs. Final pricing will be determined during consultation or planning.
