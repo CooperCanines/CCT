@@ -324,33 +324,25 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
-        /* Scaled-Up Pulsing Flash Sale Image Container */
+        /* Flash Sale Image Container - Static with border/shadow removed */
         .flash-sale-container {
             margin: 0 auto 1.5rem auto;
-            display: inline-block;
-            max-width: 800px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 1100px;
             width: 100%;
-            animation: pulseOnly 2.5s infinite ease-in-out;
         }
 
         .flash-sale-container img {
             width: 100%;
+            max-width: 100%;
             height: auto;
             display: block;
-            border-radius: 12px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-        }
-
-        @keyframes pulseOnly {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.03);
-            }
-            100% {
-                transform: scale(1);
-            }
+            border: none;
+            box-shadow: none;
+            outline: none;
+            border-radius: 0;
         }
 
         .header-cta-button {
@@ -732,7 +724,7 @@
     <main class="main-container">
 
         <div class="get-started-button">
-            <!-- Pulsing Flash Sale Image (Scaled Up for Legibility, No Orange Glow) -->
+            <!-- Static Flash Sale Image Container -->
             <div class="flash-sale-container">
                 <img src="images/fall-flash-sale.png" alt="Fall Flash Sale">
             </div>
