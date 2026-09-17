@@ -260,6 +260,19 @@
             margin: 0.5rem 0;
         }
 
+        /* Banner Bar directly under navbar */
+        .confidence-bar {
+            background-color: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(5px);
+            color: #ffffff;
+            text-align: center;
+            padding: 0.55rem 1rem;
+            font-size: 0.95rem;
+            font-weight: bold;
+            letter-spacing: 0.4px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
         /* Search Modal Overlay */
         .search-modal-overlay {
             display: none;
@@ -317,13 +330,6 @@
             margin-bottom: 2rem;
         }
 
-        .get-started-button h1 {
-            font-size: 2.2rem;
-            color: #ffffff;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-
         .header-cta-button {
             display: inline-block;
             max-width: 320px;
@@ -344,13 +350,13 @@
             background-color: #d35400;
         }
 
-        /* Professional Flash Promo Box */
+        /* Flash Promo Box */
         .flash-promo-card {
             position: relative;
             background-color: rgba(255, 255, 255, 0.96);
             border: 2px solid var(--accent);
             border-radius: 10px;
-            padding: 1.75rem 1.5rem;
+            padding: 1.5rem;
             margin-bottom: 2.5rem;
             text-align: center;
             color: #2c3e50;
@@ -364,7 +370,6 @@
             color: var(--text-light);
         }
 
-        /* Noticeable Dismissal Button */
         .flash-promo-close {
             position: absolute;
             top: 10px;
@@ -390,23 +395,12 @@
             color: #ffffff;
         }
 
-        body.dark-mode .flash-promo-close {
-            background: rgba(255, 255, 255, 0.1);
-            color: #bdc3c7;
-        }
-
-        body.dark-mode .flash-promo-close:hover {
-            background: #e74c3c;
-            color: #ffffff;
-        }
-
         .flash-promo-header {
             font-size: 1.5rem;
             font-weight: 700;
             color: #d35400;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
             letter-spacing: 0.3px;
-            padding-right: 20px; /* Offset for X button on small screens */
         }
 
         body.dark-mode .flash-promo-header {
@@ -425,54 +419,24 @@
             vertical-align: middle;
         }
 
-        .flash-promo-options {
-            margin: 1.25rem 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
         .flash-option-item {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: bold;
             color: #1a252f;
+            margin: 0.5rem 0;
         }
 
         body.dark-mode .flash-option-item {
             color: #ffffff;
         }
 
-        .flash-option-divider {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #7f8c8d;
-            font-weight: 600;
-        }
-
         .flash-promo-schedule {
             font-size: 1rem;
             font-weight: 600;
             color: var(--primary);
-            margin-top: 1rem;
+            margin-top: 0.75rem;
             padding-top: 0.75rem;
             border-top: 1px dashed #cbd5e1;
-        }
-
-        body.dark-mode .flash-promo-schedule {
-            color: #2ecc71;
-            border-top-color: #3a4754;
-        }
-
-        .flash-promo-footer {
-            font-size: 0.85rem;
-            color: #666666;
-            margin-top: 0.5rem;
-        }
-
-        body.dark-mode .flash-promo-footer {
-            color: var(--text-muted-dark);
         }
 
         /* Banner Container */
@@ -498,37 +462,42 @@
             margin-bottom: 0.3rem;
         }
 
-        body.dark-mode .promo-banner h2 {
-            color: #2ecc71;
+        /* Section Titles with Toggle */
+        .section-header-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+            padding-bottom: 0.5rem;
+            margin: 2.5rem 0 1.5rem 0;
+            cursor: pointer;
+            user-select: none;
         }
 
-        .promo-banner p {
-            font-size: 0.95rem;
+        .section-header-toggle h2 {
+            font-size: 1.6rem;
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
-        /* Coming Soon Banner */
-        .coming-soon-banner {
-            background: linear-gradient(135deg, rgba(230, 126, 34, 0.25), rgba(0, 145, 0, 0.25));
-            border: 1px solid var(--accent);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
+        .toggle-icon {
+            font-size: 1.5rem;
             font-weight: bold;
             color: #ffffff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            backdrop-filter: blur(4px);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.15);
+            transition: background 0.2s ease;
         }
 
-        body.dark-mode .coming-soon-banner {
-            background: linear-gradient(135deg, rgba(230, 126, 34, 0.3), rgba(46, 204, 113, 0.25));
-            color: var(--text-light);
-            border-color: var(--accent);
-        }
-
-        .secondary-cta-container {
-            text-align: center;
-            margin-bottom: 3rem;
+        .section-header-toggle:hover .toggle-icon {
+            background: rgba(255, 255, 255, 0.3);
         }
 
         /* Packages Grid Layout */
@@ -537,6 +506,11 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             margin-bottom: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .packages-grid.collapsed {
+            display: none;
         }
 
         .rate-card {
@@ -550,6 +524,8 @@
             justify-content: space-between;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             color: #333333;
+            cursor: pointer;
+            position: relative;
         }
 
         .rate-card:hover {
@@ -559,7 +535,7 @@
 
         .rate-card-header {
             background-color: var(--card-inner-light);
-            padding: 1.25rem;
+            padding: 0.85rem 1.25rem 0.5rem 1.25rem;
             border-bottom: 1px solid var(--border-light);
         }
 
@@ -567,7 +543,7 @@
             font-size: 1.25rem;
             color: var(--primary);
             font-weight: bold;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.1rem;
         }
 
         .rate-card-sessions {
@@ -579,22 +555,104 @@
         }
 
         .rate-card-body {
-            padding: 1.25rem;
+            padding: 0.85rem 1.25rem 1.25rem 1.25rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            position: relative;
+            z-index: 2;
         }
 
-        /* Price & Disclaimer Left-Aligned Layout */
+        /* Featured Opaque Core Cards */
+        .core-card {
+            background-color: #ffffff !important;
+            border: 2px solid var(--primary);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+        }
+
+        body.dark-mode .core-card {
+            background-color: #1e262c !important;
+            border-color: var(--accent);
+        }
+
+        .core-card-bg-description {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+            padding: 1.2rem;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-size: cover;
+            background-position: center;
+            color: #ffffff;
+        }
+
+        .core-card-bg-description::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.85) 100%);
+            z-index: 1;
+        }
+
+        .core-card-bg-description p {
+            position: relative;
+            z-index: 2;
+            font-weight: bold;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+            color: #ffffff !important;
+        }
+
+        /* Expandable Details Container */
+        .card-expand-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease;
+            opacity: 0;
+            font-size: 0.88rem;
+            line-height: 1.4;
+            color: #444444;
+            background: rgba(0, 0, 0, 0.03);
+            border-radius: 6px;
+            margin-top: 0.5rem;
+            padding: 0 0.75rem;
+        }
+
+        body.dark-mode .card-expand-details {
+            color: var(--text-muted-dark);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .rate-card.expanded .card-expand-details {
+            max-height: 200px;
+            opacity: 1;
+            padding: 0.75rem;
+            margin-top: 0.75rem;
+            border-top: 1px dashed var(--accent);
+        }
+
+        .expand-hint {
+            font-size: 0.75rem;
+            color: var(--accent);
+            margin-top: 0.5rem;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        /* Price Layout */
         .price-display {
             display: flex;
             align-items: baseline;
             justify-content: flex-start;
             gap: 0.5rem;
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: bold;
             color: #333333;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.25rem;
         }
 
         .price-display .price-disclaimer {
@@ -605,10 +663,6 @@
 
         body.dark-mode .price-display {
             color: var(--text-light);
-        }
-
-        body.dark-mode .price-display .price-disclaimer {
-            color: var(--text-muted-dark);
         }
 
         /* Auxiliary Rates Section */
@@ -658,18 +712,29 @@
             top: -2px;
         }
 
+        .discount-callout {
+            background: linear-gradient(135deg, rgba(230, 126, 34, 0.15), rgba(0, 145, 0, 0.15));
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 0.9rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
         .disclaimer-text {
             font-size: 0.85rem;
             color: #666666;
-            line-height: 1.4;
-            margin-top: 1rem;
+            line-height: 1.5;
+            margin-top: 0.5rem;
         }
 
         body.dark-mode .disclaimer-text {
             color: var(--text-muted-dark);
         }
 
-        /* Floating Glowing Disclaimer Box */
+        /* Floating Disclaimer Box */
         .floating-disclaimer {
             position: fixed;
             bottom: 20px;
@@ -687,15 +752,11 @@
             font-size: 0.95rem;
             line-height: 1.4;
             text-align: center;
-            animation: pulseGlow 3s infinite ease-in-out;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
         body.dark-mode .floating-disclaimer {
             background: #1e262c;
             color: #e0e6ed;
-            border-color: #e67e22;
-            box-shadow: 0 4px 20px rgba(230, 126, 34, 0.45);
         }
 
         .floating-disclaimer .dismiss-btn {
@@ -707,18 +768,6 @@
             color: #888888;
             font-size: 1.2rem;
             cursor: pointer;
-            line-height: 1;
-            padding: 2px 4px;
-        }
-
-        .floating-disclaimer .dismiss-btn:hover {
-            color: var(--accent);
-        }
-
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3); }
-            50% { box-shadow: 0 4px 25px rgba(230, 126, 34, 0.65); }
-            100% { box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3); }
         }
 
         @media (max-width: 850px) {
@@ -726,44 +775,14 @@
                 flex-wrap: wrap;
                 padding: 0.5rem 1rem;
             }
-
-            .header-logo-container { 
-                order: 1; 
-            }
-
             .header-logo-container img {
                 height: 38px;
-                max-width: 60vw;
             }
-
             .center-nav {
                 order: 3;
                 width: 100%;
                 justify-content: center;
                 margin: 0.5rem 0 0 0;
-                padding-top: 0.5rem;
-                border-top: 1px solid rgba(255, 255, 255, 0.15);
-                flex-wrap: wrap;
-                gap: 2px;
-            }
-
-            .right-menu-container {
-                order: 4;
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                margin-top: 0.5rem;
-            }
-
-            .menu-toggle { width: 100%; justify-content: center; }
-            .dropdown-menu { width: 100%; right: 0; left: 0; }
-
-            .floating-disclaimer {
-                left: 5%;
-                right: 5%;
-                transform: none;
-                width: 90%;
-                bottom: 15px;
             }
         }
     </style>
@@ -824,6 +843,11 @@
         </div>
     </header>
 
+    <!-- Sub-Navbar Confidence Banner -->
+    <div class="confidence-bar">
+        No shock collars, no harsh tools, just confidence.
+    </div>
+
     <div class="search-modal-overlay" id="searchModal">
         <div class="search-modal-container">
             <button class="close-search-modal" id="closeSearchBtn">&times;</button>
@@ -840,16 +864,9 @@
             <div class="flash-promo-header">
                 Fall Flash Promo <span class="flash-promo-badge">Only 3 Slots Available!</span>
             </div>
-            <div class="flash-promo-options">
-                <div class="flash-option-item">2 Sessions for $75</div>
-                <div class="flash-option-divider">— OR —</div>
-                <div class="flash-option-item">50% Off Any Package Below Valued Under $600</div>
-            </div>
+            <div class="flash-option-item">50% Off Any Package Below</div>
             <div class="flash-promo-schedule">
                 Consultation must be scheduled before October 1st.
-            </div>
-            <div class="flash-promo-footer">
-                Sale Ends October 1st. Travel Surcharges Apply.
             </div>
         </div>
 
@@ -862,55 +879,91 @@
         <!-- Promo Consultation Banner -->
         <div class="promo-banner">
             <h2>Free Consultations for a Limited Time within Burlington, Camden, & Gloucester County</h2>
-            <p>You pay only the Service Area Travel Surcharge if outside the above counties. Consultation rates (excluding travel surcharge) are credited directly toward any package selection.</p>
+            <p>You pay only the Service Area Travel Surcharge if outside the above counties.</p>
         </div>
 
-        <!-- Packages Grid -->
-        <section class="packages-grid">
+        <!-- SECTION 1: Core Training Programs -->
+        <div class="section-header-toggle" id="toggleCore">
+            <h2>Core Training Programs</h2>
+            <span class="toggle-icon" id="iconCore">−</span>
+        </div>
+
+        <section class="packages-grid" id="gridCore">
             
-            <div class="rate-card">
+            <!-- Box 1: Beginner Foundation -->
+            <div class="rate-card core-card" data-tags="crate housebreaking beginner foundation potty puppy routine treats lures">
                 <div class="rate-card-header">
-                    <div class="rate-card-title">Crate & Housebreaking</div>
-                    <div class="rate-card-sessions">2–3 Estimated Sessions</div>
+                    <div class="rate-card-title">Beginner Foundation</div>
+                    <div class="rate-card-sessions">Treats & Lures</div>
                 </div>
                 <div class="rate-card-body">
                     <div class="price-display">
-                        <span>$150</span>
+                        <span>$295</span>
                         <span class="price-disclaimer">(Estimated Rate)</span>
                     </div>
-                    <p>Establish structured, stress-free routines.</p>
+                    <div class="core-card-bg-description" style="background-image: url('images/1-begin-walk.png');">
+                        <p>Establish structured, stress-free routines.</p>
+                    </div>
+                    <span class="expand-hint">Click for full package details ▼</span>
+                    <div class="card-expand-details">
+                        Includes personalized schedule planning, positive crate association techniques, and lure-reward fundamentals designed to accelerate indoor habits smoothly.
+                    </div>
                 </div>
             </div>
 
-            <div class="rate-card">
+            <!-- Box 2: Basic Manners -->
+            <div class="rate-card core-card" data-tags="new dog owner basic manners body language communication obedience manners transition">
                 <div class="rate-card-header">
-                    <div class="rate-card-title">New Dog / New Owner</div>
-                    <div class="rate-card-sessions">2–3 Estimated Sessions</div>
+                    <div class="rate-card-title">Basic Manners</div>
+                    <div class="rate-card-sessions">Body Language & Communication</div>
                 </div>
                 <div class="rate-card-body">
                     <div class="price-display">
-                        <span>$150</span>
+                        <span>$450</span>
                         <span class="price-disclaimer">(Estimated Rate)</span>
                     </div>
-                    <p>Essential guidance for transition and confidence.</p>
+                    <div class="core-card-bg-description" style="background-image: url('images/2-basic-door.png');">
+                        <p>Essential guidance for transition and confidence.</p>
+                    </div>
+                    <span class="expand-hint">Click for full package details ▼</span>
+                    <div class="card-expand-details">
+                        Focuses on reading canine body cues, building clear two-way communication, setting boundaries, and establishing confidence during major household transitions.
+                    </div>
                 </div>
             </div>
 
-            <div class="rate-card">
+            <!-- Box 3: Advanced Leadership -->
+            <div class="rate-card core-card" data-tags="puppy advanced leadership cues focus commands attention obedience foundation">
                 <div class="rate-card-header">
-                    <div class="rate-card-title">Puppy Package</div>
-                    <div class="rate-card-sessions">3–5 Estimated Sessions</div>
+                    <div class="rate-card-title">Advanced Leadership</div>
+                    <div class="rate-card-sessions">Cues & Focus</div>
                 </div>
                 <div class="rate-card-body">
                     <div class="price-display">
-                        <span>$300</span>
+                        <span>$500</span>
                         <span class="price-disclaimer">(Estimated Rate)</span>
                     </div>
-                    <p>Early foundation skills and preventive behaviors.</p>
+                    <div class="core-card-bg-description" style="background-image: url('images/3-advanced-public.png');">
+                        <p>Early foundation skills and preventive behaviors.</p>
+                    </div>
+                    <span class="expand-hint">Click for full package details ▼</span>
+                    <div class="card-expand-details">
+                        Deepens responsiveness under medium distractions, improves eye contact and focus on command, and reinforces proactive leadership without intimidation.
+                    </div>
                 </div>
             </div>
 
-            <div class="rate-card">
+        </section>
+
+        <!-- SECTION 2: Targeted Problem Solvers -->
+        <div class="section-header-toggle" id="toggleTargeted">
+            <h2>Targeted Problem Solvers</h2>
+            <span class="toggle-icon" id="iconTargeted">−</span>
+        </div>
+
+        <section class="packages-grid" id="gridTargeted">
+
+            <div class="rate-card" data-tags="recall reliability come safety distraction off-leash distance">
                 <div class="rate-card-header">
                     <div class="rate-card-title">Recall & Reliability</div>
                     <div class="rate-card-sessions">4–6 Estimated Sessions</div>
@@ -921,10 +974,14 @@
                         <span class="price-disclaimer">(Estimated Rate)</span>
                     </div>
                     <p>Reliable behavior under realistic distractions.</p>
+                    <span class="expand-hint">Click for full package details ▼</span>
+                    <div class="card-expand-details">
+                        Build bulletproof recall responses in yard and park settings using distance training and high-value reinforcement systems.
+                    </div>
                 </div>
             </div>
 
-            <div class="rate-card">
+            <div class="rate-card" data-tags="polite greetings jumping excitement visitors door calm door manners">
                 <div class="rate-card-header">
                     <div class="rate-card-title">Polite Greetings</div>
                     <div class="rate-card-sessions">5–7 Estimated Sessions</div>
@@ -935,10 +992,14 @@
                         <span class="price-disclaimer">(Estimated Rate)</span>
                     </div>
                     <p>Eliminate jumping and excessive excitement.</p>
+                    <span class="expand-hint">Click for full package details ▼</span>
+                    <div class="card-expand-details">
+                        Teaches four-on-the-floor manners when guests arrive or when meeting people outdoors, reshaping hyper-arousal into calm focus.
+                    </div>
                 </div>
             </div>
 
-            <div class="rate-card">
+            <div class="rate-card" data-tags="obedience basic skills commands sit stay down place focus manners">
                 <div class="rate-card-header">
                     <div class="rate-card-title">Obedience / Basic Skills</div>
                     <div class="rate-card-sessions">5–7 Estimated Sessions</div>
@@ -949,10 +1010,14 @@
                         <span class="price-disclaimer">(Estimated Rate)</span>
                     </div>
                     <p>Core commands and household manners.</p>
+                    <span class="expand-hint">Click for full package details ▼</span>
+                    <div class="card-expand-details">
+                        Comprehensive skill-building including Sit, Stay, Down, Leave It, Place, and general home manners for a well-rounded household pet.
+                    </div>
                 </div>
             </div>
 
-            <div class="rate-card">
+            <div class="rate-card" data-tags="walking leash pulling loose leash triggers reactivity walk heel">
                 <div class="rate-card-header">
                     <div class="rate-card-title">Walking & Leash Skills</div>
                     <div class="rate-card-sessions">5–7 Estimated Sessions</div>
@@ -963,13 +1028,17 @@
                         <span class="price-disclaimer">(Estimated Rate)</span>
                     </div>
                     <p>Master walking and calm movement past triggers.</p>
+                    <span class="expand-hint">Click for full package details ▼</span>
+                    <div class="card-expand-details">
+                        Eliminates arm-pulling, bark-and-lunge responses toward other dogs, and creates smooth, enjoyable neighborhood strolls.
+                    </div>
                 </div>
             </div>
 
-            <div class="rate-card">
+            <div class="rate-card" data-tags="separation anxiety home alone destructive stress barking isolation calm">
                 <div class="rate-card-header">
                     <div class="rate-card-title">Separation Anxiety</div>
-                    <div class="rate-card-sessions">4-6 Estimated Sessions</div>
+                    <div class="rate-card-sessions">4–6 Estimated Sessions</div>
                 </div>
                 <div class="rate-card-body">
                     <div class="price-display">
@@ -977,13 +1046,17 @@
                         <span class="price-disclaimer">(Estimated Rate)</span>
                     </div>
                     <p>Address reactivity, resource guarding, fear, or anxiety.</p>
+                    <span class="expand-hint">Click for full package details ▼</span>
+                    <div class="card-expand-details">
+                        Gradual systematic desensitization protocols aimed at building independence and reducing panicky behaviors when left alone.
+                    </div>
                 </div>
             </div>
 
-            <div class="rate-card">
+            <div class="rate-card" data-tags="socialization public outing store park exposure confidence manners">
                 <div class="rate-card-header">
                     <div class="rate-card-title">Socialization / Public</div>
-                    <div class="rate-card-sessions">5-7 Estimated Sessions</div>
+                    <div class="rate-card-sessions">5–7 Estimated Sessions</div>
                 </div>
                 <div class="rate-card-body">
                     <div class="price-display">
@@ -991,13 +1064,17 @@
                         <span class="price-disclaimer">(Estimated Rate)</span>
                     </div>
                     <p>Controlled exposure techniques in environments.</p>
+                    <span class="expand-hint">Click for full package details ▼</span>
+                    <div class="card-expand-details">
+                        Hands-on sessions at dog-friendly public locations to practice poise, neutrality, and obedience in real-world environments.
+                    </div>
                 </div>
             </div>
 
-            <div class="rate-card">
+            <div class="rate-card" data-tags="tool-free transition positive reinforcement e-collar free choke prong force free">
                 <div class="rate-card-header">
                     <div class="rate-card-title">Tool-Free Transition</div>
-                    <div class="rate-card-sessions">6-8 Estimated Sessions</div>
+                    <div class="rate-card-sessions">6–8 Estimated Sessions</div>
                 </div>
                 <div class="rate-card-body">
                     <div class="price-display">
@@ -1005,13 +1082,17 @@
                         <span class="price-disclaimer">(Estimated Rate)</span>
                     </div>
                     <p>Replace e-collars and other tools with positive reinforcement.</p>
+                    <span class="expand-hint">Click for full package details ▼</span>
+                    <div class="card-expand-details">
+                        Phase out electronic or prong collars smoothly while building genuine intrinsic motivation, reliability, and trust.
+                    </div>
                 </div>
             </div>
 
-            <div class="rate-card">
+            <div class="rate-card" data-tags="off-leash reliability heel recall freedom advanced field trust">
                 <div class="rate-card-header">
                     <div class="rate-card-title">Off-Leash & Reliability</div>
-                    <div class="rate-card-sessions">6-8 Estimated Sessions</div>
+                    <div class="rate-card-sessions">6–8 Estimated Sessions</div>
                 </div>
                 <div class="rate-card-body">
                     <div class="price-display">
@@ -1019,13 +1100,17 @@
                         <span class="price-disclaimer">(Estimated Rate)</span>
                     </div>
                     <p>Off-leash heels & reliable recalls.</p>
+                    <span class="expand-hint">Click for full package details ▼</span>
+                    <div class="card-expand-details">
+                        Advanced open-field responsiveness and precision focus designed for outdoor adventures without needing a physical tether.
+                    </div>
                 </div>
             </div>
 
-            <div class="rate-card">
+            <div class="rate-card" data-tags="behavioral aggression guarding fear reactivity biting stress modification">
                 <div class="rate-card-header">
                     <div class="rate-card-title">Behavioral</div>
-                    <div class="rate-card-sessions">6-8 Estimated Sessions</div>
+                    <div class="rate-card-sessions">6–8 Estimated Sessions</div>
                 </div>
                 <div class="rate-card-body">
                     <div class="price-display">
@@ -1033,14 +1118,18 @@
                         <span class="price-disclaimer">(Estimated Rate)</span>
                     </div>
                     <p>Address reactivity, resource guarding, fear, or anxiety.</p>
+                    <span class="expand-hint">Click for full package details ▼</span>
+                    <div class="card-expand-details">
+                        In-depth behavioral modification handling complex aggression, intense guarding, or severe fear-based responses safely.
+                    </div>
                 </div>
             </div>
 
         </section>
 
-        <!-- Temporary Coming Soon Filler Space -->
-        <div class="coming-soon-banner">
-            Coming Soon: Combined package discounts and estimate calculator.
+        <!-- Discount Banner -->
+        <div class="discount-callout">
+            Active military, veterans, first responders, healthcare workers, and teachers receive 10% off.
         </div>
 
         <!-- Secondary Consultation Button -->
@@ -1055,7 +1144,7 @@
                 <h3>Additional Session Options</h3>
                 <ul>
                     <li><strong>Follow-Up Sessions:</strong> $60 / hour (Exclusive to active clients who have completed a base package).</li>
-                    <li><strong>Individual Sessions:</strong> $75 / session (Standalone booking without package enrollment).</li>
+                    <li><strong>Individual Sessions:</strong> $150 / session (Standalone booking without package enrollment).</li>
                     <li><strong>Complimentary Check-In:</strong> Package clients receive 1 free follow-up check-in session 3–4 weeks after package completion to review progress.</li>
                 </ul>
             </div>
@@ -1077,16 +1166,17 @@
         <!-- Disclaimers & Notes -->
         <div class="info-box">
             <h3>Package & Service Notes</h3>
-            <p class="disclaimer-text">
-                * <strong>Customized Plans:</strong> Depending on initial assessment, behavioral complexity, or multi-dog homes, certain training goals may require additional or bundled packages to achieve optimal results.<br>
-                * <strong>Rate Adjustments:</strong> All rate estimates are subject to travel distance, location requirements, and individual dog assessment. Final adjustments are confirmed prior to agreement.<br>
-                * <strong>Ongoing Communication:</strong> Enrolled package clients are encouraged to reach out with brief training updates and questions between sessions.
-            </p>
+            <ul>
+                <li><strong>Consultation Credit:</strong> Consultation rates (excluding travel surcharge) are credited directly toward any package selection.</li>
+                <li><strong>Customized Plans:</strong> Depending on initial assessment, behavioral complexity, or multi-dog homes, certain training goals may require additional or bundled packages to achieve optimal results.</li>
+                <li><strong>Rate Adjustments:</strong> All rate estimates are subject to travel distance, location requirements, and individual dog assessment. Final adjustments are confirmed prior to agreement.</li>
+                <li><strong>Ongoing Communication:</strong> Enrolled package clients are encouraged to reach out with brief training updates and questions between sessions.</li>
+            </ul>
         </div>
 
     </main>
 
-    <!-- Floating Glowing Disclaimer Box -->
+    <!-- Floating Disclaimer Box -->
     <div class="floating-disclaimer" id="floatingDisclaimer">
         <button class="dismiss-btn" id="dismissDisclaimerBtn" aria-label="Dismiss disclaimer">&times;</button>
         Rates shown are estimated baselines and may vary depending on needs. Final pricing will be determined during consultation or planning.
@@ -1099,7 +1189,7 @@
         </div>
     </footer>
 
-    <!-- Header & Theme Scripts -->
+    <!-- Scripts -->
     <script>
         // Dropdown Toggle
         const menuBtn = document.getElementById('menuBtn');
@@ -1146,46 +1236,42 @@
 
         openSearchBtn.addEventListener('click', () => {
             searchModal.classList.add('active');
-            setTimeout(() => {
-                const searchInput = document.querySelector('.gsc-input input');
-                if (searchInput) searchInput.focus();
-            }, 200);
         });
 
         closeSearchBtn.addEventListener('click', () => {
             searchModal.classList.remove('active');
         });
 
-        searchModal.addEventListener('click', (e) => {
-            if (e.target === searchModal) {
-                searchModal.classList.remove('active');
-            }
-        });
+        // Section Collapse Handlers (-/+)
+        function setupSectionToggle(toggleId, gridId, iconId) {
+            const toggle = document.getElementById(toggleId);
+            const grid = document.getElementById(gridId);
+            const icon = document.getElementById(iconId);
 
-        // Fall Flash Promo Dismiss Logic
-        const flashPromoCard = document.getElementById('flashPromoCard');
-        const dismissPromoBtn = document.getElementById('dismissPromoBtn');
-
-        dismissPromoBtn.addEventListener('click', () => {
-            flashPromoCard.style.display = 'none';
-        });
-
-        // Floating Disclaimer Dismiss Logic
-        const floatingDisclaimer = document.getElementById('floatingDisclaimer');
-        const dismissDisclaimerBtn = document.getElementById('dismissDisclaimerBtn');
-
-        dismissDisclaimerBtn.addEventListener('click', () => {
-            floatingDisclaimer.style.display = 'none';
-        });
-
-        // Active Nav Button Highlight
-        document.addEventListener('DOMContentLoaded', () => {
-            const navLinks = document.querySelectorAll('.nav-btn');
-            navLinks.forEach(link => {
-                if (link.getAttribute('href').includes('rates.html')) {
-                    link.classList.add('active');
-                }
+            toggle.addEventListener('click', () => {
+                grid.classList.toggle('collapsed');
+                icon.textContent = grid.classList.contains('collapsed') ? '+' : '−';
             });
+        }
+
+        setupSectionToggle('toggleCore', 'gridCore', 'iconCore');
+        setupSectionToggle('toggleTargeted', 'gridTargeted', 'iconTargeted');
+
+        // Expandable Cards Handlers
+        document.querySelectorAll('.rate-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                e.stopPropagation();
+                card.classList.toggle('expanded');
+            });
+        });
+
+        // Dismiss Promo & Floating Boxes
+        document.getElementById('dismissPromoBtn').addEventListener('click', () => {
+            document.getElementById('flashPromoCard').style.display = 'none';
+        });
+
+        document.getElementById('dismissDisclaimerBtn').addEventListener('click', () => {
+            document.getElementById('floatingDisclaimer').style.display = 'none';
         });
     </script>
 </body>
