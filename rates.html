@@ -85,14 +85,19 @@
             color: var(--text-light) !important;
         }
 
+        /* Sticky Wrapper to lock both Nav and Confidence Bar at top */
+        .sticky-header-wrapper {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+
         /* Site Header Styles */
         .site-header {
             background-color: var(--header-bg-color);
             color: var(--header-text-color);
             width: 100%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
         }
 
@@ -262,7 +267,7 @@
 
         /* Banner Bar directly under navbar */
         .confidence-bar {
-            background-color: rgba(0, 0, 0, 0.45);
+            background-color: rgba(0, 0, 0, 0.65);
             backdrop-filter: blur(5px);
             color: #ffffff;
             text-align: center;
@@ -537,6 +542,8 @@
             background-color: var(--card-inner-light);
             padding: 0.85rem 1.25rem 0.5rem 1.25rem;
             border-bottom: 1px solid var(--border-light);
+            position: relative;
+            z-index: 3;
         }
 
         .rate-card-title {
@@ -563,48 +570,59 @@
             z-index: 2;
         }
 
-        /* Featured Opaque Core Cards */
+        /* Featured Core Cards Full Background Image Integration */
         .core-card {
-            background-color: #ffffff !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
             border: 2px solid var(--primary);
             box-shadow: 0 6px 16px rgba(0,0,0,0.25);
-        }
-
-        body.dark-mode .core-card {
-            background-color: #1e262c !important;
-            border-color: var(--accent);
-        }
-
-        .core-card-bg-description {
             position: relative;
-            border-radius: 8px;
-            overflow: hidden;
-            margin-top: 0.5rem;
-            padding: 1.2rem;
-            min-height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background-size: cover;
-            background-position: center;
-            color: #ffffff;
         }
 
-        .core-card-bg-description::before {
+        /* Dark overlay applied to entire core card body zone */
+        .core-card::before {
             content: "";
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.85) 100%);
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.82) 100%);
             z-index: 1;
         }
 
-        .core-card-bg-description p {
+        .core-card .rate-card-header {
+            background-color: rgba(255, 255, 255, 0.92);
+        }
+
+        body.dark-mode .core-card .rate-card-header {
+            background-color: rgba(30, 38, 44, 0.92);
+        }
+
+        .core-card-content {
             position: relative;
             z-index: 2;
-            font-weight: bold;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            justify-content: space-between;
+        }
+
+        .core-card-content .price-display {
             color: #ffffff !important;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .core-card-content .price-disclaimer {
+            color: #f0f0f0 !important;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+        }
+
+        .core-card-content p {
+            color: #ffffff !important;
+            font-weight: 600;
+            font-size: 1.05rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+            margin-top: 0.5rem;
         }
 
         /* Expandable Details Container */
@@ -620,6 +638,11 @@
             border-radius: 6px;
             margin-top: 0.5rem;
             padding: 0 0.75rem;
+        }
+
+        .core-card .card-expand-details {
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.5);
         }
 
         body.dark-mode .card-expand-details {
@@ -643,6 +666,11 @@
             display: inline-block;
         }
 
+        .core-card .expand-hint {
+            color: #ffaa5b;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+        }
+
         /* Price Layout */
         .price-display {
             display: flex;
@@ -663,6 +691,47 @@
 
         body.dark-mode .price-display {
             color: var(--text-light);
+        }
+
+        /* Coming Soon Banner */
+        .coming-soon-banner {
+            background: linear-gradient(135deg, rgba(230, 126, 34, 0.25), rgba(0, 145, 0, 0.25));
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 2rem 0;
+            text-align: center;
+            font-weight: bold;
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            backdrop-filter: blur(4px);
+        }
+
+        body.dark-mode .coming-soon-banner {
+            background: linear-gradient(135deg, rgba(230, 126, 34, 0.3), rgba(46, 204, 113, 0.25));
+            color: var(--text-light);
+            border-color: var(--accent);
+        }
+
+        .discount-callout {
+            background: linear-gradient(135deg, rgba(230, 126, 34, 0.2), rgba(0, 145, 0, 0.2));
+            border: 1.5px solid var(--accent);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 2rem 0 1.5rem 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.05rem;
+            color: #ffffff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        .secondary-cta-container {
+            text-align: center;
+            margin: 3rem 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
 
         /* Auxiliary Rates Section */
@@ -710,17 +779,6 @@
             position: absolute;
             left: 0;
             top: -2px;
-        }
-
-        .discount-callout {
-            background: linear-gradient(135deg, rgba(230, 126, 34, 0.15), rgba(0, 145, 0, 0.15));
-            border: 1px solid var(--accent);
-            border-radius: 8px;
-            padding: 0.9rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            font-weight: bold;
-            color: #ffffff;
         }
 
         .disclaimer-text {
@@ -789,63 +847,65 @@
 </head>
 <body>
 
-    <!-- Header Block -->
-    <header class="site-header">
-        <div class="header-container">
-            <div class="header-logo-container">
-                <a href="../index.html">
-                    <img src="../images/cctwordingnophrase.png" alt="Cooper Canines Logo">
-                </a>
-            </div>
+    <!-- Sticky Header Wrapper (Locks Nav and Confidence Bar to Top) -->
+    <div class="sticky-header-wrapper">
+        <header class="site-header">
+            <div class="header-container">
+                <div class="header-logo-container">
+                    <a href="../index.html">
+                        <img src="../images/cctwordingnophrase.png" alt="Cooper Canines Logo">
+                    </a>
+                </div>
 
-            <nav class="center-nav">
-                <a href="../index.html" class="nav-btn">Home</a>
-                <a href="../guides.html" class="nav-btn">Resources</a>
-                <a href="../index.html#contact" class="nav-btn">Contact Us</a>
-                
-                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Mode">
-                    <span id="sunIcon" style="font-size: 1rem; line-height: 1;">☀️</span>
-                    <span id="moonIcon" style="display: none; font-size: 1rem; line-height: 1;">🌙</span>
-                </button>
+                <nav class="center-nav">
+                    <a href="../index.html" class="nav-btn">Home</a>
+                    <a href="../guides.html" class="nav-btn">Resources</a>
+                    <a href="../index.html#contact" class="nav-btn">Contact Us</a>
+                    
+                    <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Mode">
+                        <span id="sunIcon" style="font-size: 1rem; line-height: 1;">☀️</span>
+                        <span id="moonIcon" style="display: none; font-size: 1rem; line-height: 1;">🌙</span>
+                    </button>
 
-                <button class="search-btn" id="openSearchBtn" aria-label="Open Search">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                    </svg>
-                </button>
-            </nav>
+                    <button class="search-btn" id="openSearchBtn" aria-label="Open Search">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                    </button>
+                </nav>
 
-            <div class="right-menu-container">
-                <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation menu">
-                    <span class="menu-text">Menu</span>
-                    <div class="hamburger-icon">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                <div class="right-menu-container">
+                    <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation menu">
+                        <span class="menu-text">Menu</span>
+                        <div class="hamburger-icon">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </button>
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <a href="../start.html">Start Intake Form</a>
+                        <a href="../portal.html">Returning Client</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="../index.html#top">About Us</a>
+                        <a href="../breeds">Breeds</a>
+                        <a href="../guides">Guides</a>
+                        <a href="../index.html#contact">Contact Us</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener">Our Facebook</a>
+                        <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Google Reviews</a>
+                        <a href="../waiver.html">Liability Waiver</a>
+                        <a href="../perks.html">Referral & Perks</a>
+                        <a href="../rates.html">Estimated Rates</a>
                     </div>
-                </button>
-                <div class="dropdown-menu" id="dropdownMenu">
-                    <a href="../start.html">Start Intake Form</a>
-                    <a href="../portal.html">Returning Client</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="../index.html#top">About Us</a>
-                    <a href="../breeds">Breeds</a>
-                    <a href="../guides">Guides</a>
-                    <a href="../index.html#contact">Contact Us</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener">Our Facebook</a>
-                    <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Google Reviews</a>
-                    <a href="../waiver.html">Liability Waiver</a>
-                    <a href="../perks.html">Referral & Perks</a>
-                    <a href="../rates.html">Estimated Rates</a>
                 </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <!-- Sub-Navbar Confidence Banner -->
-    <div class="confidence-bar">
-        No shock collars, no harsh tools, just confidence.
+        <!-- Sub-Navbar Confidence Banner -->
+        <div class="confidence-bar">
+            No shock collars, no harsh tools, just confidence.
+        </div>
     </div>
 
     <div class="search-modal-overlay" id="searchModal">
@@ -891,69 +951,86 @@
         <section class="packages-grid" id="gridCore">
             
             <!-- Box 1: Beginner Foundation -->
-            <div class="rate-card core-card" data-tags="crate housebreaking beginner foundation potty puppy routine treats lures">
+            <div class="rate-card core-card" style="background-image: url('images/1-begin-walk.png');" data-tags="crate housebreaking beginner foundation potty puppy routine treats lures">
                 <div class="rate-card-header">
                     <div class="rate-card-title">Beginner Foundation</div>
                     <div class="rate-card-sessions">Treats & Lures</div>
                 </div>
                 <div class="rate-card-body">
-                    <div class="price-display">
-                        <span>$295</span>
-                        <span class="price-disclaimer">(Estimated Rate)</span>
-                    </div>
-                    <div class="core-card-bg-description" style="background-image: url('images/1-begin-walk.png');">
-                        <p>Establish structured, stress-free routines.</p>
-                    </div>
-                    <span class="expand-hint">Click for full package details ▼</span>
-                    <div class="card-expand-details">
-                        Includes personalized schedule planning, positive crate association techniques, and lure-reward fundamentals designed to accelerate indoor habits smoothly.
+                    <div class="core-card-content">
+                        <div>
+                            <div class="price-display">
+                                <span>$295</span>
+                                <span class="price-disclaimer">(Estimated Rate)</span>
+                            </div>
+                            <p>Establish structured, stress-free routines.</p>
+                        </div>
+                        <div>
+                            <span class="expand-hint">Click for full package details ▼</span>
+                            <div class="card-expand-details">
+                                Includes personalized schedule planning, positive crate association techniques, and lure-reward fundamentals designed to accelerate indoor habits smoothly.
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Box 2: Basic Manners -->
-            <div class="rate-card core-card" data-tags="new dog owner basic manners body language communication obedience manners transition">
+            <div class="rate-card core-card" style="background-image: url('images/2-basic-door.png');" data-tags="new dog owner basic manners body language communication obedience manners transition">
                 <div class="rate-card-header">
                     <div class="rate-card-title">Basic Manners</div>
                     <div class="rate-card-sessions">Body Language & Communication</div>
                 </div>
                 <div class="rate-card-body">
-                    <div class="price-display">
-                        <span>$450</span>
-                        <span class="price-disclaimer">(Estimated Rate)</span>
-                    </div>
-                    <div class="core-card-bg-description" style="background-image: url('images/2-basic-door.png');">
-                        <p>Essential guidance for transition and confidence.</p>
-                    </div>
-                    <span class="expand-hint">Click for full package details ▼</span>
-                    <div class="card-expand-details">
-                        Focuses on reading canine body cues, building clear two-way communication, setting boundaries, and establishing confidence during major household transitions.
+                    <div class="core-card-content">
+                        <div>
+                            <div class="price-display">
+                                <span>$450</span>
+                                <span class="price-disclaimer">(Estimated Rate)</span>
+                            </div>
+                            <p>Essential guidance for transition and confidence.</p>
+                        </div>
+                        <div>
+                            <span class="expand-hint">Click for full package details ▼</span>
+                            <div class="card-expand-details">
+                                Focuses on reading canine body cues, building clear two-way communication, setting boundaries, and establishing confidence during major household transitions.
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Box 3: Advanced Leadership -->
-            <div class="rate-card core-card" data-tags="puppy advanced leadership cues focus commands attention obedience foundation">
+            <div class="rate-card core-card" style="background-image: url('images/3-advanced-public.png');" data-tags="puppy advanced leadership cues focus commands attention obedience foundation">
                 <div class="rate-card-header">
                     <div class="rate-card-title">Advanced Leadership</div>
                     <div class="rate-card-sessions">Cues & Focus</div>
                 </div>
                 <div class="rate-card-body">
-                    <div class="price-display">
-                        <span>$500</span>
-                        <span class="price-disclaimer">(Estimated Rate)</span>
-                    </div>
-                    <div class="core-card-bg-description" style="background-image: url('images/3-advanced-public.png');">
-                        <p>Early foundation skills and preventive behaviors.</p>
-                    </div>
-                    <span class="expand-hint">Click for full package details ▼</span>
-                    <div class="card-expand-details">
-                        Deepens responsiveness under medium distractions, improves eye contact and focus on command, and reinforces proactive leadership without intimidation.
+                    <div class="core-card-content">
+                        <div>
+                            <div class="price-display">
+                                <span>$500</span>
+                                <span class="price-disclaimer">(Estimated Rate)</span>
+                            </div>
+                            <p>Early foundation skills and preventive behaviors.</p>
+                        </div>
+                        <div>
+                            <span class="expand-hint">Click for full package details ▼</span>
+                            <div class="card-expand-details">
+                                Deepens responsiveness under medium distractions, improves eye contact and focus on command, and reinforces proactive leadership without intimidation.
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
         </section>
+
+        <!-- Standalone Military/Responder Discount Callout (Above Targeted Solvers) -->
+        <div class="discount-callout">
+            Active military, veterans, first responders, healthcare workers, and teachers receive 10% off.
+        </div>
 
         <!-- SECTION 2: Targeted Problem Solvers -->
         <div class="section-header-toggle" id="toggleTargeted">
@@ -1127,12 +1204,12 @@
 
         </section>
 
-        <!-- Discount Banner -->
-        <div class="discount-callout">
-            Active military, veterans, first responders, healthcare workers, and teachers receive 10% off.
+        <!-- Coming Soon Banner (Restored Under & Separate from Package Grids) -->
+        <div class="coming-soon-banner">
+            Coming Soon: Combined package discounts and estimate calculator.
         </div>
 
-        <!-- Secondary Consultation Button -->
+        <!-- Secondary Consultation Button (Centered & Separated) -->
         <div class="secondary-cta-container">
             <a href="../start.html" class="header-cta-button">Next: Request a Consultation</a>
         </div>
