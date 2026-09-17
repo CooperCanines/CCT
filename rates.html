@@ -37,6 +37,8 @@
         html, body {
             overflow-x: hidden;
             width: 100%;
+            margin: 0;
+            padding: 0;
         }
 
         * {
@@ -85,20 +87,15 @@
             color: var(--text-light) !important;
         }
 
-        /* Sticky Wrapper to lock both Nav and Confidence Bar at top */
-        .sticky-header-wrapper {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            width: 100%;
-        }
-
-        /* Site Header Styles */
+        /* Site Header Styles - Sticky to top */
         .site-header {
             background-color: var(--header-bg-color);
             color: var(--header-text-color);
             width: 100%;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .header-container {
@@ -265,7 +262,7 @@
             margin: 0.5rem 0;
         }
 
-        /* Banner Bar directly under navbar */
+        /* Banner Bar directly under navbar - scrolls normally */
         .confidence-bar {
             background-color: rgba(0, 0, 0, 0.65);
             backdrop-filter: blur(5px);
@@ -276,6 +273,8 @@
             font-weight: bold;
             letter-spacing: 0.4px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            position: relative;
+            z-index: 999;
         }
 
         /* Search Modal Overlay */
@@ -847,65 +846,63 @@
 </head>
 <body>
 
-    <!-- Sticky Header Wrapper (Locks Nav and Confidence Bar to Top) -->
-    <div class="sticky-header-wrapper">
-        <header class="site-header">
-            <div class="header-container">
-                <div class="header-logo-container">
-                    <a href="../index.html">
-                        <img src="../images/cctwordingnophrase.png" alt="Cooper Canines Logo">
-                    </a>
-                </div>
+    <!-- Sticky Navigation Bar Header -->
+    <header class="site-header">
+        <div class="header-container">
+            <div class="header-logo-container">
+                <a href="../index.html">
+                    <img src="../images/cctwordingnophrase.png" alt="Cooper Canines Logo">
+                </a>
+            </div>
 
-                <nav class="center-nav">
-                    <a href="../index.html" class="nav-btn">Home</a>
-                    <a href="../guides.html" class="nav-btn">Resources</a>
-                    <a href="../index.html#contact" class="nav-btn">Contact Us</a>
-                    
-                    <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Mode">
-                        <span id="sunIcon" style="font-size: 1rem; line-height: 1;">☀️</span>
-                        <span id="moonIcon" style="display: none; font-size: 1rem; line-height: 1;">🌙</span>
-                    </button>
+            <nav class="center-nav">
+                <a href="../index.html" class="nav-btn">Home</a>
+                <a href="../guides.html" class="nav-btn">Resources</a>
+                <a href="../index.html#contact" class="nav-btn">Contact Us</a>
+                
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Mode">
+                    <span id="sunIcon" style="font-size: 1rem; line-height: 1;">☀️</span>
+                    <span id="moonIcon" style="display: none; font-size: 1rem; line-height: 1;">🌙</span>
+                </button>
 
-                    <button class="search-btn" id="openSearchBtn" aria-label="Open Search">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                        </svg>
-                    </button>
-                </nav>
+                <button class="search-btn" id="openSearchBtn" aria-label="Open Search">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                </button>
+            </nav>
 
-                <div class="right-menu-container">
-                    <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation menu">
-                        <span class="menu-text">Menu</span>
-                        <div class="hamburger-icon">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </button>
-                    <div class="dropdown-menu" id="dropdownMenu">
-                        <a href="../start.html">Start Intake Form</a>
-                        <a href="../portal.html">Returning Client</a>
-                        <div class="dropdown-divider"></div>
-                        <a href="../index.html#top">About Us</a>
-                        <a href="../breeds">Breeds</a>
-                        <a href="../guides">Guides</a>
-                        <a href="../index.html#contact">Contact Us</a>
-                        <div class="dropdown-divider"></div>
-                        <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener">Our Facebook</a>
-                        <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Google Reviews</a>
-                        <a href="../waiver.html">Liability Waiver</a>
-                        <a href="../perks.html">Referral & Perks</a>
-                        <a href="../rates.html">Estimated Rates</a>
+            <div class="right-menu-container">
+                <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation menu">
+                    <span class="menu-text">Menu</span>
+                    <div class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </div>
+                </button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="../start.html">Start Intake Form</a>
+                    <a href="../portal.html">Returning Client</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="../index.html#top">About Us</a>
+                    <a href="../breeds">Breeds</a>
+                    <a href="../guides">Guides</a>
+                    <a href="../index.html#contact">Contact Us</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener">Our Facebook</a>
+                    <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Google Reviews</a>
+                    <a href="../waiver.html">Liability Waiver</a>
+                    <a href="../perks.html">Referral & Perks</a>
+                    <a href="../rates.html">Estimated Rates</a>
                 </div>
             </div>
-        </header>
-
-        <!-- Sub-Navbar Confidence Banner -->
-        <div class="confidence-bar">
-            No shock collars, no harsh tools, just confidence.
         </div>
+    </header>
+
+    <!-- Sub-Navbar Confidence Banner (Scrolls naturally off-screen) -->
+    <div class="confidence-bar">
+        No shock collars, no harsh tools, just confidence.
     </div>
 
     <div class="search-modal-overlay" id="searchModal">
