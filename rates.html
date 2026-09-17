@@ -35,7 +35,6 @@
         }
 
         html, body {
-            overflow-x: hidden;
             width: 100%;
             margin: 0;
             padding: 0;
@@ -87,12 +86,15 @@
             color: var(--text-light) !important;
         }
 
-    /* Site Header Styles - Header block scrolls normally */
-     .site-header {
-        background-color: var(--header-bg-color);
-        color: var(--header-text-color);
-        width: 100%;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        /* Site Header Styles - Entire bar stays stuck to top on scroll */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--header-bg-color);
+            color: var(--header-text-color);
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
         }
 
         .header-container {
@@ -119,19 +121,15 @@
             display: block;
         }
 
-.center-nav {
-    position: sticky;
-    top: 0;
-    z-index: 1000; /* Keeps navigation above other scrolling content */
-    background-color: var(--header-bg-color); /* Maintains background color while scrolling */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    gap: 2px;
-    margin: 0 1rem;
-    padding: 0.5rem 0;
-}
+        .center-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            gap: 2px;
+            margin: 0 1rem;
+            padding: 0.5rem 0;
+        }
 
         .nav-btn {
             color: var(--header-text-color);
