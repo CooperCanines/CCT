@@ -62,7 +62,8 @@
 
         body.dark-mode .card-box,
         body.dark-mode .rate-card,
-        body.dark-mode .info-box {
+        body.dark-mode .info-box,
+        body.dark-mode .consultation-card {
             background-color: rgba(30, 38, 44, 0.95) !important;
             border-color: var(--border-dark) !important;
             color: var(--text-light) !important;
@@ -86,7 +87,7 @@
             color: var(--text-light) !important;
         }
 
-        /* Site Header Styles - Entire bar stays stuck to top on scroll */
+        /* Site Header Styles */
         .site-header {
             position: sticky;
             top: 0;
@@ -262,19 +263,28 @@
             margin: 0.5rem 0;
         }
 
-        /* Banner Bar directly under navbar - scrolls normally */
         .confidence-bar {
             background-color: rgba(0, 0, 0, 0.65);
             backdrop-filter: blur(5px);
             color: #ffffff;
             text-align: center;
-            padding: 0.55rem 1rem;
+            padding: 0.6rem 1rem;
             font-size: 0.95rem;
             font-weight: bold;
             letter-spacing: 0.4px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.15);
             position: relative;
             z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .paw-icon-sm {
+            height: 18px;
+            width: auto;
+            opacity: 0.85;
         }
 
         /* Search Modal Overlay */
@@ -324,7 +334,7 @@
         /* Page Layout Styles */
         .main-container {
             max-width: 1400px;
-            margin: 2rem auto;
+            margin: 1.5rem auto;
             padding: 0 1.5rem;
             width: 100%;
         }
@@ -354,18 +364,33 @@
             background-color: #d35400;
         }
 
-        /* Flash Promo Box */
+        /* Fixed Height Container for Top Cards */
+        .hero-banner-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+            align-items: stretch;
+        }
+
+        /* Flash Promo Box - Strictly Fixed Height & Non-Resizing Text */
         .flash-promo-card {
+            flex: 1 1 320px;
+            height: 120px !important;
+            max-height: 120px !important;
             position: relative;
             background-color: rgba(255, 255, 255, 0.96);
             border: 2px solid var(--accent);
             border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 2.5rem;
+            padding: 0.5rem 2rem 0.5rem 1rem;
             text-align: center;
             color: #2c3e50;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
         }
 
         body.dark-mode .flash-promo-card {
@@ -376,22 +401,23 @@
 
         .flash-promo-close {
             position: absolute;
-            top: 10px;
-            right: 14px;
+            top: 6px;
+            right: 8px;
             background: rgba(0, 0, 0, 0.05);
             border: none;
-            font-size: 1.5rem;
+            font-size: 1rem;
             font-weight: bold;
             color: #7f8c8d;
             cursor: pointer;
-            width: 32px;
-            height: 32px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             line-height: 1;
             transition: all 0.2s ease;
+            z-index: 10;
         }
 
         .flash-promo-close:hover {
@@ -400,11 +426,12 @@
         }
 
         .flash-promo-header {
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: #d35400;
-            margin-bottom: 0.5rem;
-            letter-spacing: 0.3px;
+            line-height: 1.2;
+            margin: 0;
+            white-space: nowrap;
         }
 
         body.dark-mode .flash-promo-header {
@@ -415,19 +442,21 @@
             display: inline-block;
             background-color: var(--accent);
             color: #ffffff;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
+            padding: 0.1rem 0.4rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
             font-weight: bold;
-            margin-left: 0.5rem;
+            margin-left: 0.2rem;
             vertical-align: middle;
         }
 
         .flash-option-item {
-            font-size: 1.2rem;
+            font-size: 1.05rem;
             font-weight: bold;
             color: #1a252f;
-            margin: 0.5rem 0;
+            margin: 0.2rem 0;
+            line-height: 1.2;
+            white-space: nowrap;
         }
 
         body.dark-mode .flash-option-item {
@@ -435,35 +464,93 @@
         }
 
         .flash-promo-schedule {
-            font-size: 1rem;
+            font-size: 0.82rem;
             font-weight: 600;
             color: var(--primary);
-            margin-top: 0.75rem;
-            padding-top: 0.75rem;
-            border-top: 1px dashed #cbd5e1;
+            margin: 0;
+            line-height: 1.2;
+            white-space: nowrap;
         }
 
-        .flash-promo-consult-info {
-            margin-top: 0.75rem;
-            padding-top: 0.75rem;
-            border-top: 1px dashed #cbd5e1;
-            font-size: 0.95rem;
-            font-weight: 600;
+        /* Consultation Card - Strictly Fixed Height & Non-Resizing Text */
+        .consultation-card {
+            flex: 1 1 320px;
+            height: 120px !important;
+            max-height: 120px !important;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.95);
+            border: 1px solid var(--border-light);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            overflow: hidden;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .consultation-bg-paw {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 65px;
+            width: auto;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .consultation-bg-paw.left-paw {
+            left: 8px;
+        }
+
+        .consultation-bg-paw.right-paw {
+            right: 8px;
+        }
+
+        .consultation-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .consultation-title {
+            font-size: 1.1rem;
+            font-weight: 700;
             color: var(--primary);
+            line-height: 1.2;
+            margin: 0;
+            white-space: nowrap;
         }
 
-        .flash-promo-consult-info p {
-            margin: 0.2rem 0;
+        body.dark-mode .consultation-title {
+            color: var(--text-light) !important;
         }
 
-        .flash-promo-subtext {
-            font-size: 0.85rem;
-            font-weight: normal;
-            color: #555555;
+        .consultation-price {
+            font-size: 1.35rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin: 0.1rem 0;
+            line-height: 1.2;
         }
 
-        body.dark-mode .flash-promo-subtext {
-            color: var(--text-muted-dark);
+        .consultation-note {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        body.dark-mode .consultation-note {
+            color: #e0e6ed;
         }
 
         /* Section Titles with Toggle */
@@ -473,7 +560,7 @@
             align-items: center;
             border-bottom: 2px solid rgba(255, 255, 255, 0.6);
             padding-bottom: 0.5rem;
-            margin: 2.5rem 0 1.5rem 0;
+            margin: 2rem 0 1.25rem 0;
             cursor: pointer;
             user-select: none;
         }
@@ -569,7 +656,6 @@
             z-index: 2;
         }
 
-        /* Featured Core Cards Full Background Image Integration */
         .core-card {
             background-size: cover !important;
             background-position: center !important;
@@ -579,7 +665,6 @@
             position: relative;
         }
 
-        /* Dark overlay applied to entire core card body zone */
         .core-card::before {
             content: "";
             position: absolute;
@@ -651,7 +736,6 @@
             top: -2px;
         }
 
-        /* Expandable Details Container */
         .card-expand-details {
             max-height: 0;
             overflow: hidden;
@@ -697,7 +781,6 @@
             text-shadow: 0 1px 2px rgba(0,0,0,0.8);
         }
 
-        /* Price Layout */
         .price-display {
             display: flex;
             align-items: baseline;
@@ -719,7 +802,6 @@
             color: var(--text-light);
         }
 
-        /* Coming Soon Banner */
         .coming-soon-banner {
             background: linear-gradient(135deg, rgba(230, 126, 34, 0.25), rgba(0, 145, 0, 0.25));
             border: 1px solid var(--accent);
@@ -760,7 +842,6 @@
             justify-content: center;
         }
 
-        /* Auxiliary Rates Section */
         .auxiliary-section {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -775,6 +856,8 @@
             padding: 1.5rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             color: #333333;
+            position: relative;
+            overflow: hidden;
         }
 
         .info-box h3 {
@@ -783,11 +866,15 @@
             font-size: 1.2rem;
             border-bottom: 2px solid var(--primary);
             padding-bottom: 0.4rem;
+            position: relative;
+            z-index: 2;
         }
 
         .info-box ul {
             list-style: none;
             padding-left: 0;
+            position: relative;
+            z-index: 2;
         }
 
         .info-box li {
@@ -807,18 +894,27 @@
             top: -2px;
         }
 
-        .disclaimer-text {
-            font-size: 0.85rem;
-            color: #666666;
-            line-height: 1.5;
-            margin-top: 0.5rem;
+        /* Service Areas Travel Surcharge Box with 50% Opacity Map Background */
+        .travel-surcharge-box {
+            position: relative;
         }
 
-        body.dark-mode .disclaimer-text {
-            color: var(--text-muted-dark);
+        .travel-surcharge-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('images/local-pin.png');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            opacity: 0.10;
+            pointer-events: none;
+            z-index: 1;
         }
 
-        /* Floating Disclaimer Box */
         .floating-disclaimer {
             position: fixed;
             bottom: 20px;
@@ -867,6 +963,9 @@
                 width: 100%;
                 justify-content: center;
                 margin: 0.5rem 0 0 0;
+            }
+            .hero-banner-row {
+                flex-direction: column;
             }
         }
     </style>
@@ -927,9 +1026,9 @@
         </div>
     </header>
 
-    <!-- Sub-Navbar Confidence Banner (Scrolls naturally off-screen) -->
+    <!-- Sub-Navbar Confidence Banner -->
     <div class="confidence-bar">
-        No shock collars, no harsh tools, just positive methods.
+        <span>No shock collars, no harsh tools, just positive methods.</span>
     </div>
 
     <div class="search-modal-overlay" id="searchModal">
@@ -942,20 +1041,35 @@
     <!-- Main Page Content -->
     <main class="main-container">
 
-        <!-- Professional Fall Flash Promo Box -->
-        <div class="flash-promo-card" id="flashPromoCard">
-            <button class="flash-promo-close" id="dismissPromoBtn" aria-label="Dismiss Promo Box">&times;</button>
-            <div class="flash-promo-header">
-                Fall Flash Promo <span class="flash-promo-badge">Only 3 Slots Available!</span>
+        <!-- Horizontal Row: Promo & Consultation Cards Sitting Side-by-Side -->
+        <div class="hero-banner-row">
+            
+            <!-- Professional Fall Flash Promo Box (Snug & Compact) -->
+            <div class="flash-promo-card" id="flashPromoCard">
+                <button class="flash-promo-close" id="dismissPromoBtn" aria-label="Dismiss Promo Box">&times;</button>
+                <div class="flash-promo-header">
+                    Fall Flash Promo <span class="flash-promo-badge">Only 3 Slots Available!</span>
+                </div>
+                <div class="flash-option-item">$50 Off Any Package Below</div>
+                <div class="flash-promo-schedule">
+                    Consultation must be scheduled before October 1st.
+                </div>
             </div>
-            <div class="flash-option-item">$50 Off Any Package Below</div>
-            <div class="flash-promo-schedule">
-                Consultation must be scheduled before October 1st.
+
+            <!-- Consultation Pricing Card with Left/Right Paw Backgrounds -->
+            <div class="consultation-card">
+                <img src="images/l-paw.png" alt="" class="consultation-bg-paw left-paw">
+                <img src="images/r-paw.png" alt="" class="consultation-bg-paw right-paw">
+                
+                <div class="consultation-content">
+                    <div class="consultation-title">Initial Consultation</div>
+                    <div class="consultation-price">$50</div>
+                    <div class="consultation-note">
+                        100% credited towards your training package. No hidden fees.
+                    </div>
+                </div>
             </div>
-            <div class="flash-promo-consult-info">
-                <p>Free Consultations for a Limited Time within Burlington, Camden, Gloucester, & Philadelphia Counties. <br>Consultation is $50 in other service areas.</p>
-                <p class="flash-promo-subtext">Consultation is credited towards package. No hidden fees.</p>
-            </div>
+
         </div>
 
         <div class="get-started-button">
@@ -1097,7 +1211,7 @@
 
         </section>
 
-        <!-- Standalone Military/Responder Discount Callout (Above Targeted Solvers) -->
+        <!-- Standalone Military/Responder Discount Callout -->
         <div class="discount-callout">
             Active military, veterans, first responders, healthcare workers, and teachers receive 5% off.
         </div>
@@ -1188,12 +1302,12 @@
 
         </section>
 
-        <!-- Coming Soon Banner (Restored Under & Separate from Package Grids) -->
+        <!-- Coming Soon Banner -->
         <div class="coming-soon-banner">
             Coming Soon: Combined package discounts and estimate calculator.
         </div>
 
-        <!-- Secondary Consultation Button (Centered & Separated) -->
+        <!-- Secondary Consultation Button -->
         <div class="secondary-cta-container">
             <a href="../start.html" class="header-cta-button">Next: Request a Consultation</a>
         </div>
@@ -1209,7 +1323,8 @@
                 </ul>
             </div>
 
-            <div class="info-box">
+            <!-- Service Areas Travel Surcharge Box with 50% Map Opacity Overlay -->
+            <div class="info-box travel-surcharge-box">
                 <h3>Service Areas Travel Surcharge</h3>
                 <ul>
                     <li><strong>NJ: Burlington, Camden, & Gloucester Counties:</strong> None</li>
