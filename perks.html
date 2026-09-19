@@ -7,6 +7,7 @@
     <style>
         :root {
             --primary: #009100;
+            --accent: #e67e22;
             --bg-color: #f4f6f8;
             --card-bg: #ffffff;
             --text-color: #333333;
@@ -43,7 +44,7 @@
             background-color: var(--trainer-bg);
             padding: 1rem;
             border-left: 4px solid var(--primary);
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
             border-radius: 4px;
         }
 
@@ -72,6 +73,64 @@
             margin: 0.5rem 0;
         }
 
+        /* Container for dynamically injected promo from rates.html */
+        #promoContainer {
+            width: 100%;
+        }
+
+        /* Styling to support fetched flash promo card */
+        .flash-promo-card {
+            position: relative;
+            background-color: var(--card-bg);
+            border: 2px solid var(--accent);
+            border-radius: 10px;
+            padding: 1rem 2rem 1rem 1rem;
+            text-align: center;
+            color: var(--text-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .flash-promo-close {
+            display: none; /* Hidden on perks page to maintain banner visibility */
+        }
+
+        .flash-promo-header {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #d35400;
+            line-height: 1.3;
+            margin-bottom: 0.3rem;
+        }
+
+        .flash-promo-badge {
+            display: inline-block;
+            background-color: var(--accent);
+            color: #ffffff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 0.4rem;
+            vertical-align: middle;
+        }
+
+        .flash-option-item {
+            font-size: 1.05rem;
+            font-weight: bold;
+            margin: 0.2rem 0;
+        }
+
+        .flash-promo-schedule {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-top: 0.3rem;
+        }
+
         .scroll-top-btn {
             display: none;
             position: fixed;
@@ -94,6 +153,9 @@
 
     <div class="container" id="top">
         
+        <!-- Dynamic Promo Banner Container (Pulled from rates.html) -->
+        <div id="promoContainer"></div>
+
         <!-- Document Info Box -->
         <div class="trainer-info">
             <p><strong>Last Updated:</strong> September 2026</p>
@@ -133,6 +195,23 @@
             </p>
         </section>
 
+        <!-- Returning Client Loyalty Discount Section -->
+        <section class="card-box">
+            <h3>Returning Client Loyalty Discount</h3>
+            <p>
+                <strong>Discount:</strong> Returning clients receive 10% off any additional standard training package.
+            </p>
+            <p>
+                <strong>Eligibility Requirement:</strong> Client must have previously completed a full training package or program with Cooper Canines.
+            </p>
+            <p>
+                <strong>How to Claim:</strong> Mention your prior program participation when requesting your next package booking or intake update.
+            </p>
+            <p>
+                <strong>Program Terms:</strong> Discount applies to standard training packages. Cannot be combined with other promotional offers, seasonal flash sales, or discounts exceeding 20% in total value.
+            </p>
+        </section>
+
     </div>
 
     <!-- Floating Scroll To Top Button -->
@@ -143,6 +222,7 @@
     <footer></footer>
 
     <script>
+        // Scroll To Top Logic
         const scrollTopBtn = document.getElementById('scrollTopBtn');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
@@ -151,6 +231,25 @@
                 scrollTopBtn.style.display = 'none';
             }
         });
+
+        // Dynamically fetch and display #flashPromoCard from rates.html
+        fetch('rates.html')
+            .then(response => {
+                if (!response.ok) throw new Error('Rates page not found');
+                return response.text();
+            })
+            .then(htmlText => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlText, 'text/html');
+                const promoCard = doc.getElementById('flashPromoCard');
+                
+                if (promoCard) {
+                    document.getElementById('promoContainer').appendChild(promoCard);
+                }
+            })
+            .catch(error => {
+                console.log('No flash promo found or fetch skipped:', error);
+            });
     </script>
 </body>
 </html>
