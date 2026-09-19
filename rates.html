@@ -547,7 +547,7 @@
             white-space: nowrap;
         }
 
-        /* Consultation Card */
+        /* Consultation Card (Fixed Dimensions & Split Column Layout) */
         .consultation-card {
             flex: 1 1 320px;
             height: 120px !important;
@@ -557,7 +557,7 @@
             border: 1px solid var(--border-light);
             border-left: 4px solid var(--primary);
             border-radius: 8px;
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 0.75rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             text-align: center;
             overflow: hidden;
@@ -591,41 +591,79 @@
             z-index: 2;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             height: 100%;
         }
 
-        .consultation-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary);
-            line-height: 1.2;
-            margin: 0;
-            white-space: nowrap;
+        .consultation-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            gap: 0.5rem;
         }
 
-        body.dark-mode .consultation-title {
+        .consultation-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .consultation-col.left-col {
+            text-align: left;
+            padding-left: 0.25rem;
+        }
+
+        .consultation-col.right-col {
+            text-align: right;
+            padding-right: 0.25rem;
+        }
+
+        .consultation-divider {
+            width: 1px;
+            background-color: rgba(0, 0, 0, 0.15);
+            height: 48px;
+            flex: 0 0 auto;
+        }
+
+        body.dark-mode .consultation-divider {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .consultation-main-text {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.15;
+            margin: 0;
+        }
+
+        body.dark-mode .consultation-main-text {
             color: var(--text-light) !important;
         }
 
-        .consultation-price {
-            font-size: 1.35rem;
-            font-weight: bold;
-            color: var(--accent);
-            margin: 0.1rem 0;
-            line-height: 1.2;
+        .consultation-sub-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1a252f;
+            line-height: 1.15;
+            margin-top: 0.1rem;
         }
 
         .consultation-note {
-            font-size: 0.82rem;
+            font-size: 0.75rem;
             font-weight: 600;
             color: #2c3e50;
             margin: 0;
-            line-height: 1.2;
+            line-height: 1.15;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            padding-top: 0.2rem;
         }
 
         body.dark-mode .consultation-note {
             color: #e0e6ed;
+            border-top-color: rgba(255, 255, 255, 0.1);
         }
 
         /* Section Titles with Toggle */
@@ -1120,23 +1158,42 @@
             <div class="flash-promo-card" id="flashPromoCard">
                 <button class="flash-promo-close" id="dismissPromoBtn" aria-label="Dismiss Promo Box">&times;</button>
                 <div class="flash-promo-header">
-                    Fall Launch Promo <span class="flash-promo-badge">Only 3 Slots Available!</span>
+                    Fall Launch Promo <span class="flash-promo-badge">Only 2 Slots Available!</span>
                 </div>
+                <div class="flash-option-item">In-Home Consultations Receive</div>
                 <div class="flash-option-item">$100 Off Any Package Below</div>
                 <div class="flash-promo-schedule">
-                    Consultation must be scheduled before October 1st.
+                    Consultation must be scheduled before October 15th.
                 </div>
             </div>
 
+            <!-- Recoded Consultation Box -->
             <div class="consultation-card">
                 <img src="images/l-paw.png" alt="" class="consultation-bg-paw left-paw">
                 <img src="images/r-paw.png" alt="" class="consultation-bg-paw right-paw">
                 
                 <div class="consultation-content">
-                    <div class="consultation-title">Initial Consultation</div>
-                    <div class="consultation-price">$150</div>
+                    <div class="consultation-grid">
+                        <div class="consultation-col left-col">
+                            <div class="consultation-main-text">Virtual Consultation <br>(Free / 20 Minutes)</div>
+                            <div class="consultation-sub-text">Quick Q&A</div>
+                            <div class="consultation-sub-text">Video Call</div>
+
+
+                        </div>
+                        
+                        <div class="consultation-divider"></div>
+                        
+                        <div class="consultation-col right-col">
+                            <div class="consultation-main-text">In-Home Consultation <br>($150 / 60 Minutes)</div>
+                            <div class="consultation-sub-text">Diagnostic & Evaluation</div>
+                            <div class="consultation-sub-text">100% credited toward any package selection</div>
+
+                        </div>
+                    </div>
+
                     <div class="consultation-note">
-                        100% credited towards your training package. No hidden fees.
+                        No hidden fees. Customized training plans.
                     </div>
                 </div>
             </div>
