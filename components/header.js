@@ -56,11 +56,11 @@ function initializeHeaderInteractions() {
         if (isDark) {
             document.body.classList.add('dark-mode');
             if (themeEmoji) themeEmoji.textContent = '🌙';
-            if (logoOverlay) logoOverlay.src = '../images/cctwordingnophrase-orange.png';
+            if (logoOverlay) logoOverlay.src = 'images/cctwordingnophrase-orange.png';
         } else {
             document.body.classList.remove('dark-mode');
             if (themeEmoji) themeEmoji.textContent = '☀️';
-            if (logoOverlay) logoOverlay.src = '../images/cctwordingnophrase-white.png';
+            if (logoOverlay) logoOverlay.src = 'images/cctwordingnophrase-white.png';
         }
     }
 
@@ -80,20 +80,18 @@ function initializeHeaderInteractions() {
         });
     }
 
-    // --- 2. Dropdown Menu Toggle ---
-    const menuBtn = document.getElementById('menuBtn');
-    const dropdownMenu = document.getElementById('dropdownMenu');
+    // --- 2. Dropdown Menu Toggle (Delegated) ---
+    document.addEventListener('click', (e) => {
+        const menuBtn = e.target.closest('#menuBtn');
+        const dropdownMenu = document.getElementById('dropdownMenu');
 
-    if (menuBtn && dropdownMenu) {
-        menuBtn.addEventListener('click', (e) => {
+        if (menuBtn && dropdownMenu) {
             e.stopPropagation();
             dropdownMenu.classList.toggle('show');
-        });
-
-        document.addEventListener('click', () => {
+        } else if (dropdownMenu && !e.target.closest('#dropdownMenu')) {
             dropdownMenu.classList.remove('show');
-        });
-    }
+        }
+    });
 
     // --- 3. Google Search Modal Trigger ---
     const openSearchBtn = document.getElementById('openSearchBtn');
