@@ -1,8 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Determine path to components folder relative to current page depth
-    const pathPrefix = window.location.pathname.includes('/components/') ? '' : 'components/';
+    // Determine relative path to header.html based on current URL directory depth
+    const pathDepth = (window.location.pathname.match(/\//g) || []).length;
+    const isSubfolder = window.location.pathname.includes('/components/') || pathDepth > 1;
+    const fetchPath = isSubfolder ? '../header.html' : 'header.html';
 
-    fetch(`${pathPrefix}header.html`)
+    fetch(fetchPath)
+        .then(response => {
+            if (!response.ok) {
+                // Fallback attempt to root level fetch if subfolder relative fetch fails
+                return fetch('header.html');
+            }
+            return response;
+        })
         .then(response => {
             if (!response.ok) throw new Error("Failed to load header component");
             return response.text();
@@ -17,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // 1. Inject raw header content
             placeholder.innerHTML = data;
 
-            // 2. Re-evaluate and re-execute embedded scripts (Google CSE, event listeners, active states)
+            // 2. Re-evaluate and re-execute embedded scripts (Google CSE, etc.)
             const scripts = placeholder.querySelectorAll("script");
             scripts.forEach(oldScript => {
                 const newScript = document.createElement("script");
@@ -36,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 oldScript.parentNode.replaceChild(newScript, oldScript);
             });
 
-            // 3. Fallback re-initialization to ensure interactive components bind safely
+            // 3. Re-initialize interactive components and event handlers
             initializeHeaderInteractions();
         })
         .catch(error => console.error("Error loading header component:", error));
@@ -44,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /**
  * Initializes and binds all event handlers for interactive elements 
- * within header.html to prevent broken states on dynamic injection.
+ * within header.html to prevent broken states across all pages.
  */
 function initializeHeaderInteractions() {
     // --- 1. Dark / Light Mode Persistence & Dynamic Logo ---
@@ -69,9 +78,9 @@ function initializeHeaderInteractions() {
     applyTheme(savedTheme === 'dark');
 
     if (themeToggleBtn) {
-        // Remove duplicate listeners if re-initialized
-        themeToggleBtn.replaceWith(themeToggleBtn.cloneNode(true));
-        const newThemeBtn = document.getElementById('themeToggleBtn');
+        // Clone node to drop existing click listeners if re-running
+        const newThemeBtn = themeToggleBtn.cloneNode(true);
+        themeToggleBtn.parentNode.replaceChild(newThemeBtn, themeToggleBtn);
         
         newThemeBtn.addEventListener('click', () => {
             const isDark = !document.body.classList.contains('dark-mode');
@@ -80,18 +89,27 @@ function initializeHeaderInteractions() {
         });
     }
 
-    // --- 2. Dropdown Menu Toggle (Delegated) ---
-    document.addEventListener('click', (e) => {
-        const menuBtn = e.target.closest('#menuBtn');
-        const dropdownMenu = document.getElementById('dropdownMenu');
+    // --- 2. Dropdown Menu Toggle (Delegated & Isolated) ---
+    const menuBtn = document.getElementById('menuBtn');
+    const dropdownMenu = document.getElementById('dropdownMenu');
 
-        if (menuBtn && dropdownMenu) {
+    if (menuBtn && dropdownMenu) {
+        // Drop old listeners via replacement
+        const newMenuBtn = menuBtn.cloneNode(true);
+        menuBtn.parentNode.replaceChild(newMenuBtn, menuBtn);
+
+        newMenuBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             dropdownMenu.classList.toggle('show');
-        } else if (dropdownMenu && !e.target.closest('#dropdownMenu')) {
-            dropdownMenu.classList.remove('show');
-        }
-    });
+        });
+
+        // Close menu when clicking anywhere outside
+        document.addEventListener('click', (e) => {
+            if (!newMenuBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+    }
 
     // --- 3. Google Search Modal Trigger ---
     const openSearchBtn = document.getElementById('openSearchBtn');
@@ -99,7 +117,10 @@ function initializeHeaderInteractions() {
     const searchModal = document.getElementById('searchModal');
 
     if (openSearchBtn && searchModal) {
-        openSearchBtn.addEventListener('click', () => {
+        const newOpenBtn = openSearchBtn.cloneNode(true);
+        openSearchBtn.parentNode.replaceChild(newOpenBtn, openSearchBtn);
+
+        newOpenBtn.addEventListener('click', () => {
             searchModal.classList.add('active');
             setTimeout(() => {
                 const searchInput = document.querySelector('.gsc-input input');
@@ -109,7 +130,10 @@ function initializeHeaderInteractions() {
     }
 
     if (closeSearchBtn && searchModal) {
-        closeSearchBtn.addEventListener('click', () => {
+        const newCloseBtn = closeSearchBtn.cloneNode(true);
+        closeSearchBtn.parentNode.replaceChild(newCloseBtn, closeSearchBtn);
+
+        newCloseBtn.addEventListener('click', () => {
             searchModal.classList.remove('active');
         });
     }
