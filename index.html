@@ -118,17 +118,18 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Header Container Placeholder (Fixes Gap Issue) */
+        /* Header Container Placeholder */
         #header-placeholder {
             margin: 0;
             padding: 0;
             display: block;
+            width: 100%;
         }
 
         /* Hero Banner */
         .hero {
             position: relative;
-            margin-top: 0; /* Ensures hero sits directly below the dynamic header */
+            margin-top: 0; 
             background: 
                 linear-gradient(rgba(0, 50, 25, 0.75), rgba(0, 50, 25, 0.75)), 
                 url('images/aislopbackground.png') center/cover;
@@ -439,7 +440,7 @@
             box-sizing: border-box;
         }
 
-        /* Animated Fixed Top-Scroll Banner (Custom Footer Snippet) */
+        /* Animated Fixed Bottom-Page Announcement Banner */
         .top-scroll-banner {
             position: fixed;
             bottom: 0;
@@ -447,12 +448,12 @@
             width: 100%;
             background-color: #006060;
             color: white;
-            padding: 1.25rem 1rem;
+            padding: 1rem;
             box-sizing: border-box;
             text-align: center;
             z-index: 9998;
             transform: translateY(0);
-            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.3s ease-in-out;
             box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
         }
 
@@ -720,7 +721,7 @@
         </div>
     </footer>
 
-    <!-- Animated Top-Only Dynamic Banner -->
+    <!-- Initial Load Announcement Banner (Floats at Bottom) -->
     <div class="top-scroll-banner" id="topScrollBanner">
         <div style="font-size: 0.9rem; color: #ffffff;">
             <p style="margin: 0;">&copy; 2026 Cooper Canines LLC. <a href="/rates" style="color: white; text-decoration: underline;">Limited-Time Promo.</a></p>
@@ -731,23 +732,10 @@
         ▲ To Top
     </button>
 
-    <!-- External Header Loader Component Script -->
+    <!-- Dynamic Header Component Script Loader -->
     <script src="components/header.js"></script>
 
     <script>
-        // Delegated Event Handling for Dynamically Injected Header Menu Button
-        document.addEventListener('click', (e) => {
-            const menuBtn = e.target.closest('#menuBtn');
-            const dropdownMenu = document.getElementById('dropdownMenu');
-
-            if (menuBtn && dropdownMenu) {
-                e.stopPropagation();
-                dropdownMenu.classList.toggle('show');
-            } else if (dropdownMenu && !e.target.closest('#dropdownMenu')) {
-                dropdownMenu.classList.remove('show');
-            }
-        });
-
         const getStartedBtn = document.getElementById('getStartedBtn');
         const actionBoxes = document.querySelectorAll('.action-box');
 
@@ -783,7 +771,7 @@
         window.addEventListener('scroll', () => {
             const scrollPos = window.scrollY || document.documentElement.scrollTop;
 
-            // Show banner ONLY at top of page (threshold: <= 10px)
+            // Show banner ON PAGE LOAD (scrollPos <= 10), hide as user scrolls down
             if (topScrollBanner) {
                 if (scrollPos <= 10) {
                     topScrollBanner.classList.remove('hidden-banner');
