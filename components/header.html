@@ -23,6 +23,11 @@
         --input-bg: #171d22;
     }
 
+    /* Offsets main page content under the fixed header */
+    body {
+        padding-top: 80px !important;
+    }
+
     /* Dark Mode Theme Overrides */
     body.dark-mode {
         background-color: var(--bg-dark) !important;
@@ -82,13 +87,12 @@
         background-color: #000000 !important;
     }
 
-    /* Header Container Reset */
+    /* Fixed / Sticky Navigation Header */
     .site-header {
         background-color: var(--header-bg-color);
         color: var(--header-text-color);
         width: 100%;
-        margin: 0 !important;
-        padding: 0;
+        position: fixed;
         top: 0;
         left: 0;
         z-index: 1000;
@@ -197,6 +201,11 @@
         overflow: hidden;
         flex-shrink: 1;
         box-sizing: border-box;
+    }
+
+    /* Prevent icon child clicks from interfering with button target handling */
+    .menu-toggle * {
+        pointer-events: none;
     }
 
     /* Paw Print Hover Effect */
@@ -401,6 +410,10 @@
 
     /* Mobile Layout Adjustments */
     @media (max-width: 600px) {
+        body {
+            padding-top: 115px !important;
+        }
+
         .header-container {
             flex-direction: column;
             align-items: center;
@@ -530,23 +543,6 @@
                 const isDark = !document.body.classList.contains('dark-mode');
                 applyTheme(isDark);
                 localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            });
-        }
-
-        // Dropdown Menu Toggle
-        const menuBtn = document.getElementById('menuBtn');
-        const dropdownMenu = document.getElementById('dropdownMenu');
-
-        if (menuBtn && dropdownMenu) {
-            menuBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                dropdownMenu.classList.toggle('show');
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('#menuBtn') && !e.target.closest('#dropdownMenu')) {
-                    dropdownMenu.classList.remove('show');
-                }
             });
         }
 
