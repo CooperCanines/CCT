@@ -8,13 +8,18 @@
         :root {
             --primary: #00b300;
             --primary-hover: #00d900;
+            --bg-light: #f0f2f5; /* Light mode grey */
             --bg-dark: #12181b;
-            --card-bg: #1e262c;
-            --card-inner: #2a343d;
-            --text-light: #e0e6ed;
-            --text-muted: #9ba8b5;
-            --highlight-yellow: #ffcc00; /* Brighter color for optional highlights */
-            --border-color: #3a4754;
+            --card-bg-light: rgba(255, 255, 255, 0.9); /* ~10% transparent white */
+            --card-bg-dark: rgba(30, 38, 44, 0.9);   /* ~10% transparent dark */
+            --card-inner-light: #e4e7eb;
+            --card-inner-dark: #2a343d;
+            --text-light-mode: #212529;
+            --text-dark-mode: #e0e6ed;
+            --text-muted-light: #6c757d;
+            --text-muted-dark: #9ba8b5;
+            --border-color-light: #ced4da;
+            --border-color-dark: #3a4754;
         }
 
         html, body {
@@ -22,54 +27,75 @@
             padding: 0;
             min-height: 100vh;
             font-family: 'Segoe UI', Arial, sans-serif;
-            color: var(--text-light);
+            background-color: var(--bg-light);
+            color: var(--text-light-mode);
             /* Full-screen background image styling with a dark overlay for readability */
-            background: linear-gradient(rgba(18, 24, 27, 0.75), rgba(18, 24, 27, 0.75)), 
-                        url('../images/thankyoubackground.jpg') no-repeat center center fixed;
+            background-image: linear-gradient(rgba(18, 24, 27, 0.75), rgba(18, 24, 27, 0.75)), 
+                              url('../images/thankyoubackground.jpg');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
             background-size: cover;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-dark-mode);
+        }
+
+        /* Main content wrapper to push footer down */
+        .page-wrapper {
+            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 4rem 1rem 2rem 1rem;
         }
 
         .container {
+            position: relative;
             width: 100%;
             max-width: 600px;
-            margin: 1.5rem;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
+            margin: 1.5rem auto;
+            background-color: var(--card-bg-light);
+            border: 1px solid var(--border-color-light);
             border-radius: 8px;
-            padding: 2rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            padding: 2.5rem 2rem 2rem 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             text-align: center;
+            box-sizing: border-box;
+        }
+
+        body.dark-mode .container {
+            background-color: var(--card-bg-dark);
+            border-color: var(--border-color-dark);
+        }
+
+        /* Overhanging Dog Logo */
+        .corner-logo {
+            position: absolute;
+            top: -28px;
+            left: -28px;
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2px solid var(--primary);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            padding: 4px;
             box-sizing: border-box;
         }
 
         h1 {
             color: var(--primary);
-            margin: 0 0 0.5rem 0;
-            font-size: 1.8rem;
+            margin: 0 0 1.5rem 0;
+            font-size: 2rem;
         }
 
-        p {
-            margin: 0.5rem 0 1.5rem 0;
-            line-height: 1.4;
-        }
-
-        /* High-visibility optional styling */
-        .optional-highlight {
-            color: var(--highlight-yellow);
-            font-weight: bold;
-        }
-
-        .subtext {
-            color: var(--highlight-yellow);
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-            margin-bottom: 0;
-        }
-
-        /* Action Buttons */
+        /* Action Buttons (Solid background, unaffected by box transparency) */
         .actions {
             display: flex;
             flex-direction: column;
@@ -85,11 +111,13 @@
             text-decoration: none;
             transition: all 0.2s ease;
             box-sizing: border-box;
+            cursor: pointer;
         }
 
         .btn-primary {
             background-color: var(--primary);
             color: #ffffff;
+            border: none;
         }
 
         .btn-primary:hover {
@@ -97,9 +125,15 @@
         }
 
         .btn-secondary {
-            background-color: var(--card-inner);
-            color: var(--text-light);
-            border: 1px solid var(--border-color);
+            background-color: var(--card-inner-light);
+            color: var(--text-light-mode);
+            border: 1px solid var(--border-color-light);
+        }
+
+        body.dark-mode .btn-secondary {
+            background-color: var(--card-inner-dark);
+            color: var(--text-dark-mode);
+            border-color: var(--border-color-dark);
         }
 
         .btn-secondary:hover {
@@ -107,13 +141,29 @@
             color: var(--primary);
         }
 
+        /* Third Button Section Styling */
+        .question-action-area {
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color-light);
+        }
+
+        body.dark-mode .question-action-area {
+            border-top-color: var(--border-color-dark);
+        }
+
         /* Contact Section */
         .contact-title {
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: var(--text-muted);
+            color: var(--text-muted-light);
             margin-bottom: 0.75rem;
+        }
+
+        body.dark-mode .contact-title {
+            color: var(--text-muted-dark);
         }
 
         .contact-grid {
@@ -127,24 +177,33 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background-color: var(--card-inner);
-            border: 1px solid var(--border-color);
+            background-color: var(--card-inner-light);
+            border: 1px solid var(--border-color-light);
             border-radius: 6px;
             padding: 0.85rem;
             text-decoration: none;
-            color: var(--text-light);
+            color: var(--text-light-mode);
             transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        body.dark-mode .contact-card {
+            background-color: var(--card-inner-dark);
+            border-color: var(--border-color-dark);
+            color: var(--text-dark-mode);
         }
 
         .contact-card:hover {
             border-color: var(--primary);
-            background-color: #313d48;
         }
 
         .contact-label {
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: var(--text-muted-light);
             margin-bottom: 0.2rem;
+        }
+
+        body.dark-mode .contact-label {
+            color: var(--text-muted-dark);
         }
 
         .contact-value {
@@ -156,39 +215,87 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1>Form Received!</h1>
-        <p>Thank you for submitting your client intake details.</p>
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
 
-        <div class="actions">
-            <!-- Return to Main Website (Primary Green) -->
-            <a href="https://coopercanines.com" class="btn btn-primary">&larr; Return to Main Website</a>
+    <div class="page-wrapper">
+        <div class="container">
+            <!-- Overhanging Dog Logo (10px overhang accounted for via negative positioning) -->
+            <img src="../images/cct-logo-dog.png" alt="Cooper Canines Dog Logo" class="corner-logo">
 
-            <!-- Optional consultation block -->
-            <div>
-                <a href="/questions" class="btn btn-secondary">
-                    Optional: Fill Out Consultation Questions &rarr;
+            <h1>Thank You!</h1>
+
+            <div class="actions">
+                <!-- Return to Home Page -->
+                <a href="../index.html" class="btn btn-primary">&larr; Home Page</a>
+
+                <!-- See Pricing Button -->
+                <a href="../rates.html" class="btn btn-secondary">
+                    See Pricing &rarr;
                 </a>
-                <p class="subtext">
-                    <span class="optional-highlight">(Optional)</span> Unanswered questions will simply be covered during your consultation.
-                </p>
             </div>
-        </div>
 
-        <div class="contact-title">Questions? Reach Out Directly</div>
-        
-        <div class="contact-grid">
-            <a href="tel:8564331259" class="contact-card">
-                <span class="contact-label">Call / Text</span>
-                <span class="contact-value">(856) 433-1259</span>
-            </a>
+            <!-- 3rd Centered Button under Questions Area -->
+            <div class="question-action-area">
+                <a href="../index.html#contact" class="btn btn-secondary" style="max-width: 320px; margin: 0 auto;">
+                    Click Here To Ask A Question
+                </a>
+            </div>
+
+            <div class="contact-title">Questions? Reach Out Directly</div>
             
-            <a href="mailto:Dan@CooperCanines.com" class="contact-card">
-                <span class="contact-label">Email</span>
-                <span class="contact-value">Dan@CooperCanines.com</span>
-            </a>
+            <div class="contact-grid">
+                <a href="tel:8564331259" class="contact-card">
+                    <span class="contact-label">Call / Text</span>
+                    <span class="contact-value">(856) 433-1259</span>
+                </a>
+                
+                <a href="mailto:Dan@CooperCanines.com" class="contact-card">
+                    <span class="contact-label">Email</span>
+                    <span class="contact-value">Dan@CooperCanines.com</span>
+                </a>
+            </div>
         </div>
     </div>
 
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Script to Load Header and Footer Components from Subfolder -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Load Header Component
+            fetch('header(14).html')
+                .then(response => {
+                    if (!response.ok) throw new Error("Header fetch failed");
+                    return response.text();
+                })
+                .then(data => {
+                    const placeholder = document.getElementById('header-placeholder');
+                    placeholder.innerHTML = data;
+
+                    // Re-evaluate embedded scripts inside header.html
+                    const scripts = placeholder.querySelectorAll("script");
+                    scripts.forEach(oldScript => {
+                        const newScript = document.createElement("script");
+                        Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                        newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                        oldScript.parentNode.replaceChild(newScript, oldScript);
+                    });
+                })
+                .catch(error => console.error("Error loading header component:", error));
+
+            // Load Footer Component
+            fetch('footer(1).html')
+                .then(response => {
+                    if (!response.ok) throw new Error("Footer fetch failed");
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                })
+                .catch(error => console.error("Error loading footer component:", error));
+        });
+    </script>
 </body>
 </html>
