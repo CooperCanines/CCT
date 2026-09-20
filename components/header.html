@@ -34,9 +34,11 @@
         color: var(--text-light) !important;
     }
 
+    body.dark-mode .card,
     body.dark-mode .card-box,
     body.dark-mode .header-card,
-    body.dark-mode .form-card {
+    body.dark-mode .form-card,
+    body.dark-mode .question-card {
         background-color: var(--card-bg) !important;
         border-color: var(--border-color) !important;
         color: var(--text-light) !important;
@@ -50,6 +52,8 @@
     }
 
     body.dark-mode input[type="text"],
+    body.dark-mode input[type="email"],
+    body.dark-mode input[type="tel"],
     body.dark-mode textarea,
     body.dark-mode label.option-label {
         background-color: var(--input-bg) !important;
@@ -58,7 +62,7 @@
     }
 
     body.dark-mode p,
-    body.dark-mode span:not(.required) {
+    body.dark-mode span:not(.required):not(.req-star) {
         color: var(--text-muted);
     }
 
@@ -496,3 +500,110 @@
         <div class="gcse-search"></div>
     </div>
 </div>
+
+<script>
+    (function initHeaderControls() {
+        function setupHeader() {
+            const themeToggleBtn = document.getElementById('themeToggleBtn');
+            const themeEmoji = document.getElementById('themeEmoji');
+            const logoOverlay = document.getElementById('logoOverlay');
+
+            // 1. Theme Persistence Across Pages
+            function applyTheme(isDark) {
+                if (isDark) {
+                    document.body.classList.add('dark-mode');
+                    if (themeEmoji) themeEmoji.textContent = '🌙';
+                    if (logoOverlay) logoOverlay.src = 'images/cctwordingnophrase-orange.png';
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    if (themeEmoji) themeEmoji.textContent = '☀️';
+                    if (logoOverlay) logoOverlay.src = 'images/cctwordingnophrase-white.png';
+                }
+            }
+
+            // Sync with current localStorage state or existing body class
+            const storedTheme = localStorage.getItem('theme');
+            const hasDarkClass = document.body.classList.contains('dark-mode');
+            const isDarkMode = storedTheme ? storedTheme === 'dark' : hasDarkClass;
+
+            applyTheme(isDarkMode);
+
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', () => {
+                    const nextIsDark = !document.body.classList.contains('dark-mode');
+                    applyTheme(nextIsDark);
+                    localStorage.setItem('theme', nextIsDark ? 'dark' : 'light');
+                });
+            }
+
+            // 2. Dynamic Active State Highlighting for Navigation Links
+            const pathName = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = {
+                'index.html': document.getElementById('navHome'),
+                'rates.html': document.getElementById('navRates')
+            };
+
+            Object.keys(navLinks).forEach(page => {
+                if (navLinks[page]) {
+                    if (pathName === page) {
+                        navLinks[page].classList.add('active');
+                    } else if (pathName !== 'index.html' && page === 'index.html') {
+                        navLinks[page].classList.remove('active');
+                    }
+                }
+            });
+
+            // 3. Dropdown Menu Toggle Logic
+            const menuBtn = document.getElementById('menuBtn');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+
+            if (menuBtn && dropdownMenu) {
+                menuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    dropdownMenu.classList.toggle('show');
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (!menuBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                        dropdownMenu.classList.remove('show');
+                    }
+                });
+            }
+
+            // 4. Search Modal Toggle Logic
+            const openSearchBtn = document.getElementById('openSearchBtn');
+            const closeSearchBtn = document.getElementById('closeSearchBtn');
+            const searchModal = document.getElementById('searchModal');
+
+            if (openSearchBtn && searchModal) {
+                openSearchBtn.addEventListener('click', () => {
+                    searchModal.classList.add('active');
+                    setTimeout(() => {
+                        const searchInput = document.querySelector('.gsc-input input');
+                        if (searchInput) searchInput.focus();
+                    }, 150);
+                });
+            }
+
+            if (closeSearchBtn && searchModal) {
+                closeSearchBtn.addEventListener('click', () => {
+                    searchModal.classList.remove('active');
+                });
+            }
+
+            if (searchModal) {
+                searchModal.addEventListener('click', (e) => {
+                    if (e.target === searchModal) {
+                        searchModal.classList.remove('active');
+                    }
+                });
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setupHeader);
+        } else {
+            setupHeader();
+        }
+    })();
+</script>
