@@ -118,9 +118,17 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
+        /* Header Container Placeholder (Fixes Gap Issue) */
+        #header-placeholder {
+            margin: 0;
+            padding: 0;
+            display: block;
+        }
+
         /* Hero Banner */
         .hero {
             position: relative;
+            margin-top: 0; /* Ensures hero sits directly below the dynamic header */
             background: 
                 linear-gradient(rgba(0, 50, 25, 0.75), rgba(0, 50, 25, 0.75)), 
                 url('images/aislopbackground.png') center/cover;
@@ -727,6 +735,19 @@
     <script src="components/header.js"></script>
 
     <script>
+        // Delegated Event Handling for Dynamically Injected Header Menu Button
+        document.addEventListener('click', (e) => {
+            const menuBtn = e.target.closest('#menuBtn');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+
+            if (menuBtn && dropdownMenu) {
+                e.stopPropagation();
+                dropdownMenu.classList.toggle('show');
+            } else if (dropdownMenu && !e.target.closest('#dropdownMenu')) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+
         const getStartedBtn = document.getElementById('getStartedBtn');
         const actionBoxes = document.querySelectorAll('.action-box');
 
