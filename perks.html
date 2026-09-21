@@ -53,7 +53,7 @@
             background-attachment: fixed;
             color: var(--text-color);
             margin: 0;
-            padding-bottom: 2rem;
+            padding-bottom: 0; /* Handled by footer spacing */
             line-height: 1.6;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
@@ -649,7 +649,7 @@
             </p>
         </section>
 
-        <!-- Community Heroes Discount Section (Renamed) -->
+        <!-- Community Heroes Discount Section -->
         <section class="card-box">
             <h3>Community Heroes Discount</h3>
             <p>
@@ -690,7 +690,12 @@
         ▲
     </a>
 
-    <footer></footer>
+    <!-- Embedded Footer Component -->
+    <footer style="background-color: #006060; color: white; padding: 1.25rem 1rem; margin-top: 3rem; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; box-sizing: border-box; text-align: center;">
+        <div style="font-size: 0.9rem; color: #ffffff;">
+            <p style="margin: 0;">&copy; 2026 Cooper Canines LLC. | <a href="/rates" style="color: white; text-decoration: underline;">Limited-Time Promo Rates.</a></p>
+        </div>
+    </footer>
 
     <!-- Comprehensive Scripts for Header Controls & Perks Functionality -->
     <script>
@@ -762,7 +767,7 @@
                 const navLinks = {
                     'index.html': document.getElementById('navHome'),
                     'rates.html': document.getElementById('navRates'),
-                    'perks.html': document.getElementById('navPerks') // Future-proofing if added
+                    'perks.html': document.getElementById('navPerks')
                 };
 
                 Object.keys(navLinks).forEach(page => {
