@@ -30,7 +30,7 @@
 
             /* Dark Mode Variables */
             --bg-dark: #12181b;
-            --card-bg: #1e262c;
+            --card-dark-bg: #1e262c;
             --card-inner: #2a343d;
             --text-light: #e0e6ed;
             --text-muted: #9ba8b5;
@@ -44,26 +44,18 @@
             --primary: #2ecc71;
             --primary-hover: #27ae60;
             --border-color: #3a4754;
-            --card-bg: #1e1e1e;
+            --card-bg: #1e262c;
             --trainer-bg: #1a2f23;
-            --btn-secondary-bg: #1e1e1e;
-            --btn-secondary-text: #2ecc71;
-            --btn-secondary-border: #2ecc71;
         }
 
-        body.dark-mode .card,
         body.dark-mode .card-box,
-        body.dark-mode .header-card,
-        body.dark-mode .form-card,
-        body.dark-mode .question-card,
         body.dark-mode .scroll-box {
-            background-color: var(--card-bg) !important;
+            background-color: var(--card-dark-bg) !important;
             border-color: var(--border-color) !important;
             color: var(--text-light) !important;
         }
 
-        body.dark-mode .trainer-info,
-        body.dark-mode .question-block {
+        body.dark-mode .trainer-info {
             background-color: var(--card-inner) !important;
             border-color: var(--border-color) !important;
             color: var(--text-light) !important;
@@ -416,7 +408,6 @@
         html, body {
             margin: 0;
             padding: 0;
-            height: 100%;
             font-family: Arial, sans-serif;
             color: var(--text-dark);
             background-color: var(--bg-light);
@@ -489,22 +480,12 @@
         .container {
             flex: 1 0 auto;
             max-width: 1000px;
-            margin: 2rem auto;
+            margin: 1.5rem auto;
             padding: 0 1rem;
             box-sizing: border-box;
             position: relative;
             z-index: 20;
             width: 100%;
-        }
-
-        /* Top Navigation Container (Inside page) */
-        .top-nav {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            gap: 1rem;
         }
 
         .btn-primary-custom {
@@ -514,13 +495,14 @@
             background-color: var(--primary);
             color: #ffffff;
             border: 2px solid var(--primary);
-            padding: 0.6rem 1.2rem;
+            padding: 0.5rem 1rem;
             border-radius: 6px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: all 0.2s ease;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            white-space: nowrap;
         }
 
         .btn-primary-custom:hover {
@@ -555,14 +537,19 @@
 
         .trainer-info {
             background-color: var(--trainer-bg);
-            padding: 1rem;
+            padding: 0.75rem 1rem;
             border-left: 4px solid var(--primary);
             margin-bottom: 1.5rem;
             border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .trainer-info p {
-            margin: 0.3rem 0;
+            margin: 0;
         }
 
         .card-box {
@@ -708,18 +695,12 @@
     <div id="pongScore">Score: <span id="scoreVal">0</span></div>
 
     <div class="container">
-        <!-- Top Navigation -->
-        <div class="top-nav">
-            <div>
-                <a href="/start.html" class="btn-primary-custom">
-                    Fill Out Waiver &rarr;
-                </a>
-            </div>
-        </div>
-
-        <!-- Trainer Info Box Above Scroll Field -->
+        <!-- Trainer Info Box Above Scroll Field with integrated Fill Out Waiver Button -->
         <div class="trainer-info">
             <p><strong>Last Updated:</strong> September 2026</p>
+            <a href="/start.html" class="btn-primary-custom">
+                Fill Out Waiver &rarr;
+            </a>
         </div>
 
         <!-- Main Container / Scrollable Section -->
