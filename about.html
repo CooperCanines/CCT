@@ -69,7 +69,6 @@
             min-height: 100vh;
             padding-top: 70px;
             transition: background-color 0.3s ease, color 0.3s ease;
-            overflow-x: hidden; /* Prevents horizontal scrollbars from absolute elements */
         }
 
         /* Dark Mode Theme Overrides */
@@ -405,7 +404,7 @@
             z-index: 10000;
         }
 
-        /* Hero Banner */
+        /* Hero Banner with elevated background position (~12% up) */
         .hero {
             position: relative;
             margin-top: 0; 
@@ -440,9 +439,8 @@
         .about-grid {
             display: flex;
             flex-direction: column;
-            gap: 2.5rem;
+            gap: 2rem;
             margin-top: 1.5rem;
-            position: relative;
         }
 
         .info-card {
@@ -451,22 +449,6 @@
             padding: 2rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             border-left: 5px solid var(--primary);
-            position: relative;
-            overflow: visible !important; /* Prevents image clipping past card boundary */
-        }
-
-        .info-card.about-card {
-            z-index: 2; /* Ensures parent card styling remains consistent */
-        }
-
-        .info-card.philosophy-card {
-            z-index: 1; /* Sits below the overlapping dogfish graphic */
-        }
-
-        /* Elevated content within the second card so text displays above the image background */
-        .info-card.philosophy-card .card-content {
-            position: relative;
-            z-index: 3;
         }
 
         .info-card::after {
@@ -511,19 +493,6 @@
             display: block;
         }
 
-        /* Overlapping Dogfish Graphic */
-        .dogfish-image {
-            position: absolute;
-            bottom: -60px; /* Extends past bottom edge of the about card */
-            right: 20px;
-            width: 220px;
-            max-width: 30vw;
-            height: auto;
-            z-index: 2; /* Renders over background of lower card, but below card-content text */
-            pointer-events: none; /* Prevents blocking clicks on underlying text/links */
-            filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.25));
-        }
-
         .highlights-list {
             list-style: none;
             padding: 0;
@@ -558,8 +527,6 @@
             margin: 3rem auto 0 auto;
             text-align: left;
             box-sizing: border-box;
-            position: relative;
-            z-index: 2;
         }
 
         .question-card h3 {
@@ -785,14 +752,6 @@
             background-color: #d35400;
         }
 
-        @media (max-width: 768px) {
-            .dogfish-image {
-                bottom: -35px;
-                max-width: 140px;
-                right: 10px;
-            }
-        }
-
         @media (max-width: 600px) {
             body {
                 padding-top: 105px;
@@ -944,7 +903,7 @@
             <div class="about-grid">
                 
                 <!-- Main Bio Section -->
-                <article class="info-card about-card" id="about">
+                <article class="info-card">
                     <h2>Meet Your Trainer</h2>
                     
                     <!-- Trainer Photo in Top Right -->
@@ -962,21 +921,16 @@
                         <li><strong>Private 1-on-1 Focus:</strong> Customized training sessions designed around your household’s specific goals.</li>
                         <li><strong>Upfront, Transparent Pricing:</strong> Clear estimated rates with zero hidden fees or sales pressure.</li>
                     </ul>
-
-                    <!-- Overlapping Dogfish Graphic extending past bottom -->
-                    <img src="images/dogfish.png" alt="Dogfish Graphic" class="dogfish-image">
                 </article>
 
                 <!-- Training Philosophy Section -->
-                <article class="info-card philosophy-card">
-                    <div class="card-content">
-                        <h2>Training Philosophy & Commitment</h2>
-                        <p>At Cooper Canines, the primary goal is to help you build mutual respect and clear communication with your dog without resorting to raised voices, intimidation, or painful corrections. Real, lasting behavior change happens when a dog actively wants to cooperate with you.</p>
-                        
-                        <p>Training protocols are completely customized to fit your lifestyle, using flexible treat-based and non-treat positive reinforcement techniques. Whether you are establishing basic manners, addressing leash pulling, or building reliable focus, training is kept positive, clear, and effective.</p>
-                        
-                        <p>To keep service high-quality and accessible while expanding program offerings, client introductory rates are kept transparent and competitive. As part of an ongoing commitment to the South Jersey community, free public educational resources and behavioral guides will also be available soon at <a href="guides.html" style="color: var(--primary); text-decoration: underline;">coopercanines.com/guides</a>.</p>
-                    </div>
+                <article class="info-card">
+                    <h2>Training Philosophy & Commitment</h2>
+                    <p>At Cooper Canines, the primary goal is to help you build mutual respect and clear communication with your dog without resorting to raised voices, intimidation, or painful corrections. Real, lasting behavior change happens when a dog actively wants to cooperate with you.</p>
+                    
+                    <p>Training protocols are completely customized to fit your lifestyle, using flexible treat-based and non-treat positive reinforcement techniques. Whether you are establishing basic manners, addressing leash pulling, or building reliable focus, training is kept positive, clear, and effective.</p>
+                    
+                    <p>To keep service high-quality and accessible while expanding program offerings, client introductory rates are kept transparent and competitive. As part of an ongoing commitment to the South Jersey community, free public educational resources and behavioral guides will also be available soon at <a href="guides.html" style="color: var(--primary); text-decoration: underline;">coopercanines.com/guides</a>.</p>
                 </article>
 
             </div>
