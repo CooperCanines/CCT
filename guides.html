@@ -12,25 +12,148 @@
     <script async src="https://cse.google.com/cse.js?cx=e4f71822d5b0943bb"></script>
 
     <style>
+        /* ==========================================================
+           HEADER COLOR & THEMING 
+           ========================================================== */
         :root {
             --header-bg-color: #009100;    
             --header-text-color: #ffffff;   
             --active-tab-color: #e67e22;    
             --active-tab-text: #ffffff;     
             --hover-tab-color: rgba(255, 255, 255, 0.15); 
-            
-            --primary: #009191;
+            --primary: #2ecc71;
+
+            /* Dark Mode Variables */
+            --bg-dark: #12181b;
+            --card-bg: #1e262c;
+            --card-inner: #2a343d;
+            --text-light: #e0e6ed;
+            --text-muted: #9ba8b5;
+            --border-color: #3a4754;
+            --input-bg: #171d22;
+
+            /* Additional layout vars */
             --accent: #27ae60;
             --light: #f8f9fa;
             --dark: #333;
             --border: #e2e8f0;
             --logo-orange: #e67e22;
+        }
 
-            --bg-dark: #12181b;
-            --card-bg-dark: #1e262c;
-            --text-light-dark: #e0e6ed;
-            --text-muted-dark: #9ba8b5;
-            --border-dark: #3a4754;
+        /* Offsets main page content under fixed header */
+        body {
+            padding-top: 80px;
+        }
+
+        /* Dark Mode Theme Overrides */
+        body.dark-mode {
+            background-color: var(--bg-dark) !important;
+            color: var(--text-light) !important;
+        }
+
+        body.dark-mode .card,
+        body.dark-mode .card-box,
+        body.dark-mode .header-card,
+        body.dark-mode .form-card,
+        body.dark-mode .question-card,
+        body.dark-mode .sidebar,
+        body.dark-mode .content-area,
+        body.dark-mode .topic-card,
+        body.dark-mode .discounts-box,
+        body.dark-mode .modal-card {
+            background-color: var(--card-bg) !important;
+            border-color: var(--border-color) !important;
+            color: var(--text-light) !important;
+        }
+
+        body.dark-mode .trainer-info,
+        body.dark-mode .question-block {
+            background-color: var(--card-inner) !important;
+            border-color: var(--border-color) !important;
+            color: var(--text-light) !important;
+        }
+
+        body.dark-mode input[type="text"],
+        body.dark-mode input[type="email"],
+        body.dark-mode input[type="tel"],
+        body.dark-mode textarea,
+        body.dark-mode label.option-label,
+        body.dark-mode .form-control {
+            background-color: var(--input-bg) !important;
+            border-color: var(--border-color) !important;
+            color: var(--text-light) !important;
+        }
+
+        body.dark-mode p,
+        body.dark-mode span:not(.required):not(.req-star),
+        body.dark-mode .topic-card p,
+        body.dark-mode .discounts-box p,
+        body.dark-mode .content-area p,
+        body.dark-mode .modal-card p {
+            color: var(--text-muted);
+        }
+
+        body.dark-mode .topic-card h4,
+        body.dark-mode .content-area h2,
+        body.dark-mode .modal-card h3 {
+            color: var(--text-light) !important;
+        }
+
+        body.dark-mode .site-header {
+            --header-text-color: #000000;
+        }
+
+        body.dark-mode .nav-btn,
+        body.dark-mode .theme-toggle-btn,
+        body.dark-mode .search-btn,
+        body.dark-mode .menu-toggle {
+            color: #000000 !important;
+            border-color: rgba(0, 0, 0, 0.4) !important;
+        }
+
+        body.dark-mode .nav-btn:hover,
+        body.dark-mode .theme-toggle-btn:hover,
+        body.dark-mode .search-btn:hover,
+        body.dark-mode .menu-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.1) !important;
+            border-color: rgba(0, 0, 0, 0.8) !important;
+        }
+
+        body.dark-mode .hamburger-icon span {
+            background-color: #000000 !important;
+        }
+
+        body.dark-mode .sidebar-dropdown-list li button,
+        body.dark-mode .sidebar-dropdown-list li a {
+            color: #d1dbe5 !important;
+        }
+
+        body.dark-mode .sidebar-dropdown-list li button:hover,
+        body.dark-mode .sidebar-dropdown-list li button.active,
+        body.dark-mode .sidebar-dropdown-list li a:hover {
+            color: var(--active-tab-color) !important;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        body.dark-mode .article-disclaimer {
+            background-color: rgba(255, 255, 255, 0.03) !important;
+            border-color: var(--border-color) !important;
+            color: var(--text-muted) !important;
+        }
+
+        body.dark-mode .search-results-dropdown {
+            background: var(--card-bg);
+            border-color: var(--border-color);
+        }
+
+        body.dark-mode .search-results-dropdown a {
+            color: var(--text-light);
+            border-bottom-color: var(--border-color);
+        }
+
+        body.dark-mode .search-results-dropdown a:hover {
+            background-color: rgba(255,255,255,0.05);
+            color: var(--active-tab-color);
         }
 
         /* Lock scrollbar layout shifting across all load states */
@@ -63,177 +186,193 @@
             overflow-x: hidden;
         }
 
-        body.dark-mode {
-            background-color: var(--bg-dark) !important;
-            color: var(--text-light-dark) !important;
-        }
-
-        body.dark-mode .sidebar,
-        body.dark-mode .content-area,
-        body.dark-mode .topic-card,
-        body.dark-mode .discounts-box,
-        body.dark-mode .modal-card {
-            background-color: var(--card-bg-dark) !important;
-            border-color: var(--border-dark) !important;
-            color: var(--text-light-dark) !important;
-        }
-
-        body.dark-mode .topic-card h4,
-        body.dark-mode .content-area h2,
-        body.dark-mode .modal-card h3 {
-            color: var(--text-light-dark) !important;
-        }
-
-        body.dark-mode .topic-card p,
-        body.dark-mode .discounts-box p,
-        body.dark-mode .content-area p,
-        body.dark-mode .modal-card p {
-            color: var(--text-muted-dark) !important;
-        }
-
-        body.dark-mode .sidebar-dropdown-list li button,
-        body.dark-mode .sidebar-dropdown-list li a {
-            color: #d1dbe5 !important;
-        }
-
-        body.dark-mode .sidebar-dropdown-list li button:hover,
-        body.dark-mode .sidebar-dropdown-list li button.active,
-        body.dark-mode .sidebar-dropdown-list li a:hover {
-            color: var(--active-tab-color) !important;
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        body.dark-mode .article-disclaimer {
-            background-color: rgba(255, 255, 255, 0.03) !important;
-            border-color: var(--border-dark) !important;
-            color: var(--text-muted-dark) !important;
-        }
-
+        /* Fixed Navigation Header */
         .site-header {
             background-color: var(--header-bg-color);
             color: var(--header-text-color);
             width: 100%;
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
         }
 
         .header-container {
             max-width: 1400px;
-            width: 100%;
             margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.5rem 1.5rem;
-            position: relative;
+            padding: 0.5rem 1rem;
+            gap: 0.5rem;
         }
 
         .header-logo-container {
-            flex: 0 0 auto;
+            flex: 0 1 auto;
             display: flex;
             align-items: center;
+            justify-content: center;
+            max-width: 300px;
+            min-width: 120px;
         }
 
-        .header-logo-container img {
-            height: 40px;
-            width: auto;
+        .header-logo-container a {
+            display: block;
+            width: 100%;
+            position: relative;
+        }
+
+        .logo-img-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            max-width: 280px;
+        }
+
+        .logo-img-wrapper img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            max-height: 55px;
             object-fit: contain;
             display: block;
+        }
+
+        .logo-img-wrapper .logo-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 0%);
+            mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 0%);
+            animation: wipeFadeRight 1.5s ease-in-out forwards 0.6s;
+            transition: opacity 0.3s ease;
+        }
+
+        @keyframes wipeFadeRight {
+            0% {
+                opacity: 1;
+                -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 0%);
+                mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 0%);
+            }
+            100% {
+                opacity: 1;
+                -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 100%, rgba(0,0,0,1) 100%);
+                mask-image: linear-gradient(to right, rgba(0,0,0,1) 100%, rgba(0,0,0,1) 100%);
+            }
         }
 
         .center-nav {
             display: flex;
             align-items: center;
-            justify-content: center;
-            flex: 1;
-            gap: 2px;
-            margin: 0 1rem;
+            justify-content: flex-end;
+            flex: 1 1 auto;
+            gap: 4px;
+            flex-wrap: nowrap;
         }
 
-        .nav-btn {
+        .nav-btn,
+        .theme-toggle-btn,
+        .search-btn,
+        .menu-toggle {
+            position: relative;
             color: var(--header-text-color);
             text-decoration: none;
-            padding: 0.5rem 0.8rem;
+            padding: 0.4rem 0.6rem;
             font-weight: bold;
             border-radius: 6px;
-            font-size: 0.95rem;
-            transition: background-color 0.2s ease, color 0.2s ease;
+            font-size: clamp(0.75rem, 2vw, 0.95rem);
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
             white-space: nowrap;
             display: inline-flex;
             align-items: center;
-        }
-
-        .nav-btn:hover {
-            background-color: var(--hover-tab-color);
-        }
-
-        .nav-btn.active, .nav-btn.active-tab {
-            background-color: var(--active-tab-color) !important;
-            color: var(--active-tab-text) !important;
-        }
-
-        .theme-toggle-btn,
-        .search-btn {
+            justify-content: center;
             background: transparent;
             border: 1px solid rgba(255, 255, 255, 0.4);
             cursor: pointer;
-            padding: 0.4rem 0.6rem;
-            color: var(--header-text-color);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 6px;
-            flex: 0 0 auto;
-            margin-left: 0.3rem;
-            font-size: 1rem;
-            transition: all 0.2s ease;
-            width: 38px;
-            height: 32px;
+            height: 38px;
+            overflow: hidden;
+            flex-shrink: 1;
+            box-sizing: border-box;
         }
 
+        .menu-toggle * {
+            pointer-events: none;
+        }
+
+        .nav-btn::before,
+        .theme-toggle-btn::before,
+        .search-btn::before,
+        .menu-toggle::before,
+        .dropdown-menu a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('images/l-paw.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .nav-btn:hover::before,
+        .theme-toggle-btn:hover::before,
+        .search-btn:hover::before,
+        .menu-toggle:hover::before,
+        .dropdown-menu a:hover::before {
+            opacity: 0.25;
+        }
+
+        .nav-btn span, 
+        .dropdown-menu a span, 
+        .nav-btn *, 
+        .dropdown-menu a * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-btn:hover,
         .theme-toggle-btn:hover,
-        .search-btn:hover {
+        .search-btn:hover,
+        .menu-toggle:hover {
             background-color: var(--hover-tab-color);
             border-color: rgba(255, 255, 255, 0.8);
         }
 
-        .theme-toggle-btn span,
-        .search-btn svg {
-            font-size: 1rem;
+        .nav-btn.active {
+            background-color: var(--active-tab-color) !important;
+            color: var(--active-tab-text) !important;
+            border-color: var(--active-tab-color) !important;
+        }
+
+        .theme-toggle-btn,
+        .search-btn,
+        .menu-toggle {
+            min-width: 38px;
+            width: 38px;
+            padding: 0;
+            flex-shrink: 0;
+        }
+
+        .theme-toggle-btn span.emoji-icon {
+            font-size: 1.1rem;
             line-height: 1;
-            display: block;
         }
 
         .search-btn svg {
             width: 16px;
             height: 16px;
             fill: currentColor;
-        }
-
-        .right-menu-container {
-            flex: 0 0 auto;
-            position: relative;
-        }
-
-        .menu-toggle {
-            background-color: transparent;
-            color: var(--header-text-color);
-            border: 2px solid var(--header-text-color);
-            padding: 0.5rem 0.8rem;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        }
-
-        .menu-toggle:hover {
-            background-color: var(--hover-tab-color);
+            display: block;
         }
 
         .hamburger-icon {
@@ -247,6 +386,12 @@
             width: 16px;
             height: 2px;
             background-color: currentColor;
+            transition: background-color 0.2s ease;
+        }
+
+        .right-menu-container {
+            position: relative;
+            flex-shrink: 0;
         }
 
         .dropdown-menu {
@@ -255,40 +400,44 @@
             right: 0;
             top: calc(100% + 0.5rem);
             background-color: #ffffff;
-            min-width: 230px;
+            width: 360px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             border-radius: 8px;
             overflow: hidden;
             z-index: 1001;
+            padding: 0.5rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4px;
         }
 
         .dropdown-menu.show {
-            display: block;
+            display: grid !important;
         }
 
         .dropdown-menu a {
-            display: block;
-            padding: 0.75rem 1rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 0.6rem 0.75rem;
             color: #333333;
             text-decoration: none;
-            font-size: 0.9rem;
-            border-bottom: 1px solid #f0f0f0;
-            transition: background-color 0.2s ease;
-        }
-
-        .dropdown-menu a:last-child {
-            border-bottom: none;
+            font-size: 0.85rem;
+            border-radius: 4px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            overflow: hidden;
+            background-color: #f8f9fa;
         }
 
         .dropdown-menu a:hover {
-            background-color: #f8f9fa;
+            background-color: #e9ecef;
             color: var(--active-tab-color);
         }
 
         .dropdown-divider {
+            grid-column: span 2;
             height: 1px;
             background-color: #e0e0e0;
-            margin: 0.5rem 0;
+            margin: 0.25rem 0;
         }
 
         /* Layout Container Structure Locks */
@@ -421,11 +570,6 @@
             margin-top: 2px;
         }
 
-        body.dark-mode .search-results-dropdown {
-            background: var(--card-bg-dark);
-            border-color: var(--border-dark);
-        }
-
         .search-results-dropdown a {
             display: flex;
             justify-content: space-between;
@@ -451,19 +595,9 @@
             color: #2e7d32;
         }
 
-        body.dark-mode .search-results-dropdown a {
-            color: var(--text-light-dark);
-            border-bottom-color: var(--border-dark);
-        }
-
         .search-results-dropdown a:hover {
             background-color: var(--light);
             color: var(--primary);
-        }
-
-        body.dark-mode .search-results-dropdown a:hover {
-            background-color: rgba(255,255,255,0.05);
-            color: var(--active-tab-color);
         }
 
         .sidebar-section-container {
@@ -668,7 +802,7 @@
             z-index: 9999;
             justify-content: center;
             align-items: flex-start;
-            padding-top: 50px;
+            padding-top: 80px;
         }
 
         .search-modal-overlay.active,
@@ -725,12 +859,6 @@
             box-sizing: border-box;
         }
 
-        body.dark-mode .form-control {
-            background-color: var(--bg-dark);
-            border-color: var(--border-dark);
-            color: var(--text-light-dark);
-        }
-
         .btn-submit {
             background: var(--primary);
             color: white;
@@ -784,6 +912,16 @@
             flex-shrink: 0;
         }
 
+        .gcse-search {
+            width: 100%;
+        }
+
+        .gsc-control-cse {
+            padding: 0 !important;
+            border: none !important;
+            background: transparent !important;
+        }
+
         @media (max-width: 900px) {
             .layout-container {
                 flex-direction: column;
@@ -797,45 +935,46 @@
                 max-width: none !important;
                 max-height: none;
             }
-            .header-container {
-                flex-wrap: wrap;
-                padding: 0.5rem 1rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding-top: 115px;
             }
-            .center-nav {
-                order: 3;
+
+            .header-container {
+                flex-direction: column;
+                align-items: center;
+                padding: 0.4rem;
+            }
+
+            .header-logo-container {
                 width: 100%;
-                justify-content: center;
-                margin: 0.5rem 0 0 0;
-                padding-top: 0.5rem;
-                border-top: 1px solid rgba(255, 255, 255, 0.15);
-                flex-wrap: wrap;
+                margin-bottom: 0.3rem;
+            }
+
+            .header-logo-container img {
+                max-height: 45px;
+            }
+
+            .center-nav {
+                width: 100%;
+                justify-content: space-between;
                 gap: 2px;
             }
-            .right-menu-container {
-                order: 4;
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                margin-top: 0.5rem;
+
+            .nav-btn {
+                padding: 0.3rem 0.4rem;
             }
-            .menu-toggle {
-                width: 100%;
-                justify-content: center;
-            }
+
             .dropdown-menu {
-                width: 100%;
-                right: 0;
-                left: 0;
+                width: 290px;
+                right: -10px;
             }
         }
     </style>
 </head>
 <body>
-<script>
-    if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark-mode');
-    }
-</script>
 
 <!-- Header Navigation Bar -->
 <header class="site-header">
@@ -843,18 +982,20 @@
         
         <div class="header-logo-container">
             <a href="index.html">
-                <img src="images/cctwordingnophrase.png" alt="Cooper Canines Logo">
+                <div class="logo-img-wrapper">
+                    <img src="images/cctwordingnophrase.png" alt="Cooper Canines Logo" class="logo-base">
+                    <img id="logoOverlay" src="images/cctwordingnophrase-white.png" alt="Cooper Canines Logo Overlay" class="logo-overlay">
+                </div>
             </a>
         </div>
 
         <nav class="center-nav">
-            <a href="index.html" class="nav-btn">Home</a>
-            <a href="guides.html" class="nav-btn active-tab">Resources</a>
-            <a href="index.html#contact" class="nav-btn">Contact Us</a>
+            <a href="index.html" class="nav-btn" id="navHome"><span>Home</span></a>
+            <a href="rates.html" class="nav-btn" id="navRates"><span>Rates</span></a>
+            <a href="index.html#contact" class="nav-btn" id="navContact"><span>Contact</span></a>
             
             <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Mode">
-                <span id="sunIcon">☀️</span>
-                <span id="moonIcon" style="display:none;">🌙</span>
+                <span class="emoji-icon" id="themeEmoji">☀️</span>
             </button>
 
             <button class="search-btn" id="openSearchBtn" aria-label="Open Search">
@@ -862,33 +1003,32 @@
                     <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
                 </svg>
             </button>
-        </nav>
 
-        <div class="right-menu-container">
-            <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation menu">
-                <span class="menu-text">Menu</span>
-                <div class="hamburger-icon">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+            <div class="right-menu-container">
+                <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation menu">
+                    <div class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="start.html"><span>Get Started</span></a>
+                    <a href="portal.html"><span>Returning Client</span></a>
+                    <div class="dropdown-divider"></div>
+                    <a href="about.html"><span>About</span></a>
+                    <a href="breeds.html"><span>Breeds</span></a>
+                    <a href="index.html#contact"><span>Contact Us</span></a>
+                    <a href="perks.html"><span>Referral & Perks</span></a>
+                    <div class="dropdown-divider"></div>
+                    <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener"><span>Our Facebook</span></a>
+                    <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener"><span>Google Reviews</span></a>
+                    <a href="waiver.html"><span>Liability Waiver</span></a>
+                    <a href="rates.html"><span>Estimated Rates</span></a>
                 </div>
-            </button>
-            <div class="dropdown-menu" id="dropdownMenu">
-                <a href="/start">Get Started</a>
-                <a href="/portal">Returning Client</a>
-                <div class="dropdown-divider"></div>
-                <a href="index.html#about">About Us</a>
-                <a href="/breeds">Breeds</a>
-                <a href="guides.html">Guides</a>
-                <a href="index.html#contact">Contact Us</a>
-                <div class="dropdown-divider"></div>
-                <a href="https://www.facebook.com/people/Cooper-Canines-LLC/61579668813146/" target="_blank" rel="noopener">Our Facebook</a>
-                <a href="https://waiver.coopercanines.com" target="_blank" rel="noopener">Google Reviews</a>
-                <a href="/waiver">Liability Waiver</a>
-                <a href="/perks">Referrals & Perks</a>
-                <a href="/rates">Estimated Rates</a>
             </div>
-        </div>
+        </nav>
 
     </div>
 </header>
@@ -1027,7 +1167,10 @@
     <!-- Content Area -->
     <main class="content-area" id="mainContent">
         <div id="directoryHomeView" style="text-align: center; padding: 2rem 1rem;">
-            <h2 style="color: var(--primary); font-size: 2rem; margin-bottom: 1rem;">Pardon Our Paws, Page Is Under Construction</h2>
+            <h2 style="color: var(--primary); font-size: 2rem; margin-bottom: 1.5rem;">Pardon Our Paws, Page Is Under Construction</h2>
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <img src="images/cct-logo-dog.png" alt="Under Construction Dog Logo" style="max-width: 180px; height: auto; display: inline-block;">
+            </div>
             <p style="font-size: 1.1rem; color: #e74c3c; font-weight: bold; margin-bottom: 1rem;">CAUTION: Content is not complete, this is a work in progress.</p>
             <p style="color: #666; max-width: 600px; margin: 0 auto 0 auto; line-height: 1.5;">We sincerely apologize for any inconvenience. Our team is working hard to build out comprehensive care-taking guides and general information resources for you and your dog.</p>
         </div>
@@ -1100,77 +1243,123 @@
 
 <footer>
     <div style="font-size: 0.9rem; color: #ffffff;">
-        <p style="margin: 0;">&copy; 2026 Cooper Canines LLC. | All rights reserved. | Website in Construction.</p>
+        <p style="margin: 0;">&copy; 2026 Cooper Canines LLC. | Page is under development and has no content loaded.</p>
     </div>
 </footer>
 
 <script>
-    const menuBtn = document.getElementById('menuBtn');
-    const dropdownMenu = document.getElementById('dropdownMenu');
+    (function initHeaderControls() {
+        function setupHeader() {
+            const themeToggleBtn = document.getElementById('themeToggleBtn');
+            const themeEmoji = document.getElementById('themeEmoji');
+            const logoOverlay = document.getElementById('logoOverlay');
 
-    menuBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dropdownMenu.classList.toggle('show');
-    });
+            // 1. Theme Persistence Across Pages
+            function applyTheme(isDark) {
+                if (isDark) {
+                    document.body.classList.add('dark-mode');
+                    if (themeEmoji) themeEmoji.textContent = '🌙';
+                    if (logoOverlay) logoOverlay.src = 'images/cctwordingnophrase-orange.png';
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    if (themeEmoji) themeEmoji.textContent = '☀️';
+                    if (logoOverlay) logoOverlay.src = 'images/cctwordingnophrase-white.png';
+                }
+            }
 
-    document.addEventListener('click', () => {
-        dropdownMenu.classList.remove('show');
-    });
+            const storedTheme = localStorage.getItem('theme');
+            const hasDarkClass = document.body.classList.contains('dark-mode');
+            const isDarkMode = storedTheme ? storedTheme === 'dark' : hasDarkClass;
 
-    const themeToggleBtn = document.getElementById('themeToggleBtn');
-    const sunIcon = document.getElementById('sunIcon');
-    const moonIcon = document.getElementById('moonIcon');
+            applyTheme(isDarkMode);
 
-    function updateIcons(isDark) {
-        sunIcon.style.display = isDark ? 'none' : 'block';
-        moonIcon.style.display = isDark ? 'block' : 'none';
-    }
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', () => {
+                    const nextIsDark = !document.body.classList.contains('dark-mode');
+                    applyTheme(nextIsDark);
+                    localStorage.setItem('theme', nextIsDark ? 'dark' : 'light');
+                });
+            }
 
-    updateIcons(document.body.classList.contains('dark-mode'));
+            // 2. Dynamic Active State Highlighting for Navigation Links
+            const pathName = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = {
+                'index.html': document.getElementById('navHome'),
+                'rates.html': document.getElementById('navRates')
+            };
 
-    themeToggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        const isDark = document.body.classList.contains('dark-mode');
-        const newTheme = isDark ? 'dark' : 'light';
-        
-        localStorage.setItem('theme', newTheme);
-        updateIcons(isDark);
-        window.postMessage({ type: 'THEME_CHANGE', theme: newTheme }, '*');
-    });
+            Object.keys(navLinks).forEach(page => {
+                if (navLinks[page]) {
+                    if (pathName === page) {
+                        navLinks[page].classList.add('active');
+                    } else if (pathName !== 'index.html' && page === 'index.html') {
+                        navLinks[page].classList.remove('active');
+                    }
+                }
+            });
 
-    /* Header Modal Search */
-    const openSearchBtn = document.getElementById('openSearchBtn');
-    const closeSearchBtn = document.getElementById('closeSearchBtn');
-    const searchModal = document.getElementById('searchModal');
+            // 3. Dropdown Menu Toggle Logic
+            const menuBtn = document.getElementById('menuBtn');
+            const dropdownMenu = document.getElementById('dropdownMenu');
 
-    openSearchBtn.addEventListener('click', () => {
-        searchModal.classList.add('active');
-        setTimeout(() => {
-            const searchInput = document.querySelector('.gsc-input input');
-            if (searchInput) searchInput.focus();
-        }, 200);
-    });
+            if (menuBtn && dropdownMenu) {
+                menuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    dropdownMenu.classList.toggle('show');
+                });
 
-    closeSearchBtn.addEventListener('click', () => {
-        searchModal.classList.remove('active');
-    });
+                document.addEventListener('click', (e) => {
+                    if (!menuBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                        dropdownMenu.classList.remove('show');
+                    }
+                });
+            }
 
-    searchModal.addEventListener('click', (e) => {
-        if (e.target === searchModal) {
-            searchModal.classList.remove('active');
+            // 4. Search Modal Toggle Logic
+            const openSearchBtn = document.getElementById('openSearchBtn');
+            const closeSearchBtn = document.getElementById('closeSearchBtn');
+            const searchModal = document.getElementById('searchModal');
+
+            if (openSearchBtn && searchModal) {
+                openSearchBtn.addEventListener('click', () => {
+                    searchModal.classList.add('active');
+                    setTimeout(() => {
+                        const searchInput = document.querySelector('.gsc-input input');
+                        if (searchInput) searchInput.focus();
+                    }, 150);
+                });
+            }
+
+            if (closeSearchBtn && searchModal) {
+                closeSearchBtn.addEventListener('click', () => {
+                    searchModal.classList.remove('active');
+                });
+            }
+
+            if (searchModal) {
+                searchModal.addEventListener('click', (e) => {
+                    if (e.target === searchModal) {
+                        searchModal.classList.remove('active');
+                    }
+                });
+            }
         }
-    });
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setupHeader);
+        } else {
+            setupHeader();
+        }
+    })();
 
     /* Sidebar Dynamic Search Logic */
     const sidebarSearchInput = document.getElementById('sidebarSearchInput');
     const searchResultsDropdown = document.getElementById('searchResultsDropdown');
 
-    // Base Search Items
     const internalLinks = [
         { title: "Breeds Directory", url: "/breeds", type: "Directory" }
     ];
 
-    // Automatically generate indices for Articles 1-20 across all 3 categories
     const categories = [
         { name: "Basics", folder: "guides" },
         { name: "Commands", folder: "tricks" },
@@ -1188,7 +1377,6 @@
         }
     });
 
-    // Fetch breeds dynamically from components/breeds.json and inject into searchIndex
     window.addEventListener('DOMContentLoaded', () => {
         fetch('components/breeds.json')
             .then(response => response.json())
@@ -1282,7 +1470,6 @@
         }
     }
 
-    // Dynamic Article Loader
     function loadArticle(folderName, topicName, customPath) {
         const directoryHomeView = document.getElementById('directoryHomeView');
         const articleView = document.getElementById('articleView');
