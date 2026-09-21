@@ -508,6 +508,23 @@
             vertical-align: middle;
         }
 
+        /* Centered Bottom Image Container for Community Heroes Box */
+        .box-bottom-image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1.25rem;
+            width: 100%;
+        }
+
+        .box-bottom-image-container img {
+            max-width: 100%;
+            height: auto;
+            max-height: 120px; /* Limits size on large displays, auto-scales down on smaller screens */
+            object-fit: contain;
+            display: block;
+        }
+
         .scroll-top-btn {
             display: none;
             position: fixed;
@@ -664,6 +681,10 @@
             <p>
                 <strong>Program Terms:</strong> Applies to eligible personnel only. Cannot be combined with other promotional offers or discounts exceeding 20% in total value. The Trainer reserves the right to modify or end promotional programs at any time without prior notice.
             </p>
+            <!-- Centered Bottom Image Added Here -->
+            <div class="box-bottom-image-container">
+                <img src="images/hereo-dogs-small.png" alt="Community Heroes Dogs">
+            </div>
         </section>
 
         <!-- Returning Client Loyalty Discount Section -->
