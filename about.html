@@ -404,13 +404,13 @@
             z-index: 10000;
         }
 
-        /* Hero Banner with requested dogfish.png */
+        /* Hero Banner with elevated background position (~12% up) */
         .hero {
             position: relative;
             margin-top: 0; 
             background: 
                 linear-gradient(rgba(0, 50, 25, 0.8), rgba(0, 50, 25, 0.8)), 
-                url('images/dogfish.png') center/cover no-repeat;
+                url('images/dogfish.png') center 38%/cover no-repeat;
             background-color: #00793c;
             text-align: center;
             padding: 4.5rem 1rem;
@@ -451,6 +451,12 @@
             border-left: 5px solid var(--primary);
         }
 
+        .info-card::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
         .info-card h2 {
             color: var(--primary);
             margin-bottom: 1rem;
@@ -471,26 +477,27 @@
             margin-bottom: 0;
         }
 
-        .photo-placeholder {
-            border: 2px dashed #ccc;
-            border-radius: 8px;
-            padding: 2rem;
-            text-align: center;
-            color: #777;
-            background-color: #f9f9f9;
-            margin: 1.5rem 0;
+        /* Trainer Photo Block (Top-Right Placement) */
+        .trainer-photo {
+            float: right;
+            margin: 0 0 1rem 1.5rem;
+            width: 280px;
+            max-width: 100%;
         }
 
-        body.dark-mode .photo-placeholder {
-            background-color: var(--card-inner);
-            border-color: var(--border-color);
-            color: var(--text-muted);
+        .trainer-photo img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            display: block;
         }
 
         .highlights-list {
             list-style: none;
             padding: 0;
             margin: 1rem 0;
+            clear: both;
         }
 
         .highlights-list li {
@@ -510,7 +517,7 @@
             font-size: 1.1rem;
         }
 
-        /* Question Form Card Styling from index.html */
+        /* Question Form Card Styling */
         .question-card {
             background: white;
             border-radius: 8px;
@@ -779,6 +786,12 @@
                 width: 290px;
                 right: -10px;
             }
+
+            .trainer-photo {
+                float: none;
+                margin: 0 auto 1.5rem auto;
+                width: 100%;
+            }
         }
 
         @media (max-width: 768px) {
@@ -892,13 +905,15 @@
                 <!-- Main Bio Section -->
                 <article class="info-card">
                     <h2>Meet Your Trainer</h2>
+                    
+                    <!-- Trainer Photo in Top Right -->
+                    <div class="trainer-photo">
+                        <img src="images/dan-and-hunter.jpg" alt="Dan and Hunter">
+                    </div>
+
                     <p>Hello! My name is Dan, and I am the owner and trainer behind Cooper Canines LLC. Growing up surrounded by dogs of all breeds and temperaments gave me an early appreciation for canine behavior and communication. That lifelong passion led me to pursue structured education in modern canine behavior, studying dog body language through comprehensive coursework, professional literature, and hands-on shadowing alongside experienced professional dog trainers.</p>
                     
                     <p>In addition to running Cooper Canines, I have served as a first responder and firefighter since 2015. That background instills a high standard of trust, safety, patience, and clear communication—values that directly guide my approach to working with clients and their dogs.</p>
-
-                    <!-- Optional Reserved Spot for Photo -->
-                    <!-- Un-comment the line below when you are ready to insert a picture with Hunter! -->
-                    <!-- <div class="photo-placeholder"><img src="images/dan-and-hunter.jpg" alt="Dan and Hunter" style="max-width:100%; border-radius:6px;"></div> -->
 
                     <ul class="highlights-list">
                         <li><strong>Fully Insured Business:</strong> Dedicated to professional standards, liability protection, and peace of mind.</li>
