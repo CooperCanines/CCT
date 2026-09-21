@@ -444,11 +444,13 @@
         }
 
         .info-card {
+            position: relative;
             background: white;
             border-radius: 8px;
             padding: 2rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             border-left: 5px solid var(--primary);
+            overflow: hidden;
         }
 
         .info-card::after {
@@ -457,10 +459,28 @@
             clear: both;
         }
 
+        /* Training Philosophy Card Background Styling */
+        .info-card.philosophy-card {
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)), 
+                url('images/niko-snow.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        body.dark-mode .info-card.philosophy-card {
+            background-image: 
+                linear-gradient(rgba(30, 38, 44, 0.90), rgba(30, 38, 44, 0.90)), 
+                url('images/niko-snow.png');
+        }
+
         .info-card h2 {
             color: var(--primary);
             margin-bottom: 1rem;
             font-size: 1.6rem;
+            position: relative;
+            z-index: 1;
         }
 
         body.dark-mode .info-card h2 {
@@ -471,6 +491,8 @@
             margin-bottom: 1rem;
             font-size: 1rem;
             line-height: 1.7;
+            position: relative;
+            z-index: 1;
         }
 
         .info-card p:last-child {
@@ -483,6 +505,8 @@
             margin: 0 0 1rem 1.5rem;
             width: 280px;
             max-width: 100%;
+            position: relative;
+            z-index: 2;
         }
 
         .trainer-photo img {
@@ -498,6 +522,8 @@
             padding: 0;
             margin: 1rem 0;
             clear: both;
+            position: relative;
+            z-index: 1;
         }
 
         .highlights-list li {
@@ -924,8 +950,14 @@
                 </article>
 
                 <!-- Training Philosophy Section -->
-                <article class="info-card">
+                <article class="info-card philosophy-card">
                     <h2>Training Philosophy & Commitment</h2>
+                    
+                    <!-- Hunter Publico Photo in Top Right -->
+                    <div class="trainer-photo">
+                        <img src="images/hunter-publico.png" alt="Hunter Publico">
+                    </div>
+
                     <p>At Cooper Canines, the primary goal is to help you build mutual respect and clear communication with your dog without resorting to raised voices, intimidation, or painful corrections. Real, lasting behavior change happens when a dog actively wants to cooperate with you.</p>
                     
                     <p>Training protocols are completely customized to fit your lifestyle, using flexible treat-based and non-treat positive reinforcement techniques. Whether you are establishing basic manners, addressing leash pulling, or building reliable focus, training is kept positive, clear, and effective.</p>
