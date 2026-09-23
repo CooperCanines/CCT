@@ -87,7 +87,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            padding-top: 0; /* Removed fixed header padding offset to eliminate dead space */
+            padding-top: 0;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
@@ -151,6 +151,30 @@
 
         body.dark-mode .hamburger-icon span {
             background-color: #000000 !important;
+        }
+
+        /* Fixed Bottom Promo Banner (Visible at Top of Page, Fades Down on Scroll) */
+        .top-scroll-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #006060;
+            color: white;
+            padding: 0.75rem 1rem;
+            box-sizing: border-box;
+            text-align: center;
+            z-index: 1002;
+            opacity: 1;
+            transform: translateY(0);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .top-scroll-banner.hidden-banner {
+            opacity: 0;
+            transform: translateY(100%);
+            pointer-events: none;
         }
 
         /* Sticky Navigation Header Wrapper */
@@ -415,7 +439,7 @@
 
         /* Sub-Navbar Confidence Rotating Banner */
         .confidence-bar {
-            background-color: rgba(0, 0, 0, 0.85); /* Solidified background to remove backdrop artifacts */
+            background-color: rgba(0, 0, 0, 0.85);
             color: #ffffff;
             padding: 0.5rem 1rem;
             font-size: 0.9rem;
@@ -427,7 +451,7 @@
             justify-content: center;
             margin: 0;
             width: 100%;
-            overflow: hidden; /* Prevents text overflow lines */
+            overflow: hidden;
             box-sizing: border-box;
         }
 
@@ -437,14 +461,14 @@
             overflow: hidden;
             white-space: nowrap;
             position: relative;
-            contain: content; /* Prevents browser animation lines on load */
+            contain: content;
         }
 
         .confidence-text-container span {
             display: inline-block;
             white-space: nowrap;
-            backface-visibility: hidden; /* Fixes GPU rendering artifacts */
-            transform: translateZ(0); /* Hardware acceleration to stop line glitches */
+            backface-visibility: hidden;
+            transform: translateZ(0);
         }
 
         .confidence-text-container.scrolls span {
@@ -517,7 +541,7 @@
         /* Hero Banner */
         .hero {
             position: relative;
-            margin-top: 0; /* Ensures Hero attaches directly underneath the bar */
+            margin-top: 0;
             background: linear-gradient(135deg, rgba(0, 77, 77, 0.85) 0%, rgba(0, 96, 96, 0.85) 50%, rgba(0, 121, 60, 0.85) 100%), url('images/aislopbackground.png') center/cover no-repeat;
             text-align: center;
             padding: 3.5rem 1rem 3.5rem 1rem;
@@ -577,7 +601,7 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            transition: transform 0.25 ease, box-shadow 0.25s ease;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
 
         .card:hover {
@@ -838,27 +862,6 @@
             margin-left: -50vw;
             margin-right: -50vw;
             box-sizing: border-box;
-        }
-
-        /* Animated Fixed Bottom-Page Announcement Banner */
-        .top-scroll-banner {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: #006060;
-            color: white;
-            padding: 1rem;
-            box-sizing: border-box;
-            text-align: center;
-            z-index: 9998;
-            transform: translateY(0);
-            transition: transform 0.3s ease-in-out;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .top-scroll-banner.hidden-banner {
-            transform: translateY(100%);
         }
 
         .badge-link {
@@ -1247,7 +1250,7 @@
         </div>
     </footer>
 
-    <!-- Initial Load Announcement Banner -->
+    <!-- Fixed Bottom Announcement Banner -->
     <div class="top-scroll-banner" id="topScrollBanner">
         <div style="font-size: 0.9rem; color: #ffffff;">
             <p style="margin: 0;">&copy; 2026 Cooper Canines LLC. <a href="rates.html" style="color: white; text-decoration: underline;">Limited-Time Promo.</a></p>
@@ -1260,46 +1263,18 @@
 
     <!-- Page Scripts -->
     <script>
-        async function initConfidenceBar() {
+        function initConfidenceBar() {
             const container = document.getElementById('confidenceTextContainer');
             const targetEl = document.getElementById('rotatingMessage');
             if (!container || !targetEl) return;
 
-            const fallbackPhrases = [
+            const phrases = [
                 "No shock collars, no harsh tools, just positive methods.",
                 "Force-free, science-backed dog training.",
-                "In-home training tailored to your dog."
-                "Free virtual consultation available."
+                "In-home training tailored to your dog.",
+                "Free virtual consultation available.",
                 "Dedicated to Strengthening the Bond With Your Dog"
             ];
-
-            let phrases = [];
-
-            try {
-                const response = await fetch('rates.html');
-                if (response.ok) {
-                    const htmlText = await response.text();
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(htmlText, 'text/html');
-                    
-                    const scripts = doc.querySelectorAll('script');
-                    for (let script of scripts) {
-                        if (script.textContent.includes('confidencePhrases')) {
-                            const match = script.textContent.match(/confidencePhrases\s*=\s*(\[[^\]]+\])/);
-                            if (match && match[1]) {
-                                phrases = JSON.parse(match[1]);
-                                break;
-                            }
-                        }
-                    }
-                }
-            } catch (err) {
-                console.warn('Could not fetch rates.html phrases, using fallbacks.', err);
-            }
-
-            if (!phrases || phrases.length === 0) {
-                phrases = fallbackPhrases;
-            }
 
             let currentIndex = 0;
 
