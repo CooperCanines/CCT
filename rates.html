@@ -375,7 +375,7 @@
             margin: 0.25rem 0;
         }
 
-        /* Sub-Navbar Confidence Rotating Banner (Dots Removed, Auto-Scrolling Marquee on Overflow) */
+        /* Sub-Navbar Confidence Rotating Banner */
         .confidence-bar {
             background-color: rgba(0, 0, 0, 0.65);
             backdrop-filter: blur(5px);
@@ -562,29 +562,72 @@
             box-sizing: border-box;
         }
 
+        /* Responsive CTA Button Wrapper with Side Images */
         .get-started-button {
             text-align: center;
             margin-bottom: 2rem;
+            width: 100%;
+        }
+
+        .cta-banner-wrapper {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            max-width: 100%;
+            padding: 0 5px;
+        }
+
+        .cta-dog-img {
+            height: 52px;
+            width: auto;
+            max-width: 25vw;
+            object-fit: contain;
+            flex-shrink: 1;
+            display: block;
         }
 
         .header-cta-button {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 52px;
             max-width: 320px;
-            margin: 0 auto;
-            text-align: center;
+            padding: 0 1.25rem;
             background-color: #e67e22;
             color: #ffffff;
             text-decoration: none;
-            padding: 0.85rem 1.75rem;
             border-radius: 6px;
             font-weight: bold;
-            font-size: 1.05rem;
+            font-size: clamp(0.85rem, 2.5vw, 1.05rem);
             transition: background-color 0.2s ease;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            white-space: nowrap;
+            flex-shrink: 0;
+            box-sizing: border-box;
         }
 
         .header-cta-button:hover {
             background-color: #d35400;
+        }
+
+        /* Bottom Logo Section Styling */
+        .bottom-logo-container {
+            text-align: center;
+            margin: 2.5rem auto 1.5rem auto;
+            width: 100%;
+            max-width: 100%;
+            padding: 0 1rem;
+            box-sizing: border-box;
+        }
+
+        .bottom-logo-img {
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            max-height: 180px;
+            object-fit: contain;
+            display: inline-block;
         }
 
         /* Flash Promo Card (Pardon Our Paws Box) */
@@ -1236,6 +1279,14 @@
                 height: 1px;
                 margin: 0 auto;
             }
+
+            .cta-dog-img {
+                height: 44px;
+            }
+
+            .header-cta-button {
+                height: 44px;
+            }
         }
     </style>
 </head>
@@ -1363,8 +1414,10 @@
         </div>
 
         <div class="get-started-button">
-            <div>
+            <div class="cta-banner-wrapper">
+                <img src="images/arrow-bad-dog.png" alt="Misbehaving Dog" class="cta-dog-img">
                 <a href="start.html" class="header-cta-button">Next: Request a Consultation</a>
+                <img src="images/arrow-good-dog.png" alt="Calm Sitting Dog" class="cta-dog-img">
             </div>
         </div>
 
@@ -1596,7 +1649,11 @@
 
         <!-- Secondary Consultation Button -->
         <div class="secondary-cta-container">
-            <a href="start.html" class="header-cta-button">Next: Request a Consultation</a>
+            <div class="cta-banner-wrapper">
+                <img src="images/arrow-bad-dog.png" alt="Misbehaving Dog" class="cta-dog-img">
+                <a href="start.html" class="header-cta-button">Next: Request a Consultation</a>
+                <img src="images/arrow-good-dog.png" alt="Calm Sitting Dog" class="cta-dog-img">
+            </div>
         </div>
 
         <!-- Auxiliary Services & Policy Details -->
@@ -1627,6 +1684,11 @@
             </div>
 
         </section>
+
+        <!-- Sitting Dogs Logo Above Footer -->
+        <div class="bottom-logo-container">
+            <img src="images/sitting-dogs-logo.png" alt="Cooper Canines Sitting Dogs Logo" class="bottom-logo-img">
+        </div>
 
     </main>
 
